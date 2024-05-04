@@ -1,13 +1,6 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { fetchChannel } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { Profile } from "./profile";
 
 export async function TopFollowerChannels() {
   //TODO: add in parent url fetching logic as a prop
@@ -23,30 +16,29 @@ export async function TopFollowerChannels() {
   const channels = await Promise.all(parentUrls.map(fetchChannel));
 
   return (
-    <div className="space-y-8 flex flex-col">
-      <Card>
-        <CardHeader>
-          <CardTitle>Top channels</CardTitle>
-          <CardDescription>
-            Channels where your followers hang out the most
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex aspect-square  justify-center p-6 flex flex-col space-y-5">
-          {channels.map((channel) => (
-            <div key={channel.id} className="flex items-center">
-              <Avatar className="h-9 w-9">
-                <AvatarImage src={channel.image_url} alt={channel.name} />
-                <AvatarFallback>{channel.id}</AvatarFallback>
-              </Avatar>
-              <div className="ml-4 space-y-1">
-                <p className="text-sm font-medium leading-none">
-                  {channel.name}
-                </p>
-              </div>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
-    </div>
+    <>
+      <div className="mt-6 space-y-1">
+        <h2 className="text-2xl font-semibold tracking-tight">Top Channels</h2>
+        <p className="text-sm text-muted-foreground">
+          Channels where your followers hang out the most
+        </p>
+      </div>
+      <div className="relative">
+        <ScrollArea>
+          <div className="flex space-x-4 pb-4">
+            {channels.map((channel) => (
+              <Profile
+                key={channel.id}
+                name={channel.name}
+                imageUrl={channel.image_url}
+                width={150}
+                height={150}
+              />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </div>
+    </>
   );
 }

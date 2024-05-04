@@ -15,7 +15,7 @@ export function BestTimeToPost() {
           <CardTitle>Best times to post</CardTitle>
           <CardDescription>When are your followers most active</CardDescription>
         </CardHeader>
-        <CardContent className="flex aspect-square  justify-center p-6 flex flex-col space-y-5  ">
+        <CardContent className="flex aspect-square  p-6 flex flex-col space-y-5  ">
           <div className="flex items-center">
             <Avatar className="h-9 w-9">
               <AvatarImage src="/avatars/01.png" alt="Avatar" />
@@ -24,7 +24,6 @@ export function BestTimeToPost() {
             <div className="ml-4 space-y-1">
               <p className="text-sm font-medium leading-none">Olivia Martin</p>
             </div>
-            <div className="ml-auto font-medium">+$1,999.00</div>
           </div>
           <div className="flex items-center">
             <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
@@ -34,7 +33,6 @@ export function BestTimeToPost() {
             <div className="ml-4 space-y-1">
               <p className="text-sm font-medium leading-none">Jackson Lee</p>
             </div>
-            <div className="ml-auto font-medium">+$39.00</div>
           </div>
           <div className="flex items-center">
             <Avatar className="h-9 w-9">
@@ -46,7 +44,6 @@ export function BestTimeToPost() {
                 Isabella Nguyen
               </p>
             </div>
-            <div className="ml-auto font-medium">+$299.00</div>
           </div>
           <div className="flex items-center">
             <Avatar className="h-9 w-9">
@@ -56,7 +53,6 @@ export function BestTimeToPost() {
             <div className="ml-4 space-y-1">
               <p className="text-sm font-medium leading-none">William Kim</p>
             </div>
-            <div className="ml-auto font-medium">+$99.00</div>
           </div>
           <div className="flex items-center">
             <Avatar className="h-9 w-9">
@@ -66,7 +62,6 @@ export function BestTimeToPost() {
             <div className="ml-4 space-y-1">
               <p className="text-sm font-medium leading-none">Sofia Davis</p>
             </div>
-            <div className="ml-auto font-medium">+$39.00</div>
           </div>
         </CardContent>
       </Card>

@@ -3,6 +3,7 @@ import * as React from "react";
 import { TopCastsCarousel } from "./top-casts-carousel";
 import { BottomCastsCarousel } from "./bottom-casts-carousel";
 import { Separator } from "@/components/ui/separator";
+import { TopChannels } from "./top-channels";
 
 export function EngagementCarousel() {
   return (
@@ -10,6 +11,8 @@ export function EngagementCarousel() {
       <TopCastsCarousel />
       <Separator className="my-4" />
       <BottomCastsCarousel />
+      <Separator className="my-4" />
+      <TopChannels />
     </>
   );
 }

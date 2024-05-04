@@ -6,70 +6,73 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Profile } from "./profile";
+
+type ProfileDataType = {
+  id: number;
+  name: string;
+  image_url: string;
+};
 
 export function TopEngagers() {
+  const profiles: ProfileDataType[] = [
+    {
+      id: 1,
+      name: "dwr",
+      image_url:
+        "https://lh3.googleusercontent.com/MyUBL0xHzMeBu7DXQAqv0bM9y6s4i4qjnhcXz5fxZKS3gwWgtamxxmxzCJX7m2cuYeGalyseCA2Y6OBKDMR06TWg2uwknnhdkDA1AA",
+    },
+    {
+      id: 2,
+      name: "v",
+      image_url:
+        "https://i.seadn.io/gae/sYAr036bd0bRpj7OX6B-F-MqLGznVkK3--DSneL_BT5GX4NZJ3Zu91PgjpD9-xuVJtHq0qirJfPZeMKrahz8Us2Tj_X8qdNPYC-imqs?w=500&auto=format",
+    },
+    {
+      id: 3,
+      name: "gakonst",
+      image_url:
+        "https://i.seadn.io/gcs/files/cfb802c4ff9c6cc2fedd01707c897715.png?w=500&auto=format",
+    },
+    {
+      id: 4,
+      name: "0xen",
+      image_url:
+        "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/254e8cd6-7e4d-47b9-8aeb-49bebf2dbf00/original",
+    },
+    {
+      id: 5,
+      name: "linda",
+      image_url:
+        "https://i.seadn.io/gae/r6CW_kgQygQhI7-4JdWt_Nbf_bjFNnEM7dSns1nZGrijJvUMaLnpAFuBLwjsHXTkyX8zfgpRJCYibtm7ojeA2_ASQwSJgh7yKEFVMOI?w=500&auto=format",
+    },
+  ];
+
   return (
-    <div className="space-y-8 flex flex-col">
-      <Card>
-        <CardHeader>
-          <CardTitle>Top engagers</CardTitle>
-          <CardDescription>People who engage with you the most</CardDescription>
-        </CardHeader>
-        <CardContent className="flex aspect-square  justify-center p-6 flex flex-col space-y-5  ">
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/01.png" alt="Avatar" />
-              <AvatarFallback>OM</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Olivia Martin</p>
-            </div>
-            <div className="ml-auto font-medium">+$1,999.00</div>
+    <>
+      <div className="mt-6 space-y-1">
+        <h2 className="text-2xl font-semibold tracking-tight">Loyal fans</h2>
+        <p className="text-sm text-muted-foreground">
+          Followers who engage with you the most in the past month
+        </p>
+      </div>
+      <div className="relative">
+        <ScrollArea>
+          <div className="flex space-x-4 pb-4">
+            {profiles.map((profile) => (
+              <Profile
+                key={profile.id}
+                name={profile.name}
+                imageUrl={profile.image_url}
+                width={150}
+                height={150}
+              />
+            ))}
           </div>
-          <div className="flex items-center">
-            <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
-              <AvatarImage src="/avatars/02.png" alt="Avatar" />
-              <AvatarFallback>JL</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Jackson Lee</p>
-            </div>
-            <div className="ml-auto font-medium">+$39.00</div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/03.png" alt="Avatar" />
-              <AvatarFallback>IN</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">
-                Isabella Nguyen
-              </p>
-            </div>
-            <div className="ml-auto font-medium">+$299.00</div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/04.png" alt="Avatar" />
-              <AvatarFallback>WK</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">William Kim</p>
-            </div>
-            <div className="ml-auto font-medium">+$99.00</div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/05.png" alt="Avatar" />
-              <AvatarFallback>SD</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Sofia Davis</p>
-            </div>
-            <div className="ml-auto font-medium">+$39.00</div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </div>
+    </>
   );
 }
