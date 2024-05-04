@@ -7,6 +7,7 @@ import { UserNav } from "@/components/user-nav";
 import { Historical } from "@/components/historical";
 import { Engagement } from "next/font/google";
 import { FollowerCarousel } from "@/components/follower-carousel";
+import { EngagementCarousel } from "@/components/engagement-carousel";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -62,6 +63,9 @@ export default function DashboardPage() {
             </TabsContent>
             <TabsContent value="followers" className="space-y-4">
               <FollowerCarousel />
+            </TabsContent>
+            <TabsContent value="engagement" className="space-y-4">
+              <EngagementCarousel />
             </TabsContent>
           </Tabs>
         </div>
