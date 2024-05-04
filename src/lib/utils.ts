@@ -15,6 +15,11 @@ export const fetchChannel = async (parent_url: string) => {
       },
     }
   );
+  // log error if response is not ok
+  if (!response.ok) {
+    console.error("Failed to fetch channel", response);
+    return null;
+  }
   const data = await response.json();
   return data.channel;
 };
