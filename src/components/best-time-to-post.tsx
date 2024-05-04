@@ -7,13 +7,13 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-export function TopEngagers() {
+export function BestTimeToPost() {
   return (
     <div className="space-y-8 flex flex-col">
       <Card>
         <CardHeader>
-          <CardTitle>Top engagers</CardTitle>
-          <CardDescription>People who engage with you the most</CardDescription>
+          <CardTitle>Best times to post</CardTitle>
+          <CardDescription>When are your followers most active</CardDescription>
         </CardHeader>
         <CardContent className="flex aspect-square  justify-center p-6 flex flex-col space-y-5  ">
           <div className="flex items-center">

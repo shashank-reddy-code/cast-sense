@@ -7,13 +7,13 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-export function TopEngagers() {
+export function FollowersByTier() {
   return (
     <div className="space-y-8 flex flex-col">
       <Card>
         <CardHeader>
-          <CardTitle>Top engagers</CardTitle>
-          <CardDescription>People who engage with you the most</CardDescription>
+          <CardTitle>Follower breakdown by tier</CardTitle>
+          <CardDescription>Different types of followers</CardDescription>
         </CardHeader>
         <CardContent className="flex aspect-square  justify-center p-6 flex flex-col space-y-5  ">
           <div className="flex items-center">
