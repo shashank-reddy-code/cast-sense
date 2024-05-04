@@ -6,8 +6,22 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import { fetchChannel } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
-export function TopFollowerChannels() {
+export async function TopFollowerChannels() {
+  //TODO: add in parent url fetching logic as a prop
+
+  const parentUrls = [
+    "chain://eip155:7777777/erc721:0x4f86113fc3e9783cf3ec9a552cbb566716a57628",
+    "https://warpcast.com/~/channel/bounty",
+    "https://www.nba.com",
+    "chain://eip155:7777777/erc721:0x5747eef366fd36684e8893bf4fe628efc2ac2d10",
+    "chain://eip155:7777777/erc721:0x3d037b11c5359fac54c3928dfad0b9512695d392",
+  ];
+
+  const channels = await Promise.all(parentUrls.map(fetchChannel));
+
   return (
     <div className="space-y-8 flex flex-col">
       <Card>
@@ -17,59 +31,20 @@ export function TopFollowerChannels() {
             Channels where your followers hang out the most
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex aspect-square  justify-center p-6 flex flex-col space-y-5  ">
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/01.png" alt="Avatar" />
-              <AvatarFallback>OM</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Olivia Martin</p>
+        <CardContent className="flex aspect-square  justify-center p-6 flex flex-col space-y-5">
+          {channels.map((channel) => (
+            <div key={channel.id} className="flex items-center">
+              <Avatar className="h-9 w-9">
+                <AvatarImage src={channel.image_url} alt={channel.name} />
+                <AvatarFallback>{channel.id}</AvatarFallback>
+              </Avatar>
+              <div className="ml-4 space-y-1">
+                <p className="text-sm font-medium leading-none">
+                  {channel.name}
+                </p>
+              </div>
             </div>
-            <div className="ml-auto font-medium">+$1,999.00</div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
-              <AvatarImage src="/avatars/02.png" alt="Avatar" />
-              <AvatarFallback>JL</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Jackson Lee</p>
-            </div>
-            <div className="ml-auto font-medium">+$39.00</div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/03.png" alt="Avatar" />
-              <AvatarFallback>IN</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">
-                Isabella Nguyen
-              </p>
-            </div>
-            <div className="ml-auto font-medium">+$299.00</div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/04.png" alt="Avatar" />
-              <AvatarFallback>WK</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">William Kim</p>
-            </div>
-            <div className="ml-auto font-medium">+$99.00</div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/05.png" alt="Avatar" />
-              <AvatarFallback>SD</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Sofia Davis</p>
-            </div>
-            <div className="ml-auto font-medium">+$39.00</div>
-          </div>
+          ))}
         </CardContent>
       </Card>
     </div>
