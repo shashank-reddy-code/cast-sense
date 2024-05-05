@@ -145,6 +145,8 @@ export async function getFollowerTiers(fid: number) {
 }
 
 export async function getFollowerActiveHours(fid: number) {
+  // https://dune.com/queries/3697395
+  // https://dune.com/queries/3679974 (deprecated)
   // Prepare headers for the request.
   const headers = new Headers({
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -152,7 +154,7 @@ export async function getFollowerActiveHours(fid: number) {
 
   // Fetch the data.
   const response = await fetch(
-    `https://api.dune.com/api/v1/query/3679974/results?&filters=fid=${fid}`,
+    `https://api.dune.com/api/v1/query/3697395/results?&filters=fid=${fid}`,
     {
       method: "GET",
       headers: headers,
@@ -182,9 +184,39 @@ export async function getFollowerActiveHours(fid: number) {
     }
   });
 
+  // Find the best 3 times to post
+  let bestTimes = [];
+  for (let day in weeklyHourlyCounts) {
+    for (let hour in weeklyHourlyCounts[day]) {
+      bestTimes.push({ day, hour, count: weeklyHourlyCounts[day][hour] });
+    }
+  }
+
+  // Sort the times by follower count in descending order and take the top three
+  bestTimes.sort((a, b) => b.count - a.count);
+  bestTimes = bestTimes.slice(0, 3);
+
+  // Map to readable format
+  const readableBestTimes =
+    bestTimes
+      .map((time) => {
+        let hour = parseInt(time.hour);
+        let ampm = hour >= 12 ? "pm" : "am";
+        hour = hour % 12 || 12; // Convert 24h to 12h format
+        let day = time.day.replace("_hourly_counts", ""); // Remove the suffix
+        day = day.charAt(0).toUpperCase() + day.slice(1); // Capitalize the first letter
+        return `${day} at ${hour}${ampm}`;
+      })
+      .join(", ") + " PST";
+
+  const output = {
+    activeHours: weeklyHourlyCounts,
+    bestTimesToPost: readableBestTimes,
+  };
+
   console.log("Fetched follower active hours");
-  console.log(weeklyHourlyCounts);
-  return weeklyHourlyCounts;
+  console.log(output);
+  return output;
 }
 
 export async function getTopAndBottomCasts(fid: number) {

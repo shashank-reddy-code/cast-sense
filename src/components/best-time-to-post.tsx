@@ -9,19 +9,19 @@ import {
 import ReactApexChart from "react-apexcharts";
 import React from "react";
 
-type FollowerActiveHoursType = Record<string, Record<string, number>>;
-
 export function BestTimeToPost({
   followerActiveHours,
 }: {
-  followerActiveHours: FollowerActiveHoursType;
+  followerActiveHours: any;
 }) {
   // Function to calculate the overall max and min across all days
   const calculateMaxMin = () => {
     let allCounts: number[] = [];
-    Object.values(followerActiveHours).forEach((dailyCounts) => {
-      allCounts = allCounts.concat(Object.values(dailyCounts));
-    });
+    Object.values(followerActiveHours.activeHours).forEach(
+      (dailyCounts: any) => {
+        allCounts = allCounts.concat(Object.values(dailyCounts));
+      }
+    );
     const maxCount = Math.max(...allCounts);
     const minCount = Math.min(...allCounts);
     return { maxCount, minCount };
@@ -42,7 +42,15 @@ export function BestTimeToPost({
         <CardHeader>
           <CardTitle>Best time to post</CardTitle>
           <CardDescription>
-            When are your followers most active? (time is in PST)
+            Your followers are most active on{" "}
+            <span
+              style={{
+                fontWeight: "bold",
+                color: "green",
+              }}
+            >
+              {followerActiveHours.bestTimesToPost}
+            </span>
           </CardDescription>
         </CardHeader>
         <CardContent className="flex aspect-square p-6 flex flex-col space-y-5  ">
@@ -80,7 +88,9 @@ export function BestTimeToPost({
                   {day.slice(0, 3)}{" "}
                 </div>
                 {Object.entries(
-                  followerActiveHours[`${day.toLowerCase()}_hourly_counts`]
+                  followerActiveHours.activeHours[
+                    `${day.toLowerCase()}_hourly_counts`
+                  ]
                 ).map(([hour, count]) => (
                   <div
                     key={`${day}_${hour}`}
