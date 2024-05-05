@@ -18,6 +18,12 @@ export function FollowerCarousel({
   topEngagers,
   followerTiers,
   followerActiveHours,
+  powerbadgeFollowers,
+}: {
+  topEngagers: any;
+  followerTiers: any;
+  followerActiveHours: any;
+  powerbadgeFollowers: any;
 }) {
   return (
     <>
@@ -44,7 +50,10 @@ export function FollowerCarousel({
             key="followers-by-tier"
             className="md:basis-1/2 lg:basis-1/2"
           >
-            <FollowersByTier followerTiers={followerTiers} />
+            <FollowersByTier
+              followerTiers={followerTiers}
+              powerbadgeFollowers={powerbadgeFollowers}
+            />
           </CarouselItem>
         </CarouselContent>
         <CarouselPrevious />

@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export function TopLevel({ fidStats }) {
+export function TopLevel({ fidStats }: { fidStats: any }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
       <Card>

@@ -9,10 +9,14 @@ import {
   YAxis,
 } from "recharts";
 
-export function EngagementHistorical({ dailyEngagement }) {
+export function EngagementHistorical({
+  dailyEngagement,
+}: {
+  dailyEngagement: any;
+}) {
   console.log("debugging dailyEngagement", dailyEngagement);
   // Convert and format data for the chart
-  const data = dailyEngagement.map((item) => {
+  const data = dailyEngagement.map((item: string[]) => {
     const date = new Date(item[0]); // Create a date object from the datetime string
     const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
 

@@ -9,7 +9,13 @@ import {
 import ReactApexChart from "react-apexcharts";
 import React from "react";
 
-export function BestTimeToPost({ followerActiveHours }) {
+type FollowerActiveHoursType = Record<string, Record<string, number>>;
+
+export function BestTimeToPost({
+  followerActiveHours,
+}: {
+  followerActiveHours: FollowerActiveHoursType;
+}) {
   // Function to calculate the overall max and min across all days
   const calculateMaxMin = () => {
     let allCounts: number[] = [];

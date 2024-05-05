@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
   CardContent,
@@ -7,7 +6,13 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-export function FollowersByTier({ followerTiers }) {
+export function FollowersByTier({
+  followerTiers,
+  powerbadgeFollowers,
+}: {
+  followerTiers: any;
+  powerbadgeFollowers: any;
+}) {
   return (
     <div className="space-y-8 flex flex-col">
       <Card>
@@ -16,51 +21,37 @@ export function FollowersByTier({ followerTiers }) {
           <CardDescription>Different types of followers</CardDescription>
         </CardHeader>
         <CardContent className="flex aspect-square p-6 flex flex-col space-y-5  ">
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/01.png" alt="Avatar" />
-              <AvatarFallback>OM</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Olivia Martin</p>
-            </div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
-              <AvatarImage src="/avatars/02.png" alt="Avatar" />
-              <AvatarFallback>JL</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Jackson Lee</p>
-            </div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/03.png" alt="Avatar" />
-              <AvatarFallback>IN</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">
-                Isabella Nguyen
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/04.png" alt="Avatar" />
-              <AvatarFallback>WK</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">William Kim</p>
-            </div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatars/05.png" alt="Avatar" />
-              <AvatarFallback>SD</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Sofia Davis</p>
+          <div className="space-y-8 flex flex-col">
+            {Object.entries(followerTiers).map(
+              ([tier, data]: [string, any]) => (
+                <div key={tier} className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium leading-none">{tier}</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground">
+                      {data.count.toLocaleString()} (
+                      {data.percentage.toFixed(2)}%)
+                    </p>
+                  </div>
+                </div>
+              )
+            )}
+            <div
+              key="power-badge"
+              className="flex items-center justify-between"
+            >
+              <div className="space-y-1">
+                <p className="text-sm font-medium leading-none">
+                  💪 power badge
+                </p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-sm text-muted-foreground">
+                  {powerbadgeFollowers.count} ({powerbadgeFollowers.percentage}
+                  %)
+                </p>
+              </div>
             </div>
           </div>
         </CardContent>

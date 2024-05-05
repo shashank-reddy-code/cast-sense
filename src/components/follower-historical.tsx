@@ -10,9 +10,13 @@ import {
   YAxis,
 } from "recharts";
 
-export function FollowerHistorical({ dailyFollowers }) {
+export function FollowerHistorical({
+  dailyFollowers,
+}: {
+  dailyFollowers: any;
+}) {
   // Convert and format data for the chart
-  const data = dailyFollowers.map((item) => {
+  const data = dailyFollowers.map((item: any) => {
     const date = new Date(item[0]); // Create a date object from the datetime string
     const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
 

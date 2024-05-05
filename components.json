@@ -11,8 +11,8 @@
     "prefix": ""
   },
   "aliases": {
+    "utils": "@/lib/utils",
     "components": "@/components",
-    "neynar": "@/lib/neynar",
-    "dune": "@/lib/dune"
+    "ui": "@/app/ui"
   }
 }

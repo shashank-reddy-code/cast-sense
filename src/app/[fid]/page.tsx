@@ -18,6 +18,7 @@ import {
   getDailyEngagement,
   getDailyFollowerCount,
   getFollowerActiveHours,
+  getPowerbadgeFollowers,
 } from "@/lib/dune";
 import { fetchProfileByFid } from "@/lib/neynar";
 
@@ -42,6 +43,7 @@ export default async function DashboardPage({
     dailyEngagement,
     dailyFollowers,
     followerActiveHours,
+    powerbadgeFollowers,
   ] = await Promise.all([
     fetchProfileByFid(fid),
     getFidStats(fid),
@@ -52,6 +54,7 @@ export default async function DashboardPage({
     getDailyEngagement(fid),
     getDailyFollowerCount(fid),
     getFollowerActiveHours(fid),
+    getPowerbadgeFollowers(fid),
   ]);
 
   console.log(
@@ -98,6 +101,7 @@ export default async function DashboardPage({
                 followerTiers={followerTiers}
                 topEngagers={topEngagersAndChannels["top_engagers"] || []}
                 followerActiveHours={followerActiveHours}
+                powerbadgeFollowers={powerbadgeFollowers}
               />
             </TabsContent>
             <TabsContent value="engagement" className="space-y-4">

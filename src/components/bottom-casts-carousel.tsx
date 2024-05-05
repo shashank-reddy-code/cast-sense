@@ -9,7 +9,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-export function BottomCastsCarousel({ hashes }) {
+export function BottomCastsCarousel({ hashes }: { hashes: string[] }) {
   return (
     <>
       <div className="mt-6 space-y-1">

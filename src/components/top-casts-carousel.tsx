@@ -9,7 +9,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-export function TopCastsCarousel({ hashes }) {
+export function TopCastsCarousel({ hashes }: { hashes: string[] }) {
   return (
     <>
       <div className="mt-6 space-y-1">
@@ -24,7 +24,7 @@ export function TopCastsCarousel({ hashes }) {
         }}
       >
         <CarouselContent>
-          {hashes.map((hash) => (
+          {hashes.map((hash: string) => (
             <CarouselItem key={hash} className="md:basis-1/2 lg:basis-1/3">
               <Image
                 src={`https://client.warpcast.com/v2/cast-image?castHash=${hash}`}

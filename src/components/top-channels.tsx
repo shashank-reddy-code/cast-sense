@@ -2,7 +2,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { fetchChannelByName } from "@/lib/neynar";
 import { Profile } from "./profile";
 
-export async function TopChannels({ channelIds }) {
+export async function TopChannels({ channelIds }: { channelIds: string[] }) {
   console.log(`fetching top channel info for ${channelIds}`);
   //TODO: add in parent url fetching logic as a prop
 
@@ -13,7 +13,7 @@ export async function TopChannels({ channelIds }) {
   //   "chain://eip155:7777777/erc721:0x5747eef366fd36684e8893bf4fe628efc2ac2d10",
   //   "chain://eip155:7777777/erc721:0x3d037b11c5359fac54c3928dfad0b9512695d392",
   // ];
-  const channelPromises = channelIds.map((channelId) =>
+  const channelPromises = channelIds.map((channelId: string) =>
     fetchChannelByName(channelId)
   );
   const channels = await Promise.all(channelPromises);

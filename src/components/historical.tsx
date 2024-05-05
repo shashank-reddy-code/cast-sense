@@ -8,7 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export function Historical({ dailyEngagement, dailyFollowers }) {
+export function Historical({
+  dailyEngagement,
+  dailyFollowers,
+}: {
+  dailyEngagement: number[];
+  dailyFollowers: number[];
+}) {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
       <Card className="col-span-4">
