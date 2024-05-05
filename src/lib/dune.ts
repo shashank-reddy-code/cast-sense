@@ -20,7 +20,9 @@ export async function getFidStats(fid: number) {
   );
   const body = await latest_response.text();
   const trends = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  delete trends.fid; //pop off the fid column that was used for filtering
+  if (trends && "fid" in trends) {
+    delete trends.fid; //pop off the fid column that was used for filtering
+  }
   console.log("fetched fid stats");
   console.log(trends);
   return trends;
@@ -41,7 +43,9 @@ export async function getTopEngagersAndChannels(fid: number) {
   );
   const body = await latest_response.text();
   const topEngagersAndChannels = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  delete topEngagersAndChannels.fid; //pop off the fid column that was used for filtering
+  if (topEngagersAndChannels && "fid" in topEngagersAndChannels) {
+    delete topEngagersAndChannels.fid; //pop off the fid column that was used for filtering
+  }
   console.log("fetched top engagers and channels");
   console.log(topEngagersAndChannels);
   return topEngagersAndChannels;
@@ -62,7 +66,9 @@ export async function getPowerbadgeFollowers(fid: number) {
   );
   const body = await latest_response.text();
   const powerbadgeFollowers = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  delete powerbadgeFollowers.fid; //pop off the fid column that was used for filtering
+  if (powerbadgeFollowers && "fid" in powerbadgeFollowers) {
+    delete powerbadgeFollowers.fid; //pop off the fid column that was used for filtering
+  }
   console.log("fetched powerbadge followers");
   console.log(powerbadgeFollowers);
   return powerbadgeFollowers;
@@ -84,7 +90,9 @@ export async function getFollowerTiers(fid: number) {
   );
   const body = await latest_response.text();
   const followerTiers = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  delete followerTiers.fid; //pop off the fid column that was used for filtering
+  if (followerTiers && "fid" in followerTiers) {
+    delete followerTiers.fid; //pop off the fid column that was used for filtering
+  }
 
   const tierCounts = followerTiers.tier_name_counts;
   const tierPercentages = followerTiers.tier_name_percentages;
@@ -194,7 +202,9 @@ export async function getTopAndBottomCasts(fid: number) {
   );
   const body = await latest_response.text();
   const topAndBottomCasts = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  delete topAndBottomCasts.fid; //pop off the fid column that was used for filtering
+  if (topAndBottomCasts && "fid" in topAndBottomCasts) {
+    delete topAndBottomCasts.fid; //pop off the fid column that was used for filtering
+  }
   console.log("fetched top and bottom casts");
   console.log(topAndBottomCasts);
   return topAndBottomCasts;
@@ -219,10 +229,12 @@ export async function getDailyEngagement(fid: number) {
   );
   const body = await latest_response.text();
   const dailyEngagement = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  delete dailyEngagement.fid; //pop off the fid column that was used for filtering
+  if (dailyEngagement && "fid" in dailyEngagement) {
+    delete dailyEngagement.fid; //pop off the fid column that was used for filtering
+  }
   console.log("fetched daily engagement");
   console.log(dailyEngagement);
-  return dailyEngagement.daily_engagement;
+  return dailyEngagement?.daily_engagement;
 }
 
 export async function getDailyFollowerCount(fid: number) {
@@ -240,8 +252,10 @@ export async function getDailyFollowerCount(fid: number) {
   );
   const body = await latest_response.text();
   const dailyFollower = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  delete dailyFollower.fid; //pop off the fid column that was used for filtering
+  if (dailyFollower && "fid" in dailyFollower) {
+    delete dailyFollower.fid; //pop off the fid column that was used for filtering
+  }
   console.log("fetched daily follower");
   console.log(dailyFollower);
-  return dailyFollower.daily_followers;
+  return dailyFollower?.daily_followers;
 }

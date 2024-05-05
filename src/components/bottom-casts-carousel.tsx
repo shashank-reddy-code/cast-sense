@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/carousel";
 
 export function BottomCastsCarousel({ hashes }: { hashes: string[] }) {
+  if (!hashes || hashes.length == 0) return <> </>;
   return (
     <>
       <div className="mt-6 space-y-1">

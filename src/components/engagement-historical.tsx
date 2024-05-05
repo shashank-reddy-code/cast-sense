@@ -15,6 +15,7 @@ export function EngagementHistorical({
   dailyEngagement: any;
 }) {
   console.log("debugging dailyEngagement", dailyEngagement);
+  if (!dailyEngagement) return <></>;
   // Convert and format data for the chart
   const data = dailyEngagement.map((item: string[]) => {
     const date = new Date(item[0]); // Create a date object from the datetime string

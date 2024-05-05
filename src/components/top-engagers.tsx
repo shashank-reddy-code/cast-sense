@@ -18,6 +18,9 @@ type ProfileDataType = {
 };
 
 export async function TopEngagers({ topEngagers }: { topEngagers: string[] }) {
+  if (topEngagers == null || topEngagers.length === 0) {
+    return <></>;
+  }
   const engagerPromises = topEngagers.map((topEngager) =>
     fetchProfileByName(topEngager)
   );

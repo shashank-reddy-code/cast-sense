@@ -99,7 +99,10 @@ export default async function DashboardPage({
             <TabsContent value="followers" className="space-y-4">
               <FollowerCarousel
                 followerTiers={followerTiers}
-                topEngagers={topEngagersAndChannels["top_engagers"] || []}
+                topEngagers={
+                  topEngagersAndChannels &&
+                  topEngagersAndChannels["top_engagers"]
+                }
                 followerActiveHours={followerActiveHours}
                 powerbadgeFollowers={powerbadgeFollowers}
               />
@@ -107,7 +110,10 @@ export default async function DashboardPage({
             <TabsContent value="engagement" className="space-y-4">
               <EngagementCarousel
                 casts={topAndBottomCasts}
-                topChannels={topEngagersAndChannels["top_channels"] || []}
+                topChannels={
+                  topEngagersAndChannels &&
+                  topEngagersAndChannels["top_channels"]
+                }
               />
             </TabsContent>
           </Tabs>

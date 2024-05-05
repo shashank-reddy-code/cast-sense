@@ -14,9 +14,9 @@ export function EngagementCarousel({
 }) {
   return (
     <>
-      <TopCastsCarousel hashes={casts.top_hash} />
+      <TopCastsCarousel hashes={casts?.top_hash} />
       <Separator className="my-4" />
-      <BottomCastsCarousel hashes={casts.bottom_hash} />
+      <BottomCastsCarousel hashes={casts?.bottom_hash} />
       <Separator className="my-4" />
       <TopChannels channelIds={topChannels} />
     </>
