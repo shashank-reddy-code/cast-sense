@@ -27,29 +27,16 @@ export function FollowerCarousel({
 }) {
   return (
     <>
-      <Separator className="my-4" />
-      <TopFollowerChannels />
-
-      <Separator className="my-4" />
-      <TopEngagers topEngagers={topEngagers} />
-
-      <Separator className="my-4" />
       <Carousel
         opts={{
           align: "start",
         }}
       >
         <CarouselContent>
-          <CarouselItem
-            key="best-time-to-post"
-            className="md:basis-1/2 lg:basis-1/2"
-          >
+          <CarouselItem key="best-time-to-post" className="lg:basis-1/2">
             <BestTimeToPost followerActiveHours={followerActiveHours} />
           </CarouselItem>
-          <CarouselItem
-            key="followers-by-tier"
-            className="md:basis-1/2 lg:basis-1/2"
-          >
+          <CarouselItem key="followers-by-tier" className="lg:basis-1/2">
             <FollowersByTier
               followerTiers={followerTiers}
               powerbadgeFollowers={powerbadgeFollowers}
@@ -59,6 +46,12 @@ export function FollowerCarousel({
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
+
+      <Separator className="my-4" />
+      <TopFollowerChannels />
+
+      <Separator className="my-4" />
+      <TopEngagers topEngagers={topEngagers} />
     </>
   );
 }
