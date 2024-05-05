@@ -91,7 +91,7 @@ export function BestTimeToPost({
                   followerActiveHours.activeHours[
                     `${day.toLowerCase()}_hourly_counts`
                   ]
-                ).map(([hour, count]) => (
+                ).map(([hour, count]: [any, any]) => (
                   <div
                     key={`${day}_${hour}`}
                     style={{
