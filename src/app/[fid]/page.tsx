@@ -61,10 +61,6 @@ export default async function DashboardPage({
     getBenchmarks(fid),
   ]);
 
-  console.log(
-    "debugging follower active hours in page.tsx: ",
-    followerActiveHours
-  );
   return (
     <>
       <div className="hidden flex-col md:flex">

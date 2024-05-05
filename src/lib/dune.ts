@@ -99,13 +99,13 @@ export async function getBenchmarks(fid: number) {
 
 export async function getFollowerTiers(fid: number) {
   // schedule the query on a 24 hour interval, and then fetch by filtering for the user fid within the query results
-  // dune query: // https://dune.com/queries/3696358
+  // dune query: // https://dune.com/queries/3697320
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
   const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3696358/results?&filters=fid=${fid}`,
+    `https://api.dune.com/api/v1/query/3697320/results?&filters=fid=${fid}`,
     {
       method: "GET",
       headers: header,
