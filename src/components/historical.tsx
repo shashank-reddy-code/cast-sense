@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export function Historical() {
+export function Historical({ dailyEngagement, dailyFollowers }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
       <Card className="col-span-4">
@@ -17,7 +17,7 @@ export function Historical() {
           <CardDescription>Followers over the last month</CardDescription>
         </CardHeader>
         <CardContent className="pl-2">
-          <FollowerHistorical />
+          <FollowerHistorical dailyFollowers={dailyFollowers} />
         </CardContent>
       </Card>
       <Card className="col-span-4">
@@ -26,7 +26,7 @@ export function Historical() {
           <CardDescription>Engagement over the last month</CardDescription>
         </CardHeader>
         <CardContent>
-          <EngagementHistorical />
+          <EngagementHistorical dailyEngagement={dailyEngagement} />
         </CardContent>
       </Card>
     </div>

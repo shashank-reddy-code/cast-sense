@@ -21,29 +21,30 @@ export async function getFidStats(fid: number) {
   const body = await latest_response.text();
   const trends = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
   delete trends.fid; //pop off the fid column that was used for filtering
+  console.log("fetched fid stats");
   console.log(trends);
   return trends;
 }
 
-export async function getTopChannels(fid: number) {
-  // schedule the query on a 24 hour interval, and then fetch by filtering for the user fid within the query results
-  // dune query: https://dune.com/queries/3556441
+export async function getTopEngagersAndChannels(fid: number) {
+  // dune query: https://dune.com/queries/3693992
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
   const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3556441/results?&filters=fid=${fid}`,
+    `https://api.dune.com/api/v1/query/3693992/results?&filters=fid=${fid}`,
     {
       method: "GET",
       headers: header,
     }
   );
   const body = await latest_response.text();
-  const topChannels = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  delete topChannels.fid; //pop off the fid column that was used for filtering
-  console.log(topChannels);
-  return topChannels.top_10_urls;
+  const topEngagersAndChannels = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+  delete topEngagersAndChannels.fid; //pop off the fid column that was used for filtering
+  console.log("fetched top engagers and channels");
+  console.log(topEngagersAndChannels);
+  return topEngagersAndChannels;
 }
 
 export async function getFollowerTiers(fid: number) {
@@ -63,6 +64,7 @@ export async function getFollowerTiers(fid: number) {
   const body = await latest_response.text();
   const followerTiers = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
   delete followerTiers.fid; //pop off the fid column that was used for filtering
+  console.log("fetched follower tiers");
   console.log(followerTiers);
   //return followerTiers;
 
@@ -129,6 +131,7 @@ export async function getFollowerActiveHours(fid: number) {
     }
   });
 
+  console.log("Fetched follower active hours");
   console.log(weeklyHourlyCounts);
   return weeklyHourlyCounts;
 }
@@ -150,13 +153,31 @@ export async function getTopCast(fid: number) {
 
   const body = await latest_response.text();
   const topCast = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+  console.log("fetched top cast");
   console.log(topCast);
 
   return topCast;
 }
 
-export async function getTopCasts(fid: number) {
+export async function getTopAndBottomCasts(fid: number) {
   // https://dune.com/queries/3692188
+  const meta = {
+    "x-dune-api-key": DUNE_API_KEY || "",
+  };
+  const header = new Headers(meta);
+  const latest_response = await fetch(
+    `https://api.dune.com/api/v1/query/3692188/results?&filters=fid=${fid}`,
+    {
+      method: "GET",
+      headers: header,
+    }
+  );
+  const body = await latest_response.text();
+  const topAndBottomCasts = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+  delete topAndBottomCasts.fid; //pop off the fid column that was used for filtering
+  console.log("fetched top and bottom casts");
+  console.log(topAndBottomCasts);
+  return topAndBottomCasts;
 }
 
 export async function getEngagingChannels(fid: number) {
@@ -165,47 +186,42 @@ export async function getEngagingChannels(fid: number) {
 
 export async function getDailyEngagement(fid: number) {
   // https://dune.com/queries/3693328
-}
-
-export async function getDailyFollowerCount(fid: number) {
-  // https://dune.com/queries/3693389
-}
-
-export async function getRecommendations(fid: number) {
-  //schedule the query on a 6 hour interval, and then fetch by filtering for the user fid within the query results
-  //dune query: https://dune.com/queries/3509966
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
   const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3509966/results?&filters=query_fid=${fid}`,
+    `https://api.dune.com/api/v1/query/3693328/results?&filters=fid=${fid}`,
     {
       method: "GET",
       headers: header,
     }
   );
-
   const body = await latest_response.text();
-  const recs = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  delete recs.query_fid; //pop off the query_fid column that was used for filtering
-  console.log(recs);
+  const dailyEngagement = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+  delete dailyEngagement.fid; //pop off the fid column that was used for filtering
+  console.log("fetched daily engagement");
+  console.log(dailyEngagement);
+  return dailyEngagement.daily_engagement;
+}
 
-  //return four random categories (keys) and users (values) from the recs result
-  const keys = Object.keys(recs);
-  const randomPairs = [];
-  const selectedKeys = new Set();
-  while (randomPairs.length < 4 && selectedKeys.size < keys.length) {
-    const randomKey = keys[Math.floor(Math.random() * keys.length)];
-    if (!selectedKeys.has(randomKey)) {
-      const randomValue =
-        recs[randomKey][Math.floor(Math.random() * recs[randomKey].length)];
-      randomPairs.push({ key: randomKey, value: randomValue });
-      selectedKeys.add(randomKey);
+export async function getDailyFollowerCount(fid: number) {
+  // https://dune.com/queries/3693389
+  const meta = {
+    "x-dune-api-key": DUNE_API_KEY || "",
+  };
+  const header = new Headers(meta);
+  const latest_response = await fetch(
+    `https://api.dune.com/api/v1/query/3693389/results?&filters=fid=${fid}`,
+    {
+      method: "GET",
+      headers: header,
     }
-  }
-
-  console.log(randomPairs);
-
-  return randomPairs;
+  );
+  const body = await latest_response.text();
+  const dailyFollower = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+  delete dailyFollower.fid; //pop off the fid column that was used for filtering
+  console.log("fetched daily follower");
+  console.log(dailyFollower);
+  return dailyFollower.daily_followers;
 }

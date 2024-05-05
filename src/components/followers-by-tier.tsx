@@ -7,7 +7,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-export function FollowersByTier() {
+export function FollowersByTier({ followerTiers }) {
   return (
     <div className="space-y-8 flex flex-col">
       <Card>

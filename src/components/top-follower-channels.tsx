@@ -1,5 +1,5 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { fetchChannel } from "@/lib/utils";
+import { fetchChannel } from "@/lib/neynar";
 import { Profile } from "./profile";
 
 export async function TopFollowerChannels() {

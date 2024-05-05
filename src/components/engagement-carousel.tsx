@@ -5,14 +5,14 @@ import { BottomCastsCarousel } from "./bottom-casts-carousel";
 import { Separator } from "@/components/ui/separator";
 import { TopChannels } from "./top-channels";
 
-export function EngagementCarousel() {
+export function EngagementCarousel({ casts, topChannels }) {
   return (
     <>
-      <TopCastsCarousel />
+      <TopCastsCarousel hashes={casts.top_hash} />
       <Separator className="my-4" />
-      <BottomCastsCarousel />
+      <BottomCastsCarousel hashes={casts.bottom_hash} />
       <Separator className="my-4" />
-      <TopChannels />
+      <TopChannels channelIds={topChannels} />
     </>
   );
 }
