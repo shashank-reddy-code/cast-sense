@@ -20,7 +20,7 @@ export function FollowersByTier({
           <CardTitle>Follower fanfare</CardTitle>
           <CardDescription>Different types of followers</CardDescription>
         </CardHeader>
-        <CardContent className="flex aspect-square p-6 flex flex-col space-y-5  ">
+        <CardContent className="flex p-6 flex flex-col space-y-5  ">
           <div key="power-badge" className="flex items-center justify-between">
             <div className="space-y-1">
               <p className="font-medium leading-none">💪 power badge</p>

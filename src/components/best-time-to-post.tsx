@@ -53,7 +53,7 @@ export function BestTimeToPost({
             </span>
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex aspect-square p-6 flex flex-col space-y-5  ">
+        <CardContent className="flex p-6 flex flex-col space-y-5  ">
           <div style={{ display: "flex", flexDirection: "column" }}>
             {[
               "Monday",
