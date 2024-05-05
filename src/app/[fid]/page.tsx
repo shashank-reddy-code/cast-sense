@@ -19,8 +19,10 @@ import {
   getDailyFollowerCount,
   getFollowerActiveHours,
   getPowerbadgeFollowers,
+  getBenchmarks,
 } from "@/lib/dune";
 import { fetchProfileByFid } from "@/lib/neynar";
+import { Benchmark } from "@/components/benchmark";
 
 // export const metadata: Metadata = {
 //   title: "Dashboard",
@@ -44,6 +46,7 @@ export default async function DashboardPage({
     dailyFollowers,
     followerActiveHours,
     powerbadgeFollowers,
+    benchmarks,
   ] = await Promise.all([
     fetchProfileByFid(fid),
     getFidStats(fid),
@@ -55,6 +58,7 @@ export default async function DashboardPage({
     getDailyFollowerCount(fid),
     getFollowerActiveHours(fid),
     getPowerbadgeFollowers(fid),
+    getBenchmarks(fid),
   ]);
 
   console.log(
@@ -91,6 +95,7 @@ export default async function DashboardPage({
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
               <TopLevel fidStats={fidStats} />
+              <Benchmark data={benchmarks} />
               <Historical
                 dailyEngagement={dailyEngagement}
                 dailyFollowers={dailyFollowers}

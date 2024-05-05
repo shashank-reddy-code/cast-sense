@@ -74,6 +74,29 @@ export async function getPowerbadgeFollowers(fid: number) {
   return powerbadgeFollowers;
 }
 
+export async function getBenchmarks(fid: number) {
+  // dune query: https://dune.com/queries/3696719
+  const meta = {
+    "x-dune-api-key": DUNE_API_KEY || "",
+  };
+  const header = new Headers(meta);
+  const latest_response = await fetch(
+    `https://api.dune.com/api/v1/query/3696719/results?&filters=fid=${fid}`,
+    {
+      method: "GET",
+      headers: header,
+    }
+  );
+  const body = await latest_response.text();
+  const benchmark = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+  if (benchmark && "fid" in benchmark) {
+    delete benchmark.fid; //pop off the fid column that was used for filtering
+  }
+  console.log("fetched benchmark");
+  console.log(benchmark);
+  return benchmark;
+}
+
 export async function getFollowerTiers(fid: number) {
   // schedule the query on a 24 hour interval, and then fetch by filtering for the user fid within the query results
   // dune query: // https://dune.com/queries/3696358
