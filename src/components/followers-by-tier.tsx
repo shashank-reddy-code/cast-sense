@@ -17,7 +17,7 @@ export function FollowersByTier({
     <div className="space-y-8 flex flex-col">
       <Card>
         <CardHeader>
-          <CardTitle>Follower breakdown by tier</CardTitle>
+          <CardTitle>Follower fanfare</CardTitle>
           <CardDescription>Different types of followers</CardDescription>
         </CardHeader>
         <CardContent className="flex aspect-square p-6 flex flex-col space-y-5  ">

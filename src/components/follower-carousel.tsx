@@ -47,8 +47,8 @@ export function FollowerCarousel({
         <CarouselNext />
       </Carousel>
 
-      <Separator className="my-4" />
-      <TopFollowerChannels />
+      {/* <Separator className="my-4" />
+      <TopFollowerChannels /> */}
 
       <Separator className="my-4" />
       <TopEngagers topEngagers={topEngagers} />
