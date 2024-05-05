@@ -187,29 +187,6 @@ export async function getFollowerActiveHours(fid: number) {
   return weeklyHourlyCounts;
 }
 
-export async function getTopCast(fid: number) {
-  //schedule the query on a 24 hour interval, and then fetch by filtering for the user fid within the query results
-  //dune query: https://dune.com/queries/3418706
-  const meta = {
-    "x-dune-api-key": DUNE_API_KEY || "",
-  };
-  const header = new Headers(meta);
-  const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3418706/results?&filters=fid=${fid}`,
-    {
-      method: "GET",
-      headers: header,
-    }
-  );
-
-  const body = await latest_response.text();
-  const topCast = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  console.log("fetched top cast");
-  console.log(topCast);
-
-  return topCast;
-}
-
 export async function getTopAndBottomCasts(fid: number) {
   // https://dune.com/queries/3692188
   const meta = {

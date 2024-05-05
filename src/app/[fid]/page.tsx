@@ -86,10 +86,13 @@ export default async function DashboardPage({
               <TabsTrigger value="followers">Followers</TabsTrigger>
               <TabsTrigger value="engagement">Engagement</TabsTrigger>
               <TabsTrigger value="recommendation" disabled>
-                Recommendations
+                Recommendations (soon)
               </TabsTrigger>
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
+              <div className="flex items-center justify-between space-y-2">
+                <h3 className="text-3xl tracking-tight">Proof of work 💪</h3>
+              </div>
               <TopLevel fidStats={fidStats} />
               <Benchmark data={benchmarks} />
               <Historical

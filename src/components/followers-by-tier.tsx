@@ -21,6 +21,22 @@ export function FollowersByTier({
           <CardDescription>Different types of followers</CardDescription>
         </CardHeader>
         <CardContent className="flex aspect-square p-6 flex flex-col space-y-5  ">
+          <div key="power-badge" className="flex items-center justify-between">
+            <div className="space-y-1">
+              <p className="font-medium leading-none">💪 power badge</p>
+            </div>
+            <div className="space-y-1">
+              <p className="font-medium leading-none">
+                {getDescription("💪 power badge")}
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-muted-foreground">
+                {powerbadgeFollowers.count} ({powerbadgeFollowers.percentage}
+                %)
+              </p>
+            </div>
+          </div>
           <div className="space-y-8 flex flex-col">
             {Object.entries(followerTiers).map(
               ([tier, data]: [string, any]) => (
@@ -42,25 +58,6 @@ export function FollowersByTier({
                 </div>
               )
             )}
-            <div
-              key="power-badge"
-              className="flex items-center justify-between"
-            >
-              <div className="space-y-1">
-                <p className="font-medium leading-none">💪 power badge</p>
-              </div>
-              <div className="space-y-1">
-                <p className="font-medium leading-none">
-                  {getDescription("💪 power badge")}
-                </p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-muted-foreground">
-                  {powerbadgeFollowers.count} ({powerbadgeFollowers.percentage}
-                  %)
-                </p>
-              </div>
-            </div>
           </div>
         </CardContent>
       </Card>
