@@ -30,7 +30,7 @@ export async function TopEngagers({ topEngagers }: { topEngagers: string[] }) {
     <>
       <div className="mt-6 space-y-1">
         <h2 className="text-2xl font-semibold tracking-tight">Loyal fans</h2>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-lg text-muted-foreground">
           Followers who engage with you the most in the past month
         </p>
       </div>

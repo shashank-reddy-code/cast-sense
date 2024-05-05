@@ -40,8 +40,8 @@ export function BestTimeToPost({
     <div className="space-y-8 flex flex-col">
       <Card>
         <CardHeader>
-          <CardTitle>Best time to post</CardTitle>
-          <CardDescription>
+          <CardTitle className="mb-4">Best time to post</CardTitle>
+          <CardDescription className="text-lg">
             Your followers are most active on{" "}
             <span
               style={{
