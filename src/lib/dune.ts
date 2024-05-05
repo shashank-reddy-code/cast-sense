@@ -220,13 +220,13 @@ export async function getFollowerActiveHours(fid: number) {
 }
 
 export async function getTopAndBottomCasts(fid: number) {
-  // https://dune.com/queries/3692188
+  // https://dune.com/queries/3697964
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
   const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3692188/results?&filters=fid=${fid}`,
+    `https://api.dune.com/api/v1/query/3697964/results?&filters=fid=${fid}`,
     {
       method: "GET",
       headers: header,
