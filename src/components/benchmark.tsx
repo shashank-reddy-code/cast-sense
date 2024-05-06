@@ -20,7 +20,7 @@ export function Benchmark({ data }: { data: any }) {
   const followersSign =
     parseFloat(data?.pct_followers_diff) > 0 ? "more" : "fewer";
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+    <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
       <Card>
         <CardHeader className="grid items-start gap-4 space-y-0">
           <CardDescription>

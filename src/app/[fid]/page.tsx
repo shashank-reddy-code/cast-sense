@@ -63,15 +63,17 @@ export default async function DashboardPage({
 
   return (
     <>
-      <div className="hidden flex-col md:flex">
+      <div className="flex-col md:flex">
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
             <div className="flex items-center justify-between space-y-2">
-              <h2 className="text-3xl font-bold tracking-tight">CastSense</h2>
+              <h2 className="text-xl sm:text-2xl md:text-3xl tracking-tight">
+                CastSense
+              </h2>
             </div>
             <div className="ml-auto flex items-center space-x-4">
               <div className="flex items-center justify-between space-y-2">
-                <h2 className="text-3xl font-bold tracking-tight">
+                <h2 className="text-xl sm:text-2xl md:text-3xl tracking-tight">
                   {profile.display_name}
                 </h2>
               </div>

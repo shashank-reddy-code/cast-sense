@@ -31,6 +31,9 @@ export function TopCastsCarousel({ hashes }: { hashes: string[] }) {
                 src={`https://client.warpcast.com/v2/cast-image?castHash=${hash}`}
                 width={1280}
                 height={866}
+                // layout="fill"
+                // objectFit="cover"
+                // className="rounded-lg"
                 alt="Cast"
               />
             </CarouselItem>

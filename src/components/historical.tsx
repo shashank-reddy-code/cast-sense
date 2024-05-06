@@ -16,7 +16,7 @@ export function Historical({
   dailyFollowers: number[];
 }) {
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
+    <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-8">
       <Card className="col-span-4">
         <CardHeader>
           <CardTitle>You are making new friends</CardTitle>

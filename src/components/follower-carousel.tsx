@@ -33,10 +33,16 @@ export function FollowerCarousel({
         }}
       >
         <CarouselContent>
-          <CarouselItem key="best-time-to-post" className="lg:basis-1/2">
+          <CarouselItem
+            key="best-time-to-post"
+            className="basis-1/1 lg:basis-1/2"
+          >
             <BestTimeToPost followerActiveHours={followerActiveHours} />
           </CarouselItem>
-          <CarouselItem key="followers-by-tier" className="lg:basis-1/2">
+          <CarouselItem
+            key="followers-by-tier"
+            className="sm:basis-1/1 lg:basis-1/2"
+          >
             <FollowersByTier
               followerTiers={followerTiers}
               powerbadgeFollowers={powerbadgeFollowers}
