@@ -1,10 +1,3 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
 export const fetchChannel = async (parent_url: string) => {
   const response = await fetch(
     `https://api.neynar.com/v2/farcaster/channel?id=${parent_url}&type=parent_url`,
@@ -43,7 +36,8 @@ export const fetchProfileByFid = async (fid: number) => {
   return data.users[0];
 };
 
-export const fetchProfileByName = async (name: string) => {
+export const fetchProfileByName = async (name: string, fetchAll = false) => {
+  console.log("fetching profile by name", name);
   const response = await fetch(
     `https://api.neynar.com/v2/farcaster/user/search?q=${name}`,
     {
@@ -59,6 +53,9 @@ export const fetchProfileByName = async (name: string) => {
     return null;
   }
   const data = await response.json();
+  if (fetchAll) {
+    return data.result.users;
+  }
   // todo: handle empty result
   return data.result.users[0];
 };

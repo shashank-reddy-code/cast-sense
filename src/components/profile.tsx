@@ -1,17 +1,8 @@
 import Image from "next/image";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 
-import { cn } from "@/lib/neynar";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuSeparator,
-  ContextMenuSub,
-  ContextMenuSubContent,
-  ContextMenuSubTrigger,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu";
+import { cn } from "@/lib/utils";
+import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";
 
 interface ProfileProps extends React.HTMLAttributes<HTMLDivElement> {
   imageUrl: string;
