@@ -18,7 +18,7 @@ export function Benchmark({ data }: { data: any }) {
   const engagementSign =
     parseFloat(data?.pct_engagement_diff) > 0 ? "more" : "less";
   const followersSign =
-    parseFloat(data?.pct_followers_diff) > 0 ? "more" : "fewer";
+    parseFloat(data?.pct_followers_diff) > 0 ? "is better" : "could be better";
   const formattedEngagementDiff =
     isNaN(data?.pct_engagement_diff) || data?.pct_engagement_diff === null
       ? "NaN"
@@ -46,16 +46,16 @@ export function Benchmark({ data }: { data: any }) {
         <CardHeader className="grid  items-start gap-4 space-y-0">
           {/* <CardTitle>Relative follower growth</CardTitle> */}
           <CardDescription>
-            You add {followersSign} followers compared to users with similar
-            following by{" "}
+            Your follower growth {followersSign} by{" "}
             <span
               style={{
                 fontWeight: "bold",
-                color: followersSign === "more" ? "green" : "red",
+                color: followersSign === "is better" ? "green" : "red",
               }}
             >
               {data?.pct_followers_diff.toFixed(2)}%
-            </span>
+            </span>{" "}
+            compared to users with similar following
           </CardDescription>
         </CardHeader>
       </Card>
