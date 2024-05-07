@@ -19,6 +19,10 @@ export function Benchmark({ data }: { data: any }) {
     parseFloat(data?.pct_engagement_diff) > 0 ? "more" : "less";
   const followersSign =
     parseFloat(data?.pct_followers_diff) > 0 ? "more" : "fewer";
+  const formattedEngagementDiff =
+    isNaN(data?.pct_engagement_diff) || data?.pct_engagement_diff === null
+      ? "NaN"
+      : data?.pct_engagement_diff?.toFixed(2);
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
       <Card>
@@ -32,7 +36,7 @@ export function Benchmark({ data }: { data: any }) {
                 color: engagementSign === "more" ? "green" : "red",
               }}
             >
-              {data?.pct_engagement_diff.toFixed(2)}%
+              {formattedEngagementDiff}%
             </span>
           </CardDescription>
         </CardHeader>
