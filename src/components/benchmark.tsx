@@ -22,7 +22,11 @@ export function Benchmark({ data }: { data: any }) {
   const formattedEngagementDiff =
     isNaN(data?.pct_engagement_diff) || data?.pct_engagement_diff === null
       ? "NaN"
-      : data?.pct_engagement_diff?.toFixed(2);
+      : Math.abs(data?.pct_engagement_diff?.toFixed(2));
+  const formattedFollowersDiff =
+    isNaN(data?.pct_followers_diff) || data?.pct_followers_diff === null
+      ? "NaN"
+      : Math.abs(data?.pct_followers_diff?.toFixed(2));
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
       <Card>
@@ -53,7 +57,7 @@ export function Benchmark({ data }: { data: any }) {
                 color: followersSign === "is better" ? "green" : "red",
               }}
             >
-              {data?.pct_followers_diff.toFixed(2)}%
+              {formattedFollowersDiff}%
             </span>{" "}
             compared to users with similar following
           </CardDescription>
