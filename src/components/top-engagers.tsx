@@ -1,15 +1,6 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "./profile";
 import { fetchProfileByName } from "@/lib/neynar";
-import { profile } from "console";
 
 type ProfileDataType = {
   id: number;

@@ -1,88 +1,74 @@
-import { Input } from "@/components/ui/input";
-import { fetchProfileByName } from "@/lib/neynar";
-import router from "next/router";
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import React, { useState, useEffect } from "react";
 import {
   Command,
-  CommandDialog,
+  CommandInput,
+  CommandList,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
+import { autocompleteUserSearch } from "@/lib/neynar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 export function Search() {
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState([]);
-
-  const handleSearch = async () => {
-    if (searchTerm !== "") {
-      try {
-        // Optionally, you can fetch and pass user data or use the searchTerm
-        // for any server-side validation or checks before redirecting
-        const data = await fetchProfileByName(searchTerm);
-        if (data && data.result.users.length > 0) {
-          const user = data.result.users[0];
-          router.push(`/${user.fid}`); // Redirect to the user's dashboard
-        } else {
-          // Handle case where no user is found or decide on a fallback URL
-          router.push("/not-found"); // Redirect to a not-found page or another fallback
-        }
-      } catch (error) {
-        console.error("Error fetching users:", error);
-        // Optionally handle errors, maybe redirect to an error page
-        router.push("/error"); // Redirect to an error page
-      }
-    }
-  };
+  const [isSearching, setIsSearching] = useState(false);
+  //const router = useRouter();
 
   useEffect(() => {
-    console.log("Search term has changed:", searchTerm);
-    const fetchUsers = async () => {
-      try {
-        const data = await fetchProfileByName(searchTerm, true);
-        setUsers(data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-
     if (searchTerm.length > 0) {
+      setIsSearching(true);
+      const fetchUsers = async () => {
+        try {
+          const data = await autocompleteUserSearch(searchTerm);
+          setUsers(data);
+        } catch (error) {
+          console.error("Error fetching users:", error);
+          setUsers([]);
+        }
+      };
       fetchUsers();
+    } else {
+      setUsers([]);
+      setIsSearching(false); // Reset searching state if search term is empty
     }
   }, [searchTerm]);
 
+  // const handleSelectUser = (fid: number) => {
+  //   router.push(`/${fid}`);
+  // };
+
   return (
-    <div>
-      <Command>
-        <CommandInput placeholder="Type a command or search..." />
-        {users && (
-          <CommandList>
-            {users.map((user: any) => (
-              <CommandItem key={user.fid}>
-                {user.username} - {user.display_name}
-              </CommandItem>
-            ))}
-          </CommandList>
-        )}
-      </Command>
-      {/* <Input
-        type="search"
+    <Command>
+      <CommandInput
         placeholder="Search by username"
-        className="md:w-[100px] lg:w-[300px]"
-        value={searchTerm}
-        onChange={(e) => {
-          console.log("Input changed:", e.target.value);
-          setSearchTerm(e.target.value);
-        }}
+        onValueChange={(e) => setSearchTerm(e)}
       />
-      {/* <Button onClick={handleSearch} variant="outline">
-        Search
-      </Button> */}
-    </div>
+      <CommandList>
+        {users.length > 0 ? (
+          <CommandGroup heading="">
+            {users.map((user: any) => (
+              <Link href={`/${user.fid}`} key={user.fid}>
+                <CommandItem
+                  value={user.username}
+                  className="flex items-center gap-2"
+                  //onClick={() => handleSelectUser(user.fid)}
+                >
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={user.pfp_url} alt="@shadcn" />
+                    <AvatarFallback>{user.username}</AvatarFallback>
+                  </Avatar>
+                  {user.display_name}
+                </CommandItem>
+              </Link>
+            ))}
+          </CommandGroup>
+        ) : isSearching ? (
+          <CommandEmpty>No users found.</CommandEmpty> // Only show this if a search has been made
+        ) : null}
+      </CommandList>
+    </Command>
   );
 }

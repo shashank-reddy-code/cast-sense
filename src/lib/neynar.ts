@@ -36,8 +36,7 @@ export const fetchProfileByFid = async (fid: number) => {
   return data.users[0];
 };
 
-export const fetchProfileByName = async (name: string, fetchAll = false) => {
-  console.log("fetching profile by name", name);
+export const fetchProfileByName = async (name: string) => {
   const response = await fetch(
     `https://api.neynar.com/v2/farcaster/user/search?q=${name}`,
     {
@@ -53,11 +52,28 @@ export const fetchProfileByName = async (name: string, fetchAll = false) => {
     return null;
   }
   const data = await response.json();
-  if (fetchAll) {
-    return data.result.users;
-  }
   // todo: handle empty result
   return data.result.users[0];
+};
+
+export const autocompleteUserSearch = async (name: string) => {
+  console.log("fetching users for", name);
+  const response = await fetch(
+    `https://api.neynar.com/v2/farcaster/user/search?q=${name}&viewer_fid=3`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        api_key: process.env.NEXT_PUBLIC_NEYNAR_API_KEY as string,
+      },
+    }
+  );
+  // log error if response is not ok
+  if (!response.ok) {
+    console.error(`Failed to fetch profile by name for ${name}`, response);
+    return null;
+  }
+  const data = await response.json();
+  return data.result.users;
 };
 
 export const fetchChannelByName = async (name: string) => {
