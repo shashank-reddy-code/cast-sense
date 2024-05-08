@@ -5,6 +5,15 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import {
+  Table,
+  TableCaption,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
 
 export function FollowersByTier({
   followerTiers,
@@ -23,44 +32,36 @@ export function FollowersByTier({
           </CardDescription>
         </CardHeader>
         <CardContent className="flex p-6 flex flex-col space-y-5  ">
-          <div key="power-badge" className="flex items-center justify-between">
-            <div className="space-y-1">
-              <p className="font-medium leading-none">💪 power badge</p>
-            </div>
-            <div className="space-y-1">
-              <p className="font-medium leading-none">
-                {getDescription("💪 power badge")}
-              </p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-muted-foreground">
-                {powerbadgeFollowers.count} ({powerbadgeFollowers.percentage}
-                %)
-              </p>
-            </div>
-          </div>
-          <div className="space-y-8 flex flex-col">
-            {Object.entries(followerTiers).map(
-              ([tier, data]: [string, any]) => (
-                <div key={tier} className="flex justify-between">
-                  <div className="space-y-1">
-                    <p className="font-medium leading-none">{tier}</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="font-medium leading-none">
-                      {getDescription(tier)}
-                    </p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-muted-foreground">
-                      {data.count.toLocaleString()} (
-                      {data.percentage.toFixed(2)}%)
-                    </p>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Type</TableHead>
+                <TableHead>Definition</TableHead>
+                <TableHead># of followers</TableHead>
+                <TableHead>% of followers</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow key="power-badge">
+                <TableCell>💪 Power Badge</TableCell>
+                <TableCell>Warpcast Algorithm</TableCell>
+                <TableCell>
+                  {powerbadgeFollowers.count.toLocaleString()}
+                </TableCell>
+                <TableCell>{powerbadgeFollowers.percentage}%</TableCell>
+              </TableRow>
+              {Object.entries(followerTiers).map(
+                ([tier, data]: [string, any]) => (
+                  <TableRow key={tier}>
+                    <TableCell>{tier}</TableCell>
+                    <TableCell>{getDescription(tier)}</TableCell>
+                    <TableCell>{data.count.toLocaleString()}</TableCell>
+                    <TableCell>{data.percentage.toFixed(2)}%</TableCell>
+                  </TableRow>
+                )
+              )}
+            </TableBody>
+          </Table>
         </CardContent>
       </Card>
     </div>
