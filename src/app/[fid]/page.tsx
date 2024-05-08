@@ -23,6 +23,7 @@ import {
 } from "@/lib/dune";
 import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
+import Link from "next/link";
 
 // export const metadata: Metadata = {
 //   title: "Dashboard",
@@ -67,9 +68,11 @@ export default async function DashboardPage({
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
             <div className="flex items-center justify-between space-y-2">
-              <h2 className="text-xl sm:text-2xl md:text-3xl tracking-tight">
-                CastSense
-              </h2>
+              <Link href="/">
+                <h2 className="text-xl sm:text-2xl md:text-3xl tracking-tight">
+                  CastSense
+                </h2>
+              </Link>
             </div>
             <div className="ml-auto flex items-center space-x-4">
               <div className="flex items-center justify-between space-y-2">

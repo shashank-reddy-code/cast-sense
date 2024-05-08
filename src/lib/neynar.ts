@@ -1,10 +1,3 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
 export const fetchChannel = async (parent_url: string) => {
   const response = await fetch(
     `https://api.neynar.com/v2/farcaster/channel?id=${parent_url}&type=parent_url`,
@@ -61,6 +54,26 @@ export const fetchProfileByName = async (name: string) => {
   const data = await response.json();
   // todo: handle empty result
   return data.result.users[0];
+};
+
+export const autocompleteUserSearch = async (name: string) => {
+  console.log("fetching users for", name);
+  const response = await fetch(
+    `https://api.neynar.com/v2/farcaster/user/search?q=${name}&viewer_fid=3`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        api_key: process.env.NEXT_PUBLIC_NEYNAR_API_KEY as string,
+      },
+    }
+  );
+  // log error if response is not ok
+  if (!response.ok) {
+    console.error(`Failed to fetch profile by name for ${name}`, response);
+    return null;
+  }
+  const data = await response.json();
+  return data.result.users;
 };
 
 export const fetchChannelByName = async (name: string) => {

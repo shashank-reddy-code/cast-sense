@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
   CardContent,
@@ -6,8 +5,6 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import ReactApexChart from "react-apexcharts";
-import React from "react";
 
 export function BestTimeToPost({
   followerActiveHours,
