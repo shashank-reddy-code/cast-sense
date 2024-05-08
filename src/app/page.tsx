@@ -4,11 +4,10 @@ import { Search } from "@/components/search";
 
 export default function LoginPage() {
   return (
-    <div className="lg:p-8 flex items-center justify-center h-screen">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-        <div className="flex flex-col space-y-6 text-center">
+    <div className="p-4 lg:p-8 flex items-center justify-center min-h-screen">
+      <div className="w-full max-w-md space-y-6">
+        <div className="text-center space-y-6">
           {" "}
-          {/* Increased margin between elements */}
           <h1 className="text-5xl tracking-tight">CastSense</h1>
           <p className="text-muted-foreground">
             Easily get a pulse on your farcaster activity and followers
