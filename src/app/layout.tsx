@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
-
+import "react-farcaster-embed/dist/styles.css";
 import "../styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });

@@ -26,11 +26,6 @@ import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
 import Link from "next/link";
 
-// export const metadata: Metadata = {
-//   title: "Dashboard",
-//   description: "Example dashboard app built using the components.",
-// };
-
 export default async function DashboardPage({
   params,
 }: {
@@ -127,6 +122,7 @@ export default async function DashboardPage({
                   topEngagersAndChannels &&
                   topEngagersAndChannels["top_channels"]
                 }
+                username={profile.username}
               />
             </TabsContent>
           </Tabs>

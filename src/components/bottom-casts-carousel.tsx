@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import Image from "next/image";
 import {
   Carousel,
   CarouselContent,
@@ -8,8 +7,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { FarcasterEmbed } from "react-farcaster-embed";
 
-export function BottomCastsCarousel({ hashes }: { hashes: string[] }) {
+export function BottomCastsCarousel({
+  hashes,
+  username,
+}: {
+  hashes: string[];
+  username: string;
+}) {
   if (!hashes || hashes.length == 0) return <> </>;
   return (
     <>
@@ -27,11 +33,15 @@ export function BottomCastsCarousel({ hashes }: { hashes: string[] }) {
         <CarouselContent>
           {hashes.map((hash) => (
             <CarouselItem key={hash} className="md:basis-1/2 lg:basis-1/3">
-              <Image
+              {/* <Image
                 src={`https://client.warpcast.com/v2/cast-image?castHash=${hash}`}
                 width={1280}
                 height={866}
                 alt="Cast"
+              /> */}
+              <FarcasterEmbed
+                username={username}
+                hash={hash.substring(0, 10)}
               />
             </CarouselItem>
           ))}
