@@ -36,7 +36,7 @@ export function Search() {
         setUsers([]);
         setIsSearching(false); // Reset searching state if search term is empty
       }
-    }, 300),
+    }, 200),
     [setIsSearching, setUsers, autocompleteUserSearch]
   );
 

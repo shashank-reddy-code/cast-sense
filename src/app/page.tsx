@@ -4,7 +4,10 @@ import { Search } from "@/components/search";
 
 export default function LoginPage() {
   return (
-    <div className="px-4 lg:px-8 flex flex-col items-center justify-center min-h-screen">
+    <div
+      className="px-4 lg:px-8 flex flex-col items-center justify-center"
+      style={{ height: "calc(100vh - 20px)", minHeight: "500px" }}
+    >
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-6">
           {" "}
@@ -13,10 +16,7 @@ export default function LoginPage() {
             Easily get a pulse on your farcaster activity and followers
           </p>
         </div>
-        <div className="mt-8">
-          {" "}
-          <Search />
-        </div>
+        <Search />
       </div>
     </div>
   );
