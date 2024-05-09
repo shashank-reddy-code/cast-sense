@@ -12,18 +12,22 @@ export function TopLevel({ fidStats }: { fidStats: any }) {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Casts</CardTitle>
-          {/* <svg
+          <svg
             xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            className="h-4 w-4 text-muted-foreground"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           >
-            <path d="M3 13v-2h5l-1.5-1.5 1.42-1.42L12.84 12l-4.92 4.92-1.42-1.42L8 13H3zm18-2v2h-5l1.5 1.5-1.42 1.42L11.16 12l4.92-4.92 1.42 1.42L16 11h5z" />
-          </svg> */}
+            <path d="M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6" />
+            <path d="M2 12a9 9 0 0 1 8 8" />
+            <path d="M2 16a5 5 0 0 1 4 4" />
+            <line x1="2" x2="2.01" y1="20" y2="20" />
+          </svg>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
@@ -37,18 +41,21 @@ export function TopLevel({ fidStats }: { fidStats: any }) {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Recasts</CardTitle>
-          {/* <svg
+          <svg
             xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="2"
-            className="h-4 w-4 text-muted-foreground"
           >
-            <path d="M3 13v-2h5l-1.5-1.5 1.42-1.42L12.84 12l-4.92 4.92-1.42-1.42L8 13H3zm18-2v2h-5l1.5 1.5-1.42 1.42L11.16 12l4.92-4.92 1.42 1.42L16 11h5z" />
-          </svg> */}
+            <path d="M17 2.1l4 4-4 4" />
+            <path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4" />
+            <path d="M21 11.8v2a4 4 0 0 1-4 4H4.2" />
+          </svg>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
@@ -62,19 +69,20 @@ export function TopLevel({ fidStats }: { fidStats: any }) {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Mentions</CardTitle>
-          {/* <svg
+          <svg
             xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            className="h-4 w-4 text-muted-foreground"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           >
-            <rect width="20" height="14" x="2" y="5" rx="2" />
-            <path d="M2 10h20" />
-          </svg> */}
+            <circle cx="12" cy="12" r="4" />
+            <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8" />
+          </svg>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
@@ -88,18 +96,19 @@ export function TopLevel({ fidStats }: { fidStats: any }) {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Replies</CardTitle>
-          {/* <svg
+          <svg
             xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="2"
-            className="h-4 w-4 text-muted-foreground"
           >
-            <path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5-1.6 11-5.9 -1.3 4.6-4 7-11 7v-3" />
-          </svg> */}
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
@@ -113,18 +122,19 @@ export function TopLevel({ fidStats }: { fidStats: any }) {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Likes</CardTitle>
-          {/* <svg
+          <svg
             xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="2"
-            className="h-4 w-4 text-muted-foreground"
           >
-            <path d="M12 21.5a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6Z" />
-          </svg> */}
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
