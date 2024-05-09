@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Command,
   CommandInput,
@@ -10,31 +10,43 @@ import {
 import { autocompleteUserSearch } from "@/lib/neynar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
+import { debounce } from "lodash";
 
 export function Search() {
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-  //const router = useRouter();
+
+  // Create a debounced function that will be invoked after the specified delay
+  const debouncedSearch = useCallback(
+    debounce(async (searchTerm) => {
+      if (searchTerm.length > 0) {
+        setIsSearching(true);
+        const fetchUsers = async () => {
+          try {
+            const data = await autocompleteUserSearch(searchTerm);
+            setUsers(data);
+          } catch (error) {
+            console.error("Error fetching users:", error);
+            setUsers([]);
+          }
+        };
+        fetchUsers();
+      } else {
+        setUsers([]);
+        setIsSearching(false); // Reset searching state if search term is empty
+      }
+    }, 300),
+    [setIsSearching, setUsers, autocompleteUserSearch]
+  );
 
   useEffect(() => {
-    if (searchTerm.length > 0) {
-      setIsSearching(true);
-      const fetchUsers = async () => {
-        try {
-          const data = await autocompleteUserSearch(searchTerm);
-          setUsers(data);
-        } catch (error) {
-          console.error("Error fetching users:", error);
-          setUsers([]);
-        }
-      };
-      fetchUsers();
-    } else {
-      setUsers([]);
-      setIsSearching(false); // Reset searching state if search term is empty
-    }
-  }, [searchTerm]);
+    // Call the debounced search function
+    debouncedSearch(searchTerm);
+
+    // Optional: Cleanup on component unmount
+    return () => debouncedSearch.cancel();
+  }, [searchTerm, debouncedSearch]);
 
   // const handleSelectUser = (fid: number) => {
   //   router.push(`/${fid}`);
