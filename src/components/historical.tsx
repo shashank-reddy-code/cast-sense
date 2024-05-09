@@ -11,9 +11,11 @@ import {
 export function Historical({
   dailyEngagement,
   dailyFollowers,
+  maxScale,
 }: {
   dailyEngagement: number[];
   dailyFollowers: number[];
+  maxScale: number;
 }) {
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-8">
@@ -23,7 +25,10 @@ export function Historical({
           <CardDescription>Followers over the last month</CardDescription>
         </CardHeader>
         <CardContent className="pl-2">
-          <FollowerHistorical dailyFollowers={dailyFollowers} />
+          <FollowerHistorical
+            dailyFollowers={dailyFollowers}
+            maxScale={maxScale}
+          />
         </CardContent>
       </Card>
       <Card className="col-span-4">
@@ -32,7 +37,10 @@ export function Historical({
           <CardDescription>Engagement over the last month</CardDescription>
         </CardHeader>
         <CardContent>
-          <EngagementHistorical dailyEngagement={dailyEngagement} />
+          <EngagementHistorical
+            dailyEngagement={dailyEngagement}
+            maxScale={maxScale}
+          />
         </CardContent>
       </Card>
     </div>

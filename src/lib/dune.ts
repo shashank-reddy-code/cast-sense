@@ -291,3 +291,13 @@ export async function getDailyFollowerCount(fid: number) {
   console.log(dailyFollower);
   return dailyFollower?.daily_followers;
 }
+
+export function getMaxValue(engagementData: any, followersData: any) {
+  const maxEngagement = Math.max(
+    ...engagementData.map((e: any) => parseInt(e[1]))
+  );
+  const maxFollowers = Math.max(
+    ...followersData.map((f: any) => parseInt(f[1]))
+  );
+  return Math.max(maxEngagement, maxFollowers);
+}

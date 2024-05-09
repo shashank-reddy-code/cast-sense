@@ -20,6 +20,7 @@ import {
   getFollowerActiveHours,
   getPowerbadgeFollowers,
   getBenchmarks,
+  getMaxValue,
 } from "@/lib/dune";
 import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
@@ -62,6 +63,8 @@ export default async function DashboardPage({
     getBenchmarks(fid),
   ]);
 
+  const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
+
   return (
     <>
       <div className="flex-col md:flex">
@@ -103,6 +106,7 @@ export default async function DashboardPage({
               <Historical
                 dailyEngagement={dailyEngagement}
                 dailyFollowers={dailyFollowers}
+                maxScale={maxScale}
               />
             </TabsContent>
             <TabsContent value="followers" className="space-y-4">

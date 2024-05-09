@@ -12,8 +12,10 @@ import {
 
 export function FollowerHistorical({
   dailyFollowers,
+  maxScale,
 }: {
   dailyFollowers: any;
+  maxScale: number;
 }) {
   // Convert and format data for the chart
   const data = dailyFollowers.map((item: any) => {
@@ -41,6 +43,7 @@ export function FollowerHistorical({
           fontSize={12}
           tickLine={false}
           axisLine={false}
+          domain={[0, maxScale]}
         />
         <Tooltip
           cursor={{ fill: "rgba(255, 255, 255, 0.2)" }}

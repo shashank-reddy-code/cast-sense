@@ -11,8 +11,10 @@ import {
 
 export function EngagementHistorical({
   dailyEngagement,
+  maxScale,
 }: {
   dailyEngagement: any;
+  maxScale: number;
 }) {
   if (!dailyEngagement) return <></>;
   // Convert and format data for the chart
@@ -40,6 +42,7 @@ export function EngagementHistorical({
           fontSize={12}
           tickLine={false}
           axisLine={false}
+          domain={[0, maxScale]}
         />
         <Tooltip
           cursor={{ fill: "rgba(255, 255, 255, 0.2)" }}

@@ -54,7 +54,6 @@ export function Search() {
                 <CommandItem
                   value={user.username}
                   className="flex items-center gap-2"
-                  //onClick={() => handleSelectUser(user.fid)}
                 >
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user.pfp_url} alt="@shadcn" />
