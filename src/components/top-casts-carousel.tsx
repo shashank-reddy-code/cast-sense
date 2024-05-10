@@ -28,6 +28,7 @@ export function TopCastsCarousel({ hashes }: { hashes: string[] }) {
           {hashes.map((hash: string) => (
             <CarouselItem key={hash} className="md:basis-1/2 lg:basis-1/3">
               <Image
+                unoptimized
                 src={`https://client.warpcast.com/v2/cast-image?castHash=${hash}`}
                 width={1280}
                 height={866}

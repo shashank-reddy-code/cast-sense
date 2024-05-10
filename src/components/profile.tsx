@@ -29,6 +29,7 @@ export function Profile({
         <ContextMenuTrigger>
           <div className="overflow-hidden rounded-md relative w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36">
             <Image
+              unoptimized
               src={imageUrl}
               alt={name}
               fill
