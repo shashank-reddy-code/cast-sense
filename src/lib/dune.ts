@@ -1,10 +1,22 @@
 const DUNE_API_KEY = process.env["DUNE_API_KEY"];
 
 import { DuneClient } from "@duneanalytics/client-sdk";
+import {
+  Benchmark,
+  Channel,
+  DailyEngagement,
+  DailyFollower,
+  FollowerActiveHours,
+  FollowerTier,
+  Profile,
+  TopAndBottomCasts,
+  TopLevelStats,
+} from "./types";
+import { fetchChannelByName, fetchProfileByName } from "./neynar";
 
 const client = new DuneClient(DUNE_API_KEY ?? "");
 
-export async function getFidStats(fid: number) {
+export async function getFidStats(fid: number): Promise<TopLevelStats> {
   // schedule the query on a 24 hour interval, and then fetch by filtering for the user fid within the query results
   // dune query: https://dune.com/queries/3555616
   const meta = {
@@ -20,15 +32,12 @@ export async function getFidStats(fid: number) {
   );
   const body = await latest_response.text();
   const trends = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  if (trends && "fid" in trends) {
-    delete trends.fid; //pop off the fid column that was used for filtering
-  }
-  console.log("fetched fid stats");
-  console.log(trends);
   return trends;
 }
 
-export async function getTopEngagersAndChannels(fid: number) {
+export async function getTopEngagersAndChannels(
+  fid: number
+): Promise<{ topEngagers: Profile[]; channels: Channel[] }> {
   // dune query: https://dune.com/queries/3693992
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -42,16 +51,29 @@ export async function getTopEngagersAndChannels(fid: number) {
     }
   );
   const body = await latest_response.text();
-  const topEngagersAndChannels = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  if (topEngagersAndChannels && "fid" in topEngagersAndChannels) {
-    delete topEngagersAndChannels.fid; //pop off the fid column that was used for filtering
-  }
-  console.log("fetched top engagers and channels");
-  console.log(topEngagersAndChannels);
-  return topEngagersAndChannels;
+  const topEngagersAndChannels = JSON.parse(body).result.rows[0];
+
+  const engagerPromises = topEngagersAndChannels.top_engagers.map(
+    (topEngager: string) => fetchProfileByName(topEngager)
+  );
+  const channelPromises = topEngagersAndChannels.top_channels.map(
+    (channelId: string) => fetchChannelByName(channelId)
+  );
+
+  const [topEngagers, channels] = await Promise.all([
+    Promise.all(engagerPromises),
+    Promise.all(channelPromises),
+  ]);
+
+  return {
+    topEngagers,
+    channels,
+  };
 }
 
-export async function getPowerbadgeFollowers(fid: number) {
+export async function getPowerbadgeFollowers(
+  fid: number
+): Promise<FollowerTier> {
   // dune query: https://dune.com/queries/3696361
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -66,15 +88,15 @@ export async function getPowerbadgeFollowers(fid: number) {
   );
   const body = await latest_response.text();
   const powerbadgeFollowers = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  if (powerbadgeFollowers && "fid" in powerbadgeFollowers) {
-    delete powerbadgeFollowers.fid; //pop off the fid column that was used for filtering
-  }
-  console.log("fetched powerbadge followers");
-  console.log(powerbadgeFollowers);
-  return powerbadgeFollowers;
+  const tier = "💪 power badge";
+  return {
+    tier,
+    count: powerbadgeFollowers.count,
+    percentage: parseFloat(powerbadgeFollowers.percentage),
+  };
 }
 
-export async function getBenchmarks(fid: number) {
+export async function getBenchmarks(fid: number): Promise<Benchmark> {
   // dune query: https://dune.com/queries/3696719
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -89,62 +111,55 @@ export async function getBenchmarks(fid: number) {
   );
   const body = await latest_response.text();
   const benchmark = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  if (benchmark && "fid" in benchmark) {
-    delete benchmark.fid; //pop off the fid column that was used for filtering
-  }
-  console.log("fetched benchmark");
-  console.log(benchmark);
   return benchmark;
 }
 
-export async function getFollowerTiers(fid: number) {
+// todo: update to also call powerbadge followers
+export async function getFollowerTiers(fid: number): Promise<FollowerTier[]> {
   // schedule the query on a 24 hour interval, and then fetch by filtering for the user fid within the query results
   // dune query: // https://dune.com/queries/3697320
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
-  const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3697320/results?&filters=fid=${fid}`,
-    {
-      method: "GET",
-      headers: header,
-    }
-  );
+  const queryResponse = await Promise.all([
+    fetch(
+      `https://api.dune.com/api/v1/query/3697320/results?&filters=fid=${fid}`,
+      {
+        method: "GET",
+        headers: header,
+      }
+    ),
+    getPowerbadgeFollowers(fid),
+  ]);
+
+  const latest_response = queryResponse[0];
+  const powerbadgeFollowers = queryResponse[1];
+
   const body = await latest_response.text();
-  const followerTiers = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  if (followerTiers && "fid" in followerTiers) {
-    delete followerTiers.fid; //pop off the fid column that was used for filtering
-  }
+  const followerTiers = JSON.parse(body).result.rows[0];
+  const tierCounts: { [key: string]: number } = followerTiers.tier_name_counts;
+  const tierPercentages: { [key: string]: number } =
+    followerTiers.tier_name_percentages;
 
-  const tierCounts = followerTiers.tier_name_counts;
-  const tierPercentages = followerTiers.tier_name_percentages;
-
-  const tierMap: { [key: string]: { count: number; percentage: number } } = {};
+  const tierMap: FollowerTier[] = [];
 
   for (const tier in tierCounts) {
     const count = tierCounts[tier];
     const percentage = tierPercentages[tier] || 0;
-    tierMap[tier] = { count, percentage };
+    tierMap.push({ tier, count, percentage });
   }
 
-  const sortedKeys = Object.keys(tierMap).sort((a, b) => {
-    return tierMap[b].percentage - tierMap[a].percentage;
+  const sortedMap = tierMap.sort((a, b) => {
+    return b.percentage - a.percentage;
   });
 
-  const sortedTierMap: {
-    [key: string]: { count: number; percentage: number };
-  } = {};
-  sortedKeys.forEach((key) => {
-    sortedTierMap[key] = tierMap[key];
-  });
-
-  console.log("fetched follower tiers");
-  console.log(sortedTierMap);
-  return sortedTierMap;
+  return [powerbadgeFollowers, ...sortedMap];
 }
 
-export async function getFollowerActiveHours(fid: number) {
+export async function getFollowerActiveHours(
+  fid: number
+): Promise<FollowerActiveHours> {
   // https://dune.com/queries/3697395
   // https://dune.com/queries/3679974 (deprecated)
   // Prepare headers for the request.
@@ -164,11 +179,6 @@ export async function getFollowerActiveHours(fid: number) {
   // Parse the JSON response.
   const data = await response.json();
   const result = data.result.rows[0]; // Assume there's only one row in the result for the filtered fid
-
-  // Delete 'fid' key if it exists in the result.
-  if (result && "fid" in result) {
-    delete result.fid;
-  }
 
   // Initialize an object to hold the final counts for all days of the week.
   const weeklyHourlyCounts: { [key: string]: { [key: number]: number } } = {};
@@ -213,13 +223,12 @@ export async function getFollowerActiveHours(fid: number) {
     activeHours: weeklyHourlyCounts,
     bestTimesToPost: readableBestTimes,
   };
-
-  console.log("Fetched follower active hours");
-  console.log(output);
   return output;
 }
 
-export async function getTopAndBottomCasts(fid: number) {
+export async function getTopAndBottomCasts(
+  fid: number
+): Promise<TopAndBottomCasts> {
   // https://dune.com/queries/3697964
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -234,11 +243,6 @@ export async function getTopAndBottomCasts(fid: number) {
   );
   const body = await latest_response.text();
   const topAndBottomCasts = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  if (topAndBottomCasts && "fid" in topAndBottomCasts) {
-    delete topAndBottomCasts.fid; //pop off the fid column that was used for filtering
-  }
-  console.log("fetched top and bottom casts");
-  console.log(topAndBottomCasts);
   return topAndBottomCasts;
 }
 
@@ -246,7 +250,9 @@ export async function getEngagingChannels(fid: number) {
   // https://dune.com/queries/3690289
 }
 
-export async function getDailyEngagement(fid: number) {
+export async function getDailyEngagement(
+  fid: number
+): Promise<DailyEngagement[]> {
   // https://dune.com/queries/3693328
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -260,16 +266,25 @@ export async function getDailyEngagement(fid: number) {
     }
   );
   const body = await latest_response.text();
-  const dailyEngagement = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  if (dailyEngagement && "fid" in dailyEngagement) {
-    delete dailyEngagement.fid; //pop off the fid column that was used for filtering
-  }
-  console.log("fetched daily engagement");
-  console.log(dailyEngagement);
-  return dailyEngagement?.daily_engagement;
+  const result = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+
+  const dailyEngagement: DailyEngagement[] = result?.daily_engagement.map(
+    (item: string[]) => {
+      const date = new Date(item[0]); // Create a date object from the datetime string
+      const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
+
+      return {
+        name: formattedDate,
+        total: item[1],
+      };
+    }
+  );
+  return dailyEngagement;
 }
 
-export async function getDailyFollowerCount(fid: number) {
+export async function getDailyFollowerCount(
+  fid: number
+): Promise<DailyFollower[]> {
   // https://dune.com/queries/3693389
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -284,20 +299,28 @@ export async function getDailyFollowerCount(fid: number) {
   );
   const body = await latest_response.text();
   const dailyFollower = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  if (dailyFollower && "fid" in dailyFollower) {
-    delete dailyFollower.fid; //pop off the fid column that was used for filtering
-  }
-  console.log("fetched daily follower");
-  console.log(dailyFollower);
-  return dailyFollower?.daily_followers;
+
+  const dailyFollowers: DailyFollower[] = dailyFollower?.daily_followers.map(
+    (item: any) => {
+      const date = new Date(item[0]); // Create a date object from the datetime string
+      const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
+
+      return {
+        date: formattedDate,
+        followers: item[1], // Index 1 for followers
+        unfollowers: item[2], // Index 2 for unfollowers
+      };
+    }
+  );
+  return dailyFollowers;
 }
 
-export function getMaxValue(engagementData: any, followersData: any) {
-  const maxEngagement = Math.max(
-    ...engagementData.map((e: any) => parseInt(e[1]))
-  );
-  const maxFollowers = Math.max(
-    ...followersData.map((f: any) => parseInt(f[1]))
-  );
-  return Math.max(maxEngagement, maxFollowers);
+export function getMaxValue(
+  engagementData: DailyEngagement[],
+  followersData: DailyFollower[]
+) {
+  const maxEngagement = Math.max(...engagementData.map((e) => e.total));
+  const maxFollowers = Math.max(...followersData.map((f) => f.followers));
+  const maxUnfollowers = Math.max(...followersData.map((f) => f.unfollowers));
+  return Math.max(Math.max(maxEngagement, maxFollowers), maxUnfollowers);
 }

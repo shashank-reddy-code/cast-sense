@@ -5,8 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { TopLevelStats } from "@/lib/types";
 
-export function TopLevel({ fidStats }: { fidStats: any }) {
+export function TopLevel({ fidStats }: { fidStats: TopLevelStats }) {
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
       <Card>
@@ -34,7 +35,7 @@ export function TopLevel({ fidStats }: { fidStats: any }) {
             {fidStats.current_period_casts}
           </div>
           <p className="text-xs text-muted-foreground">
-            {formatNumber(fidStats.casts_percentage_change)}% from last month
+            {fidStats.casts_percentage_change?.toFixed(0)}% from last month
           </p>
         </CardContent>
       </Card>
@@ -62,7 +63,7 @@ export function TopLevel({ fidStats }: { fidStats: any }) {
             {fidStats.current_period_recasts}
           </div>
           <p className="text-xs text-muted-foreground">
-            {formatNumber(fidStats.recasts_percentage_change)}% from last month
+            {fidStats.recasts_percentage_change?.toFixed(0)}% from last month
           </p>
         </CardContent>
       </Card>
@@ -89,7 +90,7 @@ export function TopLevel({ fidStats }: { fidStats: any }) {
             {fidStats.current_period_mentions}
           </div>
           <p className="text-xs text-muted-foreground">
-            {formatNumber(fidStats.mentions_percentage_change)}% from last month
+            {fidStats.mentions_percentage_change?.toFixed(0)}% from last month
           </p>
         </CardContent>
       </Card>
@@ -115,7 +116,7 @@ export function TopLevel({ fidStats }: { fidStats: any }) {
             {fidStats.current_period_replies}
           </div>
           <p className="text-xs text-muted-foreground">
-            {formatNumber(fidStats.replies_percentage_change)}% since last month
+            {fidStats.replies_percentage_change?.toFixed(0)}% since last month
           </p>
         </CardContent>
       </Card>
@@ -141,15 +142,10 @@ export function TopLevel({ fidStats }: { fidStats: any }) {
             {fidStats.current_period_likes}
           </div>
           <p className="text-xs text-muted-foreground">
-            {formatNumber(fidStats.likes_percentage_change)}% since last month
+            {fidStats.likes_percentage_change?.toFixed(0)}% since last month
           </p>
         </CardContent>
       </Card>
     </div>
   );
-}
-
-function formatNumber(number: string) {
-  // parse string as number and truncate decimals
-  return parseFloat(number).toFixed(0);
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { DailyFollower } from "@/lib/types";
 import {
   Bar,
   BarChart,
@@ -14,23 +15,12 @@ export function FollowerHistorical({
   dailyFollowers,
   maxScale,
 }: {
-  dailyFollowers: any;
+  dailyFollowers: DailyFollower[];
   maxScale: number;
 }) {
-  // Convert and format data for the chart
-  const data = dailyFollowers.map((item: any) => {
-    const date = new Date(item[0]); // Create a date object from the datetime string
-    const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
-
-    return {
-      date: formattedDate,
-      followers: item[1], // Index 1 for followers
-      unfollowers: item[2], // Index 2 for unfollowers
-    };
-  });
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
+      <BarChart data={dailyFollowers}>
         <XAxis
           dataKey="date"
           stroke="#888888"

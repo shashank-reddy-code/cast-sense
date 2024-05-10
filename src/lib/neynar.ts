@@ -57,7 +57,6 @@ export const fetchProfileByName = async (name: string) => {
 };
 
 export const autocompleteUserSearch = async (name: string) => {
-  console.log("fetching users for", name);
   const response = await fetch(
     `https://api.neynar.com/v2/farcaster/user/search?q=${name}&viewer_fid=3`,
     {

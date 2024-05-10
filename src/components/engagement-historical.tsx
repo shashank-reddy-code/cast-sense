@@ -1,5 +1,6 @@
 "use client";
 
+import { DailyEngagement } from "@/lib/types";
 import {
   Bar,
   BarChart,
@@ -13,23 +14,13 @@ export function EngagementHistorical({
   dailyEngagement,
   maxScale,
 }: {
-  dailyEngagement: any;
+  dailyEngagement: DailyEngagement[];
   maxScale: number;
 }) {
   if (!dailyEngagement) return <></>;
-  // Convert and format data for the chart
-  const data = dailyEngagement.map((item: string[]) => {
-    const date = new Date(item[0]); // Create a date object from the datetime string
-    const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
-
-    return {
-      name: formattedDate,
-      total: item[1],
-    };
-  });
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
+      <BarChart data={dailyEngagement}>
         <XAxis
           dataKey="name"
           stroke="#888888"

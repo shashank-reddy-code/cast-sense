@@ -1,32 +1,19 @@
-import {
-  ChevronDownIcon,
-  CircleIcon,
-  PlusIcon,
-  StarIcon,
-} from "@radix-ui/react-icons";
+import { Card, CardDescription, CardHeader } from "@/components/ui/card";
+import { Benchmark as BenchmarkDataType } from "@/lib/types";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+export function Benchmark({ data }: { data: BenchmarkDataType }) {
+  const engagementDiff = data?.pct_engagement_diff ?? 0;
+  const followersDiff = data?.pct_followers_diff ?? 0;
 
-export function Benchmark({ data }: { data: any }) {
-  const engagementSign =
-    parseFloat(data?.pct_engagement_diff) > 0 ? "more" : "less";
-  const followersSign =
-    parseFloat(data?.pct_followers_diff) > 0 ? "is better" : "could be better";
-  const formattedEngagementDiff =
-    isNaN(data?.pct_engagement_diff) || data?.pct_engagement_diff === null
-      ? "NaN"
-      : Math.abs(data?.pct_engagement_diff?.toFixed(2));
-  const formattedFollowersDiff =
-    isNaN(data?.pct_followers_diff) || data?.pct_followers_diff === null
-      ? "NaN"
-      : Math.abs(data?.pct_followers_diff?.toFixed(2));
+  const engagementSign = engagementDiff > 0 ? "more" : "less";
+  const followersSign = followersDiff > 0 ? "is better" : "could be better";
+
+  const formattedEngagementDiff = isNaN(engagementDiff)
+    ? "NaN"
+    : Math.abs(engagementDiff).toFixed(2);
+  const formattedFollowersDiff = isNaN(followersDiff)
+    ? "NaN"
+    : Math.abs(followersDiff).toFixed(2);
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
       <Card>

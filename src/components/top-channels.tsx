@@ -1,16 +1,12 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { fetchChannelByName } from "@/lib/neynar";
 import { Profile } from "./profile";
+import { Channel } from "@/lib/types";
 
-export async function TopChannels({ channelIds }: { channelIds: string[] }) {
-  if (channelIds == null || channelIds.length === 0) {
+export async function TopChannels({ channels }: { channels: Channel[] }) {
+  if (channels == null || channels.length === 0) {
     return <></>;
   }
-  console.log(`fetching top channel info for ${channelIds}`);
-  const channelPromises = channelIds.map((channelId: string) =>
-    fetchChannelByName(channelId)
-  );
-  const channels = await Promise.all(channelPromises);
 
   return (
     <>

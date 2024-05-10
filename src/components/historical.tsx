@@ -7,14 +7,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { DailyEngagement, DailyFollower } from "@/lib/types";
 
 export function Historical({
   dailyEngagement,
   dailyFollowers,
   maxScale,
 }: {
-  dailyEngagement: number[];
-  dailyFollowers: number[];
+  dailyEngagement: DailyEngagement[];
+  dailyFollowers: DailyFollower[];
   maxScale: number;
 }) {
   return (

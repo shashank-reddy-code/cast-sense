@@ -7,20 +7,18 @@ import {
 } from "@/components/ui/card";
 import {
   Table,
-  TableCaption,
   TableHeader,
   TableRow,
   TableHead,
   TableBody,
   TableCell,
 } from "@/components/ui/table";
+import { FollowerTier } from "@/lib/types";
 
 export function FollowersByTier({
   followerTiers,
-  powerbadgeFollowers,
 }: {
-  followerTiers: any;
-  powerbadgeFollowers: any;
+  followerTiers: FollowerTier[];
 }) {
   return (
     <div className="space-y-8 flex flex-col">
@@ -42,24 +40,14 @@ export function FollowersByTier({
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow key="power-badge">
-                <TableCell>💪 Power Badge</TableCell>
-                <TableCell>Warpcast Algorithm</TableCell>
-                <TableCell>
-                  {powerbadgeFollowers.count.toLocaleString()}
-                </TableCell>
-                <TableCell>{powerbadgeFollowers.percentage}%</TableCell>
-              </TableRow>
-              {Object.entries(followerTiers).map(
-                ([tier, data]: [string, any]) => (
-                  <TableRow key={tier}>
-                    <TableCell>{tier}</TableCell>
-                    <TableCell>{getDescription(tier)}</TableCell>
-                    <TableCell>{data.count.toLocaleString()}</TableCell>
-                    <TableCell>{data.percentage.toFixed(2)}%</TableCell>
-                  </TableRow>
-                )
-              )}
+              {followerTiers.map((followerTier) => (
+                <TableRow key={followerTier.tier}>
+                  <TableCell>{followerTier.tier}</TableCell>
+                  <TableCell>{getDescription(followerTier.tier)}</TableCell>
+                  <TableCell>{followerTier.count.toLocaleString()}</TableCell>
+                  <TableCell>{followerTier.percentage.toFixed(2)}%</TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </CardContent>

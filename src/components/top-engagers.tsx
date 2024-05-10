@@ -1,21 +1,16 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "./profile";
 import { fetchProfileByName } from "@/lib/neynar";
+import { Profile as ProfileDataType } from "@/lib/types";
 
-type ProfileDataType = {
-  id: number;
-  name: string;
-  image_url: string;
-};
-
-export async function TopEngagers({ topEngagers }: { topEngagers: string[] }) {
+export async function TopEngagers({
+  topEngagers,
+}: {
+  topEngagers: ProfileDataType[];
+}) {
   if (topEngagers == null || topEngagers.length === 0) {
     return <></>;
   }
-  const engagerPromises = topEngagers.map((topEngager) =>
-    fetchProfileByName(topEngager)
-  );
-  const engagerProfiles = await Promise.all(engagerPromises);
 
   return (
     <>
@@ -28,7 +23,7 @@ export async function TopEngagers({ topEngagers }: { topEngagers: string[] }) {
       <div className="relative">
         <ScrollArea>
           <div className="flex space-x-4 pb-4">
-            {engagerProfiles
+            {topEngagers
               .filter((profile) => profile != null)
               .map((profile) => (
                 <Profile

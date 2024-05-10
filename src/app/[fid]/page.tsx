@@ -14,22 +14,15 @@ import {
   getTopEngagersAndChannels,
   getFollowerTiers,
   getTopAndBottomCasts,
-  getEngagingChannels,
   getDailyEngagement,
   getDailyFollowerCount,
   getFollowerActiveHours,
-  getPowerbadgeFollowers,
   getBenchmarks,
   getMaxValue,
 } from "@/lib/dune";
 import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
 import Link from "next/link";
-
-// export const metadata: Metadata = {
-//   title: "Dashboard",
-//   description: "Example dashboard app built using the components.",
-// };
 
 export default async function DashboardPage({
   params,
@@ -43,11 +36,9 @@ export default async function DashboardPage({
     topEngagersAndChannels,
     followerTiers,
     topAndBottomCasts,
-    engagingChannels,
     dailyEngagement,
     dailyFollowers,
     followerActiveHours,
-    powerbadgeFollowers,
     benchmarks,
   ] = await Promise.all([
     fetchProfileByFid(fid),
@@ -55,15 +46,14 @@ export default async function DashboardPage({
     getTopEngagersAndChannels(fid),
     getFollowerTiers(fid),
     getTopAndBottomCasts(fid),
-    getEngagingChannels(fid),
     getDailyEngagement(fid),
     getDailyFollowerCount(fid),
     getFollowerActiveHours(fid),
-    getPowerbadgeFollowers(fid),
     getBenchmarks(fid),
   ]);
 
   const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
+  console.log("Finished fetching data for", fid);
 
   return (
     <>
@@ -113,19 +103,16 @@ export default async function DashboardPage({
               <FollowerCarousel
                 followerTiers={followerTiers}
                 topEngagers={
-                  topEngagersAndChannels &&
-                  topEngagersAndChannels["top_engagers"]
+                  topEngagersAndChannels && topEngagersAndChannels.topEngagers
                 }
                 followerActiveHours={followerActiveHours}
-                powerbadgeFollowers={powerbadgeFollowers}
               />
             </TabsContent>
             <TabsContent value="engagement" className="space-y-4">
               <EngagementCarousel
                 casts={topAndBottomCasts}
                 topChannels={
-                  topEngagersAndChannels &&
-                  topEngagersAndChannels["top_channels"]
+                  topEngagersAndChannels && topEngagersAndChannels.channels
                 }
               />
             </TabsContent>
