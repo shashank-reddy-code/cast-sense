@@ -107,6 +107,7 @@ export async function getBenchmarks(fid: number): Promise<Benchmark> {
     {
       method: "GET",
       headers: header,
+      cache: "no-store",
     }
   );
   const body = await latest_response.text();
@@ -128,6 +129,7 @@ export async function getFollowerTiers(fid: number): Promise<FollowerTier[]> {
       {
         method: "GET",
         headers: header,
+        cache: "no-store",
       }
     ),
     getPowerbadgeFollowers(fid),
@@ -173,6 +175,7 @@ export async function getFollowerActiveHours(
     {
       method: "GET",
       headers: headers,
+      cache: "no-store",
     }
   );
 
@@ -239,6 +242,7 @@ export async function getTopAndBottomCasts(
     {
       method: "GET",
       headers: header,
+      cache: "no-store",
     }
   );
   const body = await latest_response.text();
@@ -263,6 +267,7 @@ export async function getDailyEngagement(
     {
       method: "GET",
       headers: header,
+      cache: "no-store",
     }
   );
   const body = await latest_response.text();
@@ -295,6 +300,7 @@ export async function getDailyFollowerCount(
     {
       method: "GET",
       headers: header,
+      cache: "no-store",
     }
   );
   const body = await latest_response.text();
