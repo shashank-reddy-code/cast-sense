@@ -8,9 +8,22 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { FarcasterEmbed } from "react-farcaster-embed";
 
-export function TopCastsCarousel({ hashes }: { hashes: string[] }) {
+export function TopCastsCarousel({
+  hashes,
+  username,
+}: {
+  hashes: string[];
+  username: string;
+}) {
   if (!hashes || hashes.length == 0) return <> </>;
+  console.log(
+    "setting username ",
+    username,
+    " and hash ",
+    hashes[0].substring(0, 10)
+  );
   return (
     <>
       <div className="mt-6 space-y-1">
@@ -27,14 +40,9 @@ export function TopCastsCarousel({ hashes }: { hashes: string[] }) {
         <CarouselContent>
           {hashes.map((hash: string) => (
             <CarouselItem key={hash} className="md:basis-1/2 lg:basis-1/3">
-              <Image
-                src={`https://client.warpcast.com/v2/cast-image?castHash=${hash}`}
-                width={1280}
-                height={866}
-                // layout="fill"
-                // objectFit="cover"
-                // className="rounded-lg"
-                alt="Cast"
+              <FarcasterEmbed
+                username={username}
+                hash={hash.substring(0, 10)}
               />
             </CarouselItem>
           ))}

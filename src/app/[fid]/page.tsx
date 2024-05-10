@@ -114,6 +114,7 @@ export default async function DashboardPage({
                 topChannels={
                   topEngagersAndChannels && topEngagersAndChannels.channels
                 }
+                username={profile.username}
               />
             </TabsContent>
           </Tabs>

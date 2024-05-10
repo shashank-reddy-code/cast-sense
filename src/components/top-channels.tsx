@@ -1,5 +1,4 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { fetchChannelByName } from "@/lib/neynar";
 import { Profile } from "./profile";
 import { Channel } from "@/lib/types";
 
