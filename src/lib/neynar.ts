@@ -93,7 +93,7 @@ export const autocompleteChannelSearch = async (name: string) => {
   }
   const data = await response.json();
   // todo: handle empty result
-  return data.channels;
+  return data.channels.length > 0 ? data.channels.slice(0, 5) : data.channels;
 };
 
 export const fetchChannelByName = async (name: string) => {
