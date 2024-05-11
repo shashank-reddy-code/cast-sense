@@ -5,8 +5,12 @@ import { Profile as ProfileDataType } from "@/lib/types";
 
 export async function TopEngagers({
   topEngagers,
+  title = "Loyal fans",
+  description = "Followers who engage with you the most in the past month",
 }: {
   topEngagers: ProfileDataType[];
+  title?: string;
+  description?: string;
 }) {
   if (topEngagers == null || topEngagers.length === 0) {
     return <></>;
@@ -15,10 +19,8 @@ export async function TopEngagers({
   return (
     <>
       <div className="mt-6 space-y-1">
-        <h2 className="text-2xl font-semibold tracking-tight">Loyal fans</h2>
-        <p className="text-lg text-muted-foreground">
-          Followers who engage with you the most in the past month
-        </p>
+        <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
+        <p className="text-lg text-muted-foreground">{description}</p>
       </div>
       <div className="relative">
         <ScrollArea>

@@ -1,9 +1,5 @@
 const DUNE_API_KEY = process.env["DUNE_API_KEY"];
-
-import { DuneClient } from "@duneanalytics/client-sdk";
 import {
-  Benchmark,
-  Channel,
   DailyEngagement,
   DailyFollower,
   FollowerActiveHours,
@@ -14,20 +10,18 @@ import {
 } from "./types";
 import { fetchChannelByName, fetchProfileByName } from "./neynar";
 
-const client = new DuneClient(DUNE_API_KEY ?? "");
-
 export async function getChannelStats(
   channelUrl: string
 ): Promise<TopLevelStats> {
-  console.log("Fetching data for channel: ", channelUrl);
   // schedule the query on a 24 hour interval, and then fetch by filtering for the user fid within the query results
   // dune query: https://dune.com/queries/3714673
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
+  const encodedChannelUrl = encodeURIComponent(channelUrl);
   const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3714673/results?&filters=channel_url=${channelUrl}`,
+    `https://api.dune.com/api/v1/query/3714673/results?&filters=channel_url="${encodedChannelUrl}"`,
     {
       method: "GET",
       headers: header,
@@ -41,14 +35,15 @@ export async function getChannelStats(
 
 export async function getTopEngagersAndInfluencers(
   channelUrl: string
-): Promise<{ topEngagers: Profile[]; topInfluncers: Profile[] }> {
+): Promise<{ topEngagers: Profile[]; topInfluencers: Profile[] }> {
   // dune query: https://dune.com/queries/3715815
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
+  const encodedChannelUrl = encodeURIComponent(channelUrl);
   const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3715815/results?&filters=channel_url=${channelUrl}`,
+    `https://api.dune.com/api/v1/query/3715815/results?&filters=channel_url="${encodedChannelUrl}"`,
     {
       method: "GET",
       headers: header,
@@ -58,21 +53,21 @@ export async function getTopEngagersAndInfluencers(
   const body = await latest_response.text();
   const topEngagersAndInfluencers = JSON.parse(body).result.rows[0];
 
-  const engagerPromises = topEngagersAndInfluencers.top_engagers.map(
+  const engagerPromises = topEngagersAndInfluencers.top_casters.map(
     (topEngager: string) => fetchProfileByName(topEngager)
   );
   const influencerPromises = topEngagersAndInfluencers.influential_casters.map(
     (influential_caster: string) => fetchProfileByName(influential_caster)
   );
 
-  const [topEngagers, topInfluncers] = await Promise.all([
+  const [topEngagers, topInfluencers] = await Promise.all([
     Promise.all(engagerPromises),
     Promise.all(influencerPromises),
   ]);
 
   return {
     topEngagers,
-    topInfluncers,
+    topInfluencers,
   };
 }
 
@@ -85,8 +80,9 @@ export async function getPowerbadgeFollowers(
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
+  const encodedChannelUrl = encodeURIComponent(channelUrl);
   const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3715907/results?&filters=channel_url=${channelUrl}`,
+    `https://api.dune.com/api/v1/query/3715907/results?&filters=channel_url="${encodedChannelUrl}"`,
     {
       method: "GET",
       headers: header,
@@ -116,9 +112,10 @@ export async function getFollowerTiers(
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
+  const encodedChannelUrl = encodeURIComponent(channelUrl);
   const queryResponse = await Promise.all([
     fetch(
-      `https://api.dune.com/api/v1/query/3715790/results?&filters=channel_url=${channelUrl}`,
+      `https://api.dune.com/api/v1/query/3715790/results?&filters=channel_url="${encodedChannelUrl}"`,
       {
         method: "GET",
         headers: header,
@@ -160,10 +157,11 @@ export async function getFollowerActiveHours(
   const headers = new Headers({
     "x-dune-api-key": DUNE_API_KEY || "",
   });
+  const encodedChannelUrl = encodeURIComponent(channelUrl);
 
   // Fetch the data.
   const response = await fetch(
-    `https://api.dune.com/api/v1/query/3715688/results?&filters=channel_url=${channelUrl}`,
+    `https://api.dune.com/api/v1/query/3715688/results?&filters=channel_url="${encodedChannelUrl}"`,
     {
       method: "GET",
       headers: headers,
@@ -173,7 +171,10 @@ export async function getFollowerActiveHours(
 
   // Parse the JSON response.
   const data = await response.json();
-  const result = data.result.rows[0]; // Assume there's only one row in the result for the filtered fid
+  const result = data.result.rows[0];
+  if ("channel_url" in result) {
+    delete result["channel_url"];
+  }
 
   // Initialize an object to hold the final counts for all days of the week.
   const weeklyHourlyCounts: { [key: string]: { [key: number]: number } } = {};
@@ -229,8 +230,9 @@ export async function getTopAndBottomCasts(
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
+  const encodedChannelUrl = encodeURIComponent(channelUrl);
   const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3715759/results?&filters=channel_url=${channelUrl}`,
+    `https://api.dune.com/api/v1/query/3715759/results?&filters=channel_url="${encodedChannelUrl}"`,
     {
       method: "GET",
       headers: header,
@@ -239,6 +241,7 @@ export async function getTopAndBottomCasts(
   );
   const body = await latest_response.text();
   const topAndBottomCasts = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+
   return topAndBottomCasts;
 }
 
@@ -254,8 +257,9 @@ export async function getDailyEngagement(
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
+  const encodedChannelUrl = encodeURIComponent(channelUrl);
   const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3715718/results?&filters=channel_url=${channelUrl}`,
+    `https://api.dune.com/api/v1/query/3715718/results?&filters=channel_url="${encodedChannelUrl}"`,
     {
       method: "GET",
       headers: header,
@@ -263,7 +267,7 @@ export async function getDailyEngagement(
     }
   );
   const body = await latest_response.text();
-  const result = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+  const result = JSON.parse(body).result.rows[0];
 
   const dailyEngagement: DailyEngagement[] = result?.daily_engagement.map(
     (item: string[]) => {
@@ -287,8 +291,9 @@ export async function getDailyCastersCount(
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
+  const encodedChannelUrl = encodeURIComponent(channelUrl);
   const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3715676/results?&filters=channel_url=${channelUrl}`,
+    `https://api.dune.com/api/v1/query/3715676/results?&filters=channel_url="${encodedChannelUrl}"`,
     {
       method: "GET",
       headers: header,
@@ -296,9 +301,9 @@ export async function getDailyCastersCount(
     }
   );
   const body = await latest_response.text();
-  const dailyFollower = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+  const dailyFollower = JSON.parse(body).result.rows[0];
 
-  const dailyFollowers: DailyFollower[] = dailyFollower?.daily_followers.map(
+  const dailyFollowers: DailyFollower[] = dailyFollower?.daily_casters.map(
     (item: any) => {
       const date = new Date(item[0]); // Create a date object from the datetime string
       const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'

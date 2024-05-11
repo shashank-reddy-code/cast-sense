@@ -25,7 +25,6 @@ export default async function DashboardChannel({
 }) {
   const name = params.name;
   const channel = await fetchChannelByName(name);
-  console.log("Fetching data for channel: ", channel.url);
   const [
     channelStats,
     topEngagersAndInfluencers,
@@ -90,12 +89,13 @@ export default async function DashboardChannel({
               <div className="flex items-center justify-between space-y-2">
                 <h3 className="text-3xl tracking-tight">Proof of work 💪</h3>
               </div>
-              <TopLevel fidStats={channelStats} />
+              <TopLevel fidStats={channelStats} isChannel={true} />
               {/* <Benchmark data={benchmarks} /> */}
               <Historical
                 dailyEngagement={dailyEngagement}
                 dailyFollowers={dailyCasters}
                 maxScale={maxScale}
+                isChannel={true}
               />
             </TabsContent>
             <TabsContent value="followers" className="space-y-4">
@@ -104,6 +104,10 @@ export default async function DashboardChannel({
                 topEngagers={
                   topEngagersAndInfluencers &&
                   topEngagersAndInfluencers.topEngagers
+                }
+                topInfluencers={
+                  topEngagersAndInfluencers &&
+                  topEngagersAndInfluencers.topInfluencers
                 }
                 followerActiveHours={followerActiveHours}
               />
