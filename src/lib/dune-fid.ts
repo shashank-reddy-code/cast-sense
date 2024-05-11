@@ -1,6 +1,4 @@
 const DUNE_API_KEY = process.env["DUNE_API_KEY"];
-
-import { DuneClient } from "@duneanalytics/client-sdk";
 import {
   Benchmark,
   Channel,
@@ -14,8 +12,6 @@ import {
 } from "./types";
 import { fetchChannelByName, fetchProfileByName } from "./neynar";
 
-const client = new DuneClient(DUNE_API_KEY ?? "");
-
 export async function getFidStats(fid: number): Promise<TopLevelStats> {
   // schedule the query on a 24 hour interval, and then fetch by filtering for the user fid within the query results
   // dune query: https://dune.com/queries/3555616
@@ -28,6 +24,7 @@ export async function getFidStats(fid: number): Promise<TopLevelStats> {
     {
       method: "GET",
       headers: header,
+      cache: "no-store",
     }
   );
   const body = await latest_response.text();
@@ -48,6 +45,7 @@ export async function getTopEngagersAndChannels(
     {
       method: "GET",
       headers: header,
+      cache: "no-store",
     }
   );
   const body = await latest_response.text();
@@ -84,6 +82,7 @@ export async function getPowerbadgeFollowers(
     {
       method: "GET",
       headers: header,
+      cache: "no-store",
     }
   );
   const body = await latest_response.text();
@@ -181,7 +180,10 @@ export async function getFollowerActiveHours(
 
   // Parse the JSON response.
   const data = await response.json();
-  const result = data.result.rows[0]; // Assume there's only one row in the result for the filtered fid
+  const result = data.result.rows[0];
+  if ("fid" in result) {
+    delete result["fid"];
+  }
 
   // Initialize an object to hold the final counts for all days of the week.
   const weeklyHourlyCounts: { [key: string]: { [key: number]: number } } = {};

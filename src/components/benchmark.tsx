@@ -18,7 +18,6 @@ export function Benchmark({ data }: { data: BenchmarkDataType }) {
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
       <Card>
         <CardHeader className="grid  items-start gap-4 space-y-0">
-          {/* <CardTitle>Relative follower growth</CardTitle> */}
           <CardDescription>
             Your follower growth {followersSign} by{" "}
             <span

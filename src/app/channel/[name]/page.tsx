@@ -5,50 +5,53 @@ import { Historical } from "@/components/historical";
 import { FollowerCarousel } from "@/components/follower-carousel";
 import { EngagementCarousel } from "@/components/engagement-carousel";
 import {
-  getFidStats,
-  getTopEngagersAndChannels,
+  getChannelStats,
+  getTopEngagersAndInfluencers,
   getFollowerTiers,
   getTopAndBottomCasts,
   getDailyEngagement,
-  getDailyFollowerCount,
+  getDailyCastersCount,
   getFollowerActiveHours,
-  getBenchmarks,
   getMaxValue,
-} from "@/lib/dune-fid";
-import { fetchProfileByFid } from "@/lib/neynar";
-import { Benchmark } from "@/components/benchmark";
+} from "@/lib/dune-channels";
+import { fetchChannelByName } from "@/lib/neynar";
 import Link from "next/link";
+import { Profile } from "@/lib/types";
 
-export default async function DashboardPage({
+export default async function DashboardChannel({
   params,
 }: {
-  params: { fid: string };
+  params: { name: string };
 }) {
-  const fid = parseFloat(params.fid);
+  const name = decodeURIComponent(params.name);
+  const channel = await fetchChannelByName(name);
   const [
-    profile,
-    fidStats,
-    topEngagersAndChannels,
+    channelStats,
+    topEngagersAndInfluencers,
     followerTiers,
     topAndBottomCasts,
     dailyEngagement,
-    dailyFollowers,
+    dailyCasters,
     followerActiveHours,
-    benchmarks,
   ] = await Promise.all([
-    fetchProfileByFid(fid),
-    getFidStats(fid),
-    getTopEngagersAndChannels(fid),
-    getFollowerTiers(fid),
-    getTopAndBottomCasts(fid),
-    getDailyEngagement(fid),
-    getDailyFollowerCount(fid),
-    getFollowerActiveHours(fid),
-    getBenchmarks(fid),
+    getChannelStats(channel.url),
+    getTopEngagersAndInfluencers(channel.url),
+    getFollowerTiers(channel.url),
+    getTopAndBottomCasts(channel.url),
+    getDailyEngagement(channel.url),
+    getDailyCastersCount(channel.url),
+    getFollowerActiveHours(channel.url),
   ]);
 
-  const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
-  console.log("Finished fetching data for", fid);
+  const maxScale = getMaxValue(dailyEngagement, dailyCasters);
+  console.log("Finished fetching data for", channel.url);
+  // todo: clean this up
+  const profile: Profile = {
+    fid: channel.url,
+    display_name: channel.name,
+    pfp_url: channel.image_url,
+    username: channel.name,
+  };
 
   return (
     <>
@@ -65,7 +68,7 @@ export default async function DashboardPage({
             <div className="ml-auto flex items-center space-x-4">
               <div className="flex items-center justify-between space-y-2">
                 <h2 className="text-xl sm:text-2xl md:text-3xl tracking-tight">
-                  {profile.display_name}
+                  {channel.name}
                 </h2>
               </div>
               <UserNav profile={profile} />
@@ -86,30 +89,32 @@ export default async function DashboardPage({
               <div className="flex items-center justify-between space-y-2">
                 <h3 className="text-3xl tracking-tight">Proof of work 💪</h3>
               </div>
-              <TopLevel fidStats={fidStats} />
-              <Benchmark data={benchmarks} />
+              <TopLevel fidStats={channelStats} isChannel={true} />
+              {/* <Benchmark data={benchmarks} /> */}
               <Historical
                 dailyEngagement={dailyEngagement}
-                dailyFollowers={dailyFollowers}
+                dailyFollowers={dailyCasters}
                 maxScale={maxScale}
+                isChannel={true}
               />
             </TabsContent>
             <TabsContent value="followers" className="space-y-4">
               <FollowerCarousel
                 followerTiers={followerTiers}
                 topEngagers={
-                  topEngagersAndChannels && topEngagersAndChannels.topEngagers
+                  topEngagersAndInfluencers &&
+                  topEngagersAndInfluencers.topEngagers
+                }
+                topInfluencers={
+                  topEngagersAndInfluencers &&
+                  topEngagersAndInfluencers.topInfluencers
                 }
                 followerActiveHours={followerActiveHours}
+                isChannel={true}
               />
             </TabsContent>
             <TabsContent value="engagement" className="space-y-4">
-              <EngagementCarousel
-                casts={topAndBottomCasts}
-                topChannels={
-                  topEngagersAndChannels && topEngagersAndChannels.channels
-                }
-              />
+              <EngagementCarousel casts={topAndBottomCasts} topChannels={[]} />
             </TabsContent>
           </Tabs>
         </div>

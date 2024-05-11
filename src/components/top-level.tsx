@@ -7,7 +7,13 @@ import {
 } from "@/components/ui/card";
 import { TopLevelStats } from "@/lib/types";
 
-export function TopLevel({ fidStats }: { fidStats: TopLevelStats }) {
+export function TopLevel({
+  fidStats,
+  isChannel = false,
+}: {
+  fidStats: TopLevelStats;
+  isChannel?: boolean;
+}) {
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
       <Card>
@@ -21,8 +27,6 @@ export function TopLevel({ fidStats }: { fidStats: TopLevelStats }) {
             fill="none"
             stroke="currentColor"
             stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
           >
             <path d="M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6" />
             <path d="M2 12a9 9 0 0 1 8 8" />
@@ -67,33 +71,33 @@ export function TopLevel({ fidStats }: { fidStats: TopLevelStats }) {
           </p>
         </CardContent>
       </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Mentions</CardTitle>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="4" />
-            <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8" />
-          </svg>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {fidStats.current_period_mentions}
-          </div>
-          <p className="text-xs text-muted-foreground">
-            {fidStats.mentions_percentage_change?.toFixed(0)}% from last month
-          </p>
-        </CardContent>
-      </Card>
+      {!isChannel && (
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Mentions</CardTitle>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8" />
+            </svg>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {fidStats.current_period_mentions}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {fidStats.mentions_percentage_change?.toFixed(0)}% from last month
+            </p>
+          </CardContent>
+        </Card>
+      )}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Replies</CardTitle>

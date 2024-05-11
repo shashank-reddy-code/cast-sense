@@ -17,10 +17,14 @@ export function FollowerCarousel({
   topEngagers,
   followerTiers,
   followerActiveHours,
+  topInfluencers = [],
+  isChannel = false,
 }: {
   topEngagers: Profile[];
   followerTiers: FollowerTier[];
   followerActiveHours: FollowerActiveHours;
+  topInfluencers?: Profile[];
+  isChannel?: boolean;
 }) {
   return (
     <>
@@ -40,7 +44,10 @@ export function FollowerCarousel({
             key="followers-by-tier"
             className="sm:basis-1/1 lg:basis-1/2"
           >
-            <FollowersByTier followerTiers={followerTiers} />
+            <FollowersByTier
+              followerTiers={followerTiers}
+              isChannel={isChannel}
+            />
           </CarouselItem>
         </CarouselContent>
         <CarouselPrevious />
@@ -48,7 +55,22 @@ export function FollowerCarousel({
       </Carousel>
 
       <Separator className="my-4" />
-      <TopEngagers topEngagers={topEngagers} />
+      <TopEngagers
+        topEngagers={topEngagers}
+        title="Loyal fans"
+        description="Most active casters in the past month"
+      />
+
+      {topInfluencers.length > 0 && (
+        <>
+          <Separator className="my-4" />
+          <TopEngagers
+            topEngagers={topInfluencers}
+            title="Top Influencers"
+            description="Top influencers who casted in the past month"
+          />
+        </>
+      )}
     </>
   );
 }

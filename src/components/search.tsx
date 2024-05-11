@@ -7,14 +7,18 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command";
-import { autocompleteUserSearch } from "@/lib/neynar";
+import {
+  autocompleteUserSearch,
+  autocompleteChannelSearch,
+} from "@/lib/neynar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { debounce } from "lodash";
 
 export function Search() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [users, setUsers] = useState([]);
+  const [userResults, setUserResults] = useState([]);
+  const [channelResults, setChannelResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
 
   // Create a debounced function that will be invoked after the specified delay
@@ -22,63 +26,84 @@ export function Search() {
     debounce(async (searchTerm) => {
       if (searchTerm.length > 0) {
         setIsSearching(true);
-        const fetchUsers = async () => {
-          try {
-            const data = await autocompleteUserSearch(searchTerm);
-            setUsers(data);
-          } catch (error) {
-            console.error("Error fetching users:", error);
-            setUsers([]);
-          }
-        };
-        fetchUsers();
+        const fetchUser = autocompleteUserSearch(searchTerm);
+        const fetchChannel = autocompleteChannelSearch(searchTerm);
+        try {
+          const [userData, channelData] = await Promise.all([
+            fetchUser,
+            fetchChannel,
+          ]);
+          setUserResults(userData);
+          setChannelResults(channelData);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          setUserResults([]);
+          setChannelResults([]);
+        }
+        setIsSearching(false);
       } else {
-        setUsers([]);
-        setIsSearching(false); // Reset searching state if search term is empty
+        setUserResults([]);
+        setChannelResults([]);
+        setIsSearching(false);
       }
-    }, 100),
-    [setIsSearching, setUsers, autocompleteUserSearch]
+    }, 300),
+    []
   );
 
   useEffect(() => {
-    // Call the debounced search function
     debouncedSearch(searchTerm);
-
-    // Optional: Cleanup on component unmount
     return () => debouncedSearch.cancel();
   }, [searchTerm, debouncedSearch]);
-
-  // const handleSelectUser = (fid: number) => {
-  //   router.push(`/${fid}`);
-  // };
 
   return (
     <Command>
       <CommandInput
-        placeholder="Search by username"
+        placeholder="Search by username or channel"
         onValueChange={(e) => setSearchTerm(e)}
       />
       <CommandList>
-        {users.length > 0 ? (
-          <CommandGroup heading="">
-            {users.map((user: any) => (
+        {channelResults.length > 0 && (
+          <CommandGroup heading="Channels">
+            {channelResults.map((channel: any) => (
+              <Link href={`/channel/${channel.id}`} key={channel.id}>
+                <CommandItem
+                  value={channel.name}
+                  className="flex items-center gap-2"
+                >
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={channel.image_url} alt={channel.name} />
+                    <AvatarFallback>{channel.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  {channel.name}
+                </CommandItem>
+              </Link>
+            ))}
+          </CommandGroup>
+        )}
+        {userResults.length > 0 && (
+          <CommandGroup heading="Users">
+            {userResults.map((user: any) => (
               <Link href={`/${user.fid}`} key={user.fid}>
                 <CommandItem
                   value={user.username}
                   className="flex items-center gap-2"
                 >
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src={user.pfp_url} alt="@shadcn" />
-                    <AvatarFallback>{user.username}</AvatarFallback>
+                    <AvatarImage src={user.pfp_url} alt={user.username} />
+                    <AvatarFallback>{user.username.charAt(0)}</AvatarFallback>
                   </Avatar>
-                  {user.display_name}
+                  {user.display_name || user.username}
                 </CommandItem>
               </Link>
             ))}
           </CommandGroup>
-        ) : isSearching ? (
-          <CommandEmpty>No users found.</CommandEmpty> // Only show this if a search has been made
-        ) : null}
+        )}
+        {isSearching && <CommandEmpty>Searching...</CommandEmpty>}
+        {/* {isSearching &&
+          userResults.length === 0 &&
+          channelResults.length === 0 && (
+            <CommandEmpty>No results found</CommandEmpty>
+          )} */}
       </CommandList>
     </Command>
   );
