@@ -28,6 +28,7 @@ export async function getFidStats(fid: number): Promise<TopLevelStats> {
     {
       method: "GET",
       headers: header,
+      cache: "no-store",
     }
   );
   const body = await latest_response.text();
@@ -48,6 +49,7 @@ export async function getTopEngagersAndChannels(
     {
       method: "GET",
       headers: header,
+      cache: "no-store",
     }
   );
   const body = await latest_response.text();
@@ -84,6 +86,7 @@ export async function getPowerbadgeFollowers(
     {
       method: "GET",
       headers: header,
+      cache: "no-store",
     }
   );
   const body = await latest_response.text();

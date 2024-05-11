@@ -75,6 +75,27 @@ export const autocompleteUserSearch = async (name: string) => {
   return data.result.users;
 };
 
+export const autocompleteChannelSearch = async (name: string) => {
+  console.log("fetching channel", name);
+  const response = await fetch(
+    `https://api.neynar.com/v2/farcaster/channel/search?q=${name}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        api_key: process.env.NEXT_PUBLIC_NEYNAR_API_KEY as string,
+      },
+    }
+  );
+  // log error if response is not ok
+  if (!response.ok) {
+    console.error(`Failed to fetch channel ${name}`, response);
+    return null;
+  }
+  const data = await response.json();
+  // todo: handle empty result
+  return data.channels;
+};
+
 export const fetchChannelByName = async (name: string) => {
   const response = await fetch(
     `https://api.neynar.com/v2/farcaster/channel/search?q=${name}`,
