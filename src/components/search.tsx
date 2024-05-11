@@ -65,7 +65,7 @@ export function Search() {
         {channelResults.length > 0 && (
           <CommandGroup heading="Channels">
             {channelResults.map((channel: any) => (
-              <Link href={`/channel/${channel.name}`} key={channel.id}>
+              <Link href={`/channel/${channel.id}`} key={channel.id}>
                 <CommandItem
                   value={channel.name}
                   className="flex items-center gap-2"
@@ -99,11 +99,11 @@ export function Search() {
           </CommandGroup>
         )}
         {isSearching && <CommandEmpty>Searching...</CommandEmpty>}
-        {isSearching &&
+        {/* {isSearching &&
           userResults.length === 0 &&
           channelResults.length === 0 && (
             <CommandEmpty>No results found</CommandEmpty>
-          )}
+          )} */}
       </CommandList>
     </Command>
   );

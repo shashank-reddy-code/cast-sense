@@ -23,7 +23,7 @@ export default async function DashboardChannel({
 }: {
   params: { name: string };
 }) {
-  const name = params.name;
+  const name = decodeURIComponent(params.name);
   const channel = await fetchChannelByName(name);
   const [
     channelStats,

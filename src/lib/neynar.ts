@@ -77,8 +77,9 @@ export const autocompleteUserSearch = async (name: string) => {
 
 export const autocompleteChannelSearch = async (name: string) => {
   console.log("fetching channel", name);
+  const encodedName = encodeURIComponent(name);
   const response = await fetch(
-    `https://api.neynar.com/v2/farcaster/channel/search?q=${name}`,
+    `https://api.neynar.com/v2/farcaster/channel/search?q=${encodedName}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -97,8 +98,9 @@ export const autocompleteChannelSearch = async (name: string) => {
 };
 
 export const fetchChannelByName = async (name: string) => {
+  const encodedName = encodeURIComponent(name);
   const response = await fetch(
-    `https://api.neynar.com/v2/farcaster/channel/search?q=${name}`,
+    `https://api.neynar.com/v2/farcaster/channel/search?q=${encodedName}`,
     {
       headers: {
         "Content-Type": "application/json",
