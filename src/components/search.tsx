@@ -99,7 +99,7 @@ export function Search() {
           </CommandGroup>
         )}
         {isSearching && <CommandEmpty>Searching...</CommandEmpty>}
-        {!isSearching &&
+        {isSearching &&
           userResults.length === 0 &&
           channelResults.length === 0 && (
             <CommandEmpty>No results found</CommandEmpty>

@@ -18,11 +18,13 @@ export function FollowerCarousel({
   followerTiers,
   followerActiveHours,
   topInfluencers = [],
+  isChannel = false,
 }: {
   topEngagers: Profile[];
   followerTiers: FollowerTier[];
   followerActiveHours: FollowerActiveHours;
   topInfluencers?: Profile[];
+  isChannel?: boolean;
 }) {
   return (
     <>
@@ -42,7 +44,10 @@ export function FollowerCarousel({
             key="followers-by-tier"
             className="sm:basis-1/1 lg:basis-1/2"
           >
-            <FollowersByTier followerTiers={followerTiers} />
+            <FollowersByTier
+              followerTiers={followerTiers}
+              isChannel={isChannel}
+            />
           </CarouselItem>
         </CarouselContent>
         <CarouselPrevious />

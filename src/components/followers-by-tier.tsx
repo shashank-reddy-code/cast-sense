@@ -17,17 +17,20 @@ import { FollowerTier } from "@/lib/types";
 
 export function FollowersByTier({
   followerTiers,
+  isChannel = false,
 }: {
   followerTiers: FollowerTier[];
+  isChannel?: boolean;
 }) {
+  const description = isChannel
+    ? "Different types of casters"
+    : "Different types of followers";
   return (
     <div className="space-y-8 flex flex-col">
       <Card>
         <CardHeader>
           <CardTitle className="mb-4">Follower fanfare</CardTitle>
-          <CardDescription className="text-lg">
-            Different types of followers
-          </CardDescription>
+          <CardDescription className="text-lg">{description}</CardDescription>
         </CardHeader>
         <CardContent className="flex p-6 flex flex-col space-y-5  ">
           <Table>

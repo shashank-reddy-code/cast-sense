@@ -110,6 +110,7 @@ export default async function DashboardChannel({
                   topEngagersAndInfluencers.topInfluencers
                 }
                 followerActiveHours={followerActiveHours}
+                isChannel={true}
               />
             </TabsContent>
             <TabsContent value="engagement" className="space-y-4">
