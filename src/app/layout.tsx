@@ -22,6 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="CastSense" />
+        <meta
+          property="og:image"
+          content="https://www.castsense.xyz/castsense-dwr.png"
+        />
       </Head>
       <body className={inter.className}>
         <ThemeProvider
