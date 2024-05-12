@@ -23,10 +23,11 @@ export function TopCastsCarousel({ hashes }: { hashes: string[] }) {
         opts={{
           align: "start",
         }}
+        className="relative mx-8"
       >
         <CarouselContent>
           {hashes.map((hash: string) => (
-            <CarouselItem key={hash} className="md:basis-1/2 lg:basis-1/3">
+            <CarouselItem key={hash} className="md:basis-1/2 lg:basis-1/4">
               <Image
                 unoptimized
                 src={`https://client.warpcast.com/v2/cast-image?castHash=${hash}`}
