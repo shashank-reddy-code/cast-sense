@@ -43,7 +43,7 @@ export default async function DashboardChannel({
     getFollowerActiveHours(channel.url),
   ]);
 
-  const maxScale = getMaxValue(dailyEngagement, dailyCasters);
+  //const maxScale = getMaxValue(dailyEngagement, dailyCasters);
   console.log("Finished fetching data for", channel.url);
   // todo: clean this up
   const profile: Profile = {
@@ -94,7 +94,6 @@ export default async function DashboardChannel({
               <Historical
                 dailyEngagement={dailyEngagement}
                 dailyFollowers={dailyCasters}
-                maxScale={maxScale}
                 isChannel={true}
               />
             </TabsContent>

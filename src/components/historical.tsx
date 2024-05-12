@@ -17,7 +17,7 @@ export function Historical({
 }: {
   dailyEngagement: DailyEngagement[];
   dailyFollowers: DailyFollower[];
-  maxScale: number;
+  maxScale?: number;
   isChannel?: boolean;
 }) {
   const description = isChannel

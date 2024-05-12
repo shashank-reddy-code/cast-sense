@@ -16,7 +16,7 @@ export function FollowerHistorical({
   maxScale,
 }: {
   dailyFollowers: DailyFollower[];
-  maxScale: number;
+  maxScale?: number;
 }) {
   return (
     <ResponsiveContainer width="100%" height={350}>
@@ -33,7 +33,7 @@ export function FollowerHistorical({
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          domain={[0, maxScale]}
+          {...(maxScale ? { domain: [0, maxScale] } : {})}
         />
         <Tooltip
           cursor={{ fill: "rgba(255, 255, 255, 0.2)" }}

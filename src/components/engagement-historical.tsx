@@ -15,7 +15,7 @@ export function EngagementHistorical({
   maxScale,
 }: {
   dailyEngagement: DailyEngagement[];
-  maxScale: number;
+  maxScale?: number;
 }) {
   if (!dailyEngagement) return <></>;
   return (
@@ -33,7 +33,7 @@ export function EngagementHistorical({
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          domain={[0, maxScale]}
+          {...(maxScale ? { domain: [0, maxScale] } : {})}
         />
         <Tooltip
           cursor={{ fill: "rgba(255, 255, 255, 0.2)" }}
