@@ -58,6 +58,7 @@ export function Search() {
   return (
     <Command>
       <CommandInput
+        className="text-lg"
         placeholder="Search by username or channel"
         onValueChange={(e) => setSearchTerm(e)}
       />

@@ -54,7 +54,7 @@ export default async function DashboardChannel({
   };
 
   return (
-    <div className="flex-col md:flex max-w">
+    <div className="flex-col md:flex">
       <div className="border-b">
         <div className="flex h-16 items-center px-8">
           <div className="flex items-center justify-between space-y-2">
