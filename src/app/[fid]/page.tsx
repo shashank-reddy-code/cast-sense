@@ -72,13 +72,13 @@ export default async function DashboardPage({
         </div>
       </div>
       <div className="flex-col space-y-4 p-8 pt-6">
-        <Tabs defaultValue="overview">
+        <Tabs defaultValue="overview" className="space-y-4">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="followers">Followers</TabsTrigger>
             <TabsTrigger value="engagement">Engagement</TabsTrigger>
           </TabsList>
-          <TabsContent value="overview">
+          <TabsContent value="overview" className="space-y-4">
             <div className="flex items-center justify-between space-y-2">
               <h3 className="text-3xl tracking-tight">Proof of work 💪</h3>
             </div>

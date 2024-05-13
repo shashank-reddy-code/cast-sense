@@ -12,7 +12,7 @@ import {
 export function BottomCastsCarousel({ hashes }: { hashes: string[] }) {
   if (!hashes || hashes.length == 0) return <> </>;
   return (
-    <>
+    <div className="space-y-4">
       <div className="mt-6 space-y-1">
         <h2 className="text-2xl font-semibold tracking-tight">Meh</h2>
         <p className="text-sm text-muted-foreground">
@@ -27,7 +27,7 @@ export function BottomCastsCarousel({ hashes }: { hashes: string[] }) {
       >
         <CarouselContent>
           {hashes.map((hash) => (
-            <CarouselItem key={hash} className="md:basis-1/2 lg:basis-1/4">
+            <CarouselItem key={hash} className="md:basis-1/2 lg:basis-1/3">
               <Image
                 unoptimized
                 src={`https://client.warpcast.com/v2/cast-image?castHash=${hash}`}
@@ -41,6 +41,6 @@ export function BottomCastsCarousel({ hashes }: { hashes: string[] }) {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-    </>
+    </div>
   );
 }

@@ -16,7 +16,7 @@ export async function TopFollowerChannels() {
   const channels = await Promise.all(parentUrls.map(fetchChannel));
 
   return (
-    <>
+    <div className="space-y-4">
       <div className="mt-6 space-y-1">
         <h2 className="text-2xl font-semibold tracking-tight">Top Channels</h2>
         <p className="text-sm text-muted-foreground">
@@ -39,6 +39,6 @@ export async function TopFollowerChannels() {
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </div>
-    </>
+    </div>
   );
 }

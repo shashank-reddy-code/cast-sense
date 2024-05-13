@@ -9,7 +9,7 @@ export async function TopChannels({ channels }: { channels: Channel[] }) {
   }
 
   return (
-    <>
+    <div className="space-y-4">
       <div className="mt-6 space-y-1">
         <h2 className="text-2xl font-semibold tracking-tight">Top Channels</h2>
         <p className="text-sm text-muted-foreground">
@@ -32,6 +32,6 @@ export async function TopChannels({ channels }: { channels: Channel[] }) {
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </div>
-    </>
+    </div>
   );
 }

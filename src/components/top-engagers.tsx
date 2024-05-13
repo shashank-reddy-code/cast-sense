@@ -17,7 +17,7 @@ export async function TopEngagers({
   }
 
   return (
-    <>
+    <div className="space-y-4">
       <div className="mt-6 space-y-1">
         <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
         <p className="text-lg text-muted-foreground">{description}</p>
@@ -40,6 +40,6 @@ export async function TopEngagers({
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </div>
-    </>
+    </div>
   );
 }
