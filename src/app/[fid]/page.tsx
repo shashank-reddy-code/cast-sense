@@ -54,7 +54,7 @@ export default async function DashboardPage({
     <>
       <div className="flex-col md:flex">
         <div className="border-b">
-          <div className="flex h-16 items-center px-4">
+          <div className="flex h-16 items-center px-8">
             <div className="flex items-center justify-between space-y-2">
               <Link href="/">
                 <h2 className="text-xl sm:text-2xl md:text-3xl tracking-tight">
@@ -72,14 +72,14 @@ export default async function DashboardPage({
             </div>
           </div>
         </div>
-        <div className="flex-1 space-y-4 p-8 pt-6">
-          <Tabs defaultValue="overview" className="space-y-4">
+        <div className="flex-col space-y-4 p-8 pt-6">
+          <Tabs defaultValue="overview">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="followers">Followers</TabsTrigger>
               <TabsTrigger value="engagement">Engagement</TabsTrigger>
             </TabsList>
-            <TabsContent value="overview" className="space-y-4">
+            <TabsContent value="overview">
               <div className="flex items-center justify-between space-y-2">
                 <h3 className="text-3xl tracking-tight">Proof of work 💪</h3>
               </div>
@@ -91,7 +91,7 @@ export default async function DashboardPage({
                 maxScale={maxScale}
               />
             </TabsContent>
-            <TabsContent value="followers" className="space-y-4">
+            <TabsContent value="followers">
               <FollowerCarousel
                 followerTiers={followerTiers}
                 topEngagers={
@@ -100,7 +100,7 @@ export default async function DashboardPage({
                 followerActiveHours={followerActiveHours}
               />
             </TabsContent>
-            <TabsContent value="engagement" className="space-y-4">
+            <TabsContent value="engagement">
               <EngagementCarousel
                 casts={topAndBottomCasts}
                 topChannels={
