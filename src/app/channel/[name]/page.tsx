@@ -81,9 +81,6 @@ export default async function DashboardChannel({
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="followers">Followers</TabsTrigger>
               <TabsTrigger value="engagement">Engagement</TabsTrigger>
-              <TabsTrigger value="recommendation" disabled>
-                Recommendations (soon)
-              </TabsTrigger>
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
               <div className="flex items-center justify-between space-y-2">
