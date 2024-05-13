@@ -127,7 +127,7 @@ export function Search() {
           <CommandGroup heading="Users">
             {userResults.map((user: any) => (
               <div
-                onClick={() => handleLinkClick(`/channel/${user.fid}`)}
+                onClick={() => handleLinkClick(`/${user.fid}`)}
                 key={user.fid}
               >
                 <CommandItem

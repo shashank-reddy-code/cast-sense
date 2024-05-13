@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { TopLevelStats } from "@/lib/types";
+import { formatNumber } from "@/lib/utils";
 
 export function TopLevel({
   fidStats,
@@ -36,7 +37,7 @@ export function TopLevel({
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
-            {fidStats.current_period_casts}
+            {formatNumber(fidStats.current_period_casts)}
           </div>
           <p className="text-xs text-muted-foreground">
             {fidStats.casts_percentage_change?.toFixed(0)}% from last month
@@ -64,7 +65,7 @@ export function TopLevel({
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
-            {fidStats.current_period_recasts}
+            {formatNumber(fidStats.current_period_recasts)}
           </div>
           <p className="text-xs text-muted-foreground">
             {fidStats.recasts_percentage_change?.toFixed(0)}% from last month
@@ -90,7 +91,7 @@ export function TopLevel({
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {fidStats.current_period_mentions}
+              {formatNumber(fidStats.current_period_mentions)}
             </div>
             <p className="text-xs text-muted-foreground">
               {fidStats.mentions_percentage_change?.toFixed(0)}% from last month
@@ -117,7 +118,7 @@ export function TopLevel({
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
-            {fidStats.current_period_replies}
+            {formatNumber(fidStats.current_period_replies)}
           </div>
           <p className="text-xs text-muted-foreground">
             {fidStats.replies_percentage_change?.toFixed(0)}% since last month
@@ -143,7 +144,7 @@ export function TopLevel({
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
-            {fidStats.current_period_likes}
+            {formatNumber(fidStats.current_period_likes)}
           </div>
           <p className="text-xs text-muted-foreground">
             {fidStats.likes_percentage_change?.toFixed(0)}% since last month
