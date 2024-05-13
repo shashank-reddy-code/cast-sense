@@ -90,8 +90,8 @@ export async function getPowerbadgeFollowers(
   const tier = "💪 power badge";
   return {
     tier,
-    count: powerbadgeFollowers.count,
-    percentage: parseFloat(powerbadgeFollowers.percentage),
+    count: powerbadgeFollowers?.count || 0,
+    percentage: parseFloat(powerbadgeFollowers?.percentage || 0),
   };
 }
 

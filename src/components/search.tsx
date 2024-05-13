@@ -12,14 +12,21 @@ import {
   autocompleteChannelSearch,
 } from "@/lib/neynar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
 import { debounce } from "lodash";
+import { Progress } from "@/components/ui/progress";
+
+import { useRouter, usePathname } from "next/navigation";
 
 export function Search() {
   const [searchTerm, setSearchTerm] = useState("");
   const [userResults, setUserResults] = useState([]);
   const [channelResults, setChannelResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   // Create a debounced function that will be invoked after the specified delay
   const debouncedSearch = useCallback(
@@ -55,6 +62,37 @@ export function Search() {
     return () => debouncedSearch.cancel();
   }, [searchTerm, debouncedSearch]);
 
+  const handleLinkClick = (url: string) => {
+    setIsLoading(true);
+    router.push(url);
+  };
+
+  useEffect(() => {
+    if (!isLoading) {
+      setProgress(100);
+      setTimeout(() => setProgress(0), 500);
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (isLoading) {
+      setProgress(0);
+      const interval = setInterval(() => {
+        setProgress((prevProgress) => {
+          if (prevProgress < 90) {
+            return prevProgress + 5;
+          }
+          clearInterval(interval);
+          return prevProgress;
+        });
+      }, 100);
+    }
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <Progress value={progress} />;
+  }
+
   return (
     <Command>
       <CommandInput
@@ -66,7 +104,11 @@ export function Search() {
         {channelResults.length > 0 && (
           <CommandGroup heading="Channels">
             {channelResults.map((channel: any) => (
-              <Link href={`/channel/${channel.id}`} key={channel.id}>
+              // <Link href={`/channel/${channel.id}`} key={channel.id}>
+              <div
+                key={channel.id}
+                onClick={() => handleLinkClick(`/channel/${channel.id}`)}
+              >
                 <CommandItem
                   value={channel.name}
                   className="flex items-center gap-2 data-[disabled]:opacity-100 text-lg"
@@ -77,14 +119,17 @@ export function Search() {
                   </Avatar>
                   {channel.name}
                 </CommandItem>
-              </Link>
+              </div>
             ))}
           </CommandGroup>
         )}
         {userResults.length > 0 && (
           <CommandGroup heading="Users">
             {userResults.map((user: any) => (
-              <Link href={`/${user.fid}`} key={user.fid}>
+              <div
+                onClick={() => handleLinkClick(`/channel/${user.fid}`)}
+                key={user.fid}
+              >
                 <CommandItem
                   value={user.username}
                   className="flex items-center gap-2 data-[disabled]:opacity-100 text-lg"
@@ -95,7 +140,7 @@ export function Search() {
                   </Avatar>
                   {user.display_name || user.username}
                 </CommandItem>
-              </Link>
+              </div>
             ))}
           </CommandGroup>
         )}
