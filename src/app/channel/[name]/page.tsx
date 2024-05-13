@@ -54,67 +54,65 @@ export default async function DashboardChannel({
   };
 
   return (
-    <>
-      <div className="flex-col md:flex">
-        <div className="border-b">
-          <div className="flex h-16 items-center px-4">
+    <div className="flex-col md:flex">
+      <div className="border-b">
+        <div className="flex h-16 items-center px-8">
+          <div className="flex items-center justify-between space-y-2">
+            <Link href="/">
+              <h2 className="text-xl sm:text-2xl md:text-3xl tracking-tight">
+                CastSense
+              </h2>
+            </Link>
+          </div>
+          <div className="ml-auto flex items-center space-x-4">
             <div className="flex items-center justify-between space-y-2">
-              <Link href="/">
-                <h2 className="text-xl sm:text-2xl md:text-3xl tracking-tight">
-                  CastSense
-                </h2>
-              </Link>
+              <h2 className="text-xl sm:text-2xl md:text-3xl tracking-tight">
+                {channel.name}
+              </h2>
             </div>
-            <div className="ml-auto flex items-center space-x-4">
-              <div className="flex items-center justify-between space-y-2">
-                <h2 className="text-xl sm:text-2xl md:text-3xl tracking-tight">
-                  {channel.name}
-                </h2>
-              </div>
-              <UserNav profile={profile} />
-            </div>
+            <UserNav profile={profile} />
           </div>
         </div>
-        <div className="flex-1 space-y-4 p-8 pt-6">
-          <Tabs defaultValue="overview" className="space-y-4">
-            <TabsList>
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="followers">Followers</TabsTrigger>
-              <TabsTrigger value="engagement">Engagement</TabsTrigger>
-            </TabsList>
-            <TabsContent value="overview" className="space-y-4">
-              <div className="flex items-center justify-between space-y-2">
-                <h3 className="text-3xl tracking-tight">Proof of work 💪</h3>
-              </div>
-              <TopLevel fidStats={channelStats} isChannel={true} />
-              {/* <Benchmark data={benchmarks} /> */}
-              <Historical
-                dailyEngagement={dailyEngagement}
-                dailyFollowers={dailyCasters}
-                isChannel={true}
-              />
-            </TabsContent>
-            <TabsContent value="followers" className="space-y-4">
-              <FollowerCarousel
-                followerTiers={followerTiers}
-                topEngagers={
-                  topEngagersAndInfluencers &&
-                  topEngagersAndInfluencers.topEngagers
-                }
-                topInfluencers={
-                  topEngagersAndInfluencers &&
-                  topEngagersAndInfluencers.topInfluencers
-                }
-                followerActiveHours={followerActiveHours}
-                isChannel={true}
-              />
-            </TabsContent>
-            <TabsContent value="engagement" className="space-y-4">
-              <EngagementCarousel casts={topAndBottomCasts} topChannels={[]} />
-            </TabsContent>
-          </Tabs>
-        </div>
       </div>
-    </>
+      <div className="flex-1 space-y-4 p-8 pt-6">
+        <Tabs defaultValue="overview" className="space-y-4">
+          <TabsList>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="followers">Followers</TabsTrigger>
+            <TabsTrigger value="engagement">Engagement</TabsTrigger>
+          </TabsList>
+          <TabsContent value="overview" className="space-y-4">
+            <div className="flex items-center justify-between space-y-2">
+              <h3 className="text-3xl tracking-tight">Proof of work 💪</h3>
+            </div>
+            <TopLevel fidStats={channelStats} isChannel={true} />
+            {/* <Benchmark data={benchmarks} /> */}
+            <Historical
+              dailyEngagement={dailyEngagement}
+              dailyFollowers={dailyCasters}
+              isChannel={true}
+            />
+          </TabsContent>
+          <TabsContent value="followers" className="space-y-4">
+            <FollowerCarousel
+              followerTiers={followerTiers}
+              topEngagers={
+                topEngagersAndInfluencers &&
+                topEngagersAndInfluencers.topEngagers
+              }
+              topInfluencers={
+                topEngagersAndInfluencers &&
+                topEngagersAndInfluencers.topInfluencers
+              }
+              followerActiveHours={followerActiveHours}
+              isChannel={true}
+            />
+          </TabsContent>
+          <TabsContent value="engagement" className="space-y-4">
+            <EngagementCarousel casts={topAndBottomCasts} topChannels={[]} />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
   );
 }

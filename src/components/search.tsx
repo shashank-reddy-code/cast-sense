@@ -58,6 +58,7 @@ export function Search() {
   return (
     <Command>
       <CommandInput
+        className="text-lg"
         placeholder="Search by username or channel"
         onValueChange={(e) => setSearchTerm(e)}
       />
@@ -68,7 +69,7 @@ export function Search() {
               <Link href={`/channel/${channel.id}`} key={channel.id}>
                 <CommandItem
                   value={channel.name}
-                  className="flex items-center gap-2 data-[disabled]:opacity-100"
+                  className="flex items-center gap-2 data-[disabled]:opacity-100 text-lg"
                 >
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={channel.image_url} alt={channel.name} />
@@ -86,7 +87,7 @@ export function Search() {
               <Link href={`/${user.fid}`} key={user.fid}>
                 <CommandItem
                   value={user.username}
-                  className="flex items-center gap-2 data-[disabled]:opacity-100"
+                  className="flex items-center gap-2 data-[disabled]:opacity-100 text-lg"
                 >
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user.pfp_url} alt={user.username} />
