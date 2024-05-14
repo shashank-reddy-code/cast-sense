@@ -49,6 +49,9 @@ export type Profile = {
 export type DailyEngagement = {
   date: string;
   total: number;
+  replies: number;
+  recasts: number;
+  likes: number;
 };
 
 export type DailyFollower = {

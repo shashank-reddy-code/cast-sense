@@ -42,11 +42,18 @@ export function EngagementHistorical({
           itemStyle={{ color: "black" }}
         />
         <Bar
-          dataKey="total"
-          fill="currentColor"
+          dataKey="replies"
+          stackId="a"
+          fill="#008080"
           radius={[4, 4, 0, 0]}
-          className="fill-primary"
         />
+        <Bar
+          dataKey="recasts"
+          stackId="a"
+          fill="#68B684"
+          radius={[4, 4, 0, 0]}
+        />
+        <Bar dataKey="likes" stackId="a" fill="#D2B48C" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );
