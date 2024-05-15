@@ -5,6 +5,7 @@ import {
   Bar,
   BarChart,
   ResponsiveContainer,
+  Legend,
   Tooltip,
   XAxis,
   YAxis,
@@ -41,6 +42,7 @@ export function EngagementHistorical({
           labelStyle={{ color: "black" }}
           itemStyle={{ color: "black" }}
         />
+        <Legend />
         <Bar
           dataKey="replies"
           stackId="a"
@@ -50,7 +52,7 @@ export function EngagementHistorical({
         <Bar
           dataKey="recasts"
           stackId="a"
-          fill="#68B684"
+          fill="#8884d8"
           radius={[4, 4, 0, 0]}
         />
         <Bar dataKey="likes" stackId="a" fill="#D2B48C" radius={[4, 4, 0, 0]} />

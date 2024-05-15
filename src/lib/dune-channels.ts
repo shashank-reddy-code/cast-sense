@@ -277,6 +277,9 @@ export async function getDailyEngagement(
       return {
         name: formattedDate,
         total: item[1],
+        replies: item[2],
+        recasts: item[3],
+        likes: item[4],
       };
     }
   );
