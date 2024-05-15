@@ -107,7 +107,11 @@ export function Search() {
               // <Link href={`/channel/${channel.id}`} key={channel.id}>
               <div
                 key={channel.id}
-                onClick={() => handleLinkClick(`/channel/${channel.id}`)}
+                onClick={() => {
+                  const timeZone =
+                    Intl.DateTimeFormat().resolvedOptions().timeZone;
+                  handleLinkClick(`/channel/${channel.id}?tz=${timeZone}`);
+                }}
               >
                 <CommandItem
                   value={channel.name}
@@ -127,7 +131,11 @@ export function Search() {
           <CommandGroup heading="Users">
             {userResults.map((user: any) => (
               <div
-                onClick={() => handleLinkClick(`/${user.fid}`)}
+                onClick={() => {
+                  const timeZone =
+                    Intl.DateTimeFormat().resolvedOptions().timeZone;
+                  handleLinkClick(`/${user.fid}?tz=${timeZone}`);
+                }}
                 key={user.fid}
               >
                 <CommandItem

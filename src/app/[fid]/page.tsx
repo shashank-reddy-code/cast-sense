@@ -21,10 +21,13 @@ import Link from "next/link";
 
 export default async function DashboardPage({
   params,
+  searchParams,
 }: {
   params: { fid: string };
+  searchParams: { tz?: string };
 }) {
   const fid = parseFloat(params.fid);
+  const tz = searchParams?.tz || "UTC";
   const [
     profile,
     fidStats,
@@ -43,7 +46,7 @@ export default async function DashboardPage({
     getTopAndBottomCasts(fid),
     getDailyEngagement(fid),
     getDailyFollowerCount(fid),
-    getFollowerActiveHours(fid),
+    getFollowerActiveHours(fid, tz),
     getBenchmarks(fid),
   ]);
 

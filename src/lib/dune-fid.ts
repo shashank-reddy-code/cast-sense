@@ -11,6 +11,7 @@ import {
   TopLevelStats,
 } from "./types";
 import { fetchChannelByName, fetchProfileByName } from "./neynar";
+import moment from "moment-timezone";
 
 export async function getFidStats(fid: number): Promise<TopLevelStats> {
   // schedule the query on a 24 hour interval, and then fetch by filtering for the user fid within the query results
@@ -159,7 +160,8 @@ export async function getFollowerTiers(fid: number): Promise<FollowerTier[]> {
 }
 
 export async function getFollowerActiveHours(
-  fid: number
+  fid: number,
+  timezone: string
 ): Promise<FollowerActiveHours> {
   // https://dune.com/queries/3697395
   // https://dune.com/queries/3679974 (deprecated)
@@ -185,17 +187,40 @@ export async function getFollowerActiveHours(
     delete result["fid"];
   }
 
+  // Determine the offset for the timezone
+  const offset = Math.ceil(moment.tz(timezone).utcOffset() / 60);
+  console.log("using timezone offset", offset, timezone, " for fid", fid);
   // Initialize an object to hold the final counts for all days of the week.
   const weeklyHourlyCounts: { [key: string]: { [key: number]: number } } = {};
+  // Days of the week array for easier manipulation
+  const daysOfWeek = [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+  ];
 
   // Process each day's hourly counts.
-  Object.keys(result).forEach((day) => {
-    const dayCounts = result[day];
-    weeklyHourlyCounts[day] = {};
+  daysOfWeek.forEach((day) => {
+    const dayCounts = result[`${day}_hourly_counts`];
+    weeklyHourlyCounts[day] = weeklyHourlyCounts[day] || {};
 
     // Set default count for each hour.
     for (let hour = 0; hour < 24; hour++) {
-      weeklyHourlyCounts[day][hour] = dayCounts[hour] ?? 0;
+      let adjustedHour = (hour + offset + 24) % 24; // Adjust hour for timezone offset, ensure it wraps correctly
+      let adjustedDayIndex =
+        (daysOfWeek.indexOf(day) + Math.floor((hour + offset) / 24)) % 7;
+      let adjustedDay = daysOfWeek[adjustedDayIndex];
+
+      if (!weeklyHourlyCounts[adjustedDay]) {
+        weeklyHourlyCounts[adjustedDay] = {};
+      }
+      weeklyHourlyCounts[adjustedDay][adjustedHour] =
+        (weeklyHourlyCounts[adjustedDay][adjustedHour] || 0) +
+        (dayCounts[hour] || 0);
     }
   });
 
@@ -212,22 +237,21 @@ export async function getFollowerActiveHours(
   bestTimes = bestTimes.slice(0, 3);
 
   // Map to readable format
-  const readableBestTimes =
-    bestTimes
-      .map((time) => {
-        let hour = parseInt(time.hour);
-        let ampm = hour >= 12 ? "pm" : "am";
-        hour = hour % 12 || 12; // Convert 24h to 12h format
-        let day = time.day.replace("_hourly_counts", ""); // Remove the suffix
-        day = day.charAt(0).toUpperCase() + day.slice(1); // Capitalize the first letter
-        return `${day} at ${hour}${ampm}`;
-      })
-      .join(", ") + " PST";
+  const readableBestTimes = bestTimes
+    .map((time) => {
+      let hour = parseInt(time.hour);
+      let ampm = hour >= 12 ? "pm" : "am";
+      hour = hour % 12 || 12; // Convert 24h to 12h format
+      let day = time.day.charAt(0).toUpperCase() + time.day.slice(1); // Capitalize the first letter
+      return `${day} at ${hour}${ampm}`;
+    })
+    .join(", ");
 
   const output = {
     activeHours: weeklyHourlyCounts,
     bestTimesToPost: readableBestTimes,
   };
+  //console.log("best times to post", output);
   return output;
 }
 

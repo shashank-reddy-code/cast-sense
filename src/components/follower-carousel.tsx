@@ -54,14 +54,18 @@ export function FollowerCarousel({
         <CarouselNext />
       </Carousel>
 
-      <Separator className="my-4" />
-      <TopEngagers
-        topEngagers={topEngagers}
-        title={isChannel ? "Loyal fans" : undefined}
-        description={
-          isChannel ? "Most active casters in the past month" : undefined
-        }
-      />
+      {topEngagers.length > 0 && (
+        <>
+          <Separator className="my-4" />
+          <TopEngagers
+            topEngagers={topEngagers}
+            title={isChannel ? "Loyal fans" : undefined}
+            description={
+              isChannel ? "Most active casters in the past month" : undefined
+            }
+          />
+        </>
+      )}
 
       {topInfluencers.length > 0 && (
         <>

@@ -20,10 +20,13 @@ import { Profile } from "@/lib/types";
 
 export default async function DashboardChannel({
   params,
+  searchParams,
 }: {
   params: { name: string };
+  searchParams: { tz?: string };
 }) {
   const name = decodeURIComponent(params.name);
+  const tz = searchParams?.tz || "UTC";
   const channel = await fetchChannelByName(name);
   const [
     channelStats,
@@ -40,7 +43,7 @@ export default async function DashboardChannel({
     getTopAndBottomCasts(channel.url),
     getDailyEngagement(channel.url),
     getDailyCastersCount(channel.url),
-    getFollowerActiveHours(channel.url),
+    getFollowerActiveHours(channel.url, tz),
   ]);
 
   //const maxScale = getMaxValue(dailyEngagement, dailyCasters);

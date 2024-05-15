@@ -85,9 +85,7 @@ export function BestTimeToPost({
                   {day.slice(0, 3)}{" "}
                 </div>
                 {Object.entries(
-                  followerActiveHours.activeHours[
-                    `${day.toLowerCase()}_hourly_counts`
-                  ]
+                  followerActiveHours.activeHours[`${day.toLowerCase()}`]
                 ).map(([hour, count]: [any, any]) => (
                   <div
                     key={`${day}_${hour}`}
