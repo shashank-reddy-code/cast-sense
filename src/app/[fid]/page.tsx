@@ -48,6 +48,8 @@ export default async function DashboardPage({
   ]);
 
   const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
+  // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
+  fidStats.total_followers = profile.follower_count;
   console.log("Finished fetching data for", fid);
 
   return (

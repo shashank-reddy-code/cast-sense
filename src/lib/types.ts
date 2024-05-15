@@ -1,4 +1,5 @@
 export type TopLevelStats = {
+  total_followers: number | null;
   current_period_casts: number | null;
   casts_percentage_change: number | null;
   current_period_recasts: number | null;

@@ -53,6 +53,9 @@ export default async function DashboardChannel({
     username: channel.name,
   };
 
+  // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
+  channelStats.total_followers = channel.follower_count;
+
   return (
     <div className="flex-col md:flex">
       <div className="border-b">

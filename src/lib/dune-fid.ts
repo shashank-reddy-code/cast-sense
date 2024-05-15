@@ -87,7 +87,7 @@ export async function getPowerbadgeFollowers(
   );
   const body = await latest_response.text();
   const powerbadgeFollowers = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  const tier = "💪 power badge";
+  const tier = "⚡ power badge";
   return {
     tier,
     count: powerbadgeFollowers?.count || 0,

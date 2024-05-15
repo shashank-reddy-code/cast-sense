@@ -71,7 +71,7 @@ function getDescription(tier: string) {
       return "> 10000 followers";
     case "💎 vip":
       return "> 50000 followers";
-    case "💪 power badge":
+    case "⚡ power badge":
       return "warpcast algorithm";
   }
 }
