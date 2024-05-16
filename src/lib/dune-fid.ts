@@ -1,6 +1,7 @@
 const DUNE_API_KEY = process.env["DUNE_API_KEY"];
 import {
   Benchmark,
+  CastEngagementCount,
   Channel,
   DailyEngagement,
   DailyFollower,
@@ -273,7 +274,29 @@ export async function getTopAndBottomCasts(
   );
   const body = await latest_response.text();
   const topAndBottomCasts = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  return topAndBottomCasts;
+
+  const topHash: CastEngagementCount[] = topAndBottomCasts?.top_hash.map(
+    (item: string[]) => {
+      return {
+        hash: item[0],
+        engagement_count: item[1],
+      };
+    }
+  );
+
+  const bottomHash: CastEngagementCount[] = topAndBottomCasts?.bottom_hash.map(
+    (item: string[]) => {
+      return {
+        hash: item[0],
+        engagement_count: item[1],
+      };
+    }
+  );
+
+  return {
+    top_hash: topHash,
+    bottom_hash: bottomHash,
+  };
 }
 
 export async function getEngagingChannels(fid: number) {

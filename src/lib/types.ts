@@ -14,8 +14,13 @@ export type TopLevelStats = {
 
 export type TopAndBottomCasts = {
   // full cast hash
-  top_hash: string[];
-  bottom_hash: string[];
+  top_hash: CastEngagementCount[];
+  bottom_hash: CastEngagementCount[];
+};
+
+export type CastEngagementCount = {
+  hash: string;
+  engagement_count: number;
 };
 
 // channel url
