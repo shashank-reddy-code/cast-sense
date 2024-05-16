@@ -32,7 +32,7 @@ export function FollowersByTier({
           <CardTitle className="mb-4">Follower fanfare</CardTitle>
           <CardDescription className="text-lg">{description}</CardDescription>
         </CardHeader>
-        <CardContent className="flex p-6 flex flex-col space-y-5  ">
+        <CardContent className="flex p-6 flex flex-col space-y-5 ">
           <Table>
             <TableHeader>
               <TableRow>

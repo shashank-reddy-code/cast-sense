@@ -36,13 +36,13 @@ export function FollowerCarousel({
         <CarouselContent>
           <CarouselItem
             key="best-time-to-post"
-            className="basis-1/1 lg:basis-1/2"
+            className="basis-1/1 lg:basis-1/2 h-full w-full"
           >
             <BestTimeToPost followerActiveHours={followerActiveHours} />
           </CarouselItem>
           <CarouselItem
             key="followers-by-tier"
-            className="sm:basis-1/1 lg:basis-1/2"
+            className="sm:basis-1/1 lg:basis-1/2 h-full w-full"
           >
             <FollowersByTier
               followerTiers={followerTiers}

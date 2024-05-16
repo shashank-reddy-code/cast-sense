@@ -5,11 +5,13 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import { HeatMap } from "./heatmap";
+import { FollowerActiveHours } from "@/lib/types";
 
 export function BestTimeToPost({
   followerActiveHours,
 }: {
-  followerActiveHours: any;
+  followerActiveHours: FollowerActiveHours;
 }) {
   // Function to calculate the overall max and min across all days
   const calculateMaxMin = () => {
@@ -50,62 +52,8 @@ export function BestTimeToPost({
             </span>
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex p-6 flex flex-col space-y-5  ">
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            {[
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-              "Sunday",
-            ].map((day) => (
-              <div
-                key={day}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginBottom: "10px",
-                }}
-              >
-                <div
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: "transparent",
-                    margin: "2px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontWeight: "bold",
-                    paddingRight: "20px",
-                  }}
-                >
-                  {day.slice(0, 3)}{" "}
-                </div>
-                {Object.entries(
-                  followerActiveHours.activeHours[`${day.toLowerCase()}`]
-                ).map(([hour, count]: [any, any]) => (
-                  <div
-                    key={`${day}_${hour}`}
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      backgroundColor: interpolateColor(count, maxCount),
-                      margin: "2px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color:
-                        count > (maxCount - minCount) / 2 ? "white" : "black",
-                      fontWeight: "bold",
-                    }}
-                  ></div>
-                ))}
-              </div>
-            ))}
-          </div>
+        <CardContent>
+          <HeatMap followerActiveHours={followerActiveHours} />
         </CardContent>
       </Card>
     </div>
