@@ -21,6 +21,9 @@ export type TopAndBottomCasts = {
 export type CastEngagementCount = {
   hash: string;
   engagement_count: number;
+  like_count: number;
+  recast_count: number;
+  reply_count: number;
 };
 
 // channel url
@@ -50,6 +53,18 @@ export type Profile = {
   display_name: string;
   username: string;
   pfp_url: string;
+};
+
+export type TopEngager = {
+  profile: Profile;
+  likes: number;
+  recasts: number;
+  replies: number;
+};
+
+export type TopChannel = {
+  channel: Channel;
+  casts: number;
 };
 
 export type DailyEngagement = {

@@ -1,23 +1,30 @@
 import * as React from "react";
 
-import { TopCastsCarousel } from "./top-casts-carousel";
-import { BottomCastsCarousel } from "./bottom-casts-carousel";
+import { CastsCarousel } from "./casts-carousel";
 import { Separator } from "@/components/ui/separator";
 import { TopChannels } from "./top-channels";
-import { Channel, TopAndBottomCasts } from "@/lib/types";
+import { TopAndBottomCasts, TopChannel } from "@/lib/types";
 
 export function EngagementCarousel({
   casts,
   topChannels,
 }: {
   casts: TopAndBottomCasts;
-  topChannels: Channel[];
+  topChannels: TopChannel[];
 }) {
   return (
     <>
-      <TopCastsCarousel hashes={casts?.top_hash} />
+      <CastsCarousel
+        hashes={casts?.top_hash}
+        header="Bangers"
+        title="Most engaging casts in the past month"
+      />
       <Separator className="my-4" />
-      <BottomCastsCarousel hashes={casts?.bottom_hash} />
+      <CastsCarousel
+        hashes={casts?.bottom_hash}
+        header="Meh"
+        title="Least engaging casts in the past month"
+      />
       <Separator className="my-4" />
       <TopChannels channels={topChannels} />
     </>

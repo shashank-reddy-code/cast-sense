@@ -2,13 +2,13 @@ const DUNE_API_KEY = process.env["DUNE_API_KEY"];
 import {
   Benchmark,
   CastEngagementCount,
-  Channel,
   DailyEngagement,
   DailyFollower,
   FollowerActiveHours,
   FollowerTier,
-  Profile,
   TopAndBottomCasts,
+  TopChannel,
+  TopEngager,
   TopLevelStats,
 } from "./types";
 import { fetchChannelByName, fetchProfileByName } from "./neynar";
@@ -36,14 +36,14 @@ export async function getFidStats(fid: number): Promise<TopLevelStats> {
 
 export async function getTopEngagersAndChannels(
   fid: number
-): Promise<{ topEngagers: Profile[]; channels: Channel[] }> {
-  // dune query: https://dune.com/queries/3693992
+): Promise<{ topEngagers: TopEngager[]; channels: TopChannel[] }> {
+  // dune query: https://dune.com/queries/3738107
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
   };
   const header = new Headers(meta);
   const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3693992/results?&filters=fid=${fid}`,
+    `https://api.dune.com/api/v1/query/3738107/results?&filters=fid=${fid}`,
     {
       method: "GET",
       headers: header,
@@ -53,11 +53,19 @@ export async function getTopEngagersAndChannels(
   const body = await latest_response.text();
   const topEngagersAndChannels = JSON.parse(body).result.rows[0];
 
+  // topEngagers are formatted as [name, likes, recasts, replies]
   const engagerPromises = topEngagersAndChannels.top_engagers.map(
-    (topEngager: string) => fetchProfileByName(topEngager)
+    async (item: string[]) => {
+      const profile = await fetchProfileByName(item[0]);
+      return { profile, likes: item[1], recasts: item[2], replies: item[3] };
+    }
   );
+  // topChannels are formatted as [channelName, casts]
   const channelPromises = topEngagersAndChannels.top_channels.map(
-    (channelId: string) => fetchChannelByName(channelId)
+    async (item: string[]) => {
+      const channel = await fetchChannelByName(item[0]);
+      return { channel, casts: item[1] };
+    }
   );
 
   const [topEngagers, channels] = await Promise.all([
@@ -280,6 +288,9 @@ export async function getTopAndBottomCasts(
       return {
         hash: item[0],
         engagement_count: item[1],
+        like_count: item[2],
+        recast_count: item[3],
+        reply_count: item[4],
       };
     }
   );
@@ -289,6 +300,9 @@ export async function getTopAndBottomCasts(
       return {
         hash: item[0],
         engagement_count: item[1],
+        like_count: item[2],
+        recast_count: item[3],
+        reply_count: item[4],
       };
     }
   );
