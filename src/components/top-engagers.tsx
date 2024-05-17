@@ -37,19 +37,19 @@ export async function TopEngagers({
                     height={150}
                   />
                   <div className="text-sm text-muted-foreground items-center flex justify-center space-x-1 md:space-x-4 lg:space-x-4">
-                    {te.likes && te.likes > 0 && (
+                    {!!te.likes && te.likes > 0 && (
                       <div className="flex items-center space-x-1">
                         <SvgIcons.likes />
                         <span>{formatNumber(te.likes)}</span>
                       </div>
                     )}
-                    {te.recasts && te.recasts > 0 && (
+                    {!!te.recasts && te.recasts > 0 && (
                       <div className="flex items-center space-x-1">
                         <SvgIcons.recasts />
                         <span>{formatNumber(te.recasts)}</span>
                       </div>
                     )}
-                    {te.replies && te.replies > 0 && (
+                    {!!te.replies && te.replies > 0 && (
                       <div className="flex items-center space-x-1">
                         <SvgIcons.replies />
                         <span>{formatNumber(te.replies)}</span>

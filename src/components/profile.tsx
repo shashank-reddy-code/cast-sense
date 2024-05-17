@@ -1,6 +1,4 @@
 import Image from "next/image";
-import { PlusCircledIcon } from "@radix-ui/react-icons";
-
 import { cn } from "@/lib/utils";
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";
 
