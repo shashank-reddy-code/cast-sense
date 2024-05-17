@@ -57,9 +57,9 @@ export type Profile = {
 
 export type TopEngager = {
   profile: Profile;
-  likes: number;
-  recasts: number;
-  replies: number;
+  likes: number | undefined;
+  recasts: number | undefined;
+  replies: number | undefined;
 };
 
 export type TopChannel = {

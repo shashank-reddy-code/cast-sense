@@ -12,7 +12,6 @@ import {
   getDailyEngagement,
   getDailyCastersCount,
   getFollowerActiveHours,
-  getMaxValue,
 } from "@/lib/dune-channels";
 import { fetchChannelByName } from "@/lib/neynar";
 import Link from "next/link";

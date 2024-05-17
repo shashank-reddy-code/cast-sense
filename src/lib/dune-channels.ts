@@ -7,6 +7,7 @@ import {
   FollowerTier,
   Profile,
   TopAndBottomCasts,
+  TopEngager,
   TopLevelStats,
 } from "./types";
 import { fetchProfileByName } from "./neynar";
@@ -37,7 +38,7 @@ export async function getChannelStats(
 
 export async function getTopEngagersAndInfluencers(
   channelUrl: string
-): Promise<{ topEngagers: Profile[]; topInfluencers: Profile[] }> {
+): Promise<{ topEngagers: TopEngager[]; topInfluencers: TopEngager[] }> {
   // dune query: https://dune.com/queries/3715815
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -56,12 +57,16 @@ export async function getTopEngagersAndInfluencers(
   const topEngagersAndInfluencers = JSON.parse(body).result.rows[0];
 
   const engagerPromises =
-    topEngagersAndInfluencers.top_casters?.map((topEngager: string) =>
-      fetchProfileByName(topEngager)
-    ) || [];
+    topEngagersAndInfluencers.top_casters?.map(async (item: string[]) => {
+      const profile = await fetchProfileByName(item[0]);
+      return { profile, likes: item[1], recasts: item[2], replies: item[3] };
+    }) || [];
   const influencerPromises =
     topEngagersAndInfluencers.influential_casters?.map(
-      (influential_caster: string) => fetchProfileByName(influential_caster)
+      async (item: string[]) => {
+        const profile = await fetchProfileByName(item[0]);
+        return { profile, likes: item[1], recasts: item[2], replies: item[3] };
+      }
     ) || [];
 
   const [topEngagers, topInfluencers] = await Promise.all([
@@ -272,6 +277,9 @@ export async function getTopAndBottomCasts(
       return {
         hash: item[0],
         engagement_count: item[1],
+        like_count: item[2],
+        recast_count: item[3],
+        reply_count: item[4],
       };
     }
   );
@@ -281,6 +289,9 @@ export async function getTopAndBottomCasts(
       return {
         hash: item[0],
         engagement_count: item[1],
+        like_count: item[2],
+        recast_count: item[3],
+        reply_count: item[4],
       };
     }
   );

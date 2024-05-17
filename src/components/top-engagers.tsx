@@ -1,8 +1,8 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "./profile";
-import { fetchProfileByName } from "@/lib/neynar";
 import { TopEngager } from "@/lib/types";
 import { SvgIcons } from "./svg-icons";
+import { formatNumber } from "@/lib/utils";
 
 export async function TopEngagers({
   topEngagers,
@@ -37,22 +37,22 @@ export async function TopEngagers({
                     height={150}
                   />
                   <div className="text-sm text-muted-foreground items-center flex justify-center space-x-1 md:space-x-4 lg:space-x-4">
-                    {te.likes > 0 && (
+                    {te.likes && te.likes > 0 && (
                       <div className="flex items-center space-x-1">
                         <SvgIcons.likes />
-                        <span>{te.likes}</span>
+                        <span>{formatNumber(te.likes)}</span>
                       </div>
                     )}
-                    {te.recasts > 0 && (
+                    {te.recasts && te.recasts > 0 && (
                       <div className="flex items-center space-x-1">
                         <SvgIcons.recasts />
-                        <span>{te.recasts}</span>
+                        <span>{formatNumber(te.recasts)}</span>
                       </div>
                     )}
-                    {te.replies > 0 && (
+                    {te.replies && te.replies > 0 && (
                       <div className="flex items-center space-x-1">
                         <SvgIcons.replies />
-                        <span>{te.replies}</span>
+                        <span>{formatNumber(te.replies)}</span>
                       </div>
                     )}
                   </div>

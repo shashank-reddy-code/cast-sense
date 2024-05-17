@@ -11,7 +11,12 @@ import { Separator } from "@/components/ui/separator";
 import { TopEngagers } from "./top-engagers";
 import { BestTimeToPost } from "./best-time-to-post";
 import { FollowersByTier } from "./followers-by-tier";
-import { FollowerActiveHours, FollowerTier, Profile } from "@/lib/types";
+import {
+  FollowerActiveHours,
+  FollowerTier,
+  Profile,
+  TopEngager,
+} from "@/lib/types";
 
 export function FollowerCarousel({
   topEngagers,
@@ -20,10 +25,10 @@ export function FollowerCarousel({
   topInfluencers = [],
   isChannel = false,
 }: {
-  topEngagers: Profile[];
+  topEngagers: TopEngager[];
   followerTiers: FollowerTier[];
   followerActiveHours: FollowerActiveHours;
-  topInfluencers?: Profile[];
+  topInfluencers?: TopEngager[];
   isChannel?: boolean;
 }) {
   return (
