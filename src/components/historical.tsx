@@ -21,8 +21,8 @@ export function Historical({
   isChannel?: boolean;
 }) {
   const description = isChannel
-    ? "Unique casters over the last month"
-    : "Followers over the last month";
+    ? "Unique casters over the last 90 days"
+    : "Followers over the last 90 days";
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-8">
       <Card className="col-span-4">
@@ -40,7 +40,7 @@ export function Historical({
       <Card className="col-span-4">
         <CardHeader>
           <CardTitle>You are buzzzing</CardTitle>
-          <CardDescription>Engagement over the last month</CardDescription>
+          <CardDescription>Engagement over the last 90 days</CardDescription>
         </CardHeader>
         <CardContent>
           <EngagementHistorical
