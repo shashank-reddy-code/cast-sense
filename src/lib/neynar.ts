@@ -6,6 +6,7 @@ export const fetchChannel = async (parent_url: string) => {
         "Content-Type": "application/json",
         api_key: process.env.NEYNAR_API_KEY as string,
       },
+      next: { revalidate: 86500 },
     }
   );
   // log error if response is not ok
@@ -25,6 +26,7 @@ export const fetchProfileByFid = async (fid: number) => {
         "Content-Type": "application/json",
         api_key: process.env.NEYNAR_API_KEY as string,
       },
+      next: { revalidate: 86500 },
     }
   );
   // log error if response is not ok
@@ -44,6 +46,7 @@ export const fetchProfileByName = async (name: string) => {
         "Content-Type": "application/json",
         api_key: process.env.NEYNAR_API_KEY as string,
       },
+      next: { revalidate: 86500 },
     }
   );
   // log error if response is not ok
@@ -64,6 +67,7 @@ export const autocompleteUserSearch = async (name: string) => {
         "Content-Type": "application/json",
         api_key: process.env.NEXT_PUBLIC_NEYNAR_API_KEY as string,
       },
+      next: { revalidate: 86500 },
     }
   );
   // log error if response is not ok
@@ -85,6 +89,7 @@ export const autocompleteChannelSearch = async (name: string) => {
         "Content-Type": "application/json",
         api_key: process.env.NEXT_PUBLIC_NEYNAR_API_KEY as string,
       },
+      next: { revalidate: 86500 },
     }
   );
   // log error if response is not ok
@@ -106,6 +111,7 @@ export const fetchChannelByName = async (name: string) => {
         "Content-Type": "application/json",
         api_key: process.env.NEYNAR_API_KEY as string,
       },
+      next: { revalidate: 86500 },
     }
   );
   // log error if response is not ok
