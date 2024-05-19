@@ -66,7 +66,9 @@ export function FollowerCarousel({
             topEngagers={topEngagers}
             title={isChannel ? "Loyal fans" : undefined}
             description={
-              isChannel ? "Most active casters in the past month" : undefined
+              isChannel
+                ? "Casters with the most engaging casts in the past month"
+                : undefined
             }
           />
         </>
@@ -78,7 +80,7 @@ export function FollowerCarousel({
           <TopEngagers
             topEngagers={topInfluencers}
             title="Top Influencers"
-            description="Top influencers who casted in the past month"
+            description="Top influencers who had the most engaging casts in the past month"
           />
         </>
       )}
