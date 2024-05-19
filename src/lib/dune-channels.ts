@@ -1,6 +1,7 @@
 const DUNE_API_KEY = process.env["DUNE_API_KEY"];
 import {
   CastEngagementCount,
+  DailyActivity,
   DailyEngagement,
   DailyFollower,
   FollowerActiveHours,
@@ -12,6 +13,7 @@ import {
 } from "./types";
 import { fetchProfileByName } from "./neynar";
 import moment from "moment-timezone";
+import { fillMissingDates } from "./utils";
 
 export async function getChannelStats(
   channelUrl: string
@@ -345,7 +347,7 @@ export async function getDailyEngagement(
 
 export async function getDailyCastersCount(
   channelUrl: string
-): Promise<DailyFollower[]> {
+): Promise<[DailyFollower[], DailyActivity[]]> {
   // https://dune.com/queries/3715676
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -363,19 +365,26 @@ export async function getDailyCastersCount(
   const body = await latest_response.text();
   const dailyFollower = JSON.parse(body).result.rows[0];
 
-  const dailyFollowers: DailyFollower[] = dailyFollower?.daily_casters.map(
-    (item: any) => {
-      const date = new Date(item[0]); // Create a date object from the datetime string
-      const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
+  let dailyFollowers: DailyFollower[] = [];
+  let dailyActivity: DailyActivity[] = [];
 
-      return {
-        date: formattedDate,
-        followers: item[1], // Index 1 for followers
-        unfollowers: 0, // this data is not on-hub yet
-      };
-    }
-  );
-  return dailyFollowers;
+  dailyFollower?.daily_casters.forEach((item: any) => {
+    const date = new Date(item[0]); // Create a date object from the datetime string
+    const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
+
+    dailyFollowers.push({
+      date: formattedDate,
+      followers: item[1], // Index 1 for followers
+      unfollowers: 0, // this data is not on-hub yet
+    });
+
+    dailyActivity.push({
+      date: formattedDate,
+      casts: item[2],
+    });
+  });
+  const dailyActivityFilled = fillMissingDates(dailyActivity);
+  return [dailyFollowers, dailyActivityFilled];
 }
 
 export function getMaxValue(

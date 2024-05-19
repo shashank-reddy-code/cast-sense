@@ -75,6 +75,11 @@ export type DailyEngagement = {
   likes: number;
 };
 
+export type DailyActivity = {
+  date: string;
+  casts: number;
+};
+
 export type DailyFollower = {
   date: string;
   followers: number;

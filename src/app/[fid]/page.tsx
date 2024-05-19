@@ -11,6 +11,7 @@ import {
   getTopAndBottomCasts,
   getDailyEngagement,
   getDailyFollowerCount,
+  getDailyactivity,
   getFollowerActiveHours,
   getBenchmarks,
   getMaxValue,
@@ -36,6 +37,7 @@ export default async function DashboardPage({
     topAndBottomCasts,
     dailyEngagement,
     dailyFollowers,
+    dailyactivity,
     followerActiveHours,
     benchmarks,
   ] = await Promise.all([
@@ -46,6 +48,7 @@ export default async function DashboardPage({
     getTopAndBottomCasts(fid),
     getDailyEngagement(fid),
     getDailyFollowerCount(fid),
+    getDailyactivity(fid),
     getFollowerActiveHours(fid, tz),
     getBenchmarks(fid),
   ]);
@@ -92,6 +95,7 @@ export default async function DashboardPage({
             <Historical
               dailyEngagement={dailyEngagement}
               dailyFollowers={dailyFollowers}
+              dailyActivity={dailyactivity}
               maxScale={maxScale}
             />
           </TabsContent>

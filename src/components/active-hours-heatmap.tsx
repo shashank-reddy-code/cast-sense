@@ -4,7 +4,7 @@ import { FollowerActiveHours } from "@/lib/types";
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export function HeatMap({
+export function ActiveHoursHeatMap({
   followerActiveHours,
 }: {
   followerActiveHours: FollowerActiveHours;
@@ -91,15 +91,4 @@ export function HeatMap({
       />
     </div>
   );
-}
-
-function generateData(length: number, range: { min: number; max: number }) {
-  const data = [];
-  for (let i = 0; i < length; i++) {
-    const value = Math.floor(
-      Math.random() * (range.max - range.min + 1) + range.min
-    );
-    data.push(value);
-  }
-  return data;
 }

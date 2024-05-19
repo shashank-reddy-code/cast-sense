@@ -33,7 +33,7 @@ export default async function DashboardChannel({
     followerTiers,
     topAndBottomCasts,
     dailyEngagement,
-    dailyCasters,
+    [dailyCasters, dailyActivity],
     followerActiveHours,
   ] = await Promise.all([
     getChannelStats(channel.url),
@@ -95,6 +95,7 @@ export default async function DashboardChannel({
             <Historical
               dailyEngagement={dailyEngagement}
               dailyFollowers={dailyCasters}
+              dailyActivity={dailyActivity}
               isChannel={true}
             />
           </TabsContent>

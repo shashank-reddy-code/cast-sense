@@ -7,16 +7,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DailyEngagement, DailyFollower } from "@/lib/types";
+import { DailyActivity, DailyEngagement, DailyFollower } from "@/lib/types";
+import { DailyActivityHeatMap } from "./daily-activity-heatmap";
 
 export function Historical({
   dailyEngagement,
   dailyFollowers,
+  dailyActivity,
   maxScale,
   isChannel = false,
 }: {
   dailyEngagement: DailyEngagement[];
   dailyFollowers: DailyFollower[];
+  dailyActivity: DailyActivity[];
   maxScale?: number;
   isChannel?: boolean;
 }) {
@@ -47,6 +50,17 @@ export function Historical({
             dailyEngagement={dailyEngagement}
             maxScale={maxScale}
           />
+        </CardContent>
+      </Card>
+      <Card className="col-span-4">
+        <CardHeader>
+          <CardTitle>Your daily streak</CardTitle>
+          <CardDescription>
+            Cast frequency over the past 90 days
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <DailyActivityHeatMap dailyActivity={dailyActivity} />
         </CardContent>
       </Card>
     </div>

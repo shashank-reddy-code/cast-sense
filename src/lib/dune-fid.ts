@@ -2,6 +2,7 @@ const DUNE_API_KEY = process.env["DUNE_API_KEY"];
 import {
   Benchmark,
   CastEngagementCount,
+  DailyActivity,
   DailyEngagement,
   DailyFollower,
   FollowerActiveHours,
@@ -347,6 +348,7 @@ export async function getDailyEngagement(
         replies: item[2],
         recasts: item[3],
         likes: item[4],
+        casts: item[5],
       };
     }
   );
@@ -385,6 +387,38 @@ export async function getDailyFollowerCount(
     }
   );
   return dailyFollowers;
+}
+
+export async function getDailyactivity(fid: number): Promise<DailyActivity[]> {
+  // schedule the query on a 24 hour interval, and then fetch by filtering for the user fid within the query results
+  // dune query: https://dune.com/queries/3744055
+  const meta = {
+    "x-dune-api-key": DUNE_API_KEY || "",
+  };
+  const header = new Headers(meta);
+  const latest_response = await fetch(
+    `https://api.dune.com/api/v1/query/3744055/results?&filters=fid=${fid}`,
+    {
+      method: "GET",
+      headers: header,
+      cache: "no-store",
+    }
+  );
+  const body = await latest_response.text();
+  const result = JSON.parse(body).result.rows[0];
+
+  const dailyActivity: DailyActivity[] = result?.daily_casts.map(
+    (item: string[]) => {
+      const date = new Date(item[0]); // Create a date object from the datetime string
+      const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
+
+      return {
+        date: formattedDate,
+        casts: item[1],
+      };
+    }
+  );
+  return fillMissingDates(dailyActivity);
 }
 
 export function getMaxValue(

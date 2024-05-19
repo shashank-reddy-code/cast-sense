@@ -5,7 +5,7 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { HeatMap } from "./heatmap";
+import { ActiveHoursHeatMap } from "./active-hours-heatmap";
 import { FollowerActiveHours } from "@/lib/types";
 
 export function BestTimeToPost({
@@ -53,7 +53,7 @@ export function BestTimeToPost({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <HeatMap followerActiveHours={followerActiveHours} />
+          <ActiveHoursHeatMap followerActiveHours={followerActiveHours} />
         </CardContent>
       </Card>
     </div>
