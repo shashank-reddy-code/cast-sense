@@ -14,6 +14,7 @@ import {
 } from "./types";
 import { fetchChannelByName, fetchProfileByName } from "./neynar";
 import moment from "moment-timezone";
+import { fillMissingDates } from "./utils";
 
 export async function getFidStats(fid: number): Promise<TopLevelStats> {
   // schedule the query on a 24 hour interval, and then fetch by filtering for the user fid within the query results
