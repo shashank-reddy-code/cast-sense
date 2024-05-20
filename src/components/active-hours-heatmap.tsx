@@ -22,7 +22,7 @@ export function ActiveHoursHeatMap({
     ];
 
     return daysOfWeek.map((day) => ({
-      name: day,
+      name: day.slice(0, 3),
       data: Object.entries(followerActiveHours.activeHours[day]).map(
         ([hour, count]) => ({
           x: `${hour}:00`,
@@ -53,20 +53,14 @@ export function ActiveHoursHeatMap({
       theme: "dark",
     },
     yaxis: {
-      categories: [
-        "sunday",
-        "saturday",
-        "friday",
-        "thursday",
-        "wednesday",
-        "tuesday",
-        "monday",
-      ],
+      categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       labels: {
         show: true,
         style: {
           colors: "#ffffff", // White color for y-axis labels
         },
+        hideOverlappingLabels: true, // Hide overlapping labels
+        className: "text-sm md:text-base",
       },
     },
     xaxis: {

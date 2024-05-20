@@ -94,8 +94,9 @@ export function FollowerCarousel({
           <Separator className="my-4" />
           <TopChannels
             channels={similarChannels}
-            title="Similar Channels"
-            description="Channels with the most overlap in casters over the past month"
+            title="Similar channels by user overlap"
+            description="Casters who cast in your channel are more likely to cast in these channels"
+            metricName="score"
           />
         </>
       )}

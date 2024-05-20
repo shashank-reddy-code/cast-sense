@@ -7,10 +7,12 @@ export async function TopChannels({
   channels,
   title = "Top Channels",
   description = "Channels where you cast the most",
+  metricName = "casts",
 }: {
   channels: TopChannel[];
   title?: string;
   description?: string;
+  metricName?: string;
 }) {
   if (channels == null || channels.length === 0) {
     return <></>;
@@ -34,7 +36,7 @@ export async function TopChannels({
                   height={150}
                 />
                 <p className="text-sm text-muted-foreground items-center flex justify-center space-y-1">
-                  # casts: {formatNumber(tc.casts)}
+                  # {metricName}: {formatNumber(tc.casts)}
                 </p>
               </div>
             ))}
