@@ -3,7 +3,15 @@ import { Profile } from "./profile";
 import { TopChannel } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 
-export async function TopChannels({ channels }: { channels: TopChannel[] }) {
+export async function TopChannels({
+  channels,
+  title = "Top Channels",
+  description = "Channels where you cast the most",
+}: {
+  channels: TopChannel[];
+  title?: string;
+  description?: string;
+}) {
   if (channels == null || channels.length === 0) {
     return <></>;
   }
@@ -11,10 +19,8 @@ export async function TopChannels({ channels }: { channels: TopChannel[] }) {
   return (
     <div className="space-y-4">
       <div className="mt-6 space-y-1">
-        <h2 className="text-2xl font-semibold tracking-tight">Top Channels</h2>
-        <p className="text-sm text-muted-foreground">
-          Channels where you cast the most
-        </p>
+        <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
+        <p className="text-sm text-muted-foreground">{description}</p>
       </div>
       <div className="relative">
         <ScrollArea>

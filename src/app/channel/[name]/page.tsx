@@ -12,6 +12,7 @@ import {
   getDailyEngagement,
   getDailyCastersCount,
   getFollowerActiveHours,
+  getChannelsWithSimilarCasters,
 } from "@/lib/dune-channels";
 import { fetchChannelByName } from "@/lib/neynar";
 import Link from "next/link";
@@ -35,6 +36,7 @@ export default async function DashboardChannel({
     dailyEngagement,
     [dailyCasters, dailyActivity],
     followerActiveHours,
+    similarChannels,
   ] = await Promise.all([
     getChannelStats(channel.url),
     getTopEngagersAndInfluencers(channel.url),
@@ -43,6 +45,7 @@ export default async function DashboardChannel({
     getDailyEngagement(channel.url),
     getDailyCastersCount(channel.url),
     getFollowerActiveHours(channel.url, tz),
+    getChannelsWithSimilarCasters(channel.url),
   ]);
 
   //const maxScale = getMaxValue(dailyEngagement, dailyCasters);
@@ -110,6 +113,7 @@ export default async function DashboardChannel({
                 topEngagersAndInfluencers &&
                 topEngagersAndInfluencers.topInfluencers
               }
+              similarChannels={similarChannels}
               followerActiveHours={followerActiveHours}
               isChannel={true}
             />
