@@ -3,7 +3,17 @@ import { Profile } from "./profile";
 import { TopChannel } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 
-export async function TopChannels({ channels }: { channels: TopChannel[] }) {
+export async function TopChannels({
+  channels,
+  title = "Top Channels",
+  description = "Channels where you cast the most",
+  metricName = "casts",
+}: {
+  channels: TopChannel[];
+  title?: string;
+  description?: string;
+  metricName?: string;
+}) {
   if (channels == null || channels.length === 0) {
     return <></>;
   }
@@ -11,10 +21,8 @@ export async function TopChannels({ channels }: { channels: TopChannel[] }) {
   return (
     <div className="space-y-4">
       <div className="mt-6 space-y-1">
-        <h2 className="text-2xl font-semibold tracking-tight">Top Channels</h2>
-        <p className="text-sm text-muted-foreground">
-          Channels where you cast the most
-        </p>
+        <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
+        <p className="text-sm text-muted-foreground">{description}</p>
       </div>
       <div className="relative">
         <ScrollArea>
@@ -28,7 +36,7 @@ export async function TopChannels({ channels }: { channels: TopChannel[] }) {
                   height={150}
                 />
                 <p className="text-sm text-muted-foreground items-center flex justify-center space-y-1">
-                  # casts: {formatNumber(tc.casts)}
+                  # {metricName}: {formatNumber(tc.casts)}
                 </p>
               </div>
             ))}

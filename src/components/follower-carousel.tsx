@@ -15,20 +15,24 @@ import {
   FollowerActiveHours,
   FollowerTier,
   Profile,
+  TopChannel,
   TopEngager,
 } from "@/lib/types";
+import { TopChannels } from "./top-channels";
 
 export function FollowerCarousel({
   topEngagers,
   followerTiers,
   followerActiveHours,
   topInfluencers = [],
+  similarChannels = [],
   isChannel = false,
 }: {
   topEngagers: TopEngager[];
   followerTiers: FollowerTier[];
   followerActiveHours: FollowerActiveHours;
   topInfluencers?: TopEngager[];
+  similarChannels?: TopChannel[];
   isChannel?: boolean;
 }) {
   return (
@@ -81,6 +85,18 @@ export function FollowerCarousel({
             topEngagers={topInfluencers}
             title="Top Influencers"
             description="Top influencers who had the most engaging casts in the past month"
+          />
+        </>
+      )}
+
+      {similarChannels.length > 0 && (
+        <>
+          <Separator className="my-4" />
+          <TopChannels
+            channels={similarChannels}
+            title="Similar channels by user overlap"
+            description="Casters who cast in your channel are more likely to cast in these channels"
+            metricName="score"
           />
         </>
       )}

@@ -8,10 +8,11 @@ import {
   FollowerTier,
   Profile,
   TopAndBottomCasts,
+  TopChannel,
   TopEngager,
   TopLevelStats,
 } from "./types";
-import { fetchProfileByName } from "./neynar";
+import { fetchChannel, fetchProfileByName } from "./neynar";
 import moment from "moment-timezone";
 import { fillMissingDates } from "./utils";
 
@@ -385,6 +386,38 @@ export async function getDailyCastersCount(
   });
   const dailyActivityFilled = fillMissingDates(dailyActivity);
   return [dailyFollowers, dailyActivityFilled];
+}
+
+export async function getChannelsWithSimilarCasters(
+  channelUrl: string
+): Promise<TopChannel[]> {
+  // https://dune.com/queries/3746998
+  console.log("fetching similar channels for", channelUrl);
+  const meta = {
+    "x-dune-api-key": DUNE_API_KEY || "",
+  };
+  const header = new Headers(meta);
+  const encodedChannelUrl = encodeURIComponent(channelUrl);
+  const latest_response = await fetch(
+    `https://api.dune.com/api/v1/query/3746998/results?&filters=channel_url="${encodedChannelUrl}"`,
+    {
+      method: "GET",
+      headers: header,
+      cache: "no-store",
+    }
+  );
+  const body = await latest_response.text();
+  const result = JSON.parse(body).result.rows[0];
+
+  const channelPromises = result.top_similar_channels.map(
+    async (item: string[]) => {
+      const channel = await fetchChannel(item[0]);
+      return { channel, casts: item[1] };
+    }
+  );
+
+  const similarChannels: TopChannel[] = await Promise.all(channelPromises);
+  return similarChannels;
 }
 
 export function getMaxValue(
