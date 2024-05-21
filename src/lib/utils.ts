@@ -82,3 +82,9 @@ export function getMonthLabel(date: string) {
   const dateObj = new Date(date);
   return monthNames[dateObj.getMonth()];
 }
+
+export function getDayLabel(date: string) {
+  const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const dateObj = new Date(date);
+  return dayNames[dateObj.getDay()];
+}

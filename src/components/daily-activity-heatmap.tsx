@@ -1,7 +1,7 @@
 "use client"; // if you use app dir, don't forget this line
 
 import { DailyActivity } from "@/lib/types";
-import { getMonthLabel } from "@/lib/utils";
+import { getDayLabel, getMonthLabel } from "@/lib/utils";
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -28,7 +28,7 @@ export function DailyActivityHeatMap({
     // iterate over weekData and create series
     for (let i = weekData.length - 1; i >= 0; i--) {
       let weekSeries = {
-        name: "Casts",
+        name: weekData[i][0].date,
         data: weekData[i].map((activity) => ({
           x: activity.date,
           y: activity.casts,
@@ -75,9 +75,13 @@ export function DailyActivityHeatMap({
     },
     yaxis: {
       labels: {
-        show: false,
+        show: true,
         style: {
           colors: "#ffffff", // White color for y-axis labels
+        },
+        hideOverlappingLabels: true, // Hide overlapping labels
+        formatter: function (value: any, opts?: any) {
+          return getDayLabel(value);
         },
       },
     },
