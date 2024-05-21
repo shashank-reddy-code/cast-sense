@@ -11,17 +11,33 @@ import {
 import { CastEngagementCount } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 import { SvgIcons } from "./svg-icons";
+import { fetchCastByHash } from "@/lib/neynar";
 
-export function CastsCarousel({
+export async function CastsCarousel({
   hashes,
   header,
   title,
+  validateHash = false,
 }: {
   hashes: CastEngagementCount[];
   header: string;
   title: string;
+  validateHash?: boolean;
 }) {
   if (!hashes || hashes.length == 0) return <> </>;
+  if (validateHash) {
+    const castPromises = await Promise.all(
+      hashes.map(async (item: CastEngagementCount) => {
+        const cast = await fetchCastByHash(item.hash);
+        return cast !== null ? item : null;
+      })
+    );
+    // @ts-ignore
+    hashes = castPromises?.filter(
+      (item: CastEngagementCount | null) => item !== null
+    );
+    console.log("update hashes with valid cast", hashes?.length);
+  }
   return (
     <div className="space-y-4">
       <div className="mt-6 space-y-1">

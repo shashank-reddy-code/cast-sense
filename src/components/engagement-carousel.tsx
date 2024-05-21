@@ -24,6 +24,7 @@ export function EngagementCarousel({
         hashes={casts?.bottom_hash}
         header="Meh"
         title="Least engaging casts in the past month"
+        validateHash={true}
       />
       <Separator className="my-4" />
       <TopChannels channels={topChannels} />

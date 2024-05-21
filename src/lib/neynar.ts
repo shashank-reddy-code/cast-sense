@@ -123,3 +123,23 @@ export const fetchChannelByName = async (name: string) => {
   // todo: handle empty result
   return data.channels[0];
 };
+
+export const fetchCastByHash = async (hash: string) => {
+  const response = await fetch(
+    `https://api.neynar.com/v2/farcaster/cast?identifier=${hash}&type=hash`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        api_key: process.env.NEYNAR_API_KEY as string,
+      },
+      next: { revalidate: 86500 },
+    }
+  );
+  // log error if response is not ok
+  if (!response.ok) {
+    console.error(`Failed to fetch channel ${hash}`, response.status);
+    return null;
+  }
+  const data = await response.json();
+  return data;
+};
