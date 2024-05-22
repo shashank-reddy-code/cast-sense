@@ -321,7 +321,7 @@ export async function getEngagingChannels(fid: number) {
 
 export async function getDailyEngagement(
   fid: number
-): Promise<DailyEngagement[]> {
+): Promise<[DailyEngagement[], DailyEngagement[]]> {
   // https://dune.com/queries/3693328
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -349,11 +349,24 @@ export async function getDailyEngagement(
         replies: item[2],
         recasts: item[3],
         likes: item[4],
-        casts: item[5],
       };
     }
   );
-  return dailyEngagement;
+  // todo: optimize this repetitive loop
+  const dailyPowerBadgeEngagement: DailyEngagement[] =
+    result?.daily_engagement.map((item: string[]) => {
+      const date = new Date(item[0]); // Create a date object from the datetime string
+      const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
+
+      return {
+        name: formattedDate,
+        total: item[5],
+        replies: item[6],
+        recasts: item[7],
+        likes: item[8],
+      };
+    });
+  return [dailyEngagement, dailyPowerBadgeEngagement];
 }
 
 export async function getDailyFollowerCount(

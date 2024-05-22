@@ -35,7 +35,7 @@ export default async function DashboardPage({
     topEngagersAndChannels,
     followerTiers,
     topAndBottomCasts,
-    dailyEngagement,
+    [dailyEngagement, dailyPowerBadgeEngagement],
     dailyFollowers,
     dailyactivity,
     followerActiveHours,
@@ -94,6 +94,7 @@ export default async function DashboardPage({
             <Benchmark data={benchmarks} />
             <Historical
               dailyEngagement={dailyEngagement}
+              dailyPowerBadgeEngagement={dailyPowerBadgeEngagement}
               dailyFollowers={dailyFollowers}
               dailyActivity={dailyactivity}
               maxScale={maxScale}

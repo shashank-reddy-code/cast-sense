@@ -14,12 +14,15 @@ export function Historical({
   dailyEngagement,
   dailyFollowers,
   dailyActivity,
+  dailyPowerBadgeEngagement = [],
   maxScale,
   isChannel = false,
 }: {
   dailyEngagement: DailyEngagement[];
+
   dailyFollowers: DailyFollower[];
   dailyActivity: DailyActivity[];
+  dailyPowerBadgeEngagement?: DailyEngagement[];
   maxScale?: number;
   isChannel?: boolean;
 }) {
@@ -61,6 +64,17 @@ export function Historical({
         </CardHeader>
         <CardContent>
           <DailyActivityHeatMap dailyActivity={dailyActivity} />
+        </CardContent>
+      </Card>
+      <Card className="col-span-4">
+        <CardHeader>
+          <CardTitle>You are buzzzing among power badge holders</CardTitle>
+          <CardDescription>
+            Engagement from power badge holders over the last 90 days
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <EngagementHistorical dailyEngagement={dailyPowerBadgeEngagement} />
         </CardContent>
       </Card>
     </div>

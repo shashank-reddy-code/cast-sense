@@ -45,16 +45,14 @@ export function FollowerHistorical({
         <Bar
           dataKey="followers"
           stackId="a"
-          fill="#8884d8"
+          fill="#008080"
           radius={[10, 10, 0, 0]}
-          className="fill-primary"
         />
         <Bar
           dataKey="unfollowers"
           stackId="a"
-          fill="#82ca9d"
+          fill="#D2B48C"
           radius={[10, 10, 0, 0]}
-          className="fill-secondary"
         />
       </BarChart>
     </ResponsiveContainer>
