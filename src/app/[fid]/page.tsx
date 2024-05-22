@@ -14,7 +14,6 @@ import {
   getDailyactivity,
   getFollowerActiveHours,
   getBenchmarks,
-  getMaxValue,
 } from "@/lib/dune-fid";
 import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
@@ -53,7 +52,7 @@ export default async function DashboardPage({
     getBenchmarks(fid),
   ]);
 
-  const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
+  // const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
   // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
   fidStats.total_followers = profile.follower_count;
   console.log("Finished fetching data for", fid);
@@ -97,7 +96,6 @@ export default async function DashboardPage({
               dailyPowerBadgeEngagement={dailyPowerBadgeEngagement}
               dailyFollowers={dailyFollowers}
               dailyActivity={dailyactivity}
-              maxScale={maxScale}
             />
           </TabsContent>
           <TabsContent value="followers">
