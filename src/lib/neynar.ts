@@ -80,7 +80,6 @@ export const autocompleteUserSearch = async (name: string) => {
 };
 
 export const autocompleteChannelSearch = async (name: string) => {
-  console.log("fetching channel", name);
   const encodedName = encodeURIComponent(name);
   const response = await fetch(
     `https://api.neynar.com/v2/farcaster/channel/search?q=${encodedName}`,

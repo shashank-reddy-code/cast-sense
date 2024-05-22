@@ -65,7 +65,10 @@ export function DailyActivityHeatMap({
             .date;
         const value = opts.series[opts.seriesIndex][opts.dataPointIndex];
 
-        return date + ": " + value;
+        if (value === 0) {
+          return "No casts on " + date;
+        }
+        return value + " casts on " + date;
       },
       x: {
         formatter: function (value: any) {
@@ -96,6 +99,23 @@ export function DailyActivityHeatMap({
           return getMonthLabel(value);
         },
       },
+    },
+    plotOptions: {
+      heatmap: {
+        colorScale: {
+          inverse: false,
+          ranges: [
+            {
+              from: 0,
+              to: 0,
+              color: "#808080", // grey color for value 0
+            },
+          ],
+        },
+      },
+    },
+    legend: {
+      show: false, // Hide the legend
     },
   };
   const series = formatSeriesData();
