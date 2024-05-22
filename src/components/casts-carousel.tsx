@@ -24,7 +24,7 @@ export async function CastsCarousel({
   title: string;
   validateHash?: boolean;
 }) {
-  if (!hashes || hashes.length == 0) return <> </>;
+  if (!hashes) return <> </>;
   if (validateHash) {
     const castPromises = await Promise.all(
       hashes.map(async (item: CastEngagementCount) => {
@@ -38,6 +38,7 @@ export async function CastsCarousel({
     );
     console.log("update hashes with valid cast", hashes?.length);
   }
+  if (hashes.length === 0) return <> </>;
   return (
     <div className="space-y-4">
       <div className="mt-6 space-y-1">
