@@ -3,6 +3,7 @@ import { Profile } from "./profile";
 import { TopEngager } from "@/lib/types";
 import { SvgIcons } from "./svg-icons";
 import { formatNumber } from "@/lib/utils";
+import Link from "next/link";
 
 export async function TopEngagers({
   topEngagers,
@@ -29,34 +30,41 @@ export async function TopEngagers({
             {topEngagers
               .filter((te) => te.profile != null)
               .map((te) => (
-                <div key={te.profile.fid}>
-                  <Profile
-                    name={te.profile.display_name}
-                    imageUrl={te.profile.pfp_url}
-                    width={150}
-                    height={150}
-                  />
-                  <div className="text-sm text-muted-foreground items-center flex justify-center space-x-1 md:space-x-4 lg:space-x-4">
-                    {!!te.likes && te.likes > 0 && (
-                      <div className="flex items-center space-x-1">
-                        <SvgIcons.likes />
-                        <span>{formatNumber(te.likes)}</span>
-                      </div>
-                    )}
-                    {!!te.recasts && te.recasts > 0 && (
-                      <div className="flex items-center space-x-1">
-                        <SvgIcons.recasts />
-                        <span>{formatNumber(te.recasts)}</span>
-                      </div>
-                    )}
-                    {!!te.replies && te.replies > 0 && (
-                      <div className="flex items-center space-x-1">
-                        <SvgIcons.replies />
-                        <span>{formatNumber(te.replies)}</span>
-                      </div>
-                    )}
+                <Link
+                  href={`https://nook.social/users/${te.profile.username}`}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  key={te.profile.fid}
+                >
+                  <div>
+                    <Profile
+                      name={te.profile.display_name}
+                      imageUrl={te.profile.pfp_url}
+                      width={150}
+                      height={150}
+                    />
+                    <div className="text-sm text-muted-foreground items-center flex justify-center space-x-1 md:space-x-4 lg:space-x-4">
+                      {!!te.likes && te.likes > 0 && (
+                        <div className="flex items-center space-x-1">
+                          <SvgIcons.likes />
+                          <span>{formatNumber(te.likes)}</span>
+                        </div>
+                      )}
+                      {!!te.recasts && te.recasts > 0 && (
+                        <div className="flex items-center space-x-1">
+                          <SvgIcons.recasts />
+                          <span>{formatNumber(te.recasts)}</span>
+                        </div>
+                      )}
+                      {!!te.replies && te.replies > 0 && (
+                        <div className="flex items-center space-x-1">
+                          <SvgIcons.replies />
+                          <span>{formatNumber(te.replies)}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
           </div>
           <ScrollBar orientation="horizontal" />

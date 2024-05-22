@@ -12,6 +12,7 @@ import { CastEngagementCount } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 import { SvgIcons } from "./svg-icons";
 import { fetchCastByHash } from "@/lib/neynar";
+import Link from "next/link";
 
 export async function CastsCarousel({
   hashes,
@@ -55,13 +56,19 @@ export async function CastsCarousel({
           {hashes.map((item: CastEngagementCount) => (
             <CarouselItem key={item.hash} className="md:basis-1/2 lg:basis-1/3">
               <div className="space-y-4">
-                <Image
-                  unoptimized
-                  src={`https://client.warpcast.com/v2/cast-image?castHash=${item.hash}`}
-                  width={1280}
-                  height={866}
-                  alt="Cast"
-                />
+                <Link
+                  href={`https://nook.social/casts/${item.hash}`}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <Image
+                    unoptimized
+                    src={`https://client.warpcast.com/v2/cast-image?castHash=${item.hash}`}
+                    width={1280}
+                    height={866}
+                    alt="Cast"
+                  />
+                </Link>
                 <div className="text-sm text-muted-foreground items-center flex justify-center space-x-4 ">
                   {item.like_count > 0 && (
                     <div className="flex items-center space-x-1">

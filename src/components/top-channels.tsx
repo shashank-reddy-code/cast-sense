@@ -2,6 +2,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "./profile";
 import { TopChannel } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
+import Link from "next/link";
 
 export async function TopChannels({
   channels,
@@ -28,17 +29,24 @@ export async function TopChannels({
         <ScrollArea>
           <div className="flex space-x-4 pb-4">
             {channels.map((tc: TopChannel) => (
-              <div key={tc.channel.id}>
-                <Profile
-                  name={tc.channel.name}
-                  imageUrl={tc.channel.image_url}
-                  width={150}
-                  height={150}
-                />
-                <p className="text-sm text-muted-foreground items-center flex justify-center space-y-1">
-                  # {metricName}: {formatNumber(tc.casts)}
-                </p>
-              </div>
+              <Link
+                href={`https://nook.social/channels/${tc.channel.id}`}
+                rel="noopener noreferrer"
+                target="_blank"
+                key={tc.channel.id}
+              >
+                <div>
+                  <Profile
+                    name={tc.channel.name}
+                    imageUrl={tc.channel.image_url}
+                    width={150}
+                    height={150}
+                  />
+                  <p className="text-sm text-muted-foreground items-center flex justify-center space-y-1">
+                    # {metricName}: {formatNumber(tc.casts)}
+                  </p>
+                </div>
+              </Link>
             ))}
           </div>
           <ScrollBar orientation="horizontal" />
