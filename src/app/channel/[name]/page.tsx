@@ -33,7 +33,7 @@ export default async function DashboardChannel({
     topEngagersAndInfluencers,
     followerTiers,
     topAndBottomCasts,
-    dailyEngagement,
+    [dailyEngagement, dailyPowerBadgeEngagement],
     [dailyCasters, dailyActivity],
     followerActiveHours,
     similarChannels,
@@ -97,6 +97,7 @@ export default async function DashboardChannel({
             {/* <Benchmark data={benchmarks} /> */}
             <Historical
               dailyEngagement={dailyEngagement}
+              dailyPowerBadgeEngagement={dailyPowerBadgeEngagement}
               dailyFollowers={dailyCasters}
               dailyActivity={dailyActivity}
               isChannel={true}
