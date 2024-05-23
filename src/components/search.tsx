@@ -104,9 +104,8 @@ export function Search() {
         {channelResults.length > 0 && (
           <CommandGroup heading="Channels">
             {channelResults.map((channel: any) => (
-              // <Link href={`/channel/${channel.id}`} key={channel.id}>
               <div
-                key={channel.id}
+                key={`channel-${channel.id}`}
                 onClick={() => {
                   const timeZone =
                     Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -114,7 +113,7 @@ export function Search() {
                 }}
               >
                 <CommandItem
-                  value={channel.name}
+                  value={channel.id}
                   className="flex items-center gap-2 data-[disabled]:opacity-100 text-lg"
                 >
                   <Avatar className="h-8 w-8">
@@ -139,7 +138,7 @@ export function Search() {
                 key={user.fid}
               >
                 <CommandItem
-                  value={user.username}
+                  value={`user-${user.username}`}
                   className="flex items-center gap-2 data-[disabled]:opacity-100 text-lg"
                 >
                   <Avatar className="h-8 w-8">
