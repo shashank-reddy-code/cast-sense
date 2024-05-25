@@ -57,6 +57,8 @@ export default async function DashboardChannel({
     pfp_url: channel.image_url,
     username: channel.name,
     follower_count: channel.follower_count,
+    profile: { bio: { text: channel.description } },
+    power_badge: false,
   };
   if (channel == null || channelStats == null) {
     return <div>Channel data not found</div>;

@@ -57,6 +57,10 @@ export type Profile = {
   username: string;
   pfp_url: string;
   follower_count: number | null;
+  // neynar uses profile.bio.text for the bio
+  // todo: clean this up
+  profile: any;
+  power_badge: boolean;
 };
 
 export type TopEngager = {
@@ -96,11 +100,8 @@ export type Benchmark = {
 };
 
 export type ProfilePreview = {
-  fname: string;
-  follower_count: number;
+  profile: Profile;
   top_channels: string[];
-  bio: string;
-  avatar_url: string;
 };
 
 export type ChannelPreview = {

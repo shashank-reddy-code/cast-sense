@@ -1,10 +1,10 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "./profile";
-import { TopEngager } from "@/lib/types";
+import { ProfilePreview, TopEngager } from "@/lib/types";
 import { SvgIcons } from "./svg-icons";
 import { formatNumber } from "@/lib/utils";
 import Link from "next/link";
-import { getFollowersAndTopChannelsBatch } from "@/lib/dune-fid";
+import { getTopChannelsBatch } from "@/lib/dune-fid";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import { ProfilePreviewCard } from "./profile-preview-card";
 
@@ -20,9 +20,23 @@ export async function TopEngagers({
   if (topEngagers == null || topEngagers.length === 0) {
     return <></>;
   }
-  const profilePreviews = await getFollowersAndTopChannelsBatch(
+  const topChannels = await getTopChannelsBatch(
     topEngagers.filter((te) => te.profile != null).map((te) => te.profile.fid)
   );
+
+  const profilePreviews: { [key: number]: ProfilePreview } = topEngagers
+    .filter((te) => te.profile != null)
+    .reduce(
+      (acc: { [key: number]: ProfilePreview }, te) => {
+        const profilePreview = {
+          profile: te.profile,
+          top_channels: topChannels[te.profile.fid] || [],
+        };
+        acc[te.profile.fid] = profilePreview;
+        return acc;
+      },
+      {} // Initial value for the accumulator
+    );
 
   return (
     <div className="space-y-4">
@@ -75,7 +89,7 @@ export async function TopEngagers({
                     </Link>
                   </HoverCardTrigger>
                   <ProfilePreviewCard
-                    liteProfile={profilePreviews[te.profile.fid]}
+                    profilePreview={profilePreviews[te.profile.fid]}
                   />
                 </HoverCard>
               ))}

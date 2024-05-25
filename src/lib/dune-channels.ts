@@ -497,20 +497,6 @@ export async function getTopCastersBatch(
     );
   });
   return topCasters;
-
-  // const channelPreviews: { [key: string]: ChannelPreview } = {};
-  // const channels = await fetchChannelsByParentUrlsBatch(channelUrls);
-  // channels.forEach((channel: any) => {
-  //   channelPreviews[channel.url] = {
-  //     id: channel.id,
-  //     follower_count: channel.follower_count,
-  //     top_casters: topCasters[channel.url],
-  //     description: channel.description,
-  //     image_url: channel.image_url,
-  //   };
-  // });
-  // console.log("channel previews", channelPreviews);
-  // return channelPreviews;
 }
 
 export function getMaxValue(

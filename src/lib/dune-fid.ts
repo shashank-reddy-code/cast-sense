@@ -485,9 +485,9 @@ export async function getDailyactivity(fid: number): Promise<DailyActivity[]> {
   return fillMissingDates(dailyActivity);
 }
 
-export async function getFollowersAndTopChannelsBatch(
+export async function getTopChannelsBatch(
   fids: number[]
-): Promise<{ [key: number]: ProfilePreview }> {
+): Promise<{ [key: number]: string[] }> {
   // dune query: https://dune.com/queries/3738107
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -510,20 +510,11 @@ export async function getFollowersAndTopChannelsBatch(
   const body = await latest_response.text();
   const result = JSON.parse(body).result.rows;
 
-  const profilePreviews: { [key: number]: ProfilePreview } = {};
+  const topChannels: { [key: string]: string[] } = {};
   result.forEach((item: any) => {
-    const fid = item.fid;
-    profilePreviews[fid] = {
-      fname: item.fname,
-      follower_count: item.followers,
-      top_channels: item.top_channels
-        .slice(0, 5)
-        .map((channelCounts: string[]) => channelCounts[0]),
-      bio: item.bio,
-      avatar_url: item.avatar_url,
-    };
+    topChannels[item.fid] = item.top_channels.map((c: string[0]) => c[0]);
   });
-  return profilePreviews;
+  return topChannels;
 }
 
 export function getMaxValue(

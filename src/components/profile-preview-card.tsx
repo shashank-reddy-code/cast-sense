@@ -3,30 +3,42 @@ import { HoverCardContent } from "@/components/ui/hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { formatNumber } from "@/lib/utils";
 import Link from "next/link";
+import Image from "next/image";
 
 export function ProfilePreviewCard({
-  liteProfile,
+  profilePreview,
 }: {
-  liteProfile: ProfilePreview;
+  profilePreview: ProfilePreview;
 }) {
   return (
     <HoverCardContent className="p-4 w-auto max-w-md">
       <div className="flex justify-between space-x-4">
         <Avatar>
-          <AvatarImage src={liteProfile.avatar_url} />
-          <AvatarFallback>{liteProfile.fname}</AvatarFallback>
+          <AvatarImage src={profilePreview.profile.pfp_url} />
+          <AvatarFallback>{profilePreview.profile.display_name}</AvatarFallback>
         </Avatar>
         <div className="space-y-1">
-          <h4 className="text-sm font-semibold">@{liteProfile.fname}</h4>
-          <p className="text-sm">{liteProfile.bio}</p>
+          <h4 className="text-sm font-semibold">
+            @{profilePreview.profile.username}{" "}
+            {profilePreview.profile.power_badge && (
+              <Image
+                src="/power-badge.png"
+                alt="Power Badge"
+                className="w-4 h-4 ml-1 inline"
+                width={16}
+                height={16}
+              />
+            )}
+          </h4>
+          <p className="text-sm">{profilePreview.profile.profile.bio.text}</p>
           <div className="flex items-center pt-2">
             <span className="text-xs text-muted-foreground">
-              {formatNumber(liteProfile.follower_count)} followers
+              {formatNumber(profilePreview.profile.follower_count)} followers
             </span>
           </div>
           <p className="text-sm">
             Top Channels:{" "}
-            {liteProfile.top_channels.map((channel, index) => (
+            {profilePreview.top_channels.map((channel, index) => (
               <Link
                 href={`https://nook.social/channels/${channel}`}
                 key={index}
@@ -35,7 +47,7 @@ export function ProfilePreviewCard({
                 className="text-blue-500 hover:underline"
               >
                 {channel}
-                {index < liteProfile.top_channels.length - 1 && ", "}
+                {index < profilePreview.top_channels.length - 1 && ", "}
               </Link>
             ))}
           </p>
