@@ -72,7 +72,7 @@ export function Search() {
       setProgress(100);
       setTimeout(() => setProgress(0), 500);
     }
-  }, [pathname]);
+  }, [isLoading]);
 
   useEffect(() => {
     if (isLoading) {

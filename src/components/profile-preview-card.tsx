@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { formatNumber } from "@/lib/utils";
 import Link from "next/link";
 
-export function ProfilePreview({
+export function ProfilePreviewCard({
   liteProfile,
 }: {
   liteProfile: ProfilePreview;

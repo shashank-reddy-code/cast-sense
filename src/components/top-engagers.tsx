@@ -6,7 +6,7 @@ import { formatNumber } from "@/lib/utils";
 import Link from "next/link";
 import { getFollowersAndTopChannelsBatch } from "@/lib/dune-fid";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import { ProfilePreview } from "./profile-preview";
+import { ProfilePreviewCard } from "./profile-preview-card";
 
 export async function TopEngagers({
   topEngagers,
@@ -21,7 +21,7 @@ export async function TopEngagers({
     return <></>;
   }
   const profilePreviews = await getFollowersAndTopChannelsBatch(
-    topEngagers.map((te) => te.profile.fid)
+    topEngagers.filter((te) => te.profile != null).map((te) => te.profile.fid)
   );
 
   return (
@@ -74,7 +74,7 @@ export async function TopEngagers({
                       </div>
                     </Link>
                   </HoverCardTrigger>
-                  <ProfilePreview
+                  <ProfilePreviewCard
                     liteProfile={profilePreviews[te.profile.fid]}
                   />
                 </HoverCard>

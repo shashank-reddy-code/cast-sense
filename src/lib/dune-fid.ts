@@ -32,6 +32,10 @@ export async function getFidStats(fid: number): Promise<TopLevelStats> {
       cache: "no-store",
     }
   );
+  if (latest_response.status !== 200) {
+    console.error("Failed to fetch fid stats", latest_response);
+    //return;
+  }
   const body = await latest_response.text();
   const trends = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
   return trends;
@@ -53,6 +57,13 @@ export async function getTopEngagersAndChannels(
       cache: "no-store",
     }
   );
+  if (latest_response.status !== 200) {
+    console.error("Failed to fetch top engagers and channels", latest_response);
+    return {
+      topEngagers: [],
+      channels: [],
+    };
+  }
   const body = await latest_response.text();
   const topEngagersAndChannels = JSON.parse(body).result.rows[0];
 
@@ -98,6 +109,14 @@ export async function getPowerbadgeFollowers(
       cache: "no-store",
     }
   );
+  if (latest_response.status !== 200) {
+    console.error("Failed to fetch powerbadge followers", latest_response);
+    return {
+      tier: "⚡ power badge",
+      count: 0,
+      percentage: 0,
+    };
+  }
   const body = await latest_response.text();
   const powerbadgeFollowers = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
   const tier = "⚡ power badge";
@@ -146,6 +165,10 @@ export async function getFollowerTiers(fid: number): Promise<FollowerTier[]> {
     ),
     getPowerbadgeFollowers(fid),
   ]);
+  if (queryResponse[0].status !== 200) {
+    console.error("Failed to fetch follower tiers", queryResponse[0]);
+    return [];
+  }
 
   const latest_response = queryResponse[0];
   const powerbadgeFollowers = queryResponse[1];
@@ -191,6 +214,13 @@ export async function getFollowerActiveHours(
       cache: "no-store",
     }
   );
+  if (response.status !== 200) {
+    console.error("Failed to fetch follower active hours", response);
+    return {
+      bestTimesToPost: "",
+      activeHours: {},
+    };
+  }
 
   // Parse the JSON response.
   const data = await response.json();
@@ -263,7 +293,6 @@ export async function getFollowerActiveHours(
     activeHours: weeklyHourlyCounts,
     bestTimesToPost: readableBestTimes,
   };
-  //console.log("best times to post", output);
   return output;
 }
 
@@ -283,6 +312,13 @@ export async function getTopAndBottomCasts(
       cache: "no-store",
     }
   );
+  if (latest_response.status !== 200) {
+    console.error("Failed to fetch top and bottom casts", latest_response);
+    return {
+      top_hash: [],
+      bottom_hash: [],
+    };
+  }
   const body = await latest_response.text();
   const topAndBottomCasts = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
 
@@ -336,6 +372,10 @@ export async function getDailyEngagement(
       cache: "no-store",
     }
   );
+  if (latest_response.status !== 200) {
+    console.error("Failed to fetch daily engagement", latest_response);
+    return [[], []];
+  }
   const body = await latest_response.text();
   const result = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
 
@@ -386,6 +426,10 @@ export async function getDailyFollowerCount(
       cache: "no-store",
     }
   );
+  if (latest_response.status !== 200) {
+    console.error("Failed to fetch daily follower count", latest_response);
+    return [];
+  }
   const body = await latest_response.text();
   const dailyFollower = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
 
@@ -419,6 +463,10 @@ export async function getDailyactivity(fid: number): Promise<DailyActivity[]> {
       cache: "no-store",
     }
   );
+  if (latest_response.status !== 200) {
+    console.error("Failed to fetch daily activity", latest_response);
+    return [];
+  }
   const body = await latest_response.text();
   const result = JSON.parse(body).result.rows[0];
 
@@ -454,6 +502,10 @@ export async function getFollowersAndTopChannelsBatch(
       cache: "no-store",
     }
   );
+  if (latest_response.status !== 200) {
+    console.error("Failed to fetch profile previews", latest_response);
+    return {};
+  }
   const body = await latest_response.text();
   const result = JSON.parse(body).result.rows;
 
