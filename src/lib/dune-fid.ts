@@ -512,7 +512,9 @@ export async function getTopChannelsBatch(
 
   const topChannels: { [key: string]: string[] } = {};
   result.forEach((item: any) => {
-    topChannels[item.fid] = item.top_channels.map((c: string[0]) => c[0]);
+    topChannels[item.fid] = item.top_channels
+      .slice(0, 5)
+      .map((c: string[0]) => c[0]);
   });
   return topChannels;
 }

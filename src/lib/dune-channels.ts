@@ -492,9 +492,9 @@ export async function getTopCastersBatch(
   const topCasters: { [key: string]: string[] } = {};
   result.forEach((item: any) => {
     const channelUrl = item.channel_url;
-    topCasters[channelUrl] = item.top_casters.map(
-      (casterCount: string[]) => casterCount[0]
-    );
+    topCasters[channelUrl] = item.top_casters
+      .slice(0, 5)
+      .map((casterCount: string[]) => casterCount[0]);
   });
   return topCasters;
 }
