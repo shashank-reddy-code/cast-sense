@@ -7,6 +7,7 @@ import {
   DailyFollower,
   FollowerActiveHours,
   FollowerTier,
+  ProfilePreview,
   TopAndBottomCasts,
   TopChannel,
   TopEngager,
@@ -433,6 +434,43 @@ export async function getDailyactivity(fid: number): Promise<DailyActivity[]> {
     }
   );
   return fillMissingDates(dailyActivity);
+}
+
+export async function getFollowersAndTopChannelsBatch(
+  fids: number[]
+): Promise<{ [key: number]: ProfilePreview }> {
+  // dune query: https://dune.com/queries/3738107
+  const meta = {
+    "x-dune-api-key": DUNE_API_KEY || "",
+  };
+  const header = new Headers(meta);
+
+  const fidFilter = `fid in (${fids.join(",")})`;
+  const latest_response = await fetch(
+    `https://api.dune.com/api/v1/query/3738107/results?&filters=${fidFilter}`,
+    {
+      method: "GET",
+      headers: header,
+      cache: "no-store",
+    }
+  );
+  const body = await latest_response.text();
+  const result = JSON.parse(body).result.rows;
+
+  const profilePreviews: { [key: number]: ProfilePreview } = {};
+  result.forEach((item: any) => {
+    const fid = item.fid;
+    profilePreviews[fid] = {
+      fname: item.fname,
+      follower_count: item.followers,
+      top_channels: item.top_channels
+        .slice(0, 5)
+        .map((channelCounts: string[]) => channelCounts[0]),
+      bio: item.bio,
+      avatar_url: item.avatar_url,
+    };
+  });
+  return profilePreviews;
 }
 
 export function getMaxValue(

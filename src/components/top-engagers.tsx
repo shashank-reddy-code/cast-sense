@@ -4,6 +4,9 @@ import { TopEngager } from "@/lib/types";
 import { SvgIcons } from "./svg-icons";
 import { formatNumber } from "@/lib/utils";
 import Link from "next/link";
+import { getFollowersAndTopChannelsBatch } from "@/lib/dune-fid";
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import { ProfilePreview } from "./profile-preview";
 
 export async function TopEngagers({
   topEngagers,
@@ -17,6 +20,9 @@ export async function TopEngagers({
   if (topEngagers == null || topEngagers.length === 0) {
     return <></>;
   }
+  const profilePreviews = await getFollowersAndTopChannelsBatch(
+    topEngagers.map((te) => te.profile.fid)
+  );
 
   return (
     <div className="space-y-4">
@@ -30,41 +36,48 @@ export async function TopEngagers({
             {topEngagers
               .filter((te) => te.profile != null)
               .map((te) => (
-                <Link
-                  href={`https://nook.social/users/${te.profile.username}`}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  key={te.profile.fid}
-                >
-                  <div>
-                    <Profile
-                      name={te.profile.display_name}
-                      imageUrl={te.profile.pfp_url}
-                      width={150}
-                      height={150}
-                    />
-                    <div className="text-sm text-muted-foreground items-center flex justify-center space-x-1 md:space-x-4 lg:space-x-4">
-                      {!!te.likes && te.likes > 0 && (
-                        <div className="flex items-center space-x-1">
-                          <SvgIcons.likes />
-                          <span>{formatNumber(te.likes)}</span>
+                <HoverCard key={te.profile.fid}>
+                  <HoverCardTrigger asChild>
+                    <Link
+                      href={`https://nook.social/users/${te.profile.username}`}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      key={te.profile.fid}
+                    >
+                      <div>
+                        <Profile
+                          name={te.profile.display_name}
+                          imageUrl={te.profile.pfp_url}
+                          width={150}
+                          height={150}
+                        />
+                        <div className="text-sm text-muted-foreground items-center flex justify-center space-x-1 md:space-x-4 lg:space-x-4">
+                          {!!te.likes && te.likes > 0 && (
+                            <div className="flex items-center space-x-1">
+                              <SvgIcons.likes />
+                              <span>{formatNumber(te.likes)}</span>
+                            </div>
+                          )}
+                          {!!te.recasts && te.recasts > 0 && (
+                            <div className="flex items-center space-x-1">
+                              <SvgIcons.recasts />
+                              <span>{formatNumber(te.recasts)}</span>
+                            </div>
+                          )}
+                          {!!te.replies && te.replies > 0 && (
+                            <div className="flex items-center space-x-1">
+                              <SvgIcons.replies />
+                              <span>{formatNumber(te.replies)}</span>
+                            </div>
+                          )}
                         </div>
-                      )}
-                      {!!te.recasts && te.recasts > 0 && (
-                        <div className="flex items-center space-x-1">
-                          <SvgIcons.recasts />
-                          <span>{formatNumber(te.recasts)}</span>
-                        </div>
-                      )}
-                      {!!te.replies && te.replies > 0 && (
-                        <div className="flex items-center space-x-1">
-                          <SvgIcons.replies />
-                          <span>{formatNumber(te.replies)}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </Link>
+                      </div>
+                    </Link>
+                  </HoverCardTrigger>
+                  <ProfilePreview
+                    liteProfile={profilePreviews[te.profile.fid]}
+                  />
+                </HoverCard>
               ))}
           </div>
           <ScrollBar orientation="horizontal" />

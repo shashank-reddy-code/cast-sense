@@ -6,7 +6,6 @@ import {
   DailyFollower,
   FollowerActiveHours,
   FollowerTier,
-  Profile,
   TopAndBottomCasts,
   TopChannel,
   TopEngager,
@@ -185,6 +184,13 @@ export async function getFollowerActiveHours(
   // Parse the JSON response.
   const data = await response.json();
   const result = data.result.rows[0];
+  if (result === undefined) {
+    console.error("No active hours data found for channel", channelUrl);
+    return {
+      bestTimesToPost: "",
+      activeHours: {},
+    };
+  }
   if ("channel_url" in result) {
     delete result["channel_url"];
   }
@@ -274,6 +280,13 @@ export async function getTopAndBottomCasts(
   );
   const body = await latest_response.text();
   const topAndBottomCasts = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+  if (topAndBottomCasts === undefined) {
+    console.error("top and bottom casts not found for channel", channelUrl);
+    return {
+      top_hash: [],
+      bottom_hash: [],
+    };
+  }
 
   const topHash: CastEngagementCount[] = topAndBottomCasts?.top_hash.map(
     (item: string[]) => {
@@ -328,6 +341,10 @@ export async function getDailyEngagement(
   );
   const body = await latest_response.text();
   const result = JSON.parse(body).result.rows[0];
+  if (result === undefined) {
+    console.error("No daily engagement data found for channel", channelUrl);
+    return [[], []];
+  }
 
   const dailyEngagement: DailyEngagement[] = result?.daily_engagement.map(
     (item: string[]) => {
@@ -379,6 +396,10 @@ export async function getDailyCastersCount(
   );
   const body = await latest_response.text();
   const dailyFollower = JSON.parse(body).result.rows[0];
+  if (dailyFollower === undefined) {
+    console.error("No daily caster data found for channel", channelUrl);
+    return [[], []];
+  }
 
   let dailyFollowers: DailyFollower[] = [];
   let dailyActivity: DailyActivity[] = [];
@@ -422,6 +443,10 @@ export async function getChannelsWithSimilarCasters(
   );
   const body = await latest_response.text();
   const result = JSON.parse(body).result.rows[0];
+  if (result === undefined) {
+    console.error("No similar channels found for channel", channelUrl);
+    return [];
+  }
 
   const channelPromises = result.top_similar_channels.map(
     async (item: string[]) => {

@@ -53,6 +53,7 @@ export type Profile = {
   display_name: string;
   username: string;
   pfp_url: string;
+  follower_count: number | null;
 };
 
 export type TopEngager = {
@@ -89,4 +90,12 @@ export type DailyFollower = {
 export type Benchmark = {
   pct_engagement_diff: number | undefined;
   pct_followers_diff: number | undefined;
+};
+
+export type ProfilePreview = {
+  fname: string;
+  follower_count: number;
+  top_channels: string[];
+  bio: string;
+  avatar_url: string;
 };
