@@ -3,6 +3,10 @@ import { Profile } from "./profile";
 import { TopChannel } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 import Link from "next/link";
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import { ChannelPreviewCard } from "./channel-preview-card";
+import { getTopCastersBatch } from "@/lib/dune-channels";
+import { ChannelPreview } from "@/lib/types";
 
 export async function TopChannels({
   channels,
@@ -18,7 +22,22 @@ export async function TopChannels({
   if (channels == null || channels.length === 0) {
     return <></>;
   }
-
+  const topCasters = await getTopCastersBatch(
+    channels
+      .filter((c: TopChannel) => c != null)
+      .map((c) => c.channel.parent_url)
+  );
+  const channelPreviews: { [key: string]: ChannelPreview } = channels.reduce(
+    (acc: { [key: string]: ChannelPreview }, c) => {
+      const channelPreview = {
+        channel: c.channel,
+        top_casters: topCasters[c.channel.parent_url] || [],
+      };
+      acc[c.channel.id] = channelPreview;
+      return acc;
+    },
+    {} // Initial value for the accumulator
+  );
   return (
     <div className="space-y-4">
       <div className="mt-6 space-y-1">
@@ -29,24 +48,31 @@ export async function TopChannels({
         <ScrollArea>
           <div className="flex space-x-4 pb-4">
             {channels.map((tc: TopChannel) => (
-              <Link
-                href={`https://nook.social/channels/${tc.channel.id}`}
-                rel="noopener noreferrer"
-                target="_blank"
-                key={tc.channel.id}
-              >
-                <div>
-                  <Profile
-                    name={tc.channel.name}
-                    imageUrl={tc.channel.image_url}
-                    width={150}
-                    height={150}
-                  />
-                  <p className="text-sm text-muted-foreground items-center flex justify-center space-y-1">
-                    # {metricName}: {formatNumber(tc.casts)}
-                  </p>
-                </div>
-              </Link>
+              <HoverCard key={tc.channel.id}>
+                <HoverCardTrigger asChild>
+                  <Link
+                    href={`https://nook.social/channels/${tc.channel.id}`}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    key={tc.channel.id}
+                  >
+                    <div>
+                      <Profile
+                        name={tc.channel.name}
+                        imageUrl={tc.channel.image_url}
+                        width={150}
+                        height={150}
+                      />
+                      <p className="text-sm text-muted-foreground items-center flex justify-center space-y-1">
+                        # {metricName}: {formatNumber(tc.casts)}
+                      </p>
+                    </div>
+                  </Link>
+                </HoverCardTrigger>
+                <ChannelPreviewCard
+                  liteChannel={channelPreviews[tc.channel.id]}
+                />
+              </HoverCard>
             ))}
           </div>
           <ScrollBar orientation="horizontal" />

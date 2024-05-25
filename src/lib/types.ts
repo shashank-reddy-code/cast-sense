@@ -31,6 +31,9 @@ export type Channel = {
   id: string;
   name: string;
   image_url: string;
+  parent_url: string;
+  follower_count: number;
+  description: string;
 };
 
 export type FollowerActiveHours = {
@@ -98,4 +101,9 @@ export type ProfilePreview = {
   top_channels: string[];
   bio: string;
   avatar_url: string;
+};
+
+export type ChannelPreview = {
+  channel: Channel;
+  top_casters: string[];
 };

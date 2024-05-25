@@ -1,17 +1,23 @@
 const DUNE_API_KEY = process.env["DUNE_API_KEY"];
 import {
   CastEngagementCount,
+  ChannelPreview,
   DailyActivity,
   DailyEngagement,
   DailyFollower,
   FollowerActiveHours,
   FollowerTier,
+  ProfilePreview,
   TopAndBottomCasts,
   TopChannel,
   TopEngager,
   TopLevelStats,
 } from "./types";
-import { fetchChannel, fetchProfileByName } from "./neynar";
+import {
+  fetchChannel,
+  fetchChannelsByParentUrlsBatch,
+  fetchProfileByName,
+} from "./neynar";
 import moment from "moment-timezone";
 import { fillMissingDates } from "./utils";
 
@@ -427,7 +433,6 @@ export async function getChannelsWithSimilarCasters(
   channelUrl: string
 ): Promise<TopChannel[]> {
   // https://dune.com/queries/3746998
-  console.log("fetching similar channels for", channelUrl);
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
   };
@@ -448,6 +453,7 @@ export async function getChannelsWithSimilarCasters(
     return [];
   }
 
+  // todo: switch to batch endpoint
   const channelPromises = result.top_similar_channels.map(
     async (item: string[]) => {
       const channel = await fetchChannel(item[0]);
@@ -457,6 +463,54 @@ export async function getChannelsWithSimilarCasters(
 
   const similarChannels: TopChannel[] = await Promise.all(channelPromises);
   return similarChannels;
+}
+
+export async function getTopCastersBatch(
+  channelUrls: string[]
+): Promise<{ [key: string]: string[] }> {
+  // dune query: https://dune.com/queries/3715815
+  const meta = {
+    "x-dune-api-key": DUNE_API_KEY || "",
+  };
+  const header = new Headers(meta);
+
+  const channelFilter = `channel_url in (${channelUrls
+    .map((url) => `"${url}"`)
+    .join(",")})`;
+  const encodedChannelFilter = encodeURIComponent(channelFilter);
+  const latest_response = await fetch(
+    `https://api.dune.com/api/v1/query/3715815/results?&filters=${encodedChannelFilter}`,
+    {
+      method: "GET",
+      headers: header,
+      cache: "no-store",
+    }
+  );
+  const body = await latest_response.text();
+  const result = JSON.parse(body).result.rows;
+
+  const topCasters: { [key: string]: string[] } = {};
+  result.forEach((item: any) => {
+    const channelUrl = item.channel_url;
+    topCasters[channelUrl] = item.top_casters.map(
+      (casterCount: string[]) => casterCount[0]
+    );
+  });
+  return topCasters;
+
+  // const channelPreviews: { [key: string]: ChannelPreview } = {};
+  // const channels = await fetchChannelsByParentUrlsBatch(channelUrls);
+  // channels.forEach((channel: any) => {
+  //   channelPreviews[channel.url] = {
+  //     id: channel.id,
+  //     follower_count: channel.follower_count,
+  //     top_casters: topCasters[channel.url],
+  //     description: channel.description,
+  //     image_url: channel.image_url,
+  //   };
+  // });
+  // console.log("channel previews", channelPreviews);
+  // return channelPreviews;
 }
 
 export function getMaxValue(

@@ -75,6 +75,7 @@ export async function getTopEngagersAndChannels(
     }
   );
   // topChannels are formatted as [channelName, casts]
+  // todo: use batch endpoint
   const channelPromises = topEngagersAndChannels.top_channels.map(
     async (item: string[]) => {
       const channel = await fetchChannelByName(item[0]);
