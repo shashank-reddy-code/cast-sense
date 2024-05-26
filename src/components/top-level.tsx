@@ -101,6 +101,19 @@ export function TopLevel({
           </p>
         </CardContent>
       </Card>
+      {fidStats.churn_rate && (
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Churn rate</CardTitle>
+            <SvgIcons.churn />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {fidStats.churn_rate.toFixed(2)}%
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

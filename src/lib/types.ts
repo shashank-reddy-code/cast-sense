@@ -10,6 +10,7 @@ export type TopLevelStats = {
   replies_percentage_change: number | null;
   current_period_likes: number | null;
   likes_percentage_change: number | null;
+  churn_rate: number | null;
 };
 
 export type TopAndBottomCasts = {

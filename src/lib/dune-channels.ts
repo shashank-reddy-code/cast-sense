@@ -31,17 +31,22 @@ export async function getChannelStats(
   };
   const header = new Headers(meta);
   const encodedChannelUrl = encodeURIComponent(channelUrl);
-  const latest_response = await fetch(
-    `https://api.dune.com/api/v1/query/3714673/results?&filters=channel_url="${encodedChannelUrl}"`,
-    {
-      method: "GET",
-      headers: header,
-      cache: "no-store",
-    }
-  );
-  const body = await latest_response.text();
-  const trends = JSON.parse(body).result.rows[0];
-  return trends;
+  const [channelStatsResponse, churnRate] = await Promise.all([
+    fetch(
+      `https://api.dune.com/api/v1/query/3714673/results?&filters=channel_url="${encodedChannelUrl}"`,
+      {
+        method: "GET",
+        headers: header,
+        cache: "no-store",
+      }
+    ),
+    getChurnRate(channelUrl),
+  ]);
+  console.log("churn rate", churnRate);
+  const statsBody = await channelStatsResponse.text();
+  const trends = JSON.parse(statsBody).result.rows[0];
+
+  return { ...trends, churn_rate: churnRate };
 }
 
 export async function getTopEngagersAndInfluencers(
@@ -324,8 +329,28 @@ export async function getTopAndBottomCasts(
   };
 }
 
-export async function getEngagingChannels(fid: number) {
-  // https://dune.com/queries/3690289
+export async function getChurnRate(channelUrl: string): Promise<number> {
+  // https://dune.com/queries/3766009
+  const meta = {
+    "x-dune-api-key": DUNE_API_KEY || "",
+  };
+  const header = new Headers(meta);
+  const encodedChannelUrl = encodeURIComponent(channelUrl);
+  const latest_response = await fetch(
+    `https://api.dune.com/api/v1/query/3766009/results?&filters=channel_url="${encodedChannelUrl}"`,
+    {
+      method: "GET",
+      headers: header,
+      cache: "no-store",
+    }
+  );
+  const body = await latest_response.text();
+  const result = JSON.parse(body).result.rows[0];
+  if (result === undefined) {
+    console.error("No churn rate data found for channel", channelUrl);
+    return 0;
+  }
+  return parseFloat(result.churn_rate);
 }
 
 export async function getDailyEngagement(
