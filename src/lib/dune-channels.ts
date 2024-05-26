@@ -299,8 +299,8 @@ export async function getTopAndBottomCasts(
     };
   }
 
-  const topHash: CastEngagementCount[] = topAndBottomCasts?.top_hash.map(
-    (item: string[]) => {
+  const topHash: CastEngagementCount[] =
+    topAndBottomCasts?.top_hash?.map((item: string[]) => {
       return {
         hash: item[0],
         engagement_count: item[1],
@@ -308,11 +308,10 @@ export async function getTopAndBottomCasts(
         recast_count: item[3],
         reply_count: item[4],
       };
-    }
-  );
+    }) || [];
 
-  const bottomHash: CastEngagementCount[] = topAndBottomCasts?.bottom_hash.map(
-    (item: string[]) => {
+  const bottomHash: CastEngagementCount[] =
+    topAndBottomCasts?.bottom_hash?.map((item: string[]) => {
       return {
         hash: item[0],
         engagement_count: item[1],
@@ -320,8 +319,7 @@ export async function getTopAndBottomCasts(
         recast_count: item[3],
         reply_count: item[4],
       };
-    }
-  );
+    }) || [];
 
   return {
     top_hash: topHash,
