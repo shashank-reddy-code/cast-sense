@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: "Easily get a pulse on farcaster activity",
     images: [
       {
-        url: "https://www.castsense.xyz/castsense-dwr.png",
+        url: "https://www.castsense.xyz/castsense-channel.png",
         alt: "CastSense",
       },
     ],
