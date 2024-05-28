@@ -39,7 +39,7 @@ export function FollowersByTier({
                 <TableHead>Type</TableHead>
                 <TableHead>Definition</TableHead>
                 <TableHead># of followers</TableHead>
-                <TableHead>% of followers</TableHead>
+                <TableHead>% of followers (within type)</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
