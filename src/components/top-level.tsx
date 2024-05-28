@@ -8,6 +8,7 @@ import {
 import { TopLevelStats } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 import { SvgIcons } from "./svg-icons";
+import NumberTicker from "./ui/number-ticker";
 
 export function TopLevel({
   fidStats,
@@ -37,7 +38,7 @@ export function TopLevel({
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
-            {formatNumber(fidStats.total_followers)}
+            <NumberTicker value={fidStats.total_followers || 0} />
           </div>
         </CardContent>
       </Card>

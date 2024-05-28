@@ -1,6 +1,7 @@
 "use client";
 
 import { Search } from "@/components/search";
+import TypingAnimation from "@/components/ui/typing-animation";
 
 export default function LoginPage() {
   return (
@@ -8,7 +9,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-6">
           {" "}
-          <h1 className="text-5xl tracking-tight">CastSense</h1>
+          <TypingAnimation text="CastSense" />
           <p className="text-muted-foreground">
             Easily get a pulse on your farcaster activity and followers
           </p>
