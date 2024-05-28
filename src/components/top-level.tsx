@@ -16,6 +16,18 @@ export function TopLevel({
   fidStats: TopLevelStats;
   isChannel?: boolean;
 }) {
+  const getPercentageChangeClass = (change: number | null) => {
+    if (!change) {
+      return "text-muted-foreground";
+    }
+    if (change > 0) {
+      return "text-green-500";
+    } else if (change < 0) {
+      return "text-red-500";
+    } else {
+      return "";
+    }
+  };
   return (
     <div className="grid gap-4 grid-cols-2 lg:grid-cols-6">
       <Card>
@@ -38,7 +50,11 @@ export function TopLevel({
           <div className="text-2xl font-bold">
             {formatNumber(fidStats.current_period_casts)}
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p
+            className={`text-xs ${getPercentageChangeClass(
+              fidStats.casts_percentage_change
+            )}`}
+          >
             {fidStats.casts_percentage_change?.toFixed(0)}% from last month
           </p>
         </CardContent>
@@ -52,7 +68,11 @@ export function TopLevel({
           <div className="text-2xl font-bold">
             {formatNumber(fidStats.current_period_recasts)}
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p
+            className={`text-xs ${getPercentageChangeClass(
+              fidStats.recasts_percentage_change
+            )}`}
+          >
             {fidStats.recasts_percentage_change?.toFixed(0)}% from last month
           </p>
         </CardContent>
@@ -67,7 +87,11 @@ export function TopLevel({
             <div className="text-2xl font-bold">
               {formatNumber(fidStats.current_period_mentions)}
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p
+              className={`text-xs ${getPercentageChangeClass(
+                fidStats.mentions_percentage_change
+              )}`}
+            >
               {fidStats.mentions_percentage_change?.toFixed(0)}% from last month
             </p>
           </CardContent>
@@ -82,7 +106,11 @@ export function TopLevel({
           <div className="text-2xl font-bold">
             {formatNumber(fidStats.current_period_replies)}
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p
+            className={`text-xs ${getPercentageChangeClass(
+              fidStats.replies_percentage_change
+            )}`}
+          >
             {fidStats.replies_percentage_change?.toFixed(0)}% since last month
           </p>
         </CardContent>
@@ -96,7 +124,11 @@ export function TopLevel({
           <div className="text-2xl font-bold">
             {formatNumber(fidStats.current_period_likes)}
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p
+            className={`text-xs ${getPercentageChangeClass(
+              fidStats.likes_percentage_change
+            )}`}
+          >
             {fidStats.likes_percentage_change?.toFixed(0)}% since last month
           </p>
         </CardContent>
