@@ -9,6 +9,7 @@ interface ProfileProps extends React.HTMLAttributes<HTMLDivElement> {
   aspectRatio?: "portrait" | "square";
   width?: number;
   height?: number;
+  powerBadge?: boolean;
 }
 
 export function Profile({
@@ -18,6 +19,7 @@ export function Profile({
   aspectRatio = "portrait",
   width,
   height,
+  powerBadge = false,
   className,
   ...props
 }: ProfileProps) {
@@ -39,7 +41,18 @@ export function Profile({
         </ContextMenuTrigger>
       </ContextMenu>
       <div className="space-y-1 text-sm">
-        <h3 className="font-medium leading-none">{name}</h3>
+        <h3 className="font-medium leading-none">
+          {name}
+          {powerBadge && (
+            <Image
+              src="/power-badge.png"
+              alt="Power Badge"
+              className="w-4 h-4 ml-1 inline"
+              width={16}
+              height={16}
+            />
+          )}
+        </h3>
         <p className="text-xs text-muted-foreground">{description}</p>
       </div>
     </div>

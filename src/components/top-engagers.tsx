@@ -62,6 +62,7 @@ export async function TopEngagers({
                         <Profile
                           name={te.profile.display_name}
                           imageUrl={te.profile.pfp_url}
+                          powerBadge={te.profile.power_badge}
                           width={150}
                           height={150}
                         />
