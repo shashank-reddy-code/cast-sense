@@ -17,7 +17,7 @@ export function ChannelPreviewCard({
           <AvatarFallback>{liteChannel.channel.id}</AvatarFallback>
         </Avatar>
         <div className="space-y-1">
-          <h4 className="text-sm font-semibold">@{liteChannel.channel.id}</h4>
+          <h4 className="text-sm font-semibold">/{liteChannel.channel.id}</h4>
           <p className="text-sm">{liteChannel.channel.description}</p>
           <div className="flex items-center pt-2">
             <span className="text-xs text-muted-foreground">
