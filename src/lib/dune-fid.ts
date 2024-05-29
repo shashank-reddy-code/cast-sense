@@ -13,7 +13,7 @@ import {
   TopEngager,
   TopLevelStats,
 } from "./types";
-import { fetchChannelByName, fetchProfileByName } from "./neynar";
+import { fetchChannelsByParentUrlsBatch, fetchUsersByFidBatch } from "./neynar";
 import moment from "moment-timezone";
 import { fillMissingDates } from "./utils";
 
@@ -67,26 +67,43 @@ export async function getTopEngagersAndChannels(
   const body = await latest_response.text();
   const topEngagersAndChannels = JSON.parse(body).result.rows[0];
 
-  // topEngagers are formatted as [name, likes, recasts, replies]
-  const engagerPromises = topEngagersAndChannels.top_engagers.map(
-    async (item: string[]) => {
-      const profile = await fetchProfileByName(item[0]);
-      return { profile, likes: item[1], recasts: item[2], replies: item[3] };
-    }
+  // Get the topEngagers and topChannels arrays
+  const topEngagersArray = topEngagersAndChannels.top_engager_fids;
+  const topChannelsArray = topEngagersAndChannels.top_channel_urls;
+
+  // Fetch users and channels in batch
+  // topEngagers are formatted as [fid, likes, recasts, replies]
+  const engagerPromise = fetchUsersByFidBatch(
+    topEngagersArray.map((item: number[]) => item[0])
   );
-  // topChannels are formatted as [channelName, casts]
-  // todo: use batch endpoint
-  const channelPromises = topEngagersAndChannels.top_channels.map(
-    async (item: string[]) => {
-      const channel = await fetchChannelByName(item[0]);
-      return { channel, casts: item[1] };
-    }
+  // topChannels are formatted as [channelUrl, casts]
+  const channelPromise = fetchChannelsByParentUrlsBatch(
+    topChannelsArray.map((item: string[]) => item[0])
   );
 
-  const [topEngagers, channels] = await Promise.all([
-    Promise.all(engagerPromises),
-    Promise.all(channelPromises),
+  const [engagersResult, channelsResult] = await Promise.all([
+    engagerPromise,
+    channelPromise,
   ]);
+
+  // Map the additional properties back to the corresponding result
+  const topEngagers = engagersResult.map((profile: any, index: number) => {
+    const original = topEngagersArray[index];
+    return {
+      profile,
+      likes: original[1],
+      recasts: original[2],
+      replies: original[3],
+    };
+  });
+
+  const channels = channelsResult.map((channel: any, index: number) => {
+    const original = topChannelsArray[index];
+    return {
+      channel,
+      casts: original[1],
+    };
+  });
 
   return {
     topEngagers,

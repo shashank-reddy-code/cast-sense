@@ -17,6 +17,7 @@ import {
   fetchChannel,
   fetchChannelsByParentUrlsBatch,
   fetchProfileByName,
+  fetchUsersByFidBatch,
 } from "./neynar";
 import moment from "moment-timezone";
 import { fillMissingDates } from "./utils";
@@ -69,23 +70,45 @@ export async function getTopEngagersAndInfluencers(
   const body = await latest_response.text();
   const topEngagersAndInfluencers = JSON.parse(body).result.rows[0];
 
-  const engagerPromises =
-    topEngagersAndInfluencers.top_casters?.map(async (item: string[]) => {
-      const profile = await fetchProfileByName(item[0]);
-      return { profile, likes: item[1], recasts: item[2], replies: item[3] };
-    }) || [];
-  const influencerPromises =
-    topEngagersAndInfluencers.influential_casters?.map(
-      async (item: string[]) => {
-        const profile = await fetchProfileByName(item[0]);
-        return { profile, likes: item[1], recasts: item[2], replies: item[3] };
-      }
-    ) || [];
+  const topCastersArray = topEngagersAndInfluencers.top_caster_fids;
+  const influentialCastersArray =
+    topEngagersAndInfluencers.influential_caster_fids;
 
-  const [topEngagers, topInfluencers] = await Promise.all([
-    Promise.all(engagerPromises),
-    Promise.all(influencerPromises),
+  // rows are formatted as [fid, likes, recasts, replies]
+  const topCastersPromise = fetchUsersByFidBatch(
+    topCastersArray.map((item: number[]) => item[0])
+  );
+  const influentialCastersPromise = fetchUsersByFidBatch(
+    influentialCastersArray.map((item: number[]) => item[0])
+  );
+
+  const [topCastersResult, influentialCastersResult] = await Promise.all([
+    topCastersPromise,
+    influentialCastersPromise,
   ]);
+
+  // Map the additional properties back to the corresponding result
+  const topEngagers = topCastersResult.map((profile: any, index: number) => {
+    const original = topCastersArray[index];
+    return {
+      profile,
+      likes: original[1],
+      recasts: original[2],
+      replies: original[3],
+    };
+  });
+
+  const topInfluencers = influentialCastersResult.map(
+    (profile: any, index: number) => {
+      const original = influentialCastersArray[index];
+      return {
+        profile,
+        likes: original[1],
+        recasts: original[2],
+        replies: original[3],
+      };
+    }
+  );
 
   return {
     topEngagers,

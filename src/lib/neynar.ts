@@ -146,7 +146,7 @@ export const fetchCastByHash = async (hash: string) => {
 export const fetchChannelsByParentUrlsBatch = async (parentUrls: string[]) => {
   const encodedParams = encodeURIComponent(parentUrls.join(","));
   const response = await fetch(
-    `https://api.neynar.com/v2/farcaster/channel/bulk?ids=${encodedParams}`,
+    `https://api.neynar.com/v2/farcaster/channel/bulk?ids=${encodedParams}&type=parent_url`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -162,4 +162,24 @@ export const fetchChannelsByParentUrlsBatch = async (parentUrls: string[]) => {
   }
   const data = await response.json();
   return data.channels;
+};
+
+export const fetchUsersByFidBatch = async (fids: number[]) => {
+  const response = await fetch(
+    `https://api.neynar.com/v2/farcaster/user/bulk?fids=${fids.join(",")}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        api_key: process.env.NEYNAR_API_KEY as string,
+      },
+      next: { revalidate: 86500 },
+    }
+  );
+  // log error if response is not ok
+  if (!response.ok) {
+    console.error(`Failed to fetch channels by ids ${fids}`, response);
+    return null;
+  }
+  const data = await response.json();
+  return data.users;
 };
