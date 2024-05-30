@@ -110,8 +110,8 @@ export const fetchChannelByName = async (name: string) => {
       headers: {
         "Content-Type": "application/json",
         api_key: process.env.NEYNAR_API_KEY as string,
+        cache: "no-store",
       },
-      next: { revalidate: 86500 },
     }
   );
   // log error if response is not ok
