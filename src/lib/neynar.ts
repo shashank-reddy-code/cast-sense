@@ -25,8 +25,9 @@ export const fetchProfileByFid = async (fid: number) => {
       headers: {
         "Content-Type": "application/json",
         api_key: process.env.NEYNAR_API_KEY as string,
+        // this is the source for follower counts and needs to be "real-time"
+        cache: "no-store",
       },
-      next: { revalidate: 86500 },
     }
   );
   // log error if response is not ok
