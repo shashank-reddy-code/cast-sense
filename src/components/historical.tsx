@@ -34,9 +34,9 @@ export function Historical({
   maxScale?: number;
   isChannel?: boolean;
 }) {
-  const openrankText = getOpenrankText(
-    dailyOpenrank[dailyOpenrank.length - 1].percentile
-  );
+  const openrankText = isChannel
+    ? undefined
+    : getOpenrankText(dailyOpenrank[dailyOpenrank.length - 1].percentile);
   const description = isChannel
     ? "Unique casters over the last 90 days"
     : "Followers over the last 90 days";
