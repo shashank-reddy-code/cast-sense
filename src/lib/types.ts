@@ -92,6 +92,7 @@ export type DailyActivity = {
 export type DailyOpenrank = {
   date: string;
   rank: number;
+  percentile: number;
 };
 
 export type DailyFollower = {

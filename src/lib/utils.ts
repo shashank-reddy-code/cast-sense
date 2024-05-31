@@ -88,3 +88,16 @@ export function getDayLabel(date: string) {
   const dateObj = new Date(date);
   return dayNames[dateObj.getDay()];
 }
+
+export function getOpenrankText(openrank_percentile: number): string | null {
+  if (openrank_percentile < 1) {
+    return "🎖️ Top 1 percentile";
+  } else if (openrank_percentile < 5) {
+    return "🏅 Top 5 percentile";
+  } else if (openrank_percentile < 10) {
+    return "🥉 Top 10 percentile";
+  } else if (openrank_percentile < 25) {
+    return "🎗️ Top 25 percentile";
+  }
+  return null;
+}

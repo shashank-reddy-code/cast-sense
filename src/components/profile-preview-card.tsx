@@ -1,22 +1,9 @@
 import { ProfilePreview } from "@/lib/types";
 import { HoverCardContent } from "@/components/ui/hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { formatNumber } from "@/lib/utils";
+import { formatNumber, getOpenrankText } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-
-function getOpenrankText(openrank_percentile: number): string | null {
-  if (openrank_percentile < 1) {
-    return "🎖️ Top 1 percentile";
-  } else if (openrank_percentile < 5) {
-    return "🏅 Top 5 percentile";
-  } else if (openrank_percentile < 10) {
-    return "🥉 Top 10 percentile";
-  } else if (openrank_percentile < 25) {
-    return "🎗️ Top 25 percentile";
-  }
-  return null;
-}
 
 export function ProfilePreviewCard({
   profilePreview,

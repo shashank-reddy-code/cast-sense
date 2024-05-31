@@ -496,6 +496,7 @@ export async function getDailyOpenrank(fid: number): Promise<DailyOpenrank[]> {
       return {
         date: formattedDate,
         rank: item[1],
+        percentile: item[2],
       };
     }
   );

@@ -15,6 +15,7 @@ import {
 } from "@/lib/types";
 import { DailyActivityHeatMap } from "./daily-activity-heatmap";
 import { OpenrankHistorical } from "./openrank-historical";
+import { getOpenrankText } from "@/lib/utils";
 
 export function Historical({
   dailyEngagement,
@@ -33,6 +34,9 @@ export function Historical({
   maxScale?: number;
   isChannel?: boolean;
 }) {
+  const openrankText = getOpenrankText(
+    dailyOpenrank[dailyOpenrank.length - 1].percentile
+  );
   const description = isChannel
     ? "Unique casters over the last 90 days"
     : "Followers over the last 90 days";
@@ -80,6 +84,11 @@ export function Historical({
             <CardTitle>Your reputation in the network</CardTitle>
             <CardDescription>
               OpenRank score over the past 90 days
+              {openrankText && (
+                <p className="text-sm mt-1">
+                  You are in the the {openrankText}
+                </p>
+              )}
             </CardDescription>
           </CardHeader>
           <CardContent>

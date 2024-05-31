@@ -1,6 +1,7 @@
 "use client";
 
 import { DailyOpenrank } from "@/lib/types";
+import { getOpenrankText } from "@/lib/utils";
 import {
   Bar,
   Line,
@@ -19,6 +20,7 @@ export function OpenrankHistorical({
   maxScale?: number;
 }) {
   if (!dailyOpenrank) return <></>;
+
   return (
     <ResponsiveContainer width="100%" height={350}>
       <LineChart data={dailyOpenrank}>
