@@ -5,11 +5,25 @@ import { formatNumber } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 
+function getOpenrankText(openrank_percentile: number): string | null {
+  if (openrank_percentile < 1) {
+    return "🎖️ Top 1 percentile";
+  } else if (openrank_percentile < 5) {
+    return "🏅 Top 5 percentile";
+  } else if (openrank_percentile < 10) {
+    return "🥉 Top 10 percentile";
+  } else if (openrank_percentile < 25) {
+    return "🎗️ Top 25 percentile";
+  }
+  return null;
+}
+
 export function ProfilePreviewCard({
   profilePreview,
 }: {
   profilePreview: ProfilePreview;
 }) {
+  const openrankText = getOpenrankText(profilePreview.openrank_percentile);
   return (
     <HoverCardContent className="p-4 w-auto max-w-md">
       <div className="flex justify-between space-x-4">
@@ -36,6 +50,9 @@ export function ProfilePreviewCard({
               {formatNumber(profilePreview.profile.follower_count)} followers
             </span>
           </div>
+          {openrankText && (
+            <p className="text-sm">OpenRank reputation: {openrankText}</p>
+          )}
           <p className="text-sm">
             Top Channels:{" "}
             {profilePreview.top_channels.map((channel, index) => (

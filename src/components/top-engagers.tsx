@@ -4,7 +4,7 @@ import { ProfilePreview, TopEngager } from "@/lib/types";
 import { SvgIcons } from "./svg-icons";
 import { formatNumber } from "@/lib/utils";
 import Link from "next/link";
-import { getTopChannelsBatch } from "@/lib/dune-fid";
+import { getFidsOverviewBatch } from "@/lib/dune-fid";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import { ProfilePreviewCard } from "./profile-preview-card";
 
@@ -20,7 +20,7 @@ export async function TopEngagers({
   if (topEngagers == null || topEngagers.length === 0) {
     return <></>;
   }
-  const topChannels = await getTopChannelsBatch(
+  const fidOsverview = await getFidsOverviewBatch(
     topEngagers.filter((te) => te.profile != null).map((te) => te.profile.fid)
   );
 
@@ -30,7 +30,8 @@ export async function TopEngagers({
       (acc: { [key: number]: ProfilePreview }, te) => {
         const profilePreview = {
           profile: te.profile,
-          top_channels: topChannels[te.profile.fid] || [],
+          top_channels: fidOsverview[te.profile.fid].top_channel_names || [],
+          openrank_percentile: fidOsverview[te.profile.fid].openrank_percentile,
         };
         acc[te.profile.fid] = profilePreview;
         return acc;

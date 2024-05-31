@@ -6,6 +6,7 @@ import {
   DailyEngagement,
   DailyFollower,
   DailyOpenrank,
+  FidOverview,
   FollowerActiveHours,
   FollowerTier,
   ProfilePreview,
@@ -498,7 +499,6 @@ export async function getDailyOpenrank(fid: number): Promise<DailyOpenrank[]> {
       };
     }
   );
-
   return dailyRanks;
 }
 
@@ -538,9 +538,9 @@ export async function getDailyactivity(fid: number): Promise<DailyActivity[]> {
   return fillMissingDates(dailyActivity);
 }
 
-export async function getTopChannelsBatch(
+export async function getFidsOverviewBatch(
   fids: number[]
-): Promise<{ [key: number]: string[] }> {
+): Promise<{ [key: number]: FidOverview }> {
   // dune query: https://dune.com/queries/3738107
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -563,13 +563,19 @@ export async function getTopChannelsBatch(
   const body = await latest_response.text();
   const result = JSON.parse(body).result.rows;
 
-  const topChannels: { [key: string]: string[] } = {};
+  const fidsOverview: { [key: number]: FidOverview } = {};
   result.forEach((item: any) => {
-    topChannels[item.fid] = item.top_channels
+    const top5Channels = item.top_channels
       .slice(0, 5)
       .map((c: string[0]) => c[0]);
+
+    fidsOverview[item.fid] = {
+      top_channel_names: top5Channels,
+      openrank_rank: item.openrank_rank,
+      openrank_percentile: item.openrank_percentile,
+    };
   });
-  return topChannels;
+  return fidsOverview;
 }
 
 export function getMaxValue(

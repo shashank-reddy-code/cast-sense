@@ -108,9 +108,16 @@ export type Benchmark = {
 export type ProfilePreview = {
   profile: Profile;
   top_channels: string[];
+  openrank_percentile: number;
 };
 
 export type ChannelPreview = {
   channel: Channel;
   top_casters: string[];
+};
+
+export type FidOverview = {
+  top_channel_names: string[];
+  openrank_rank: number;
+  openrank_percentile: number;
 };
