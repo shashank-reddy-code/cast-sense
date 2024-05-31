@@ -166,6 +166,10 @@ export const fetchChannelsByParentUrlsBatch = async (parentUrls: string[]) => {
 };
 
 export const fetchUsersByFidBatch = async (fids: number[]) => {
+  // return empty promise if fids is empty
+  if (fids.length == 0) {
+    return Promise.resolve([]);
+  }
   const response = await fetch(
     `https://api.neynar.com/v2/farcaster/user/bulk?fids=${fids.join(",")}`,
     {

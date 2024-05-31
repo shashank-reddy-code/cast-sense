@@ -62,9 +62,9 @@ export async function getTopEngagersAndInfluencers(
   const body = await latest_response.text();
   const topEngagersAndInfluencers = JSON.parse(body).result.rows[0];
 
-  const topCastersArray = topEngagersAndInfluencers.top_caster_fids;
+  const topCastersArray = topEngagersAndInfluencers.top_caster_fids || [];
   const influentialCastersArray =
-    topEngagersAndInfluencers.influential_caster_fids;
+    topEngagersAndInfluencers.influential_caster_fids || [];
 
   // rows are formatted as [fid, likes, recasts, replies]
   const topCastersPromise = fetchUsersByFidBatch(
