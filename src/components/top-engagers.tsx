@@ -20,7 +20,7 @@ export async function TopEngagers({
   if (topEngagers == null || topEngagers.length === 0) {
     return <></>;
   }
-  const fidOsverview = await getFidsOverviewBatch(
+  const fidsOverview = await getFidsOverviewBatch(
     topEngagers.filter((te) => te.profile != null).map((te) => te.profile.fid)
   );
 
@@ -30,8 +30,9 @@ export async function TopEngagers({
       (acc: { [key: number]: ProfilePreview }, te) => {
         const profilePreview = {
           profile: te.profile,
-          top_channels: fidOsverview[te.profile.fid].top_channel_names || [],
-          openrank_percentile: fidOsverview[te.profile.fid].openrank_percentile,
+          top_channels: fidsOverview[te.profile.fid]?.top_channel_names || [],
+          openrank_percentile:
+            fidsOverview[te.profile.fid]?.openrank_percentile,
         };
         acc[te.profile.fid] = profilePreview;
         return acc;

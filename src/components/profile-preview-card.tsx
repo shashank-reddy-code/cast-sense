@@ -40,21 +40,24 @@ export function ProfilePreviewCard({
           {openrankText && (
             <p className="text-sm">OpenRank reputation: {openrankText}</p>
           )}
-          <p className="text-sm">
-            Top Channels:{" "}
-            {profilePreview.top_channels.map((channel, index) => (
-              <Link
-                href={`https://nook.social/channels/${channel}`}
-                key={index}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="text-blue-500 hover:underline"
-              >
-                {channel}
-                {index < profilePreview.top_channels.length - 1 && ", "}
-              </Link>
-            ))}
-          </p>
+          {profilePreview.top_channels &&
+            profilePreview.top_channels.length > 0 && (
+              <p className="text-sm">
+                Top Channels:{" "}
+                {profilePreview.top_channels.map((channel, index) => (
+                  <Link
+                    href={`https://nook.social/channels/${channel}`}
+                    key={index}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    className="text-blue-500 hover:underline"
+                  >
+                    {channel}
+                    {index < profilePreview.top_channels.length - 1 && ", "}
+                  </Link>
+                ))}
+              </p>
+            )}
         </div>
       </div>
     </HoverCardContent>
