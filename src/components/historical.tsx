@@ -7,22 +7,29 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DailyActivity, DailyEngagement, DailyFollower } from "@/lib/types";
+import {
+  DailyActivity,
+  DailyEngagement,
+  DailyFollower,
+  DailyOpenrank,
+} from "@/lib/types";
 import { DailyActivityHeatMap } from "./daily-activity-heatmap";
+import { OpenrankHistorical } from "./openrank-historical";
 
 export function Historical({
   dailyEngagement,
   dailyFollowers,
   dailyActivity,
   dailyPowerBadgeEngagement = [],
+  dailyOpenrank = [],
   maxScale,
   isChannel = false,
 }: {
   dailyEngagement: DailyEngagement[];
-
   dailyFollowers: DailyFollower[];
   dailyActivity: DailyActivity[];
   dailyPowerBadgeEngagement?: DailyEngagement[];
+  dailyOpenrank?: DailyOpenrank[];
   maxScale?: number;
   isChannel?: boolean;
 }) {
@@ -51,6 +58,7 @@ export function Historical({
         <CardContent>
           <EngagementHistorical
             dailyEngagement={dailyEngagement}
+            powerBadgeEngagement={dailyPowerBadgeEngagement}
             maxScale={maxScale}
           />
         </CardContent>
@@ -66,17 +74,19 @@ export function Historical({
           <DailyActivityHeatMap dailyActivity={dailyActivity} />
         </CardContent>
       </Card>
-      <Card className="col-span-4">
-        <CardHeader>
-          <CardTitle>You are buzzzing among power badge holders</CardTitle>
-          <CardDescription>
-            Engagement from power badge holders over the last 90 days
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <EngagementHistorical dailyEngagement={dailyPowerBadgeEngagement} />
-        </CardContent>
-      </Card>
+      {dailyOpenrank && dailyOpenrank.length > 0 && (
+        <Card className="col-span-4">
+          <CardHeader>
+            <CardTitle>Your reputation in the network</CardTitle>
+            <CardDescription>
+              OpenRank score over the past 90 days
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <OpenrankHistorical dailyOpenrank={dailyOpenrank} />
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

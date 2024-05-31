@@ -89,6 +89,11 @@ export type DailyActivity = {
   casts: number;
 };
 
+export type DailyOpenrank = {
+  date: string;
+  rank: number;
+};
+
 export type DailyFollower = {
   date: string;
   followers: number;

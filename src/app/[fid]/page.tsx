@@ -14,6 +14,7 @@ import {
   getDailyactivity,
   getFollowerActiveHours,
   getBenchmarks,
+  getDailyOpenrank,
 } from "@/lib/dune-fid";
 import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
@@ -37,6 +38,7 @@ export default async function DashboardPage({
     [dailyEngagement, dailyPowerBadgeEngagement],
     dailyFollowers,
     dailyactivity,
+    dailyOpenrank,
     followerActiveHours,
     benchmarks,
   ] = await Promise.all([
@@ -48,6 +50,7 @@ export default async function DashboardPage({
     getDailyEngagement(fid),
     getDailyFollowerCount(fid),
     getDailyactivity(fid),
+    getDailyOpenrank(fid),
     getFollowerActiveHours(fid, tz),
     getBenchmarks(fid),
   ]);
@@ -96,6 +99,7 @@ export default async function DashboardPage({
               dailyPowerBadgeEngagement={dailyPowerBadgeEngagement}
               dailyFollowers={dailyFollowers}
               dailyActivity={dailyactivity}
+              dailyOpenrank={dailyOpenrank}
             />
           </TabsContent>
           <TabsContent value="followers">

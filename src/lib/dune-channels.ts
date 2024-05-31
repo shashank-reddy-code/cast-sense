@@ -1,24 +1,17 @@
 const DUNE_API_KEY = process.env["DUNE_API_KEY"];
 import {
   CastEngagementCount,
-  ChannelPreview,
   DailyActivity,
   DailyEngagement,
   DailyFollower,
   FollowerActiveHours,
   FollowerTier,
-  ProfilePreview,
   TopAndBottomCasts,
   TopChannel,
   TopEngager,
   TopLevelStats,
 } from "./types";
-import {
-  fetchChannel,
-  fetchChannelsByParentUrlsBatch,
-  fetchProfileByName,
-  fetchUsersByFidBatch,
-} from "./neynar";
+import { fetchChannel, fetchUsersByFidBatch } from "./neynar";
 import moment from "moment-timezone";
 import { fillMissingDates } from "./utils";
 
@@ -43,7 +36,6 @@ export async function getChannelStats(
     ),
     getChurnRate(channelUrl),
   ]);
-  console.log("churn rate", churnRate);
   const statsBody = await channelStatsResponse.text();
   const trends = JSON.parse(statsBody).result.rows[0];
 
@@ -544,6 +536,8 @@ export async function getTopCastersBatch(
   });
   return topCasters;
 }
+
+// https://dune.com/queries/3781870
 
 export function getMaxValue(
   engagementData: DailyEngagement[],

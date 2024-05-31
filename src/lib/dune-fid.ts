@@ -5,6 +5,7 @@ import {
   DailyActivity,
   DailyEngagement,
   DailyFollower,
+  DailyOpenrank,
   FollowerActiveHours,
   FollowerTier,
   ProfilePreview,
@@ -464,6 +465,41 @@ export async function getDailyFollowerCount(
     }
   );
   return dailyFollowers;
+}
+
+export async function getDailyOpenrank(fid: number): Promise<DailyOpenrank[]> {
+  // https://dune.com/queries/3781870
+  const meta = {
+    "x-dune-api-key": DUNE_API_KEY || "",
+  };
+  const header = new Headers(meta);
+  const latest_response = await fetch(
+    `https://api.dune.com/api/v1/query/3781870/results?&filters=fid=${fid}`,
+    {
+      method: "GET",
+      headers: header,
+      cache: "no-store",
+    }
+  );
+  if (latest_response.status !== 200) {
+    console.error("Failed to fetch daily follower count", latest_response);
+    return [];
+  }
+  const body = await latest_response.text();
+  const dailyOpenrank = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
+  const dailyRanks: DailyOpenrank[] = dailyOpenrank?.daily_rank.map(
+    (item: any) => {
+      const date = new Date(item[0]); // Create a date object from the datetime string
+      const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
+
+      return {
+        date: formattedDate,
+        rank: item[1],
+      };
+    }
+  );
+
+  return dailyRanks;
 }
 
 export async function getDailyactivity(fid: number): Promise<DailyActivity[]> {
