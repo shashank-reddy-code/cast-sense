@@ -133,7 +133,7 @@ export function Search() {
                 onClick={() => {
                   const timeZone =
                     Intl.DateTimeFormat().resolvedOptions().timeZone;
-                  handleLinkClick(`/${user.fid}?tz=${timeZone}`);
+                  handleLinkClick(`/user/${user.fid}?tz=${timeZone}`);
                 }}
                 key={user.fid}
               >
