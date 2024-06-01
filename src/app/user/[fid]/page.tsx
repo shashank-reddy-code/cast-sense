@@ -19,6 +19,7 @@ import {
 import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export default async function DashboardPage({
   params,
@@ -27,7 +28,10 @@ export default async function DashboardPage({
   params: { fid: string };
   searchParams: { tz?: string };
 }) {
-  const fid = parseFloat(params.fid);
+  const fid = parseInt(params.fid, 10);
+  if (isNaN(fid) || fid <= 0) {
+    notFound();
+  }
   const tz = searchParams?.tz || "UTC";
   const [
     profile,
