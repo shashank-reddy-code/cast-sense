@@ -88,8 +88,9 @@ export const autocompleteChannelSearch = async (name: string) => {
       headers: {
         "Content-Type": "application/json",
         api_key: process.env.NEXT_PUBLIC_NEYNAR_API_KEY as string,
+        cache: "no-store"
       },
-      next: { revalidate: 86500 },
+      // next: { revalidate: 86500 },
     }
   );
   // log error if response is not ok
