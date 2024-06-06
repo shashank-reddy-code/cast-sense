@@ -20,7 +20,6 @@ export function OpenrankHistorical({
   maxScale?: number;
 }) {
   if (!dailyOpenrank) return <></>;
-
   return (
     <ResponsiveContainer width="100%" height={350}>
       <LineChart data={dailyOpenrank}>
@@ -36,6 +35,7 @@ export function OpenrankHistorical({
           fontSize={12}
           tickLine={false}
           axisLine={false}
+          reversed={true}
           {...(maxScale ? { domain: [0, maxScale] } : {})}
         />
         <Tooltip

@@ -39,6 +39,7 @@ export function ActiveHoursHeatMap({
         tools: {
           download: false,
         },
+        height: 'auto',
       },
     },
     dataLabels: {
@@ -69,7 +70,10 @@ export function ActiveHoursHeatMap({
         style: {
           colors: "#ffffff", // White color for y-axis labels
         },
+        hideOverlappingLabels: true,
+        className: "text-sm md:text-base",
       },
+      tickAmount: 12,
     },
   };
   const series = formatSeriesData();
