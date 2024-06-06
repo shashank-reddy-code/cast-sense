@@ -41,7 +41,7 @@ export function EngagementHistorical({
     <ResponsiveContainer width="100%" height={350}>
       <ComposedChart data={mergedData}>
         <XAxis
-          dataKey="name"
+          dataKey="date"
           stroke="#888888"
           fontSize={12}
           tickLine={false}

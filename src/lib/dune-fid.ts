@@ -406,7 +406,7 @@ export async function getDailyEngagement(
       const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
 
       return {
-        name: formattedDate,
+        date: formattedDate,
         total: item[1],
         replies: item[2],
         recasts: item[3],
@@ -421,7 +421,7 @@ export async function getDailyEngagement(
       const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
 
       return {
-        name: formattedDate,
+        date: formattedDate,
         total: item[5],
         replies: item[6],
         recasts: item[7],
