@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import "react-farcaster-embed/dist/styles.css";
 import "../styles/globals.css";
+import "react-farcaster-embed/dist/styles.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
