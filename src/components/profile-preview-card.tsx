@@ -46,7 +46,7 @@ export function ProfilePreviewCard({
                 Top Channels:{" "}
                 {profilePreview.top_channels.map((channel, index) => (
                   <Link
-                    href={`https://nook.social/channels/${channel}`}
+                    href={`https://warpcast.com/~/channel/${channel}`}
                     key={index}
                     rel="noopener noreferrer"
                     target="_blank"

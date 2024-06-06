@@ -349,6 +349,7 @@ export async function getTopAndBottomCasts(
         like_count: item[2],
         recast_count: item[3],
         reply_count: item[4],
+        fname: topAndBottomCasts?.fname,
       };
     }
   );
@@ -361,6 +362,7 @@ export async function getTopAndBottomCasts(
         like_count: item[2],
         recast_count: item[3],
         reply_count: item[4],
+        fname: topAndBottomCasts?.fname,
       };
     }
   );

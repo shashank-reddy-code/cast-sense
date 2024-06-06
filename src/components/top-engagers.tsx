@@ -55,7 +55,7 @@ export async function TopEngagers({
                 <HoverCard key={te.profile.fid}>
                   <HoverCardTrigger asChild>
                     <Link
-                      href={`https://nook.social/users/${te.profile.username}`}
+                      href={`https://warpcast.com/${te.profile.username}`}
                       rel="noopener noreferrer"
                       target="_blank"
                       key={te.profile.fid}

@@ -28,7 +28,7 @@ export function ChannelPreviewCard({
             Top users:{" "}
             {liteChannel.top_casters.map((fname, index) => (
               <Link
-                href={`https://nook.social/users/${fname}`}
+                href={`https://warpcast.com/${fname}`}
                 key={index}
                 rel="noopener noreferrer"
                 target="_blank"

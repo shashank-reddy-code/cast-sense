@@ -322,6 +322,7 @@ export async function getTopAndBottomCasts(
         like_count: item[2],
         recast_count: item[3],
         reply_count: item[4],
+        fname: item[5],
       };
     }) || [];
 
@@ -333,6 +334,7 @@ export async function getTopAndBottomCasts(
         like_count: item[2],
         recast_count: item[3],
         reply_count: item[4],
+        fname: item[5],
       };
     }) || [];
 

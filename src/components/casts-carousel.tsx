@@ -57,7 +57,7 @@ export async function CastsCarousel({
             <CarouselItem key={item.hash} className="md:basis-1/2 lg:basis-1/3">
               <div className="space-y-4">
                 <Link
-                  href={`https://nook.social/casts/${item.hash}`}
+                  href={`https://warpcast.com/${item.fname}/${item.hash}`}
                   rel="noopener noreferrer"
                   target="_blank"
                 >

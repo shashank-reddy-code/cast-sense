@@ -51,7 +51,7 @@ export async function TopChannels({
               <HoverCard key={tc.channel.id}>
                 <HoverCardTrigger asChild>
                   <Link
-                    href={`https://nook.social/channels/${tc.channel.id}`}
+                    href={`https://warpcast.com/~/channel/${tc.channel.id}`}
                     rel="noopener noreferrer"
                     target="_blank"
                     key={tc.channel.id}
