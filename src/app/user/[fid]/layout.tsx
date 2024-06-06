@@ -9,7 +9,7 @@ export const generateMetadata = async ({
   const { fid } = params;
   const profile = await fetchProfileByFid({ fid, useCache: true });
   return {
-    title: fid ? `CastSense - ${profile.display_name}` : "CastSense",
+    title: fid ? `CastSense - ${profile.username}` : "CastSense",
   };
 };
 
