@@ -251,7 +251,6 @@ export async function getFollowerActiveHours(
 
   // Determine the offset for the timezone
   const offset = Math.ceil(moment.tz(timezone).utcOffset() / 60);
-  console.log("using timezone offset", offset, timezone, " for fid", fid);
   // Initialize an object to hold the final counts for all days of the week.
   const weeklyHourlyCounts: { [key: string]: { [key: number]: number } } = {};
   // Days of the week array for easier manipulation

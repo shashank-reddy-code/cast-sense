@@ -18,19 +18,29 @@ export const fetchChannel = async (parent_url: string) => {
   return data.channel;
 };
 
-export const fetchProfileByFid = async (fid: number) => {
+export const fetchProfileByFid = async ({
+  fid,
+  useCache,
+}: {
+  fid: number;
+  useCache: boolean;
+}) => {
+  const headers = {
+    "Content-Type": "application/json",
+    api_key: process.env.NEYNAR_API_KEY as string,
+    ...(useCache ? {} : { cache: "no-store" }),
+  };
+
+  const requestInit: RequestInit = {
+    headers,
+    ...(useCache && { next: { revalidate: 2595000 } }),
+  };
+
   const response = await fetch(
     `https://api.neynar.com/v2/farcaster/user/bulk?fids=${fid}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        api_key: process.env.NEYNAR_API_KEY as string,
-        // this is the source for follower counts and needs to be "real-time"
-        cache: "no-store",
-      },
-    }
+    requestInit
   );
-  // log error if response is not ok
+
   if (!response.ok) {
     console.error(`Failed to fetch profile by fid ${fid}`, response);
     return null;

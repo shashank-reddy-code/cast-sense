@@ -360,7 +360,7 @@ export async function getChurnRate(channelUrl: string): Promise<number> {
   const body = await latest_response.text();
   const result = JSON.parse(body).result.rows[0];
   if (result === undefined) {
-    console.error("No churn rate data found for channel", channelUrl);
+    console.warn("No churn rate data found for channel", channelUrl);
     return 0;
   }
   return parseFloat(result.churn_rate);

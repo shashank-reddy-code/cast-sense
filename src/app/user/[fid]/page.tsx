@@ -21,7 +21,7 @@ import { Benchmark } from "@/components/benchmark";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export default async function DashboardPage({
+export default async function DashboardUser({
   params,
   searchParams,
 }: {
@@ -46,7 +46,7 @@ export default async function DashboardPage({
     followerActiveHours,
     benchmarks,
   ] = await Promise.all([
-    fetchProfileByFid(fid),
+    fetchProfileByFid({ fid, useCache: false }),
     getFidStats(fid),
     getTopEngagersAndChannels(fid),
     getFollowerTiers(fid),
