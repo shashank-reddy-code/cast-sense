@@ -88,6 +88,12 @@ export async function CastsCarousel({
                       <span>{formatNumber(item.reply_count)}</span>
                     </div>
                   )}
+                  {item.power_badge_count > 0 && (
+                    <div className="flex items-center space-x-1">
+                      <SvgIcons.powerBadge />
+                      <span>{formatNumber(item.power_badge_count)}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </CarouselItem>

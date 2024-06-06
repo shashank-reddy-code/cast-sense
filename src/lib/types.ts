@@ -25,6 +25,7 @@ export type CastEngagementCount = {
   like_count: number;
   recast_count: number;
   reply_count: number;
+  power_badge_count: number;
   fname: string;
 };
 
