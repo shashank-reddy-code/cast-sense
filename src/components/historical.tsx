@@ -83,12 +83,10 @@ export function Historical({
           <CardHeader>
             <CardTitle>Your reputation in the network</CardTitle>
             <CardDescription>
-              <div>
-                OpenRank score over the past 90 days
-                {openrankText && (
-                  <p className="text-sm mt-1">You are in the {openrankText}</p>
-                )}
-              </div>
+              OpenRank score over the past 90 days
+              {openrankText && (
+                <p className="text-sm mt-1">You are in the {openrankText}</p>
+              )}
             </CardDescription>
           </CardHeader>
           <CardContent>
