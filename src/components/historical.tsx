@@ -13,7 +13,7 @@ import {
   DailyActivity,
   DailyEngagement,
   DailyFollower,
-  DailyOpenrank,
+  DailyOpenrankStrategies,
 } from "@/lib/types";
 import { DailyActivityHeatMap } from "./daily-activity-heatmap";
 import { OpenrankHistorical } from "./openrank-historical";
@@ -26,7 +26,7 @@ export function Historical({
   dailyFollowers,
   dailyActivity,
   dailyPowerBadgeEngagement = [],
-  dailyOpenrank = [],
+  dailyOpenrankStrategies = { followRanks: [], engagementRanks: [] },
   maxScale,
   isChannel = false,
 }: {
@@ -34,7 +34,7 @@ export function Historical({
   dailyFollowers: DailyFollower[];
   dailyActivity: DailyActivity[];
   dailyPowerBadgeEngagement?: DailyEngagement[];
-  dailyOpenrank?: DailyOpenrank[];
+  dailyOpenrankStrategies?: DailyOpenrankStrategies;
   maxScale?: number;
   isChannel?: boolean;
 }) {
@@ -47,7 +47,11 @@ export function Historical({
 
   const openrankText = isChannel
     ? undefined
-    : getOpenrankText(dailyOpenrank[dailyOpenrank.length - 1].percentile);
+    : getOpenrankText(
+        dailyOpenrankStrategies.engagementRanks[
+          dailyOpenrankStrategies.engagementRanks.length - 1
+        ].percentile
+      );
   const description = isChannel
     ? `Unique casters over the last ${range} days`
     : `Followers over the last ${range} days`;
@@ -114,24 +118,35 @@ export function Historical({
             />
           </CardContent>
         </Card>
-        {dailyOpenrank && dailyOpenrank.length > 0 && (
-          <Card className="col-span-4">
-            <CardHeader>
-              <CardTitle>Your reputation in the network</CardTitle>
-              <CardDescription>
-                OpenRank score over the past {range} days
-                {openrankText && (
-                  <p className="text-sm mt-1">You are in the {openrankText}</p>
-                )}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <OpenrankHistorical
-                dailyOpenrank={filterDataByRange(dailyOpenrank, range)}
-              />
-            </CardContent>
-          </Card>
-        )}
+        {dailyOpenrankStrategies &&
+          dailyOpenrankStrategies.engagementRanks.length > 0 &&
+          dailyOpenrankStrategies.followRanks.length > 0 && (
+            <Card className="col-span-4">
+              <CardHeader>
+                <CardTitle>Your reputation in the network</CardTitle>
+                <CardDescription>
+                  OpenRank score over the past {range} days
+                  {openrankText && (
+                    <p className="text-sm mt-1">
+                      You are in the {openrankText}
+                    </p>
+                  )}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <OpenrankHistorical
+                  followRanks={filterDataByRange(
+                    dailyOpenrankStrategies.followRanks,
+                    range
+                  )}
+                  engagementRanks={filterDataByRange(
+                    dailyOpenrankStrategies.engagementRanks,
+                    range
+                  )}
+                />
+              </CardContent>
+            </Card>
+          )}
       </div>
     </div>
   );

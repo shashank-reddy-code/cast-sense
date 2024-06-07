@@ -97,6 +97,11 @@ export type DailyOpenrank = {
   percentile: number;
 };
 
+export type DailyOpenrankStrategies = {
+  followRanks: DailyOpenrank[];
+  engagementRanks: DailyOpenrank[];
+};
+
 export type DailyFollower = {
   date: string;
   followers: number;

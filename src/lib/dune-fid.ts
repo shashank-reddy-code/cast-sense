@@ -6,6 +6,7 @@ import {
   DailyEngagement,
   DailyFollower,
   DailyOpenrank,
+  DailyOpenrankStrategies,
   FidOverview,
   FollowerActiveHours,
   FollowerTier,
@@ -471,7 +472,9 @@ export async function getDailyFollowerCount(
   return dailyFollowers;
 }
 
-export async function getDailyOpenrank(fid: number): Promise<DailyOpenrank[]> {
+export async function getDailyOpenrank(
+  fid: number
+): Promise<DailyOpenrankStrategies> {
   // https://dune.com/queries/3781870
   const meta = {
     "x-dune-api-key": DUNE_API_KEY || "",
@@ -487,11 +490,11 @@ export async function getDailyOpenrank(fid: number): Promise<DailyOpenrank[]> {
   );
   if (latest_response.status !== 200) {
     console.error("Failed to fetch daily follower count", latest_response);
-    return [];
+    return { followRanks: [], engagementRanks: [] };
   }
   const body = await latest_response.text();
   const dailyOpenrank = JSON.parse(body).result.rows[0]; //will only be one row in the result, for the filtered fid
-  const dailyRanks: DailyOpenrank[] = dailyOpenrank?.daily_rank.map(
+  const followRanks: DailyOpenrank[] = dailyOpenrank?.daily_follow_rank.map(
     (item: any) => {
       const date = new Date(item[0]); // Create a date object from the datetime string
       const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
@@ -503,7 +506,22 @@ export async function getDailyOpenrank(fid: number): Promise<DailyOpenrank[]> {
       };
     }
   );
-  return dailyRanks;
+
+  const engagementRanks: DailyOpenrank[] =
+    dailyOpenrank?.daily_engagement_rank.map((item: any) => {
+      const date = new Date(item[0]); // Create a date object from the datetime string
+      const formattedDate = date.toISOString().split("T")[0]; // Format date as 'YYYY-MM-DD'
+
+      return {
+        date: formattedDate,
+        rank: item[1],
+        percentile: item[2],
+      };
+    });
+  return {
+    followRanks,
+    engagementRanks,
+  };
 }
 
 export async function getDailyactivity(fid: number): Promise<DailyActivity[]> {

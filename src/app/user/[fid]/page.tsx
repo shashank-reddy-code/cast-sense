@@ -42,7 +42,7 @@ export default async function DashboardUser({
     [dailyEngagement, dailyPowerBadgeEngagement],
     dailyFollowers,
     dailyactivity,
-    dailyOpenrank,
+    dailyOpenrankStrategies,
     followerActiveHours,
     benchmarks,
   ] = await Promise.all([
@@ -103,7 +103,7 @@ export default async function DashboardUser({
               dailyPowerBadgeEngagement={dailyPowerBadgeEngagement}
               dailyFollowers={dailyFollowers}
               dailyActivity={dailyactivity}
-              dailyOpenrank={dailyOpenrank}
+              dailyOpenrankStrategies={dailyOpenrankStrategies}
             />
           </TabsContent>
           <TabsContent value="followers">
