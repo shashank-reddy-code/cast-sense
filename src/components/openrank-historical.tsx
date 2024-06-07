@@ -4,6 +4,7 @@ import { DailyOpenrank } from "@/lib/types";
 import {
   Bar,
   ComposedChart,
+  Legend,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -62,6 +63,7 @@ export function OpenrankHistorical({
           labelStyle={{ color: "black" }}
           itemStyle={{ color: "black" }}
         />
+        <Legend />
         <Line
           type="monotone"
           dataKey="followRank"
