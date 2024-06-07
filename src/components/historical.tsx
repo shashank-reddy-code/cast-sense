@@ -128,7 +128,7 @@ export function Historical({
                   OpenRank score over the past {range} days
                   {openrankText && (
                     <p className="text-sm mt-1">
-                      You are in the {openrankText}
+                      You are in the {openrankText} by engagement
                     </p>
                   )}
                 </CardDescription>
