@@ -46,7 +46,8 @@ export default async function DashboardUser({
     followerActiveHours,
     benchmarks,
   ] = await Promise.all([
-    fetchProfileByFid({ fid, useCache: false }),
+    // cant use falses and true for the same path in vercel
+    fetchProfileByFid(fid),
     getFidStats(fid),
     getTopEngagersAndChannels(fid),
     getFollowerTiers(fid),

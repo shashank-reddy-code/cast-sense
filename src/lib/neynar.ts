@@ -18,27 +18,17 @@ export const fetchChannel = async (parent_url: string) => {
   return data.channel;
 };
 
-export const fetchProfileByFid = async ({
-  fid,
-  useCache,
-}: {
-  fid: number;
-  useCache: boolean;
-}) => {
-  const headers = {
-    "Content-Type": "application/json",
-    api_key: process.env.NEYNAR_API_KEY as string,
-    ...(useCache ? {} : { cache: "no-store" }),
-  };
-
-  const requestInit: RequestInit = {
-    headers,
-    ...(useCache && { next: { revalidate: 2595000 } }),
-  };
-
+export const fetchProfileByFid = async (fid: number) => {
+  // viewer_fid param is a hack to distinguish caching entries between fetchProfileByFid and fetchProfileByFidBatch
   const response = await fetch(
-    `https://api.neynar.com/v2/farcaster/user/bulk?fids=${fid}`,
-    requestInit
+    `https://api.neynar.com/v2/farcaster/user/bulk?fids=${fid}&viewer_fid=3`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        api_key: process.env.NEYNAR_API_KEY as string,
+        cache: "no-store",
+      },
+    }
   );
 
   if (!response.ok) {
@@ -98,7 +88,7 @@ export const autocompleteChannelSearch = async (name: string) => {
       headers: {
         "Content-Type": "application/json",
         api_key: process.env.NEXT_PUBLIC_NEYNAR_API_KEY as string,
-        cache: "no-store"
+        cache: "no-store",
       },
       // next: { revalidate: 86500 },
     }

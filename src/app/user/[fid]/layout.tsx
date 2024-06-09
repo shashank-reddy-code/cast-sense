@@ -7,7 +7,8 @@ export const generateMetadata = async ({
   params: any;
 }): Promise<Metadata> => {
   const { fid } = params;
-  const profile = await fetchProfileByFid({ fid, useCache: true });
+  // ideally we dont use cache here but vercel doesnt like using caching and no caching on the same path
+  const profile = await fetchProfileByFid(fid);
   return {
     title: fid ? `CastSense - ${profile.username}` : "CastSense",
   };
