@@ -21,6 +21,15 @@ import { Benchmark } from "@/components/benchmark";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+async function fetchData(endpoint: string) {
+  const response = await fetch(endpoint);
+  if (!response.ok) {
+    console.error(`Failed to fetch data from ${endpoint}`, response);
+    return null;
+  }
+  return await response.json();
+}
+
 export default async function DashboardUser({
   params,
   searchParams,
@@ -41,23 +50,22 @@ export default async function DashboardUser({
     topAndBottomCasts,
     [dailyEngagement, dailyPowerBadgeEngagement],
     dailyFollowers,
-    dailyactivity,
+    dailyActivity,
     dailyOpenrankStrategies,
     followerActiveHours,
     benchmarks,
   ] = await Promise.all([
-    // cant use falses and true for the same path in vercel
     fetchProfileByFid(fid),
-    getFidStats(fid),
-    getTopEngagersAndChannels(fid),
-    getFollowerTiers(fid),
-    getTopAndBottomCasts(fid),
-    getDailyEngagement(fid),
-    getDailyFollowerCount(fid),
-    getDailyactivity(fid),
-    getDailyOpenrank(fid),
-    getFollowerActiveHours(fid, tz),
-    getBenchmarks(fid),
+    fetchData(`/api/user/${fid}/stats`),
+    fetchData(`/api/user/${fid}/engagers-channels`),
+    fetchData(`/api/user/${fid}/follower-tiers`),
+    fetchData(`/api/user/${fid}/casts`),
+    fetchData(`/api/user/${fid}/dailyEngagement`),
+    fetchData(`/api/user/${fid}/dailyFollowers`),
+    fetchData(`/api/user/${fid}/dailyActivity`),
+    fetchData(`/api/user/${fid}/dailyOpenrank`),
+    fetchData(`/api/user/${fid}/active-hours&timezone=${tz}`),
+    fetchData(`/api/user/${fid}/benchmark`),
   ]);
 
   // const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
