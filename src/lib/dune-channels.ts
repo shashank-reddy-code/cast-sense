@@ -31,7 +31,7 @@ export async function getChannelStats(
       {
         method: "GET",
         headers: header,
-        cache: "no-store",
+        next: { revalidate: 86500 },
       }
     ),
     getChurnRate(channelUrl),
@@ -56,7 +56,7 @@ export async function getTopEngagersAndInfluencers(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   const body = await latest_response.text();
@@ -156,7 +156,7 @@ export async function getFollowerTiers(
       {
         method: "GET",
         headers: header,
-        cache: "no-store",
+        next: { revalidate: 86500 },
       }
     ),
     getPowerbadgeFollowers(channelUrl),
@@ -203,7 +203,7 @@ export async function getFollowerActiveHours(
     {
       method: "GET",
       headers: headers,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
 
@@ -301,7 +301,7 @@ export async function getTopAndBottomCasts(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   const body = await latest_response.text();
@@ -358,7 +358,7 @@ export async function getChurnRate(channelUrl: string): Promise<number> {
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   const body = await latest_response.text();
@@ -384,7 +384,7 @@ export async function getDailyEngagement(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   const body = await latest_response.text();
@@ -439,7 +439,7 @@ export async function getDailyCastersCount(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   const body = await latest_response.text();
@@ -485,7 +485,7 @@ export async function getChannelsWithSimilarCasters(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   const body = await latest_response.text();
@@ -525,7 +525,7 @@ export async function getTopCastersBatch(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   const body = await latest_response.text();

@@ -10,7 +10,6 @@ import {
   FidOverview,
   FollowerActiveHours,
   FollowerTier,
-  ProfilePreview,
   TopAndBottomCasts,
   TopChannel,
   TopEngager,
@@ -32,7 +31,7 @@ export async function getFidStats(fid: number): Promise<TopLevelStats> {
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   if (latest_response.status !== 200) {
@@ -57,7 +56,7 @@ export async function getTopEngagersAndChannels(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   if (latest_response.status !== 200) {
@@ -127,7 +126,7 @@ export async function getPowerbadgeFollowers(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   if (latest_response.status !== 200) {
@@ -159,7 +158,7 @@ export async function getBenchmarks(fid: number): Promise<Benchmark> {
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   const body = await latest_response.text();
@@ -181,7 +180,7 @@ export async function getFollowerTiers(fid: number): Promise<FollowerTier[]> {
       {
         method: "GET",
         headers: header,
-        cache: "no-store",
+        next: { revalidate: 86500 },
       }
     ),
     getPowerbadgeFollowers(fid),
@@ -232,7 +231,7 @@ export async function getFollowerActiveHours(
     {
       method: "GET",
       headers: headers,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   if (response.status !== 200) {
@@ -329,7 +328,7 @@ export async function getTopAndBottomCasts(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   if (latest_response.status !== 200) {
@@ -393,7 +392,7 @@ export async function getDailyEngagement(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   if (latest_response.status !== 200) {
@@ -447,7 +446,7 @@ export async function getDailyFollowerCount(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   if (latest_response.status !== 200) {
@@ -485,7 +484,7 @@ export async function getDailyOpenrank(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   if (latest_response.status !== 200) {
@@ -536,7 +535,7 @@ export async function getDailyactivity(fid: number): Promise<DailyActivity[]> {
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   if (latest_response.status !== 200) {
@@ -575,7 +574,7 @@ export async function getFidsOverviewBatch(
     {
       method: "GET",
       headers: header,
-      cache: "no-store",
+      next: { revalidate: 86500 },
     }
   );
   if (latest_response.status !== 200) {
