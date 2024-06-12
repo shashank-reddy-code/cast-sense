@@ -1,21 +1,10 @@
+const BASE_URL = process.env["BASE_URL"];
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TopLevel } from "@/components/top-level";
 import { UserNav } from "@/components/user-nav";
 import { Historical } from "@/components/historical";
 import { FollowerCarousel } from "@/components/follower-carousel";
 import { EngagementCarousel } from "@/components/engagement-carousel";
-import {
-  getFidStats,
-  getTopEngagersAndChannels,
-  getFollowerTiers,
-  getTopAndBottomCasts,
-  getDailyEngagement,
-  getDailyFollowerCount,
-  getDailyactivity,
-  getFollowerActiveHours,
-  getBenchmarks,
-  getDailyOpenrank,
-} from "@/lib/dune-fid";
 import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
 import Link from "next/link";
@@ -50,28 +39,30 @@ export default async function DashboardUser({
     topAndBottomCasts,
     [dailyEngagement, dailyPowerBadgeEngagement],
     dailyFollowers,
-    dailyActivity,
+    dailyactivity,
     dailyOpenrankStrategies,
     followerActiveHours,
     benchmarks,
   ] = await Promise.all([
     fetchProfileByFid(fid),
-    fetchData(`/api/user/${fid}/stats`),
-    fetchData(`/api/user/${fid}/engagers-channels`),
-    fetchData(`/api/user/${fid}/follower-tiers`),
-    fetchData(`/api/user/${fid}/casts`),
-    fetchData(`/api/user/${fid}/dailyEngagement`),
-    fetchData(`/api/user/${fid}/dailyFollowers`),
-    fetchData(`/api/user/${fid}/dailyActivity`),
-    fetchData(`/api/user/${fid}/dailyOpenrank`),
-    fetchData(`/api/user/${fid}/active-hours&timezone=${tz}`),
-    fetchData(`/api/user/${fid}/benchmark`),
+    fetchData(`${BASE_URL}/api/user/${fid}/stats`),
+    fetchData(`${BASE_URL}/api/user/${fid}/top-engagers-and-follower-channels`),
+    fetchData(`${BASE_URL}/api/user/${fid}/follower-tiers`),
+    fetchData(`${BASE_URL}/api/user/${fid}/casts`),
+    fetchData(`${BASE_URL}/api/user/${fid}/historical-engagement`),
+    fetchData(`${BASE_URL}/api/user/${fid}/historical-followers`),
+    fetchData(`${BASE_URL}/api/user/${fid}/historical-activity`),
+    fetchData(`${BASE_URL}/api/user/${fid}/historical-openrank`),
+    fetchData(`${BASE_URL}/api/user/${fid}/active-hours?timezone=${tz}`),
+    fetchData(`${BASE_URL}/api/user/${fid}/benchmarks`),
   ]);
 
   // const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
   // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
   fidStats.total_followers = profile.follower_count;
   console.log("Finished fetching data for", fid);
+  // const dailyEngagement = overallEngagement[0];
+  // const dailyPowerBadgeEngagement = overallEngagement[1];
 
   return (
     <div className="flex-col md:flex">
