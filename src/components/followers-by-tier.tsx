@@ -23,8 +23,8 @@ export function FollowersByTier({
   isChannel?: boolean;
 }) {
   const description = isChannel
-    ? "Different types of casters"
-    : "Different types of followers";
+    ? "Breakdown of active casters"
+    : "Breakdown of active followers";
   return (
     <div className="space-y-8 flex flex-col">
       <Card>
