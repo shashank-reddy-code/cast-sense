@@ -22,11 +22,13 @@ export async function TopChannels({
   if (channels == null || channels.length === 0) {
     return <></>;
   }
-  const topCasters = await getTopCastersBatch(
-    channels
-      .filter((c: TopChannel) => c != null)
-      .map((c) => c.channel.parent_url)
-  );
+  // temporarily disable topCasters as its very expensive in dune to compute in batch
+  // const topCasters = await getTopCastersBatch(
+  //   channels
+  //     .filter((c: TopChannel) => c != null)
+  //     .map((c) => c.channel.parent_url)
+  // );
+  const topCasters: { [key: string]: string[] } = {};
   const channelPreviews: { [key: string]: ChannelPreview } = channels.reduce(
     (acc: { [key: string]: ChannelPreview }, c) => {
       const channelPreview = {

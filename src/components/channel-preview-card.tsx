@@ -24,21 +24,23 @@ export function ChannelPreviewCard({
               {formatNumber(liteChannel.channel.follower_count)} followers
             </span>
           </div>
-          <p className="text-sm">
-            Top users:{" "}
-            {liteChannel.top_casters.map((fname, index) => (
-              <Link
-                href={`https://warpcast.com/${fname}`}
-                key={index}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="text-blue-500 hover:underline"
-              >
-                {fname}
-                {index < liteChannel.top_casters.length - 1 && ", "}
-              </Link>
-            ))}
-          </p>
+          {liteChannel.top_casters.length > 0 && (
+            <p className="text-sm">
+              Top users:{" "}
+              {liteChannel.top_casters.map((fname, index) => (
+                <Link
+                  href={`https://warpcast.com/${fname}`}
+                  key={index}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  className="text-blue-500 hover:underline"
+                >
+                  {fname}
+                  {index < liteChannel.top_casters.length - 1 && ", "}
+                </Link>
+              ))}
+            </p>
+          )}
         </div>
       </div>
     </HoverCardContent>
