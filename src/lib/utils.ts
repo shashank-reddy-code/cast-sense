@@ -89,6 +89,18 @@ export function getDayLabel(date: string) {
   return dayNames[dateObj.getDay()];
 }
 
+export async function fetchData(endpoint: string) {
+  const response = await fetch(endpoint);
+  if (!response.ok) {
+    console.error(
+      `Failed to fetch data from ${endpoint}`,
+      await response.text()
+    );
+    return null;
+  }
+  return await response.json();
+}
+
 export function getOpenrankText(openrank_percentile: number): string | null {
   if (openrank_percentile < 1) {
     return "🎖️ Top 1 percentile";

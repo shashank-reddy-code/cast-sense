@@ -11,7 +11,7 @@ import {
   TopEngager,
   TopLevelStats,
 } from "./types";
-import { fetchChannel, fetchUsersByFidBatch } from "./neynar";
+import { fetchChannelByUrl, fetchUsersByFidBatch } from "./neynar";
 import moment from "moment-timezone";
 import { fillMissingDates } from "./utils";
 
@@ -498,7 +498,7 @@ export async function getChannelsWithSimilarCasters(
   // todo: switch to batch endpoint
   const channelPromises = result.top_similar_channels.map(
     async (item: string[]) => {
-      const channel = await fetchChannel(item[0]);
+      const channel = await fetchChannelByUrl(item[0]);
       return { channel, casts: item[1] };
     }
   );

@@ -1,3 +1,4 @@
+const BASE_URL = process.env["BASE_URL"];
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TopLevel } from "@/components/top-level";
 import { UserNav } from "@/components/user-nav";
@@ -17,6 +18,7 @@ import {
 import { fetchChannelByName } from "@/lib/neynar";
 import Link from "next/link";
 import { Profile } from "@/lib/types";
+import { fetchData } from "@/lib/utils";
 
 export default async function DashboardChannel({
   params,
@@ -38,14 +40,14 @@ export default async function DashboardChannel({
     followerActiveHours,
     similarChannels,
   ] = await Promise.all([
-    getChannelStats(channel.url),
-    getTopEngagersAndInfluencers(channel.url),
-    getFollowerTiers(channel.url),
-    getTopAndBottomCasts(channel.url),
-    getDailyEngagement(channel.url),
-    getDailyCastersCount(channel.url),
-    getFollowerActiveHours(channel.url, tz),
-    getChannelsWithSimilarCasters(channel.url),
+    fetchData(`${BASE_URL}/api/channel/${name}/stats`),
+    fetchData(`${BASE_URL}/api/channel/${name}/top-engagers-and-influencers`),
+    fetchData(`${BASE_URL}/api/channel/${name}/follower-tiers`),
+    fetchData(`${BASE_URL}/api/channel/${name}/casts`),
+    fetchData(`${BASE_URL}/api/channel/${name}/historical-engagement`),
+    fetchData(`${BASE_URL}/api/channel/${name}/historical-casters`),
+    fetchData(`${BASE_URL}/api/channel/${name}/active-hours`),
+    fetchData(`${BASE_URL}/api/channel/${name}/overlapping-channels`),
   ]);
 
   //const maxScale = getMaxValue(dailyEngagement, dailyCasters);

@@ -1,10 +1,6 @@
-import { fetchChannelsByParentUrlsBatch, fetchUsersByFidBatch } from "./neynar";
-import moment from "moment-timezone";
-import { fillMissingDates } from "./utils";
-
 const DUNE_API_KEY = process.env.DUNE_API_KEY || "";
 
-export async function fetchFirstRowFromDune(queryId: number, fid: number) {
+export async function fetchFirstFidFromDune(queryId: number, fid: number) {
   const headers = new Headers({
     "x-dune-api-key": DUNE_API_KEY,
   });
@@ -26,6 +22,33 @@ export async function fetchFirstRowFromDune(queryId: number, fid: number) {
 
   if (!data.result.rows || data.result.rows.length === 0) {
     console.error(`No rows found for query ${queryId} and fid ${fid}`);
+    return null;
+  }
+
+  return data.result.rows[0];
+}
+
+export async function fetchFirstChannelFromDune(
+  queryId: number,
+  channelUrl: string
+) {
+  const meta = {
+    "x-dune-api-key": DUNE_API_KEY || "",
+  };
+  const header = new Headers(meta);
+  const encodedChannelUrl = encodeURIComponent(channelUrl);
+  const response = await fetch(
+    `https://api.dune.com/api/v1/query/${queryId}/results?&filters=channel_url="${encodedChannelUrl}"`,
+    {
+      method: "GET",
+      headers: header,
+    }
+  );
+  const data = await response.json();
+  if (!data.result.rows || data.result.rows.length === 0) {
+    console.error(
+      `No rows found for query ${queryId} and channel url ${channelUrl}`
+    );
     return null;
   }
 

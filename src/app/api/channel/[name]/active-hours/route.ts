@@ -1,37 +1,15 @@
-// /app/api/user/[fid]/active-hours/route.ts
 import { NextResponse } from "next/server";
-import { fetchFirstFidFromDune } from "@/lib/dune";
-import { FollowerActiveHours } from "@/lib/types";
-import moment from "moment-timezone";
+import { fetchFirstChannelFromDune } from "@/lib/dune";
+import { fetchChannelById } from "@/lib/neynar";
+import moment from "moment";
 
 export async function GET(
   req: Request,
-  { params }: { params: { fid: string } }
+  { params }: { params: { channelId: string; tz: string } }
 ) {
-  const fid = parseInt(params.fid);
-  const timezone = new URL(req.url).searchParams.get("timezone") || "UTC";
-  const data = await fetchFirstFidFromDune(3697395, fid);
-  const headers = new Headers();
-  headers.set("Cache-Control", "max-age=3600");
-
-  if (!data) {
-    return new NextResponse(null, { status: 404 });
-  }
-
-  const result = await processFollowerActiveHours(data, timezone);
-
-  return new NextResponse(JSON.stringify(result), { headers });
-}
-
-async function processFollowerActiveHours(
-  data: any,
-  timezone: string
-): Promise<FollowerActiveHours> {
-  const result = data;
-  if ("fid" in result) {
-    delete result["fid"];
-  }
-
+  const timezone = params.tz || "UTC";
+  const channel = await fetchChannelById(params.channelId);
+  const result = await fetchFirstChannelFromDune(3715688, channel.url);
   // Determine the offset for the timezone
   const offset = Math.ceil(moment.tz(timezone).utcOffset() / 60);
   // Initialize an object to hold the final counts for all days of the week.
@@ -49,7 +27,7 @@ async function processFollowerActiveHours(
 
   // Process each day's hourly counts.
   daysOfWeek.forEach((day) => {
-    const dayCounts = result[`${day}_hourly_counts`];
+    const dayCounts = result[`${day}_hourly_counts`] || {};
     weeklyHourlyCounts[day] = weeklyHourlyCounts[day] || {};
 
     // Set default count for each hour.
@@ -76,7 +54,7 @@ async function processFollowerActiveHours(
     }
   }
 
-  // Sort the times by follower count in descending order and take the top three
+  // Sort the times by count in descending order and take the top three
   bestTimes.sort((a, b) => b.count - a.count);
   bestTimes = bestTimes.slice(0, 3);
 
@@ -91,10 +69,14 @@ async function processFollowerActiveHours(
     })
     .join(", ");
 
-  const output: FollowerActiveHours = {
+  const data = {
     activeHours: weeklyHourlyCounts,
     bestTimesToPost: readableBestTimes,
   };
 
-  return output;
+  const headers = new Headers();
+  headers.set("Cache-Control", "max-age=3600");
+  return new NextResponse(JSON.stringify(data), {
+    headers,
+  });
 }

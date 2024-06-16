@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchFirstRowFromDune } from "@/lib/dune";
+import { fetchFirstFidFromDune } from "@/lib/dune";
 import { DailyOpenrank, DailyOpenrankStrategies } from "@/lib/types";
 
 export async function GET(
@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: { fid: string } }
 ) {
   const fid = parseInt(params.fid);
-  const data = await fetchFirstRowFromDune(3781870, fid);
+  const data = await fetchFirstFidFromDune(3781870, fid);
   const headers = new Headers();
   headers.set("Cache-Control", "max-age=3600");
 

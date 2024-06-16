@@ -9,15 +9,7 @@ import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-
-async function fetchData(endpoint: string) {
-  const response = await fetch(endpoint);
-  if (!response.ok) {
-    console.error(`Failed to fetch data from ${endpoint}`, response);
-    return null;
-  }
-  return await response.json();
-}
+import { fetchData } from "@/lib/utils";
 
 export default async function DashboardUser({
   params,

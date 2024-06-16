@@ -1,6 +1,6 @@
 // /app/api/user/[fid]/follower-tiers/route.ts
 import { NextResponse } from "next/server";
-import { fetchFirstRowFromDune } from "@/lib/dune";
+import { fetchFirstFidFromDune } from "@/lib/dune";
 import { FollowerTier } from "@/lib/types";
 
 export async function GET(
@@ -9,8 +9,8 @@ export async function GET(
 ) {
   const fid = parseInt(params.fid);
   const [data, powerbadgeData] = await Promise.all([
-    fetchFirstRowFromDune(3697320, fid),
-    fetchFirstRowFromDune(3696361, fid),
+    fetchFirstFidFromDune(3697320, fid),
+    fetchFirstFidFromDune(3696361, fid),
   ]);
 
   const headers = new Headers();

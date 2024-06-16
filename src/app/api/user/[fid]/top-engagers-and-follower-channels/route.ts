@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchFirstRowFromDune } from "@/lib/dune";
+import { fetchFirstFidFromDune } from "@/lib/dune";
 import {
   fetchChannelsByParentUrlsBatch,
   fetchUsersByFidBatch,
@@ -11,7 +11,7 @@ export async function GET(
   { params }: { params: { fid: string } }
 ) {
   const fid = parseInt(params.fid);
-  const data = await fetchFirstRowFromDune(3738107, fid);
+  const data = await fetchFirstFidFromDune(3738107, fid);
   const headers = new Headers();
   headers.set("Cache-Control", "max-age=3600");
 
