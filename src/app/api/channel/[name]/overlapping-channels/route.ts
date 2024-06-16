@@ -6,7 +6,7 @@ import {
   fetchChannelByUrl,
   fetchChannelsByParentUrlsBatch,
 } from "@/lib/neynar";
-import { TopChannel } from "@/lib/types";
+import { Channel, TopChannel } from "@/lib/types";
 
 export async function GET(
   req: Request,
@@ -14,17 +14,15 @@ export async function GET(
 ) {
   const channel = await fetchChannelById(params.channelId);
   const result = await fetchFirstChannelFromDune(3746998, channel.url);
-  const data: TopChannel[] = await fetchChannelsByParentUrlsBatch(
+  const channels: Channel[] = await fetchChannelsByParentUrlsBatch(
     result.top_similar_channels.map((item: string[]) => item[0])
   );
-  //   const channelPromises = result.top_similar_channels.map(
-  //     async (item: string[]) => {
-  //       const channel = await fetchChannelByUrl(item[0]);
-  //       return { channel, casts: item[1] };
-  //     }
-  //   );
-
-  // const data: TopChannel[] = await Promise.all(channelPromises);
+  const data = result.top_similar_channels.map((item: string[]) => {
+    const parent_url = item[0];
+    const casts = item[1];
+    const channel = channels.find((ch) => ch.parent_url === parent_url);
+    return { casts, channel };
+  });
 
   const headers = new Headers();
   headers.set("Cache-Control", "max-age=3600");

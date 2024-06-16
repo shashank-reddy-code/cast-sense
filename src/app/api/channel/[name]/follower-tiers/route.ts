@@ -8,7 +8,7 @@ export async function GET(
   { params }: { params: { channelId: string } }
 ) {
   const channel = await fetchChannelById(params.channelId);
-  const [followerTiers, powerBadgeFollowers] = await Promise.all([
+  const [followerTiers, powerBadgeResponse] = await Promise.all([
     fetchFirstChannelFromDune(3715790, channel.url),
     fetchFirstChannelFromDune(3715907, channel.url),
   ]);
@@ -28,6 +28,12 @@ export async function GET(
   const sortedMap = tierMap.sort((a, b) => {
     return b.percentage - a.percentage;
   });
+
+  const powerBadgeFollowers = {
+    tier: "⚡ power badge",
+    count: powerBadgeResponse?.count || 0,
+    percentage: parseFloat(powerBadgeResponse?.percentage || 0),
+  };
 
   const data = [powerBadgeFollowers, ...sortedMap];
 

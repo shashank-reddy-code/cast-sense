@@ -46,7 +46,7 @@ export default async function DashboardChannel({
     fetchData(`${BASE_URL}/api/channel/${name}/casts`),
     fetchData(`${BASE_URL}/api/channel/${name}/historical-engagement`),
     fetchData(`${BASE_URL}/api/channel/${name}/historical-casters`),
-    fetchData(`${BASE_URL}/api/channel/${name}/active-hours`),
+    fetchData(`${BASE_URL}/api/channel/${name}/active-hours?timezone=${tz}`),
     fetchData(`${BASE_URL}/api/channel/${name}/overlapping-channels`),
   ]);
 

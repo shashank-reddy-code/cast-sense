@@ -93,8 +93,7 @@ export async function fetchData(endpoint: string) {
   const response = await fetch(endpoint);
   if (!response.ok) {
     console.error(
-      `Failed to fetch data from ${endpoint}`,
-      await response.text()
+      `Failed to fetch data from ${endpoint} with error ${response.statusText}`
     );
     return null;
   }

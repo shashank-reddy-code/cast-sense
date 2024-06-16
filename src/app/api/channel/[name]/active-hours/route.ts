@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { fetchFirstChannelFromDune } from "@/lib/dune";
 import { fetchChannelById } from "@/lib/neynar";
-import moment from "moment";
+import moment from "moment-timezone";
 
 export async function GET(
   req: Request,
@@ -73,7 +73,6 @@ export async function GET(
     activeHours: weeklyHourlyCounts,
     bestTimesToPost: readableBestTimes,
   };
-
   const headers = new Headers();
   headers.set("Cache-Control", "max-age=3600");
   return new NextResponse(JSON.stringify(data), {

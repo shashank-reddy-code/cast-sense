@@ -525,7 +525,10 @@ export async function getTopCastersBatch(
     {
       method: "GET",
       headers: header,
-      next: { revalidate: 86500 },
+      // api response is too large to cache
+      // optimize by fetching only columns we need
+      cache: "no-store",
+      //next: { revalidate: 86500 },
     }
   );
   const body = await latest_response.text();

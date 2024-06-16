@@ -22,7 +22,6 @@ export async function TopChannels({
   if (channels == null || channels.length === 0) {
     return <></>;
   }
-  // temporarily disable topCasters as its very expensive in dune to compute in batch
   // const topCasters = await getTopCastersBatch(
   //   channels
   //     .filter((c: TopChannel) => c != null)
