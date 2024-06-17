@@ -12,7 +12,8 @@ export async function GET(
   const timezone = new URL(req.url).searchParams.get("timezone") || "UTC";
   const data = await fetchFirstFidFromDune(3697395, fid);
   const headers = new Headers();
-  headers.set("Cache-Control", "max-age=3600");
+  headers.set("Cache-Control", "max-age=86500");
+  headers.set("pragma", "no-cache");
 
   if (!data) {
     return new NextResponse(null, { status: 404 });

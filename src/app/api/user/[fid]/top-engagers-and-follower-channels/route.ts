@@ -13,7 +13,8 @@ export async function GET(
   const fid = parseInt(params.fid);
   const data = await fetchFirstFidFromDune(3738107, fid);
   const headers = new Headers();
-  headers.set("Cache-Control", "max-age=3600");
+  headers.set("Cache-Control", "max-age=86500");
+  headers.set("pragma", "no-cache");
 
   const parsedData = await parseRow(data);
   return new NextResponse(JSON.stringify(parsedData), {

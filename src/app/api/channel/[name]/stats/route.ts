@@ -15,7 +15,8 @@ export async function GET(
   const data = { ...trends, churn_rate: churnRate };
 
   const headers = new Headers();
-  headers.set("Cache-Control", "max-age=3600");
+  headers.set("Cache-Control", "max-age=86500");
+  headers.set("pragma", "no-cache");
   return new NextResponse(JSON.stringify(data), {
     headers,
   });
