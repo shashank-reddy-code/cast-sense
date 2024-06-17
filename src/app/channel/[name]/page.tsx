@@ -5,16 +5,6 @@ import { UserNav } from "@/components/user-nav";
 import { Historical } from "@/components/historical";
 import { FollowerCarousel } from "@/components/follower-carousel";
 import { EngagementCarousel } from "@/components/engagement-carousel";
-import {
-  getChannelStats,
-  getTopEngagersAndInfluencers,
-  getFollowerTiers,
-  getTopAndBottomCasts,
-  getDailyEngagement,
-  getDailyCastersCount,
-  getFollowerActiveHours,
-  getChannelsWithSimilarCasters,
-} from "@/lib/dune-channels";
 import { fetchChannelByName } from "@/lib/neynar";
 import Link from "next/link";
 import { Profile } from "@/lib/types";

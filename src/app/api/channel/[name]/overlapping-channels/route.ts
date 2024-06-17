@@ -6,9 +6,9 @@ import { Channel, TopChannel } from "@/lib/types";
 
 export async function GET(
   req: Request,
-  { params }: { params: { channelId: string } }
+  { params }: { params: { name: string } }
 ) {
-  const channel = await fetchChannelById(params.channelId);
+  const channel = await fetchChannelById(params.name);
   const result = await fetchFirstChannelFromDune(3746998, channel.url);
   const channels: Channel[] = await fetchChannelsByParentUrlsBatch(
     result.top_similar_channels.map((item: string[]) => item[0])

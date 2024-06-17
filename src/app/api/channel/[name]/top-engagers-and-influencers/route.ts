@@ -6,9 +6,9 @@ import { TopEngager } from "@/lib/types";
 
 export async function GET(
   req: Request,
-  { params }: { params: { channelId: string } }
+  { params }: { params: { name: string } }
 ) {
-  const channel = await fetchChannelById(params.channelId);
+  const channel = await fetchChannelById(params.name);
   const row = await fetchFirstChannelFromDune(3715815, channel.url);
   const data = await parseRow(row);
 

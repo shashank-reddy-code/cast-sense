@@ -7,9 +7,9 @@ import { fillMissingDates } from "@/lib/utils";
 // todo: split dailyActivity into a separate API
 export async function GET(
   req: Request,
-  { params }: { params: { channelId: string } }
+  { params }: { params: { name: string } }
 ) {
-  const channel = await fetchChannelById(params.channelId);
+  const channel = await fetchChannelById(params.name);
   const dailyFollower = await fetchFirstChannelFromDune(3715676, channel.url);
   if (!dailyFollower) {
     console.error("No daily engagement data found for channel", channel.url);

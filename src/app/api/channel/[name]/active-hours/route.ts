@@ -5,10 +5,10 @@ import moment from "moment-timezone";
 
 export async function GET(
   req: Request,
-  { params }: { params: { channelId: string; tz: string } }
+  { params }: { params: { name: string; tz: string } }
 ) {
   const timezone = params.tz || "UTC";
-  const channel = await fetchChannelById(params.channelId);
+  const channel = await fetchChannelById(params.name);
   const result = await fetchFirstChannelFromDune(3715688, channel.url);
   // Determine the offset for the timezone
   const offset = Math.ceil(moment.tz(timezone).utcOffset() / 60);

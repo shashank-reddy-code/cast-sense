@@ -6,18 +6,15 @@ import { CastEngagementCount } from "@/lib/types";
 
 export async function GET(
   req: Request,
-  { params }: { params: { channelId: string } }
+  { params }: { params: { name: string } }
 ) {
-  const channel = await fetchChannelById(params.channelId);
+  const channel = await fetchChannelById(params.name);
   const topAndBottomCasts = await fetchFirstChannelFromDune(
     3715759,
     channel.url
   );
   if (!topAndBottomCasts) {
-    console.error(
-      "top and bottom casts not found for channel",
-      params.channelId
-    );
+    console.error("top and bottom casts not found for channel", params.name);
     const emptyData = {
       top_hash: [],
       bottom_hash: [],

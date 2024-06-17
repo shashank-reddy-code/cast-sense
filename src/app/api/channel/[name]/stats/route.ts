@@ -5,9 +5,9 @@ import { fetchChannelById } from "@/lib/neynar";
 
 export async function GET(
   req: Request,
-  { params }: { params: { channelId: string } }
+  { params }: { params: { name: string } }
 ) {
-  const channel = await fetchChannelById(params.channelId);
+  const channel = await fetchChannelById(params.name);
   const [trends, churnRate] = await Promise.all([
     fetchFirstChannelFromDune(3714673, channel.url),
     fetchFirstChannelFromDune(3766009, channel.url),

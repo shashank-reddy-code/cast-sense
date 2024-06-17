@@ -5,9 +5,9 @@ import { FollowerTier } from "@/lib/types";
 
 export async function GET(
   req: Request,
-  { params }: { params: { channelId: string } }
+  { params }: { params: { name: string } }
 ) {
-  const channel = await fetchChannelById(params.channelId);
+  const channel = await fetchChannelById(params.name);
   const [followerTiers, powerBadgeResponse] = await Promise.all([
     fetchFirstChannelFromDune(3715790, channel.url),
     fetchFirstChannelFromDune(3715907, channel.url),

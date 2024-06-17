@@ -6,15 +6,12 @@ import { CastEngagementCount, DailyEngagement } from "@/lib/types";
 
 export async function GET(
   req: Request,
-  { params }: { params: { channelId: string } }
+  { params }: { params: { name: string } }
 ) {
-  const channel = await fetchChannelById(params.channelId);
+  const channel = await fetchChannelById(params.name);
   const result = await fetchFirstChannelFromDune(3715718, channel.url);
   if (!result) {
-    console.error(
-      "No daily engagement data found for channel",
-      params.channelId
-    );
+    console.error("No daily engagement data found for channel", params.name);
     return new NextResponse(JSON.stringify([[], []]));
   }
 
