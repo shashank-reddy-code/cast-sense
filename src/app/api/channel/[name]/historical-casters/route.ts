@@ -13,7 +13,7 @@ export async function GET(
   const dailyFollower = await fetchFirstChannelFromDune(3715676, channel.url);
   if (!dailyFollower) {
     console.error("No daily engagement data found for channel", channel.url);
-    return [[], []];
+    return new NextResponse(JSON.stringify([[], []]));
   }
 
   let dailyFollowers: DailyFollower[] = [];

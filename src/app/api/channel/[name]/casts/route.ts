@@ -18,10 +18,11 @@ export async function GET(
       "top and bottom casts not found for channel",
       params.channelId
     );
-    return {
+    const emptyData = {
       top_hash: [],
       bottom_hash: [],
     };
+    return new NextResponse(JSON.stringify(emptyData));
   }
 
   const topHash: CastEngagementCount[] =

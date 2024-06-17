@@ -15,7 +15,7 @@ export async function GET(
       "No daily engagement data found for channel",
       params.channelId
     );
-    return [[], []];
+    return new NextResponse(JSON.stringify([[], []]));
   }
 
   const dailyEngagement: DailyEngagement[] = result?.daily_engagement.map(
