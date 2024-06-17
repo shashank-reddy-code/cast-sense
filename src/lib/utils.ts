@@ -90,7 +90,7 @@ export function getDayLabel(date: string) {
 }
 
 export async function fetchData(endpoint: string) {
-  const response = await fetch(endpoint, { cache: "no-store" });
+  const response = await fetch(endpoint);
   if (!response.ok) {
     console.error(
       `Failed to fetch data from ${endpoint} with error ${response.statusText}`

@@ -49,7 +49,7 @@ export async function GET(
   const data = [dailyEngagement, dailyPowerBadgeEngagement];
 
   const headers = new Headers();
-  headers.set("Cache-Control", "max-age=86500");
+  headers.set("Cache-Control", "s-maxage=86500");
   headers.set("pragma", "no-cache");
   return new NextResponse(JSON.stringify(data), {
     headers,
