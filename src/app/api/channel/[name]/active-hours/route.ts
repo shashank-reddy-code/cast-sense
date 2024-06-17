@@ -7,7 +7,7 @@ export async function GET(
   req: Request,
   { params }: { params: { name: string; tz: string } }
 ) {
-  const timezone = params.tz || "UTC";
+  const timezone = new URL(req.url).searchParams.get("tz") || "UTC";
   const channel = await fetchChannelById(params.name);
   const result = await fetchFirstChannelFromDune(3715688, channel.url);
   // Determine the offset for the timezone

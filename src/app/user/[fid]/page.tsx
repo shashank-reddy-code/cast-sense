@@ -45,7 +45,7 @@ export default async function DashboardUser({
     fetchData(`${BASE_URL}/api/user/${fid}/historical-followers`),
     fetchData(`${BASE_URL}/api/user/${fid}/historical-activity`),
     fetchData(`${BASE_URL}/api/user/${fid}/historical-openrank`),
-    fetchData(`${BASE_URL}/api/user/${fid}/active-hours?timezone=${tz}`),
+    fetchData(`${BASE_URL}/api/user/${fid}/active-hours?tz=${tz}`),
     fetchData(`${BASE_URL}/api/user/${fid}/benchmarks`),
   ]);
 

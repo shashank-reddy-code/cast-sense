@@ -9,7 +9,7 @@ export async function GET(
   { params }: { params: { fid: string } }
 ) {
   const fid = parseInt(params.fid);
-  const timezone = new URL(req.url).searchParams.get("timezone") || "UTC";
+  const timezone = new URL(req.url).searchParams.get("tz") || "UTC";
   const data = await fetchFirstFidFromDune(3697395, fid);
   const headers = new Headers();
   headers.set("Cache-Control", "s-maxage=86500");
