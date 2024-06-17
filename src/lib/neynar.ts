@@ -1,6 +1,6 @@
-export const fetchChannel = async (parent_url: string) => {
+export const fetchChannelByUrl = async (channelUrl: string) => {
   const response = await fetch(
-    `https://api.neynar.com/v2/farcaster/channel?id=${parent_url}&type=parent_url`,
+    `https://api.neynar.com/v2/farcaster/channel?id=${channelUrl}&type=parent_url`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -11,7 +11,27 @@ export const fetchChannel = async (parent_url: string) => {
   );
   // log error if response is not ok
   if (!response.ok) {
-    console.error(`Failed to fetch channel ${parent_url}`, response);
+    console.error(`Failed to fetch channel ${channelUrl}`, response);
+    return null;
+  }
+  const data = await response.json();
+  return data.channel;
+};
+
+export const fetchChannelById = async (channelId: string) => {
+  const response = await fetch(
+    `https://api.neynar.com/v2/farcaster/channel?id=${channelId}&type=id`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        api_key: process.env.NEYNAR_API_KEY as string,
+      },
+      next: { revalidate: 86500 },
+    }
+  );
+  // log error if response is not ok
+  if (!response.ok) {
+    console.error(`Failed to fetch channel ${channelId}`, response);
     return null;
   }
   const data = await response.json();

@@ -1,25 +1,15 @@
+const BASE_URL = process.env["BASE_URL"];
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TopLevel } from "@/components/top-level";
 import { UserNav } from "@/components/user-nav";
 import { Historical } from "@/components/historical";
 import { FollowerCarousel } from "@/components/follower-carousel";
 import { EngagementCarousel } from "@/components/engagement-carousel";
-import {
-  getFidStats,
-  getTopEngagersAndChannels,
-  getFollowerTiers,
-  getTopAndBottomCasts,
-  getDailyEngagement,
-  getDailyFollowerCount,
-  getDailyactivity,
-  getFollowerActiveHours,
-  getBenchmarks,
-  getDailyOpenrank,
-} from "@/lib/dune-fid";
 import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { fetchData } from "@/lib/utils";
 
 export default async function DashboardUser({
   params,
@@ -46,24 +36,25 @@ export default async function DashboardUser({
     followerActiveHours,
     benchmarks,
   ] = await Promise.all([
-    // cant use falses and true for the same path in vercel
     fetchProfileByFid(fid),
-    getFidStats(fid),
-    getTopEngagersAndChannels(fid),
-    getFollowerTiers(fid),
-    getTopAndBottomCasts(fid),
-    getDailyEngagement(fid),
-    getDailyFollowerCount(fid),
-    getDailyactivity(fid),
-    getDailyOpenrank(fid),
-    getFollowerActiveHours(fid, tz),
-    getBenchmarks(fid),
+    fetchData(`${BASE_URL}/api/user/${fid}/stats`),
+    fetchData(`${BASE_URL}/api/user/${fid}/top-engagers-and-follower-channels`),
+    fetchData(`${BASE_URL}/api/user/${fid}/follower-tiers`),
+    fetchData(`${BASE_URL}/api/user/${fid}/casts`),
+    fetchData(`${BASE_URL}/api/user/${fid}/historical-engagement`),
+    fetchData(`${BASE_URL}/api/user/${fid}/historical-followers`),
+    fetchData(`${BASE_URL}/api/user/${fid}/historical-activity`),
+    fetchData(`${BASE_URL}/api/user/${fid}/historical-openrank`),
+    fetchData(`${BASE_URL}/api/user/${fid}/active-hours?timezone=${tz}`),
+    fetchData(`${BASE_URL}/api/user/${fid}/benchmarks`),
   ]);
 
   // const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
   // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
   fidStats.total_followers = profile.follower_count;
   console.log("Finished fetching data for", fid);
+  // const dailyEngagement = overallEngagement[0];
+  // const dailyPowerBadgeEngagement = overallEngagement[1];
 
   return (
     <div className="flex-col md:flex">
