@@ -1,8 +1,8 @@
 // todo: add churnRate as well
 import { NextResponse } from "next/server";
 import { fetchFirstChannelFromDune } from "@/lib/dune";
-import { fetchChannelById } from "@/lib/neynar";
-import { TopLevelStats } from "@/lib/types";
+import { fetchChannelById, fetchUsersByFidBatch } from "@/lib/neynar";
+import { TopEngager } from "@/lib/types";
 
 export async function GET(
   req: Request,
@@ -15,16 +15,13 @@ export async function GET(
         status: 404,
       });
     }
-    const [trends, churnRate]: [TopLevelStats, number] = await Promise.all([
-      fetchFirstChannelFromDune(3714673, channel.url),
-      fetchFirstChannelFromDune(3766009, channel.url),
-    ]);
-    if (!trends) {
+    const row = await fetchFirstChannelFromDune(3715815, channel.url);
+    if (!row) {
       return new NextResponse("Error finding analytics for channel", {
         status: 500,
       });
     }
-    const data = { ...trends, churn_rate: churnRate };
+    const data = await parseRow(row);
 
     const headers = new Headers();
     headers.set("Cache-Control", "s-maxage=86500");
@@ -39,4 +36,28 @@ export async function GET(
       { status: 500 }
     );
   }
+}
+
+async function parseRow(row: any): Promise<{ results: TopEngager[] }> {
+  const topCastersArray = row.top_caster_fids || [];
+
+  // rows are formatted as [fid, likes, recasts, replies]
+  const topCastersResult = await fetchUsersByFidBatch(
+    topCastersArray.map((item: number[]) => item[0])
+  );
+
+  // Map the additional properties back to the corresponding result
+  const topEngagers = topCastersResult.map((profile: any, index: number) => {
+    const original = topCastersArray[index];
+    return {
+      profile,
+      likes: original[1],
+      recasts: original[2],
+      replies: original[3],
+    };
+  });
+
+  return {
+    results: topEngagers,
+  };
 }

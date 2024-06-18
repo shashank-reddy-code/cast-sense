@@ -8,6 +8,11 @@ export async function GET(
   { params }: { params: { name: string } }
 ) {
   const channel = await fetchChannelById(params.name);
+  if (!channel) {
+    return new NextResponse("Channel not found", {
+      status: 404,
+    });
+  }
   const [followerTiers, powerBadgeResponse] = await Promise.all([
     fetchFirstChannelFromDune(3715790, channel.url),
     fetchFirstChannelFromDune(3715907, channel.url),

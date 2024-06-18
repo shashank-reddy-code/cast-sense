@@ -9,6 +9,11 @@ export async function GET(
 ) {
   const timezone = new URL(req.url).searchParams.get("tz") || "UTC";
   const channel = await fetchChannelById(params.name);
+  if (!channel) {
+    return new NextResponse("Channel not found", {
+      status: 404,
+    });
+  }
   const result = await fetchFirstChannelFromDune(3715688, channel.url);
   // Determine the offset for the timezone
   const offset = Math.ceil(moment.tz(timezone).utcOffset() / 60);

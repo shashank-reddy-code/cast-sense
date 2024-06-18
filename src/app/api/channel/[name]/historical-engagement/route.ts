@@ -9,6 +9,11 @@ export async function GET(
   { params }: { params: { name: string } }
 ) {
   const channel = await fetchChannelById(params.name);
+  if (!channel) {
+    return new NextResponse("Channel not found", {
+      status: 404,
+    });
+  }
   const result = await fetchFirstChannelFromDune(3715718, channel.url);
   if (!result) {
     console.error("No daily engagement data found for channel", params.name);

@@ -9,6 +9,11 @@ export async function GET(
   { params }: { params: { name: string } }
 ) {
   const channel = await fetchChannelById(params.name);
+  if (!channel) {
+    return new NextResponse("Channel not found", {
+      status: 404,
+    });
+  }
   const result = await fetchFirstChannelFromDune(3746998, channel.url);
   const channels: Channel[] = await fetchChannelsByParentUrlsBatch(
     result.top_similar_channels.map((item: string[]) => item[0])
