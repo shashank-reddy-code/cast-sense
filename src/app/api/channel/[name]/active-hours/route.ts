@@ -26,7 +26,7 @@ export async function GET(
   ];
 
   // Process each day's hourly counts.
-  daysOfWeek.forEach((day) => {
+  daysOfWeek.forEach((day, dayIndex) => {
     const dayCounts = result[`${day}_hourly_counts`] || {};
     weeklyHourlyCounts[day] = weeklyHourlyCounts[day] || {};
 
@@ -34,7 +34,7 @@ export async function GET(
     for (let hour = 0; hour < 24; hour++) {
       let adjustedHour = (hour + offset + 24) % 24; // Adjust hour for timezone offset, ensure it wraps correctly
       let adjustedDayIndex =
-        (daysOfWeek.indexOf(day) + Math.floor((hour + offset) / 24)) % 7;
+        (dayIndex + Math.floor((hour + offset) / 24) + 7) % 7;
       let adjustedDay = daysOfWeek[adjustedDayIndex];
 
       if (!weeklyHourlyCounts[adjustedDay]) {
