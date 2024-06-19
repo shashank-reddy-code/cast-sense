@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TopLevelStats } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 import { SvgIcons } from "./svg-icons";
@@ -30,7 +24,7 @@ export function TopLevel({
     }
   };
   return (
-    <div className="grid gap-4 grid-cols-2 lg:grid-cols-6">
+    <div className="grid gap-4 grid-cols-2 lg:grid-cols-7">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Total followers</CardTitle>
@@ -146,6 +140,19 @@ export function TopLevel({
               <div className="text-2xl font-bold">
                 {fidStats.churn_rate?.toFixed(2)}%
               </div>
+            </CardContent>
+          </Card>
+        )}
+      {fidStats.subscribers !== undefined &&
+        fidStats.subscribers !== null &&
+        fidStats.subscribers > 0 && (
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Subscribers</CardTitle>
+              <SvgIcons.subscribers />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{fidStats.subscribers}</div>
             </CardContent>
           </Card>
         )}

@@ -229,3 +229,34 @@ export const fetchTrendingChannels = async () => {
   const data = await response.json();
   return data.channels.map((channel: any) => channel.channel);
 };
+
+export const fetchSubscriberCount = async (
+  fid: number,
+  providers: string[] = ["paragraph", "fabric_stp"]
+) => {
+  const promises = providers.map(async (provider) => {
+    const response = await fetch(
+      `https://api.neynar.com/v2/farcaster/user/subscribers?fid=${fid}&subscription_provider=${provider}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          api_key: process.env.NEYNAR_API_KEY as string,
+        },
+        next: { revalidate: 86500 },
+      }
+    );
+    if (!response.ok) {
+      console.error(
+        `Failed to fetch subscribers for provider ${provider}`,
+        response
+      );
+      return null;
+    }
+    const data = await response.json();
+    return data.subscribers.length;
+  });
+
+  const results = await Promise.all(promises);
+  const totalSubscribers = results.reduce((sum, count) => sum + count, 0);
+  return totalSubscribers;
+};
