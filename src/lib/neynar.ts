@@ -209,3 +209,23 @@ export const fetchUsersByFidBatch = async (fids: number[]) => {
   const data = await response.json();
   return data.users;
 };
+
+export const fetchTrendingChannels = async () => {
+  const response = await fetch(
+    `https://api.neynar.com/v2/farcaster/channel/trending?time_window=7d&limit=5`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        api_key: process.env.NEXT_PUBLIC_NEYNAR_API_KEY as string,
+      },
+      next: { revalidate: 86500 },
+    }
+  );
+  // log error if response is not ok
+  if (!response.ok) {
+    console.error(`Failed to fetch trending channels`, response);
+    return null;
+  }
+  const data = await response.json();
+  return data.channels.map((channel: any) => channel.channel);
+};

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, useCallback } from "react";
 import {
   Command,
@@ -16,6 +18,8 @@ import { debounce } from "lodash";
 import { Progress } from "@/components/ui/progress";
 
 import { useRouter, usePathname } from "next/navigation";
+import ShineBorder from "./ui/shine-border";
+import { BorderBeam } from "./ui/border-beam";
 
 export function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -94,70 +98,72 @@ export function Search() {
   }
 
   return (
-    <Command>
-      <CommandInput
-        className="text-lg"
-        placeholder="Search by username or channel"
-        onValueChange={(e) => setSearchTerm(e)}
-      />
-      <CommandList>
-        {channelResults.length > 0 && (
-          <CommandGroup heading="Channels">
-            {channelResults.map((channel: any) => (
-              <div
-                key={`channel-${channel.id}`}
-                onClick={() => {
-                  const timeZone =
-                    Intl.DateTimeFormat().resolvedOptions().timeZone;
-                  handleLinkClick(`/channel/${channel.id}?tz=${timeZone}`);
-                }}
-              >
-                <CommandItem
-                  value={channel.id}
-                  className="flex items-center gap-2 data-[disabled]:opacity-100 text-lg"
+    <ShineBorder color="#E6E6FA" className="w-full">
+      <Command className="relative bg-white text-black">
+        <CommandInput
+          className="text-lg text-black"
+          placeholder="Search by username or channel"
+          onValueChange={(e) => setSearchTerm(e)}
+        />
+        <CommandList>
+          {channelResults.length > 0 && (
+            <CommandGroup heading="Channels">
+              {channelResults.map((channel: any) => (
+                <div
+                  key={`channel-${channel.id}`}
+                  onClick={() => {
+                    const timeZone =
+                      Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    handleLinkClick(`/channel/${channel.id}?tz=${timeZone}`);
+                  }}
                 >
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src={channel.image_url} alt={channel.name} />
-                    <AvatarFallback>{channel.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  {channel.name}
-                </CommandItem>
-              </div>
-            ))}
-          </CommandGroup>
-        )}
-        {userResults.length > 0 && (
-          <CommandGroup heading="Users">
-            {userResults.map((user: any) => (
-              <div
-                onClick={() => {
-                  const timeZone =
-                    Intl.DateTimeFormat().resolvedOptions().timeZone;
-                  handleLinkClick(`/user/${user.fid}?tz=${timeZone}`);
-                }}
-                key={user.fid}
-              >
-                <CommandItem
-                  value={`user-${user.username}`}
-                  className="flex items-center gap-2 data-[disabled]:opacity-100 text-lg"
+                  <CommandItem
+                    value={channel.id}
+                    className="flex items-center gap-2 data-[disabled]:opacity-100 text-lg text-black"
+                  >
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={channel.image_url} alt={channel.name} />
+                      <AvatarFallback>{channel.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    {channel.name}
+                  </CommandItem>
+                </div>
+              ))}
+            </CommandGroup>
+          )}
+          {userResults.length > 0 && (
+            <CommandGroup heading="Users">
+              {userResults.map((user: any) => (
+                <div
+                  onClick={() => {
+                    const timeZone =
+                      Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    handleLinkClick(`/user/${user.fid}?tz=${timeZone}`);
+                  }}
+                  key={user.fid}
                 >
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src={user.pfp_url} alt={user.username} />
-                    <AvatarFallback>{user.username.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  {user.display_name || user.username}
-                </CommandItem>
-              </div>
-            ))}
-          </CommandGroup>
-        )}
-        {isSearching && <CommandEmpty>Searching...</CommandEmpty>}
-        {/* {isSearching &&
+                  <CommandItem
+                    value={`user-${user.username}`}
+                    className="flex items-center gap-2 data-[disabled]:opacity-100 text-lg text-black"
+                  >
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={user.pfp_url} alt={user.username} />
+                      <AvatarFallback>{user.username.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    {user.display_name || user.username}
+                  </CommandItem>
+                </div>
+              ))}
+            </CommandGroup>
+          )}
+          {isSearching && <CommandEmpty>Searching...</CommandEmpty>}
+          {/* {isSearching &&
           userResults.length === 0 &&
           channelResults.length === 0 && (
             <CommandEmpty>No results found</CommandEmpty>
           )} */}
-      </CommandList>
-    </Command>
+        </CommandList>
+      </Command>
+    </ShineBorder>
   );
 }
