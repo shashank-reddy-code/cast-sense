@@ -28,7 +28,8 @@ export const searchChannelMentions = async (
     .filter((item: any) => {
       const shouldRemove =
         item._source.root_parent_url === channelUrl ||
-        item._source.author_username === channelLeadUserName;
+        item._source.author_username === channelLeadUserName ||
+        item._source.author_power_badge === false;
       return !shouldRemove;
     })
     .map((item: any) => ({
