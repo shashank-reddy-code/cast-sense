@@ -3,14 +3,20 @@ import * as React from "react";
 import { CastsCarousel } from "./casts-carousel";
 import { Separator } from "@/components/ui/separator";
 import { TopChannels } from "./top-channels";
-import { TopAndBottomCasts, TopChannel } from "@/lib/types";
+import {
+  CastEngagementCount,
+  TopAndBottomCasts,
+  TopChannel,
+} from "@/lib/types";
 
 export function EngagementCarousel({
   casts,
   topChannels,
+  mentions = [],
 }: {
   casts: TopAndBottomCasts;
   topChannels: TopChannel[];
+  mentions?: CastEngagementCount[];
 }) {
   return (
     <>
@@ -28,6 +34,18 @@ export function EngagementCarousel({
         // validateHash={true}
       />
       <Separator className="my-4" />
+      {mentions && mentions.length > 0 && (
+        <>
+          <CastsCarousel
+            hashes={mentions}
+            header="Mentions"
+            title="Recent mentions of the channel"
+            // todo: cant turn this on because of neynar rate limits
+            // validateHash={true}
+          />
+          <Separator className="my-4" />
+        </>
+      )}
       <TopChannels channels={topChannels} />
     </>
   );

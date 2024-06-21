@@ -9,6 +9,7 @@ import { fetchChannelByName } from "@/lib/neynar";
 import Link from "next/link";
 import { Profile } from "@/lib/types";
 import { fetchData } from "@/lib/utils";
+import { searchChannelMentions } from "@/lib/alertcaster";
 
 export default async function DashboardChannel({
   params,
@@ -29,6 +30,7 @@ export default async function DashboardChannel({
     [dailyCasters, dailyActivity],
     followerActiveHours,
     similarChannels,
+    channelMentions,
   ] = await Promise.all([
     fetchData(`${BASE_URL}/api/channel/${name}/stats`),
     fetchData(`${BASE_URL}/api/channel/${name}/top-engagers-and-influencers`),
@@ -38,6 +40,7 @@ export default async function DashboardChannel({
     fetchData(`${BASE_URL}/api/channel/${name}/historical-casters`),
     fetchData(`${BASE_URL}/api/channel/${name}/active-hours?tz=${tz}`),
     fetchData(`${BASE_URL}/api/channel/${name}/overlapping-channels`),
+    searchChannelMentions(name, channel.url, channel.lead.username),
   ]);
 
   //const maxScale = getMaxValue(dailyEngagement, dailyCasters);
@@ -118,7 +121,11 @@ export default async function DashboardChannel({
             />
           </TabsContent>
           <TabsContent value="engagement" className="space-y-4">
-            <EngagementCarousel casts={topAndBottomCasts} topChannels={[]} />
+            <EngagementCarousel
+              casts={topAndBottomCasts}
+              topChannels={[]}
+              mentions={channelMentions}
+            />
           </TabsContent>
         </Tabs>
       </div>
