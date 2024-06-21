@@ -27,6 +27,7 @@ export async function GET(
         reply_count: item[4],
         power_badge_count: item[5],
         fname: data?.fname,
+        created_at: item[6],
       };
     }
   );
@@ -41,6 +42,7 @@ export async function GET(
         reply_count: item[4],
         power_badge_count: item[5],
         fname: data?.fname,
+        created_at: item[6],
       };
     }
   );

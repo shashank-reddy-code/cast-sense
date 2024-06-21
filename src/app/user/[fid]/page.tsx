@@ -96,6 +96,7 @@ export default async function DashboardUser({
               dailyFollowers={dailyFollowers}
               dailyActivity={dailyactivity}
               dailyOpenrankStrategies={dailyOpenrankStrategies}
+              casts={topAndBottomCasts.top_hash}
             />
           </TabsContent>
           <TabsContent value="followers">

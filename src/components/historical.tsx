@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
+  CastEngagementCount,
   DailyActivity,
   DailyEngagement,
   DailyFollower,
@@ -29,6 +30,7 @@ export function Historical({
   dailyOpenrankStrategies = { followRanks: [], engagementRanks: [] },
   maxScale,
   isChannel = false,
+  casts = [],
 }: {
   dailyEngagement: DailyEngagement[];
   dailyFollowers: DailyFollower[];
@@ -37,6 +39,7 @@ export function Historical({
   dailyOpenrankStrategies?: DailyOpenrankStrategies;
   maxScale?: number;
   isChannel?: boolean;
+  casts?: CastEngagementCount[];
 }) {
   const [range, setRange] = useState(90); // State for date range, default is {range} days
   const filterDataByRange = (data: any[], days: number): any[] => {
@@ -84,6 +87,7 @@ export function Historical({
             <FollowerHistorical
               dailyFollowers={filterDataByRange(dailyFollowers, range)}
               maxScale={maxScale}
+              casts={casts}
             />
           </CardContent>
         </Card>

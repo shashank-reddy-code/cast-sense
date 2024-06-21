@@ -28,6 +28,7 @@ export type CastEngagementCount = {
   reply_count: number;
   power_badge_count: number;
   fname: string;
+  created_at: string;
 };
 
 // channel url
