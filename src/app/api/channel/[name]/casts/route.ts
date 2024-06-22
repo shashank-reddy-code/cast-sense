@@ -58,7 +58,7 @@ export async function GET(
   };
 
   const headers = new Headers();
-  headers.set("Cache-Control", "no-store");
+  headers.set("Cache-Control", "s-maxage=3600");
 
   return new NextResponse(JSON.stringify(data), {
     headers,
