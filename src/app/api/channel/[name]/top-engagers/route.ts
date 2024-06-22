@@ -23,7 +23,7 @@ export async function GET(
     const data = await parseRow(row);
 
     const headers = new Headers();
-    headers.set("Cache-Control", "s-maxage=86500");
+    headers.set("Cache-Control", "s-maxage=3600");
 
     return new NextResponse(JSON.stringify(data), {
       headers,

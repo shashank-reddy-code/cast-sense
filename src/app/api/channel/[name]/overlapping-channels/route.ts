@@ -1,4 +1,3 @@
-// todo: add churnRate as well
 import { NextResponse } from "next/server";
 import { fetchFirstChannelFromDune } from "@/lib/dune";
 import { fetchChannelById, fetchChannelsByParentUrlsBatch } from "@/lib/neynar";
@@ -26,7 +25,7 @@ export async function GET(
   });
 
   const headers = new Headers();
-  headers.set("Cache-Control", "s-maxage=86500");
+  headers.set("Cache-Control", "s-maxage=3600");
 
   return new NextResponse(JSON.stringify(data), {
     headers,
