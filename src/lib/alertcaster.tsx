@@ -5,9 +5,6 @@ export const searchChannelMentions = async (
   channelUrl: string,
   channelLeadUserName: string
 ): Promise<CastEngagementCount[]> => {
-  console.log(
-    `searching for recent mentions of ${channelId} , ${channelUrl}, ${channelLeadUserName}`
-  );
   const response = await fetch(
     `https://alertcaster.xyz/api/search?q=/${channelId}&type=channel`,
     {

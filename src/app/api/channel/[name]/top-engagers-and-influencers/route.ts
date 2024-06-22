@@ -1,4 +1,3 @@
-// todo: add churnRate as well
 import { NextResponse } from "next/server";
 import { fetchFirstChannelFromDune } from "@/lib/dune";
 import { fetchChannelById, fetchUsersByFidBatch } from "@/lib/neynar";
