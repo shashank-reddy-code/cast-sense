@@ -250,7 +250,8 @@ export const fetchSubscriberCount = async (
         `Failed to fetch subscribers for provider ${provider}`,
         response
       );
-      return null;
+      // return default value as this is not very crucial for most users
+      return 0;
     }
     const data = await response.json();
     return data.subscribers.length;
