@@ -42,6 +42,7 @@ export async function fetchFirstChannelFromDune(
     {
       method: "GET",
       headers: header,
+      cache: "no-store",
     }
   );
   const data = await response.json();

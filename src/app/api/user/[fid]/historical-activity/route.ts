@@ -11,7 +11,6 @@ export async function GET(
   const data = await fetchFirstFidFromDune(3744055, fid);
   const headers = new Headers();
   headers.set("Cache-Control", "s-maxage=86500");
-  headers.set("pragma", "no-cache");
 
   if (!data) {
     return new NextResponse(null, { status: 404 });
