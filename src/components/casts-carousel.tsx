@@ -14,32 +14,32 @@ import { SvgIcons } from "./svg-icons";
 import { fetchCastByHash } from "@/lib/neynar";
 import Link from "next/link";
 
-export async function CastsCarousel({
+export function CastsCarousel({
   hashes,
   header,
   title,
-  validateHash = false,
-}: {
+}: //validateHash = false,
+{
   hashes: CastEngagementCount[];
   header: string;
   title: string;
   validateHash?: boolean;
 }) {
-  if (!hashes) return <> </>;
-  if (validateHash) {
-    const castPromises = await Promise.all(
-      hashes.map(async (item: CastEngagementCount) => {
-        const cast = await fetchCastByHash(item.hash);
-        return cast !== null ? item : null;
-      })
-    );
-    // @ts-ignore
-    hashes = castPromises?.filter(
-      (item: CastEngagementCount | null) => item !== null
-    );
-    console.log("update hashes with valid cast", hashes?.length);
-  }
-  if (hashes.length === 0) return <> </>;
+  if (!hashes || hashes.length == 0) return <> </>;
+  // if (validateHash) {
+  //   const castPromises = await Promise.all(
+  //     hashes.map(async (item: CastEngagementCount) => {
+  //       const cast = await fetchCastByHash(item.hash);
+  //       return cast !== null ? item : null;
+  //     })
+  //   );
+  //   // @ts-ignore
+  //   hashes = castPromises?.filter(
+  //     (item: CastEngagementCount | null) => item !== null
+  //   );
+  //   console.log("update hashes with valid cast", hashes?.length);
+  // }
+  // if (hashes.length === 0) return <> </>;
   return (
     <div className="space-y-4">
       <div className="mt-6 space-y-1">

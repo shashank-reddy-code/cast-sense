@@ -45,7 +45,7 @@ export const fetchProfileByFid = async (fid: number) => {
     {
       headers: {
         "Content-Type": "application/json",
-        api_key: process.env.NEYNAR_API_KEY as string,
+        api_key: process.env.NEXT_PUBLIC_NEYNAR_API_KEY as string,
         cache: "no-store",
       },
     }

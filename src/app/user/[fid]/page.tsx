@@ -1,4 +1,6 @@
-const BASE_URL = process.env["BASE_URL"];
+"use client";
+
+const BASE_URL = process.env["NEXT_PUBLIC_BASE_URL"];
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TopLevel } from "@/components/top-level";
 import { UserNav } from "@/components/user-nav";
@@ -8,53 +10,118 @@ import { EngagementCarousel } from "@/components/engagement-carousel";
 import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import { fetchData } from "@/lib/utils";
+import { cn, fetchData } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import {
+  NeynarAuthButton,
+  SIWN_variant,
+  useNeynarContext,
+} from "@neynar/react";
+import { Search } from "@/components/search";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export default async function DashboardUser({
+export default function DashboardUser({
   params,
   searchParams,
 }: {
   params: { fid: string };
   searchParams: { tz?: string };
 }) {
-  const fid = parseInt(params.fid, 10);
-  if (isNaN(fid) || fid <= 0) {
-    notFound();
+  const { user, isAuthenticated } = useNeynarContext();
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAllData = async () => {
+      const fid = parseInt(params.fid, 10);
+      if (isNaN(fid) || fid <= 0) {
+        notFound();
+      }
+      const tz = searchParams?.tz || "UTC";
+
+      try {
+        const [
+          profile,
+          fidStats,
+          topEngagersAndChannels,
+          followerTiers,
+          topAndBottomCasts,
+          [dailyEngagement, dailyPowerBadgeEngagement],
+          dailyFollowers,
+          dailyactivity,
+          dailyOpenrankStrategies,
+          followerActiveHours,
+          benchmarks,
+        ] = await Promise.all([
+          fetchProfileByFid(fid),
+          fetchData(`${BASE_URL}/api/user/${fid}/stats`),
+          fetchData(
+            `${BASE_URL}/api/user/${fid}/top-engagers-and-follower-channels`
+          ),
+          fetchData(`${BASE_URL}/api/user/${fid}/follower-tiers`),
+          fetchData(`${BASE_URL}/api/user/${fid}/casts`),
+          fetchData(`${BASE_URL}/api/user/${fid}/historical-engagement`),
+          fetchData(`${BASE_URL}/api/user/${fid}/historical-followers`),
+          fetchData(`${BASE_URL}/api/user/${fid}/historical-activity`),
+          fetchData(`${BASE_URL}/api/user/${fid}/historical-openrank`),
+          fetchData(`${BASE_URL}/api/user/${fid}/active-hours?tz=${tz}`),
+          fetchData(`${BASE_URL}/api/user/${fid}/benchmarks`),
+        ]);
+
+        // const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
+        // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
+        fidStats.total_followers = profile.follower_count;
+        console.log("Finished fetching data for", fid);
+
+        setData({
+          profile,
+          fidStats: { ...fidStats, total_followers: profile.follower_count },
+          topEngagersAndChannels,
+          followerTiers,
+          topAndBottomCasts,
+          dailyEngagement,
+          dailyPowerBadgeEngagement,
+          dailyFollowers,
+          dailyactivity,
+          dailyOpenrankStrategies,
+          followerActiveHours,
+          benchmarks,
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllData();
+  }, [params.fid, searchParams.tz]);
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
-  const tz = searchParams?.tz || "UTC";
-  const [
+  console.log(data);
+
+  if (!data) {
+    return <div>Error loading data</div>;
+  }
+
+  const {
     profile,
     fidStats,
     topEngagersAndChannels,
     followerTiers,
     topAndBottomCasts,
-    [dailyEngagement, dailyPowerBadgeEngagement],
+    dailyEngagement,
+    dailyPowerBadgeEngagement,
     dailyFollowers,
     dailyactivity,
     dailyOpenrankStrategies,
     followerActiveHours,
     benchmarks,
-  ] = await Promise.all([
-    fetchProfileByFid(fid),
-    fetchData(`${BASE_URL}/api/user/${fid}/stats`),
-    fetchData(`${BASE_URL}/api/user/${fid}/top-engagers-and-follower-channels`),
-    fetchData(`${BASE_URL}/api/user/${fid}/follower-tiers`),
-    fetchData(`${BASE_URL}/api/user/${fid}/casts`),
-    fetchData(`${BASE_URL}/api/user/${fid}/historical-engagement`),
-    fetchData(`${BASE_URL}/api/user/${fid}/historical-followers`),
-    fetchData(`${BASE_URL}/api/user/${fid}/historical-activity`),
-    fetchData(`${BASE_URL}/api/user/${fid}/historical-openrank`),
-    fetchData(`${BASE_URL}/api/user/${fid}/active-hours?tz=${tz}`),
-    fetchData(`${BASE_URL}/api/user/${fid}/benchmarks`),
-  ]);
-
-  // const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
-  // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
-  fidStats.total_followers = profile.follower_count;
-  console.log("Finished fetching data for", fid);
-  // const dailyEngagement = overallEngagement[0];
-  // const dailyPowerBadgeEngagement = overallEngagement[1];
+  } = data;
 
   return (
     <div className="flex-col md:flex">
@@ -67,17 +134,37 @@ export default async function DashboardUser({
               </h2>
             </Link>
           </div>
+          {/* <Search /> */}
           <div className="ml-auto flex items-center space-x-4">
-            <div className="flex items-center justify-between space-y-2">
-              <h2 className="text-xl sm:text-2xl md:text-3xl tracking-tight">
-                {profile.display_name}
-              </h2>
-            </div>
-            <UserNav profile={profile} />
+            <NeynarAuthButton label="Login" variant={SIWN_variant.FARCASTER} />
           </div>
         </div>
       </div>
       <div className="flex-col space-y-4 p-8 pt-6">
+        <div className="flex items-center space-x-4">
+          <Avatar>
+            <AvatarImage src={profile.pfp_url} alt="Image" />
+            <AvatarFallback>{profile.username}</AvatarFallback>
+          </Avatar>
+          <div>
+            <p className="text-sm font-medium leading-none">
+              {profile.display_name}
+              {profile.power_badge && (
+                <Image
+                  src="/power-badge.png"
+                  alt="Power Badge"
+                  className="w-4 h-4 ml-1 inline"
+                  width={16}
+                  height={16}
+                />
+              )}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {profile.profile.bio.text}
+            </p>
+          </div>
+        </div>
+
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -85,9 +172,6 @@ export default async function DashboardUser({
             <TabsTrigger value="engagement">Engagement</TabsTrigger>
           </TabsList>
           <TabsContent value="overview" className="space-y-4">
-            <div className="flex items-center justify-between space-y-2">
-              <h3 className="text-3xl tracking-tight">Proof of work 💪</h3>
-            </div>
             <TopLevel fidStats={fidStats} />
             <Benchmark data={benchmarks} />
             <Historical

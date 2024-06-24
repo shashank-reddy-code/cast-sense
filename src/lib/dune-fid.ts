@@ -1,4 +1,5 @@
-const DUNE_API_KEY = process.env["DUNE_API_KEY"];
+const DUNE_API_KEY =
+  process.env["NEXT_PUBLIC_DUNE_API_KEY"] || process.env["DUNE_API_KEY"];
 import {
   Benchmark,
   CastEngagementCount,

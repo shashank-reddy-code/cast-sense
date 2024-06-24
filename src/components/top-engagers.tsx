@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useState } from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "./profile";
 import { ProfilePreview, TopEngager } from "@/lib/types";
@@ -8,7 +10,7 @@ import { getFidsOverviewBatch } from "@/lib/dune-fid";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import { ProfilePreviewCard } from "./profile-preview-card";
 
-export async function TopEngagers({
+export function TopEngagers({
   topEngagers,
   title = "Loyal fans",
   description = "Followers who engage with you the most in the past month",
@@ -17,28 +19,52 @@ export async function TopEngagers({
   title?: string;
   description?: string;
 }) {
+  const [profilePreviews, setProfilePreviews] = useState<{
+    [key: number]: ProfilePreview;
+  }>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (topEngagers && topEngagers.length > 0) {
+        const fidsOverview = await getFidsOverviewBatch(
+          topEngagers
+            .filter((te) => te.profile != null)
+            .map((te) => te.profile.fid)
+        );
+
+        const previews = topEngagers
+          .filter((te) => te.profile != null)
+          .reduce(
+            (acc: { [key: number]: ProfilePreview }, te) => {
+              const profilePreview = {
+                profile: te.profile,
+                top_channels:
+                  fidsOverview[te.profile.fid]?.top_channel_names || [],
+                openrank_percentile:
+                  fidsOverview[te.profile.fid]?.openrank_percentile,
+              };
+              acc[te.profile.fid] = profilePreview;
+              return acc;
+            },
+            {} // Initial value for the accumulator
+          );
+
+        setProfilePreviews(previews);
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [topEngagers]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   if (topEngagers == null || topEngagers.length === 0) {
     return <></>;
   }
-  const fidsOverview = await getFidsOverviewBatch(
-    topEngagers.filter((te) => te.profile != null).map((te) => te.profile.fid)
-  );
-
-  const profilePreviews: { [key: number]: ProfilePreview } = topEngagers
-    .filter((te) => te.profile != null)
-    .reduce(
-      (acc: { [key: number]: ProfilePreview }, te) => {
-        const profilePreview = {
-          profile: te.profile,
-          top_channels: fidsOverview[te.profile.fid]?.top_channel_names || [],
-          openrank_percentile:
-            fidsOverview[te.profile.fid]?.openrank_percentile,
-        };
-        acc[te.profile.fid] = profilePreview;
-        return acc;
-      },
-      {} // Initial value for the accumulator
-    );
 
   return (
     <div className="space-y-4">
