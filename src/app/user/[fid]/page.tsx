@@ -21,6 +21,37 @@ import {
 } from "@neynar/react";
 import { Search } from "@/components/search";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Benchmark as BenchmarkType,
+  DailyActivity,
+  DailyEngagement,
+  DailyFollower,
+  DailyOpenrankStrategies,
+  FollowerActiveHours,
+  FollowerTier,
+  TopAndBottomCasts,
+  TopChannel,
+  TopEngager,
+  TopLevelStats,
+} from "@/lib/types";
+
+interface DataState {
+  profile: any;
+  fidStats: TopLevelStats;
+  topEngagersAndChannels: {
+    topEngagers: TopEngager[];
+    channels: TopChannel[];
+  };
+  followerTiers: FollowerTier[];
+  topAndBottomCasts: TopAndBottomCasts;
+  dailyEngagement: DailyEngagement[];
+  dailyPowerBadgeEngagement: DailyEngagement[];
+  dailyFollowers: DailyFollower[];
+  dailyactivity: DailyActivity[];
+  dailyOpenrankStrategies: DailyOpenrankStrategies;
+  followerActiveHours: FollowerActiveHours;
+  benchmarks: BenchmarkType;
+}
 
 export default function DashboardUser({
   params,
@@ -30,17 +61,15 @@ export default function DashboardUser({
   searchParams: { tz?: string };
 }) {
   const { user, isAuthenticated } = useNeynarContext();
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
+  const [data, setData] = useState<DataState | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
-    const fetchAllData = async () => {
+    const fetchAllData = async (): Promise<void> => {
       const fid = parseInt(params.fid, 10);
       if (isNaN(fid) || fid <= 0) {
         notFound();
       }
       const tz = searchParams?.tz || "UTC";
-
       try {
         const [
           profile,
@@ -69,12 +98,10 @@ export default function DashboardUser({
           fetchData(`${BASE_URL}/api/user/${fid}/active-hours?tz=${tz}`),
           fetchData(`${BASE_URL}/api/user/${fid}/benchmarks`),
         ]);
-
         // const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
         // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
         fidStats.total_followers = profile.follower_count;
         console.log("Finished fetching data for", fid);
-
         setData({
           profile,
           fidStats: { ...fidStats, total_followers: profile.follower_count },
@@ -95,19 +122,15 @@ export default function DashboardUser({
         setLoading(false);
       }
     };
-
     fetchAllData();
   }, [params.fid, searchParams.tz]);
-
   if (loading) {
     return <div>Loading...</div>;
   }
   console.log(data);
-
   if (!data) {
     return <div>Error loading data</div>;
   }
-
   const {
     profile,
     fidStats,
@@ -122,7 +145,6 @@ export default function DashboardUser({
     followerActiveHours,
     benchmarks,
   } = data;
-
   return (
     <div className="flex-col md:flex">
       <div className="border-b">
