@@ -19,7 +19,6 @@ import { Progress } from "@/components/ui/progress";
 
 import { useRouter, usePathname } from "next/navigation";
 import ShineBorder from "./ui/shine-border";
-import { BorderBeam } from "./ui/border-beam";
 
 export function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -95,6 +94,7 @@ export function Search() {
   useEffect(() => {
     setIsLoading(false);
   }, [pathname]);
+
   if (isLoading) {
     return <Progress value={progress} />;
   }

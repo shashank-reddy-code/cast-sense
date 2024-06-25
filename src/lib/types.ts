@@ -130,3 +130,21 @@ export type FidOverview = {
   openrank_rank: number;
   openrank_percentile: number;
 };
+
+export interface DataState {
+  profile: any;
+  fidStats: TopLevelStats;
+  topEngagersAndChannels: {
+    topEngagers: TopEngager[];
+    channels: TopChannel[];
+  };
+  followerTiers: FollowerTier[];
+  topAndBottomCasts: TopAndBottomCasts;
+  dailyEngagement: DailyEngagement[];
+  dailyPowerBadgeEngagement: DailyEngagement[];
+  dailyFollowers: DailyFollower[];
+  dailyactivity: DailyActivity[];
+  dailyOpenrankStrategies: DailyOpenrankStrategies;
+  followerActiveHours: FollowerActiveHours;
+  benchmarks: Benchmark;
+}
