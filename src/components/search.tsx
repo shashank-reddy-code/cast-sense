@@ -72,13 +72,6 @@ export function Search() {
   };
 
   useEffect(() => {
-    if (!isLoading) {
-      setProgress(100);
-      setTimeout(() => setProgress(0), 500);
-    }
-  }, [isLoading]);
-
-  useEffect(() => {
     if (isLoading) {
       setProgress(0);
       const interval = setInterval(() => {
@@ -90,9 +83,18 @@ export function Search() {
           return prevProgress;
         });
       }, 100);
+      return () => clearInterval(interval);
+    } else {
+      setProgress(100);
+      const timeout = setTimeout(() => setProgress(0), 500);
+      return () => clearTimeout(timeout);
     }
   }, [isLoading]);
 
+  // Use pathname to detect route changes
+  useEffect(() => {
+    setIsLoading(false);
+  }, [pathname]);
   if (isLoading) {
     return <Progress value={progress} />;
   }
