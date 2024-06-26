@@ -232,32 +232,61 @@ export const fetchTrendingChannels = async () => {
 
 export const fetchSubscriberCount = async (
   fid: number,
-  providers: string[] = ["paragraph", "fabric_stp"]
+  providers: string[] = ["paragraph", "fabric_stp"],
+  timeout: number = 2000 // Default timeout of 2 seconds
 ) => {
-  const promises = providers.map(async (provider) => {
-    const response = await fetch(
-      `https://api.neynar.com/v2/farcaster/user/subscribers?fid=${fid}&subscription_provider=${provider}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          api_key: process.env.NEYNAR_API_KEY as string,
-        },
-        next: { revalidate: 86500 },
-      }
-    );
-    if (!response.ok) {
-      console.error(
-        `Failed to fetch subscribers for provider ${provider}`,
-        response
-      );
-      // return default value as this is not very crucial for most users
-      return 0;
-    }
-    const data = await response.json();
-    return data.subscribers.length;
-  });
+  const fetchWithTimeout = async (provider: string) => {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
 
-  const results = await Promise.all(promises);
-  const totalSubscribers = results.reduce((sum, count) => sum + count, 0);
+    try {
+      const response = await fetch(
+        `https://api.neynar.com/v2/farcaster/user/subscribers?fid=${fid}&subscription_provider=${provider}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            api_key: process.env.NEYNAR_API_KEY as string,
+          },
+          next: { revalidate: 86500 },
+          signal: controller.signal,
+        }
+      );
+
+      clearTimeout(id);
+
+      if (!response.ok) {
+        console.error(
+          `Failed to fetch subscribers for provider ${provider} and fid ${fid}`,
+          response
+        );
+        return 0;
+      }
+
+      const data = await response.json();
+      return data.subscribers.length;
+    } catch (error) {
+      if ((error as Error).name === "AbortError") {
+        console.error(
+          `Request timed out for provider ${provider} and fid ${fid}`
+        );
+      } else {
+        console.error(
+          `Error fetching subscribers for provider ${provider} and fid ${fid}`,
+          error
+        );
+      }
+      return 0;
+    } finally {
+      clearTimeout(id);
+    }
+  };
+
+  const promises = providers.map((provider) => fetchWithTimeout(provider));
+  const results = await Promise.allSettled(promises);
+  const totalSubscribers = results.reduce(
+    (sum, result) => sum + (result.status === "fulfilled" ? result.value : 0),
+    0
+  );
+
   return totalSubscribers;
 };
