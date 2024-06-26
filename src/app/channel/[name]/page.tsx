@@ -7,7 +7,7 @@ import { Historical } from "@/components/historical";
 import { FollowerCarousel } from "@/components/follower-carousel";
 import { EngagementCarousel } from "@/components/engagement-carousel";
 import Link from "next/link";
-import { CastEngagementCount, Profile } from "@/lib/types";
+import { CastEngagementCount, ChannelMentions, Profile } from "@/lib/types";
 import { fetchData } from "@/lib/utils";
 import { NeynarAuthButton, SIWN_variant } from "@neynar/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -41,7 +41,7 @@ interface DataState {
   dailyActivity: DailyActivity[];
   followerActiveHours: FollowerActiveHours;
   similarChannels: TopChannel[];
-  channelMentions: CastEngagementCount[];
+  channelMentions: ChannelMentions;
 }
 
 export default function DashboardChannel({
@@ -68,7 +68,7 @@ export default function DashboardChannel({
           [dailyCasters, dailyActivity],
           followerActiveHours,
           similarChannels,
-          //channelMentions,
+          channelMentions,
         ] = await Promise.all([
           fetchData(`${BASE_URL}/api/channel/${name}/stats`),
           fetchData(
@@ -80,9 +80,8 @@ export default function DashboardChannel({
           fetchData(`${BASE_URL}/api/channel/${name}/historical-casters`),
           fetchData(`${BASE_URL}/api/channel/${name}/active-hours?tz=${tz}`),
           fetchData(`${BASE_URL}/api/channel/${name}/overlapping-channels`),
-          //fetchData(`${BASE_URL}/api/channel/${name}/search-mentions`),
+          fetchData(`${BASE_URL}/api/channel/${name}/search-mentions`),
         ]);
-        const channelMentions: CastEngagementCount[] = [];
         console.log("Finished fetching data for", channel.url);
         // todo: clean this up
         const profile: Profile = {
@@ -94,6 +93,7 @@ export default function DashboardChannel({
           profile: { bio: { text: channel.description } },
           power_badge: false,
         };
+        channelStats.current_period_mentions = channelMentions.total;
 
         setData({
           profile,
@@ -252,7 +252,7 @@ export default function DashboardChannel({
             <EngagementCarousel
               casts={topAndBottomCasts}
               topChannels={[]}
-              mentions={channelMentions}
+              mentions={channelMentions.mentions}
             />
           </TabsContent>
         </Tabs>

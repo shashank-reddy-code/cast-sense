@@ -11,8 +11,11 @@ export async function GET(
       status: 404,
     });
   }
+  const thirtyDaysAgo = new Date(
+    Date.now() - 30 * 24 * 60 * 60 * 1000
+  ).toISOString();
   const response = await fetch(
-    `https://alertcaster.xyz/api/search?q=/${params.name}&type=channel`,
+    `https://alertcaster.xyz/api/search?q=/${params.name}&type=channel&gte=${thirtyDaysAgo}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +30,7 @@ export async function GET(
     return NextResponse.json(JSON.stringify([]));
   }
   const data = await response.json();
-  const mentions = data
+  const mentions = data.hits
     .filter((item: any) => {
       const shouldRemove =
         item._source.root_parent_url === channel.url ||
@@ -43,10 +46,11 @@ export async function GET(
       fname: item._source.author_username,
     }))
     .slice(0, 15);
+  const total = data.total.value;
 
   const headers = new Headers();
   headers.set("Cache-Control", "s-maxage=3600");
-  return new NextResponse(JSON.stringify(mentions), {
+  return new NextResponse(JSON.stringify({ mentions, total }), {
     headers,
   });
 }

@@ -72,16 +72,17 @@ export function TopLevel({
           </p>
         </CardContent>
       </Card>
-      {!isChannel && (
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Mentions</CardTitle>
-            <SvgIcons.mentions />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {formatNumber(fidStats.current_period_mentions)}
-            </div>
+      {/* {!isChannel && ( */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardTitle className="text-sm font-medium">Mentions</CardTitle>
+          <SvgIcons.mentions />
+        </CardHeader>
+        <CardContent>
+          <div className="text-2xl font-bold">
+            {formatNumber(fidStats.current_period_mentions)}
+          </div>
+          {fidStats.mentions_percentage_change && (
             <p
               className={`text-xs ${getPercentageChangeClass(
                 fidStats.mentions_percentage_change
@@ -89,9 +90,10 @@ export function TopLevel({
             >
               {fidStats.mentions_percentage_change?.toFixed(0)}% from last month
             </p>
-          </CardContent>
-        </Card>
-      )}
+          )}
+        </CardContent>
+      </Card>
+      {/* )} */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Replies</CardTitle>

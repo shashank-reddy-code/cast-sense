@@ -30,6 +30,11 @@ export type CastEngagementCount = {
   fname: string;
 };
 
+export type ChannelMentions = {
+  mentions: CastEngagementCount[];
+  total: number;
+};
+
 // channel url
 export type Channel = {
   id: string;
