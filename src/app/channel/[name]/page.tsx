@@ -83,8 +83,6 @@ export default function DashboardChannel({
           fetchData(`${BASE_URL}/api/channel/${name}/search-mentions`),
         ]);
 
-        // const channelMentions: CastEngagementCount[] = [];
-        //const maxScale = getMaxValue(dailyEngagement, dailyCasters);
         console.log("Finished fetching data for", channel.url);
         // todo: clean this up
         const profile: Profile = {

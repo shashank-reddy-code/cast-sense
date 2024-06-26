@@ -9,7 +9,12 @@ export async function GET(
 ) {
   const channel = await fetchChannelById(params.name);
   // todo: only select top_caster_fids, influential_caster_fids, top_casters columns to reduce $$$
-  const row = await fetchFirstChannelFromDune(3715815, channel.url);
+  const row = await fetchFirstChannelFromDune(3715815, channel.url, [
+    "channel_url",
+    "top_caster_fids",
+    "influential_caster_fids",
+    "top_casters",
+  ]);
   const data = await parseRow(row);
 
   const headers = new Headers();

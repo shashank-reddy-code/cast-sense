@@ -14,7 +14,12 @@ export async function GET(
         status: 404,
       });
     }
-    const row = await fetchFirstChannelFromDune(3715815, channel.url);
+    const row = await fetchFirstChannelFromDune(3715815, channel.url, [
+      "channel_url",
+      "top_caster_fids",
+      "influential_caster_fids",
+      "top_casters",
+    ]);
     if (!row) {
       return new NextResponse("Error finding analytics for channel", {
         status: 500,

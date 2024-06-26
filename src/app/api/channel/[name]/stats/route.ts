@@ -35,7 +35,7 @@ export async function GET(
       replies_percentage_change: trends.replies_percentage_change,
       current_period_likes: trends.current_period_likes,
       likes_percentage_change: trends.likes_percentage_change,
-      churn_rate: parseFloat(churnResponse.churn_rate),
+      churn_rate: parseFloat(churnResponse?.churn_rate || "0"),
       total_followers: channel.follower_count,
     };
 

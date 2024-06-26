@@ -14,10 +14,18 @@ export async function GET(req: Request) {
     .map((url) => `"${url}"`)
     .join(",")})`;
   const encodedChannelFilter = encodeURIComponent(channelFilter);
+  const columns = [
+    "channel_url",
+    "top_caster_fids",
+    "influential_caster_fids",
+    "top_casters",
+  ];
 
   try {
     const latest_response = await fetch(
-      `https://api.dune.com/api/v1/query/3715815/results?&filters=${encodedChannelFilter}`,
+      `https://api.dune.com/api/v1/query/3715815/results?&filters=${encodedChannelFilter}&columns=${columns.join(
+        ","
+      )}`,
       {
         method: "GET",
         headers: header,
