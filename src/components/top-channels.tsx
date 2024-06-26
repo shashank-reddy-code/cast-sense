@@ -1,14 +1,16 @@
+"use client";
+const BASE_URL = process.env["NEXT_PUBLIC_BASE_URL"];
+import * as React from "react";
+import { useEffect, useState } from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "./profile";
-import { TopChannel } from "@/lib/types";
-import { formatNumber } from "@/lib/utils";
+import { TopChannel, ChannelPreview } from "@/lib/types";
+import { fetchData, formatNumber } from "@/lib/utils";
 import Link from "next/link";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import { ChannelPreviewCard } from "./channel-preview-card";
-import { getTopCastersBatch } from "@/lib/dune-channels";
-import { ChannelPreview } from "@/lib/types";
 
-export async function TopChannels({
+export function TopChannels({
   channels,
   title = "Top Channels",
   description = "Channels where you cast the most",
@@ -19,26 +21,45 @@ export async function TopChannels({
   description?: string;
   metricName?: string;
 }) {
+  const [channelPreviews, setChannelPreviews] = useState<{
+    [key: string]: ChannelPreview;
+  }>({});
+
+  useEffect(() => {
+    if (channels == null || channels.length === 0) {
+      return;
+    }
+
+    const fetchChannelPreviews = async () => {
+      const channelUrls = channels
+        .filter((c: TopChannel) => c != null)
+        .map((c) => encodeURIComponent(c.channel.parent_url));
+      const topCasters = await fetchData(
+        `${BASE_URL}/api/channel/bulk/top-casters?channels=${channelUrls.join(
+          ","
+        )}`
+      );
+      const previews = channels.reduce(
+        (acc: { [key: string]: ChannelPreview }, c) => {
+          const channelPreview = {
+            channel: c.channel,
+            top_casters: topCasters[c.channel.parent_url] || [],
+          };
+          acc[c.channel.id] = channelPreview;
+          return acc;
+        },
+        {}
+      );
+      setChannelPreviews(previews);
+    };
+
+    fetchChannelPreviews();
+  }, [channels]);
+
   if (channels == null || channels.length === 0) {
     return <></>;
   }
-  // const topCasters = await getTopCastersBatch(
-  //   channels
-  //     .filter((c: TopChannel) => c != null)
-  //     .map((c) => c.channel.parent_url)
-  // );
-  const topCasters: { [key: string]: string[] } = {};
-  const channelPreviews: { [key: string]: ChannelPreview } = channels.reduce(
-    (acc: { [key: string]: ChannelPreview }, c) => {
-      const channelPreview = {
-        channel: c.channel,
-        top_casters: topCasters[c.channel.parent_url] || [],
-      };
-      acc[c.channel.id] = channelPreview;
-      return acc;
-    },
-    {} // Initial value for the accumulator
-  );
+
   return (
     <div className="space-y-4">
       <div className="mt-6 space-y-1">
@@ -70,9 +91,11 @@ export async function TopChannels({
                     </div>
                   </Link>
                 </HoverCardTrigger>
-                <ChannelPreviewCard
-                  liteChannel={channelPreviews[tc.channel.id]}
-                />
+                {channelPreviews[tc.channel.id] && (
+                  <ChannelPreviewCard
+                    liteChannel={channelPreviews[tc.channel.id]}
+                  />
+                )}
               </HoverCard>
             ))}
           </div>
