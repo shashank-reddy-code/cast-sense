@@ -80,6 +80,7 @@ export async function GET(
   };
   const headers = new Headers();
   headers.set("Cache-Control", "s-maxage=3600");
+  headers.set("Access-Control-Allow-Origin", "*");
 
   return new NextResponse(JSON.stringify(data), {
     headers,

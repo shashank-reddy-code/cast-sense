@@ -14,6 +14,7 @@ export async function GET(
   const data = await fetchFirstFidFromDune(3738107, fid);
   const headers = new Headers();
   headers.set("Cache-Control", "s-maxage=3600");
+  headers.set("Access-Control-Allow-Origin", "*");
 
   const parsedData = await parseRow(data);
   return new NextResponse(JSON.stringify(parsedData), {
