@@ -15,7 +15,11 @@ export async function GET(
 
   const headers = new Headers();
   headers.set("Cache-Control", "s-maxage=3600");
-  headers.set("Access-Control-Allow-Origin", "*");
+  headers.set("Access-Control-Allow-Origin", "https://www.castsense.xyz");
+  headers.set(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
 
   if (!data || !powerbadgeData) {
     return new NextResponse(null, { status: 404 });

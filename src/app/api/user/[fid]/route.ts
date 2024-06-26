@@ -33,7 +33,11 @@ export async function GET(
     const user = data.users[0];
     const headers = new Headers();
     headers.set("Cache-Control", "s-maxage=3600");
-    headers.set("Access-Control-Allow-Origin", "*");
+    headers.set("Access-Control-Allow-Origin", "https://www.castsense.xyz");
+    headers.set(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
     return new NextResponse(JSON.stringify(user), {
       headers,
     });
