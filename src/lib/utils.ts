@@ -2,7 +2,6 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { DailyActivity } from "./types";
 import { NextRequest, NextResponse } from "next/server";
-import { getServiceConfig } from "../app/api/proxy/config";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -113,36 +112,4 @@ export function getOpenrankText(openrank_percentile: number): string | null {
     return "🎗️ Top 25 percentile";
   }
   return null;
-}
-
-export async function handleProxyRequest(request: NextRequest, path: string[]) {
-  if (path.length === 0) {
-    return new NextResponse("Invalid proxy request", { status: 400 });
-  }
-
-  const serviceName = path[0];
-  const serviceConfig = getServiceConfig(serviceName);
-
-  if (!serviceConfig) {
-    return new NextResponse("Invalid service", { status: 400 });
-  }
-
-  const targetPath = path.slice(1).join("/");
-  const url = new URL(targetPath, serviceConfig.baseUrl);
-  url.search = request.nextUrl.search;
-
-  const headers = new Headers(request.headers);
-  headers.set(serviceConfig.apiKeyHeader, serviceConfig.apiKey);
-
-  const response = await fetch(url, {
-    method: request.method,
-    headers: headers,
-    body: request.body,
-  });
-
-  return new NextResponse(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers: response.headers,
-  });
 }
