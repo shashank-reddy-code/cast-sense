@@ -1,4 +1,4 @@
-const DUNE_API_KEY = process.env.NEXT_PUBLIC_DUNE_API_KEY || "";
+const DUNE_API_KEY = process.env.DUNE_API_KEY || "";
 
 export async function fetchFirstFidFromDune(queryId: number, fid: number) {
   const headers = new Headers({

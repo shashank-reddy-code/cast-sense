@@ -6,7 +6,6 @@ import { TopLevel } from "@/components/top-level";
 import { Historical } from "@/components/historical";
 import { FollowerCarousel } from "@/components/follower-carousel";
 import { EngagementCarousel } from "@/components/engagement-carousel";
-import { fetchProfileByFid } from "@/lib/neynar";
 import { Benchmark } from "@/components/benchmark";
 import Link from "next/link";
 import Image from "next/image";
@@ -78,7 +77,7 @@ export default function DashboardUser({
           followerActiveHours,
           benchmarks,
         ] = await Promise.all([
-          fetchProfileByFid(fid),
+          fetchData(`${BASE_URL}/api/user/${fid}`),
           fetchData(`${BASE_URL}/api/user/${fid}/stats`),
           fetchData(
             `${BASE_URL}/api/user/${fid}/top-engagers-and-follower-channels`

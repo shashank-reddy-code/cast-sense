@@ -1,23 +1,22 @@
 "use client";
+const BASE_URL = process.env["NEXT_PUBLIC_BASE_URL"];
+
 import { Search } from "@/components/search";
 import { TrendingChannels } from "@/components/trending-channels";
 import TypingAnimation from "@/components/ui/typing-animation";
-import { fetchTrendingChannels } from "@/lib/neynar";
 import { Channel } from "@/lib/types";
-import {
-  NeynarAuthButton,
-  SIWN_variant,
-  useNeynarContext,
-} from "@neynar/react";
+import { fetchData } from "@/lib/utils";
+import { NeynarAuthButton, SIWN_variant } from "@neynar/react";
 import React, { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const [channels, setChannels] = useState<Channel[]>([]);
-  const { user } = useNeynarContext();
 
   useEffect(() => {
     const fetchChannels = async () => {
-      const fetchedChannels = await fetchTrendingChannels();
+      const fetchedChannels = await fetchData(
+        `${BASE_URL}/api/channel/trending`
+      );
       setChannels(fetchedChannels);
     };
 

@@ -6,16 +6,10 @@ import { TopLevel } from "@/components/top-level";
 import { Historical } from "@/components/historical";
 import { FollowerCarousel } from "@/components/follower-carousel";
 import { EngagementCarousel } from "@/components/engagement-carousel";
-import { fetchChannelByName } from "@/lib/neynar";
 import Link from "next/link";
 import { CastEngagementCount, Profile } from "@/lib/types";
 import { fetchData } from "@/lib/utils";
-import { searchChannelMentions } from "@/lib/alertcaster";
-import {
-  NeynarAuthButton,
-  SIWN_variant,
-  useNeynarContext,
-} from "@neynar/react";
+import { NeynarAuthButton, SIWN_variant } from "@neynar/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DailyActivity,
@@ -63,7 +57,7 @@ export default function DashboardChannel({
     const fetchAllData = async (): Promise<void> => {
       const name = decodeURIComponent(params.name);
       const tz = searchParams?.tz || "UTC";
-      const channel = await fetchChannelByName(name);
+      const channel = await fetchData(`${BASE_URL}/api/channel/${name}`);
       try {
         const [
           channelStats,

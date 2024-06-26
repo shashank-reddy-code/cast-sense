@@ -1,14 +1,14 @@
 "use client";
+const BASE_URL = process.env["NEXT_PUBLIC_BASE_URL"];
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "./profile";
 import { TopChannel, ChannelPreview } from "@/lib/types";
-import { formatNumber } from "@/lib/utils";
+import { fetchData, formatNumber } from "@/lib/utils";
 import Link from "next/link";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import { ChannelPreviewCard } from "./channel-preview-card";
-import { getTopCastersBatch } from "@/lib/dune-channels";
 
 export function TopChannels({
   channels,
@@ -31,10 +31,13 @@ export function TopChannels({
     }
 
     const fetchChannelPreviews = async () => {
-      const topCasters = await getTopCastersBatch(
-        channels
-          .filter((c: TopChannel) => c != null)
-          .map((c) => c.channel.parent_url)
+      const channelUrls = channels
+        .filter((c: TopChannel) => c != null)
+        .map((c) => encodeURIComponent(c.channel.parent_url));
+      const topCasters = await fetchData(
+        `${BASE_URL}/api/channel/bulk/top-casters?channels=${channelUrls.join(
+          ","
+        )}`
       );
       const previews = channels.reduce(
         (acc: { [key: string]: ChannelPreview }, c) => {

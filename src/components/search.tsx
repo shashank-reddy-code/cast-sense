@@ -1,5 +1,5 @@
 "use client";
-
+const BASE_URL = process.env["NEXT_PUBLIC_BASE_URL"];
 import React, { useState, useEffect, useCallback } from "react";
 import {
   Command,
@@ -9,16 +9,13 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command";
-import {
-  autocompleteUserSearch,
-  autocompleteChannelSearch,
-} from "@/lib/neynar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { debounce } from "lodash";
 import { Progress } from "@/components/ui/progress";
 
 import { useRouter, usePathname } from "next/navigation";
 import ShineBorder from "./ui/shine-border";
+import { fetchData } from "@/lib/utils";
 
 export function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,20 +33,11 @@ export function Search() {
     debounce(async (searchTerm) => {
       if (searchTerm.length > 0) {
         setIsSearching(true);
-        const fetchUser = autocompleteUserSearch(searchTerm);
-        const fetchChannel = autocompleteChannelSearch(searchTerm);
-        try {
-          const [userData, channelData] = await Promise.all([
-            fetchUser,
-            fetchChannel,
-          ]);
-          setUserResults(userData);
-          setChannelResults(channelData);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-          setUserResults([]);
-          setChannelResults([]);
-        }
+        const { users, channels } = await fetchData(
+          `${BASE_URL}/api/autocomplete?q=${searchTerm}`
+        );
+        setUserResults(users);
+        setChannelResults(channels);
         setIsSearching(false);
       } else {
         setUserResults([]);

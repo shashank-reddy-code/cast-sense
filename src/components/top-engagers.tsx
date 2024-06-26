@@ -1,14 +1,16 @@
 "use client";
+const BASE_URL = process.env["NEXT_PUBLIC_BASE_URL"];
 import { useEffect, useState } from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "./profile";
 import { ProfilePreview, TopEngager } from "@/lib/types";
 import { SvgIcons } from "./svg-icons";
-import { formatNumber } from "@/lib/utils";
+import { fetchData, formatNumber } from "@/lib/utils";
 import Link from "next/link";
 import { getFidsOverviewBatch } from "@/lib/dune-fid";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import { ProfilePreviewCard } from "./profile-preview-card";
+import { Skeleton } from "./ui/skeleton";
 
 export function TopEngagers({
   topEngagers,
@@ -25,12 +27,13 @@ export function TopEngagers({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchProfilePreviews() {
       if (topEngagers && topEngagers.length > 0) {
-        const fidsOverview = await getFidsOverviewBatch(
-          topEngagers
-            .filter((te) => te.profile != null)
-            .map((te) => te.profile.fid)
+        const fids = topEngagers
+          .filter((te) => te.profile != null)
+          .map((te) => te.profile.fid);
+        const fidsOverview = await fetchData(
+          `${BASE_URL}/api/user/bulk/overview?fids=${fids.join(",")}`
         );
 
         const previews = topEngagers
@@ -55,11 +58,32 @@ export function TopEngagers({
       }
     }
 
-    fetchData();
+    fetchProfilePreviews();
   }, [topEngagers]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="space-y-4">
+        <div className="mt-6 space-y-1">
+          <Skeleton className="h-8 w-1/3" />
+          <Skeleton className="h-6 w-1/2" />
+        </div>
+        <div className="relative">
+          <div className="flex space-x-4 pb-4">
+            {[...Array(5)].map((_, index) => (
+              <div key={index}>
+                <Skeleton className="h-36 w-36" />
+                <div className="text-sm text-muted-foreground items-center flex justify-center space-x-1 md:space-x-4 lg:space-x-4">
+                  <Skeleton className="h-4 w-4" />
+                  <Skeleton className="h-4 w-4" />
+                  <Skeleton className="h-4 w-4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (topEngagers == null || topEngagers.length === 0) {
