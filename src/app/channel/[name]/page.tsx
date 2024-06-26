@@ -68,7 +68,7 @@ export default function DashboardChannel({
           [dailyCasters, dailyActivity],
           followerActiveHours,
           similarChannels,
-          channelMentions,
+          //channelMentions,
         ] = await Promise.all([
           fetchData(`${BASE_URL}/api/channel/${name}/stats`),
           fetchData(
@@ -80,9 +80,9 @@ export default function DashboardChannel({
           fetchData(`${BASE_URL}/api/channel/${name}/historical-casters`),
           fetchData(`${BASE_URL}/api/channel/${name}/active-hours?tz=${tz}`),
           fetchData(`${BASE_URL}/api/channel/${name}/overlapping-channels`),
-          fetchData(`${BASE_URL}/api/channel/${name}/search-mentions`),
+          //fetchData(`${BASE_URL}/api/channel/${name}/search-mentions`),
         ]);
-
+        const channelMentions: CastEngagementCount[] = [];
         console.log("Finished fetching data for", channel.url);
         // todo: clean this up
         const profile: Profile = {
