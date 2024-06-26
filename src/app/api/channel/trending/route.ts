@@ -16,10 +16,7 @@ export async function GET(req: Request) {
     // log error if response is not ok
     if (!response.ok) {
       console.error(`Failed to fetch trending channels`, response);
-      return {
-        status: 200,
-        body: JSON.stringify([]),
-      };
+      return NextResponse.json(JSON.stringify([]));
     }
     const data = await response.json();
     const channels = data.channels.map((channel: any) => channel.channel);
@@ -31,9 +28,6 @@ export async function GET(req: Request) {
     });
   } catch (error) {
     console.error(`Failed to fetch trending channels`, error);
-    return {
-      status: 200,
-      body: JSON.stringify([]),
-    };
+    return NextResponse.json(JSON.stringify([]));
   }
 }

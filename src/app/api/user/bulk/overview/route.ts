@@ -23,7 +23,7 @@ export async function GET(req: Request) {
     );
     if (latest_response.status !== 200) {
       console.error("Failed to fetch profile previews", latest_response);
-      return { status: 200, body: JSON.stringify({}) };
+      return NextResponse.json(JSON.stringify({}));
     }
     const body = await latest_response.text();
     const result = JSON.parse(body).result.rows;
@@ -47,6 +47,6 @@ export async function GET(req: Request) {
     });
   } catch (error) {
     console.error(`Failed to fetch top casters for channels ${fids}`, error);
-    return { status: 200, body: JSON.stringify({}) };
+    return NextResponse.json(JSON.stringify({}));
   }
 }

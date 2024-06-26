@@ -19,18 +19,22 @@ export async function GET(
     // log error if response is not ok
     if (!response.ok) {
       console.error(`Failed to fetch channel ${name}`, response);
-      return {
-        status: 500,
-        body: JSON.stringify({ error: "Failed to fetch channel" }),
-      };
+      return NextResponse.json(
+        { error: "Failed to fetch channel by name" },
+        { status: 500 }
+      );
     }
     const data = await response.json();
 
     if (data.channels.length === 0) {
-      return {
-        status: 404,
-        body: JSON.stringify({ error: "Channel not found" }),
-      };
+      return NextResponse.json(
+        {
+          error: "Channel not found",
+        },
+        {
+          status: 404,
+        }
+      );
     }
     const channel = data.channels[0];
 
@@ -41,9 +45,11 @@ export async function GET(
     });
   } catch (error) {
     console.error(`Failed to fetch channel by name`, error);
-    return {
-      status: 500,
-      body: JSON.stringify({ error: "Failed to fetch channel by name" }),
-    };
+    return NextResponse.json(
+      {
+        error: "Failed to fetch channel by name",
+      },
+      { status: 500 }
+    );
   }
 }

@@ -24,7 +24,7 @@ export async function GET(
   // log error if response is not ok
   if (!response.ok) {
     console.error(`Failed to fetch channel ${channel.id}`, response);
-    return [];
+    return NextResponse.json(JSON.stringify([]));
   }
   const data = await response.json();
   const mentions = data

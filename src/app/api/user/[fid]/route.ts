@@ -20,17 +20,15 @@ export async function GET(
     // log error if response is not ok
     if (!response.ok) {
       console.error(`Failed to lookup ${fid}`, response);
-      return {
-        status: 500,
-        body: JSON.stringify({ error: "Failed to fetch user" }),
-      };
+      return NextResponse.json(
+        JSON.stringify({ error: "Failed to fetch user" })
+      );
     }
     const data = await response.json();
     if (data.users.length === 0) {
-      return {
+      return NextResponse.json(JSON.stringify({ error: "User not found" }), {
         status: 404,
-        body: JSON.stringify({ error: "User not found" }),
-      };
+      });
     }
     const user = data.users[0];
     const headers = new Headers();
@@ -40,9 +38,6 @@ export async function GET(
     });
   } catch (error) {
     console.error(`Failed to fetch trending channels`, error);
-    return {
-      status: 200,
-      body: JSON.stringify([]),
-    };
+    return NextResponse.json(JSON.stringify({ error: "Failed to fetch user" }));
   }
 }

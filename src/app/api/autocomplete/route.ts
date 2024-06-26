@@ -3,10 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request) {
   const term = new URL(req.url).searchParams.get("q");
   if (!term) {
-    return {
-      status: 400,
-      body: JSON.stringify({ error: "Bad Request" }),
-    };
+    return NextResponse.json({ error: "Bad Request" }, { status: 400 });
   }
   const name = encodeURIComponent(term);
   try {
@@ -63,9 +60,6 @@ export async function GET(req: Request) {
     });
   } catch (error) {
     console.error(`Failed to search for ${name} in autocompletee`, error);
-    return {
-      status: 200,
-      body: JSON.stringify({ users: [], channels: [] }),
-    };
+    return NextResponse.json({ users: [], channels: [] });
   }
 }
