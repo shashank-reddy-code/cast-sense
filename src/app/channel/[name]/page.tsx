@@ -96,12 +96,6 @@ export default function DashboardChannel({
           profile: { bio: { text: channel.description } },
           power_badge: false,
         };
-        // if (channel == null || channelStats == null) {
-        //   return <div>Channel data not found</div>;
-        // }
-
-        // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
-        channelStats.total_followers = channel.follower_count;
 
         setData({
           profile,

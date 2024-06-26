@@ -14,7 +14,7 @@ export async function GET(
         status: 404,
       });
     }
-    const [trends, churnRate]: [TopLevelStats, number] = await Promise.all([
+    const [trends, churnResponse]: [TopLevelStats, any] = await Promise.all([
       fetchFirstChannelFromDune(3714673, channel.url),
       fetchFirstChannelFromDune(3766009, channel.url),
     ]);
@@ -23,7 +23,21 @@ export async function GET(
         status: 500,
       });
     }
-    const data = { ...trends, churn_rate: churnRate };
+    const data = {
+      current_period_casts: trends.current_period_casts,
+      casts_percentage_change: trends.casts_percentage_change,
+      current_period_recasts: trends.current_period_recasts,
+      recasts_percentage_change: trends.recasts_percentage_change,
+      // todo: this needs to be fetched from alertcaster
+      // current_period_mentions: trends.current_period_mentions,
+      // mentions_percentage_change: trends.mentions_percentage_change,
+      current_period_replies: trends.current_period_replies,
+      replies_percentage_change: trends.replies_percentage_change,
+      current_period_likes: trends.current_period_likes,
+      likes_percentage_change: trends.likes_percentage_change,
+      churn_rate: parseFloat(churnResponse.churn_rate),
+      total_followers: channel.follower_count,
+    };
 
     const headers = new Headers();
     headers.set("Cache-Control", "s-maxage=3600");
