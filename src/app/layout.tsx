@@ -12,6 +12,7 @@ import "../styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// todo: need to fix this
 // export const metadata: Metadata = {
 //   title: "CastSense",
 //   description: "Made by 0xshash",
