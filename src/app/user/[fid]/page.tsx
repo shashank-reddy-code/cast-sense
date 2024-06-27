@@ -250,6 +250,7 @@ export default function DashboardUser({
                 topEngagersAndChannels && topEngagersAndChannels.topEngagers
               }
               followerActiveHours={followerActiveHours}
+              isPro={isPro}
             />
           </TabsContent>
           <TabsContent value="engagement">
@@ -258,6 +259,7 @@ export default function DashboardUser({
               topChannels={
                 topEngagersAndChannels && topEngagersAndChannels.channels
               }
+              isPro={isPro}
             />
           </TabsContent>
         </Tabs>

@@ -2,6 +2,7 @@ import { LockIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ReactNode } from "react";
+import { useNeynarContext } from "@neynar/react";
 
 interface ProContentLockProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ export function ProContentLock({
   isPro,
   upgradeUrl,
 }: ProContentLockProps) {
+  const { isAuthenticated } = useNeynarContext();
   if (isPro) {
     return <>{children}</>;
   }
@@ -24,7 +26,9 @@ export function ProContentLock({
         <LockIcon className="w-12 h-12 text-yellow-400 mb-4" />
         <h2 className="text-2xl font-bold text-white mb-2">Pro Feature</h2>
         <p className="text-white text-center mb-4">
-          Upgrade to Pro to access advanced analytics
+          {isAuthenticated
+            ? "Upgrade to Pro to access advanced analytics"
+            : "Sign in and upgrade to Pro to access advanced analytics"}
         </p>
         <Button variant="secondary" asChild>
           <Link href={upgradeUrl} target="_blank" rel="noopener noreferrer">
