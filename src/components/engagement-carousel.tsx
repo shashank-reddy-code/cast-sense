@@ -9,18 +9,24 @@ import {
   TopAndBottomCasts,
   TopChannel,
 } from "@/lib/types";
+import { ProContentLock } from "./pro-content-lock";
+
+const upgradeUrl =
+  "https://hypersub.withfabric.xyz/collection/automod-prime-xn1rknylk4cg";
 
 export function EngagementCarousel({
   casts,
   topChannels,
   mentions = [],
+  isPro = false,
 }: {
   casts: TopAndBottomCasts;
   topChannels: TopChannel[];
   mentions?: CastEngagementCount[];
+  isPro?: boolean;
 }) {
   return (
-    <>
+    <ProContentLock isPro={isPro} upgradeUrl={upgradeUrl}>
       <CastsCarousel
         hashes={casts?.top_hash}
         header="Bangers"
@@ -48,6 +54,6 @@ export function EngagementCarousel({
         </>
       )}
       <TopChannels channels={topChannels} />
-    </>
+    </ProContentLock>
   );
 }
