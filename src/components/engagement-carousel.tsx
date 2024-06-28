@@ -12,7 +12,7 @@ import {
 import { ProContentLock } from "./pro-content-lock";
 
 const upgradeUrl =
-  "https://hypersub.withfabric.xyz/collection/automod-prime-xn1rknylk4cg";
+  "https://hypersub.withfabric.xyz/s/castsense-pro-15wp2j294k9a8 ";
 
 export function EngagementCarousel({
   casts,
