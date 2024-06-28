@@ -20,8 +20,8 @@ export async function GET(
             headers: {
               "Content-Type": "application/json",
               api_key: process.env.NEYNAR_API_KEY as string,
+              cache: "no-store",
             },
-            next: { revalidate: 86500 },
             signal: controller.signal,
           }
         );
