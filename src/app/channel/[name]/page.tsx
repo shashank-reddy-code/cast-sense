@@ -9,7 +9,11 @@ import { EngagementCarousel } from "@/components/engagement-carousel";
 import Link from "next/link";
 import { ChannelMentions, Profile } from "@/lib/types";
 import { fetchData } from "@/lib/utils";
-import { NeynarAuthButton, SIWN_variant } from "@neynar/react";
+import {
+  NeynarAuthButton,
+  SIWN_variant,
+  useNeynarContext,
+} from "@neynar/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DailyActivity,
@@ -55,12 +59,12 @@ export default function DashboardChannel({
 }) {
   const [data, setData] = useState<DataState | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const { user, isAuthenticated } = useNeynarContext();
   useEffect(() => {
     const fetchAllData = async (): Promise<void> => {
       const name = decodeURIComponent(params.name);
       const tz = searchParams?.tz || "UTC";
       const channel = await fetchData(`${BASE_URL}/api/channel/${name}`);
-      const isPro = false;
       try {
         const [
           channelStats,
@@ -72,8 +76,7 @@ export default function DashboardChannel({
           followerActiveHours,
           similarChannels,
           channelMentions,
-          // user needs to be signed in to view this data
-          // isPro,
+          proStatus,
         ] = await Promise.all([
           fetchData(`${BASE_URL}/api/channel/${name}/stats`),
           fetchData(
@@ -86,7 +89,9 @@ export default function DashboardChannel({
           fetchData(`${BASE_URL}/api/channel/${name}/active-hours?tz=${tz}`),
           fetchData(`${BASE_URL}/api/channel/${name}/overlapping-channels`),
           fetchData(`${BASE_URL}/api/channel/${name}/search-mentions`),
-          // fetchData(`${BASE_URL}/api/user/[fid]/account-status`)
+          user && isAuthenticated
+            ? fetchData(`${BASE_URL}/api/user/${user.fid}/account-status`)
+            : null,
         ]);
         console.log("Finished fetching data for", channel.url);
         // todo: clean this up
@@ -114,7 +119,7 @@ export default function DashboardChannel({
           followerActiveHours,
           similarChannels,
           channelMentions,
-          isPro,
+          isPro: proStatus?.isPro || false,
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -123,7 +128,7 @@ export default function DashboardChannel({
       }
     };
     fetchAllData();
-  }, [params.name, searchParams.tz]);
+  }, [params.name, searchParams.tz, user, isAuthenticated]);
 
   if (loading) {
     return (

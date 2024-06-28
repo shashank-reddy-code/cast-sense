@@ -233,7 +233,7 @@ export const fetchTrendingChannels = async () => {
 export const fetchSubscriberCount = async (
   fid: number,
   providers: string[] = ["paragraph", "fabric_stp"],
-  timeout: number = 2000 // Default timeout of 2 seconds
+  timeout: number = 500 // Default timeout of 500ms
 ) => {
   const fetchWithTimeout = async (provider: string) => {
     const controller = new AbortController();

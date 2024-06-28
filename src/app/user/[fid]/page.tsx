@@ -11,8 +11,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { fetchData } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import { NeynarAuthButton, SIWN_variant } from "@neynar/react";
+import { use, useEffect, useState } from "react";
+import {
+  NeynarAuthButton,
+  SIWN_variant,
+  useNeynarContext,
+} from "@neynar/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Benchmark as BenchmarkType,
@@ -58,6 +62,7 @@ export default function DashboardUser({
 }) {
   const [data, setData] = useState<DataState | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const { user, isAuthenticated } = useNeynarContext();
   useEffect(() => {
     const fetchAllData = async (): Promise<void> => {
       const fid = parseInt(params.fid, 10);
@@ -65,7 +70,6 @@ export default function DashboardUser({
         notFound();
       }
       const tz = searchParams?.tz || "UTC";
-      const isPro = false;
       try {
         const [
           profile,
@@ -79,8 +83,7 @@ export default function DashboardUser({
           dailyOpenrankStrategies,
           followerActiveHours,
           benchmarks,
-          // user needs to be signed in to view this data
-          // isPro,
+          proStatus,
         ] = await Promise.all([
           fetchData(`${BASE_URL}/api/user/${fid}`),
           fetchData(`${BASE_URL}/api/user/${fid}/stats`),
@@ -95,7 +98,9 @@ export default function DashboardUser({
           fetchData(`${BASE_URL}/api/user/${fid}/historical-openrank`),
           fetchData(`${BASE_URL}/api/user/${fid}/active-hours?tz=${tz}`),
           fetchData(`${BASE_URL}/api/user/${fid}/benchmarks`),
-          // fetchData(`${BASE_URL}/api/user/[fid]/account-status`)
+          user && isAuthenticated
+            ? fetchData(`${BASE_URL}/api/user/${user.fid}/account-status`)
+            : null,
         ]);
         // const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
         // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
@@ -114,7 +119,7 @@ export default function DashboardUser({
           dailyOpenrankStrategies,
           followerActiveHours,
           benchmarks,
-          isPro,
+          isPro: proStatus?.isPro || false,
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -123,7 +128,7 @@ export default function DashboardUser({
       }
     };
     fetchAllData();
-  }, [params.fid, searchParams.tz]);
+  }, [params.fid, searchParams.tz, user, isAuthenticated]);
   if (loading) {
     return (
       <>
