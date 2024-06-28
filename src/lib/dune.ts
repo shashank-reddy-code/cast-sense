@@ -48,8 +48,6 @@ export async function fetchFirstChannelFromDune(
   if (columns.length > 0) {
     const columnsParam = columns.join(",");
     url += `&columns=${encodeURIComponent(columnsParam)}`;
-    console.log(channelUrl);
-    console.log(url);
   }
   const response = await fetch(url, {
     method: "GET",

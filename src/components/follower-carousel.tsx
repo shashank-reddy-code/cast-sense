@@ -15,11 +15,14 @@ import { FollowersByTier } from "./followers-by-tier";
 import {
   FollowerActiveHours,
   FollowerTier,
-  Profile,
   TopChannel,
   TopEngager,
 } from "@/lib/types";
 import { TopChannels } from "./top-channels";
+import { ProContentLock } from "./pro-content-lock";
+
+const upgradeUrl =
+  "https://hypersub.withfabric.xyz/s/castsense-pro-15wp2j294k9a8 ";
 
 export function FollowerCarousel({
   topEngagers,
@@ -28,6 +31,7 @@ export function FollowerCarousel({
   topInfluencers = [],
   similarChannels = [],
   isChannel = false,
+  isPro = false,
 }: {
   topEngagers: TopEngager[];
   followerTiers: FollowerTier[];
@@ -35,9 +39,10 @@ export function FollowerCarousel({
   topInfluencers?: TopEngager[];
   similarChannels?: TopChannel[];
   isChannel?: boolean;
+  isPro?: boolean;
 }) {
   return (
-    <>
+    <ProContentLock isPro={isPro} upgradeUrl={upgradeUrl}>
       <Carousel
         opts={{
           align: "start",
@@ -101,6 +106,6 @@ export function FollowerCarousel({
           />
         </>
       )}
-    </>
+    </ProContentLock>
   );
 }

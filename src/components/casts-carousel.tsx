@@ -11,7 +11,6 @@ import {
 import { CastEngagementCount } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 import { SvgIcons } from "./svg-icons";
-import { fetchCastByHash } from "@/lib/neynar";
 import Link from "next/link";
 
 export function CastsCarousel({

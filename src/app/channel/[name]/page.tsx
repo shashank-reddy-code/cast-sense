@@ -7,9 +7,13 @@ import { Historical } from "@/components/historical";
 import { FollowerCarousel } from "@/components/follower-carousel";
 import { EngagementCarousel } from "@/components/engagement-carousel";
 import Link from "next/link";
-import { CastEngagementCount, ChannelMentions, Profile } from "@/lib/types";
+import { ChannelMentions, Profile } from "@/lib/types";
 import { fetchData } from "@/lib/utils";
-import { NeynarAuthButton, SIWN_variant } from "@neynar/react";
+import {
+  NeynarAuthButton,
+  SIWN_variant,
+  useNeynarContext,
+} from "@neynar/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DailyActivity,
@@ -25,6 +29,7 @@ import {
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { LockIcon } from "lucide-react";
 
 interface DataState {
   profile: any;
@@ -42,6 +47,7 @@ interface DataState {
   followerActiveHours: FollowerActiveHours;
   similarChannels: TopChannel[];
   channelMentions: ChannelMentions;
+  isPro: boolean;
 }
 
 export default function DashboardChannel({
@@ -53,6 +59,7 @@ export default function DashboardChannel({
 }) {
   const [data, setData] = useState<DataState | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const { user, isAuthenticated } = useNeynarContext();
   useEffect(() => {
     const fetchAllData = async (): Promise<void> => {
       const name = decodeURIComponent(params.name);
@@ -69,6 +76,7 @@ export default function DashboardChannel({
           followerActiveHours,
           similarChannels,
           channelMentions,
+          proStatus,
         ] = await Promise.all([
           fetchData(`${BASE_URL}/api/channel/${name}/stats`),
           fetchData(
@@ -81,6 +89,9 @@ export default function DashboardChannel({
           fetchData(`${BASE_URL}/api/channel/${name}/active-hours?tz=${tz}`),
           fetchData(`${BASE_URL}/api/channel/${name}/overlapping-channels`),
           fetchData(`${BASE_URL}/api/channel/${name}/search-mentions`),
+          user && isAuthenticated
+            ? fetchData(`${BASE_URL}/api/user/${user.fid}/account-status`)
+            : null,
         ]);
         console.log("Finished fetching data for", channel.url);
         // todo: clean this up
@@ -108,6 +119,7 @@ export default function DashboardChannel({
           followerActiveHours,
           similarChannels,
           channelMentions,
+          isPro: proStatus?.isPro || false,
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -116,7 +128,7 @@ export default function DashboardChannel({
       }
     };
     fetchAllData();
-  }, [params.name, searchParams.tz]);
+  }, [params.name, searchParams.tz, user, isAuthenticated]);
 
   if (loading) {
     return (
@@ -172,6 +184,7 @@ export default function DashboardChannel({
     followerActiveHours,
     similarChannels,
     channelMentions,
+    isPro,
   } = data;
 
   return (
@@ -218,8 +231,12 @@ export default function DashboardChannel({
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="followers">Followers</TabsTrigger>
-            <TabsTrigger value="engagement">Engagement</TabsTrigger>
+            <TabsTrigger value="followers">
+              Followers{!isPro && <LockIcon className="ml-1 h-4 w-4" />}
+            </TabsTrigger>
+            <TabsTrigger value="engagement">
+              Engagement{!isPro && <LockIcon className="ml-1 h-4 w-4" />}
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="overview" className="space-y-4">
             <TopLevel fidStats={channelStats} isChannel={true} />

@@ -11,8 +11,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { fetchData } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import { NeynarAuthButton, SIWN_variant } from "@neynar/react";
+import { use, useEffect, useState } from "react";
+import {
+  NeynarAuthButton,
+  SIWN_variant,
+  useNeynarContext,
+} from "@neynar/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Benchmark as BenchmarkType,
@@ -28,6 +32,7 @@ import {
   TopLevelStats,
 } from "@/lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
+import { LockIcon } from "lucide-react";
 
 interface DataState {
   profile: any;
@@ -45,6 +50,7 @@ interface DataState {
   dailyOpenrankStrategies: DailyOpenrankStrategies;
   followerActiveHours: FollowerActiveHours;
   benchmarks: BenchmarkType;
+  isPro: boolean;
 }
 
 export default function DashboardUser({
@@ -56,6 +62,7 @@ export default function DashboardUser({
 }) {
   const [data, setData] = useState<DataState | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const { user, isAuthenticated } = useNeynarContext();
   useEffect(() => {
     const fetchAllData = async (): Promise<void> => {
       const fid = parseInt(params.fid, 10);
@@ -76,6 +83,7 @@ export default function DashboardUser({
           dailyOpenrankStrategies,
           followerActiveHours,
           benchmarks,
+          proStatus,
         ] = await Promise.all([
           fetchData(`${BASE_URL}/api/user/${fid}`),
           fetchData(`${BASE_URL}/api/user/${fid}/stats`),
@@ -90,6 +98,9 @@ export default function DashboardUser({
           fetchData(`${BASE_URL}/api/user/${fid}/historical-openrank`),
           fetchData(`${BASE_URL}/api/user/${fid}/active-hours?tz=${tz}`),
           fetchData(`${BASE_URL}/api/user/${fid}/benchmarks`),
+          user && isAuthenticated
+            ? fetchData(`${BASE_URL}/api/user/${user.fid}/account-status`)
+            : null,
         ]);
         // const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
         // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
@@ -108,6 +119,7 @@ export default function DashboardUser({
           dailyOpenrankStrategies,
           followerActiveHours,
           benchmarks,
+          isPro: proStatus?.isPro || false,
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -116,7 +128,7 @@ export default function DashboardUser({
       }
     };
     fetchAllData();
-  }, [params.fid, searchParams.tz]);
+  }, [params.fid, searchParams.tz, user, isAuthenticated]);
   if (loading) {
     return (
       <>
@@ -171,6 +183,7 @@ export default function DashboardUser({
     dailyOpenrankStrategies,
     followerActiveHours,
     benchmarks,
+    isPro,
   } = data;
   return (
     <div className="flex-col md:flex">
@@ -217,8 +230,12 @@ export default function DashboardUser({
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="followers">Followers</TabsTrigger>
-            <TabsTrigger value="engagement">Engagement</TabsTrigger>
+            <TabsTrigger value="followers">
+              Followers{!isPro && <LockIcon className="ml-1 h-4 w-4" />}
+            </TabsTrigger>
+            <TabsTrigger value="engagement">
+              Engagement{!isPro && <LockIcon className="ml-1 h-4 w-4" />}
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="overview" className="space-y-4">
             <TopLevel fidStats={fidStats} />
@@ -238,6 +255,7 @@ export default function DashboardUser({
                 topEngagersAndChannels && topEngagersAndChannels.topEngagers
               }
               followerActiveHours={followerActiveHours}
+              isPro={isPro}
             />
           </TabsContent>
           <TabsContent value="engagement">
@@ -246,6 +264,7 @@ export default function DashboardUser({
               topChannels={
                 topEngagersAndChannels && topEngagersAndChannels.channels
               }
+              isPro={isPro}
             />
           </TabsContent>
         </Tabs>
