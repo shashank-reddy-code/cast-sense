@@ -21,7 +21,7 @@ export async function GET(
               "Content-Type": "application/json",
               api_key: process.env.NEYNAR_API_KEY as string,
             },
-            next: { revalidate: 86500 },
+            cache: "no-store",
             signal: controller.signal,
           }
         );
@@ -63,7 +63,10 @@ export async function GET(
 
     const proStatus = await fetchWithTimeout("fabric_stp");
     const headers = new Headers();
-    headers.set("Cache-Control", "s-maxage=0");
+    headers.set(
+      "Cache-Control",
+      "no-store, no-cache, max-age=0, must-revalidate"
+    );
     return new NextResponse(JSON.stringify(proStatus), {
       headers,
     });
