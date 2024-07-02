@@ -29,7 +29,6 @@ export async function GET(req: Request) {
       {
         method: "GET",
         headers: header,
-        cache: "no-store",
       }
     );
 
