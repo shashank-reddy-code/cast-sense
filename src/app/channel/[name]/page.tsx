@@ -263,6 +263,7 @@ export default function DashboardChannel({
               similarChannels={similarChannels}
               followerActiveHours={followerActiveHours}
               isChannel={true}
+              isPro={isPro}
             />
           </TabsContent>
           <TabsContent value="engagement" className="space-y-4">
@@ -270,6 +271,7 @@ export default function DashboardChannel({
               casts={topAndBottomCasts}
               topChannels={[]}
               mentions={channelMentions.mentions}
+              isPro={isPro}
             />
           </TabsContent>
         </Tabs>
