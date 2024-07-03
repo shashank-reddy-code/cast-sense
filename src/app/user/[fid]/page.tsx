@@ -11,7 +11,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { fetchData } from "@/lib/utils";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   NeynarAuthButton,
   SIWN_variant,

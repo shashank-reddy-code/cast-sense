@@ -12,7 +12,9 @@ import {
 import { ProContentLock } from "./pro-content-lock";
 
 const upgradeUrl =
-  "https://hypersub.withfabric.xyz/s/castsense-pro-15wp2j294k9a8 ";
+  "https://hypersub.withfabric.xyz/s/castsense-pro-15wp2j294k9a8/1";
+const dayPassUrl =
+  "https://hypersub.withfabric.xyz/s/castsense-pro-15wp2j294k9a8/2";
 
 export function EngagementCarousel({
   casts,
@@ -26,7 +28,11 @@ export function EngagementCarousel({
   isPro?: boolean;
 }) {
   return (
-    <ProContentLock isPro={isPro} upgradeUrl={upgradeUrl}>
+    <ProContentLock
+      isPro={isPro}
+      upgradeUrl={upgradeUrl}
+      dayPassUrl={dayPassUrl}
+    >
       <CastsCarousel
         hashes={casts?.top_hash}
         header="Bangers"
