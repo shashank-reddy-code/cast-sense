@@ -1,52 +1,76 @@
-import { LockIcon } from "lucide-react";
+import React, { useState } from "react";
+import {
+  LockIcon,
+  Clock,
+  Users,
+  CheckCircle,
+  Zap,
+  TrendingUp,
+  BarChart,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ReactNode } from "react";
-import { useNeynarContext } from "@neynar/react";
 
 interface ProContentLockProps {
-  children: ReactNode;
-  isPro: boolean;
   upgradeUrl: string;
   dayPassUrl: string;
 }
 
 export function ProContentLock({
-  children,
-  isPro,
   upgradeUrl,
   dayPassUrl,
 }: ProContentLockProps) {
-  const { isAuthenticated } = useNeynarContext();
-
-  if (isPro) {
-    return <>{children}</>;
-  }
+  const features = [
+    { icon: Clock, text: "Best times to post" },
+    { icon: Users, text: "Real follower counts" },
+    {
+      icon: CheckCircle,
+      text: "Loyal fans and their top channels, openrank reputation",
+    },
+    {
+      icon: TrendingUp,
+      text: "Discovery of similar channels",
+    },
+  ];
 
   return (
-    <div className="relative">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-4">
-        <LockIcon className="w-12 h-12 text-yellow-400 mb-4" />
-        <h2 className="text-2xl font-bold text-white mb-2">Premium Feature</h2>
-        <p className="text-white text-center mb-4">
-          {isAuthenticated
-            ? "Upgrade to access advanced analytics"
-            : "Sign in and upgrade to access advanced analytics"}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-2">
-          <Button variant="secondary" asChild>
-            <Link href={upgradeUrl} target="_blank" rel="noopener noreferrer">
-              Subscribe for $10/month
-            </Link>
-          </Button>
-          <Button variant="outline" asChild>
-            <Link href={dayPassUrl} target="_blank" rel="noopener noreferrer">
-              Try $2 Day Pass
-            </Link>
-          </Button>
-        </div>
+    <div className="w-full max-w-2xl mx-auto text-white mt-20">
+      <h2 className="text-2xl font-bold mb-6 flex items-center">
+        <LockIcon className="mr-3" /> Unlock Advanced Analytics
+      </h2>
+
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        {features.map((feature, index) => (
+          <div key={index} className="flex items-start space-x-3">
+            <feature.icon className="w-5 h-5 text-purple-400 flex-shrink-0 mt-1" />
+            <span className="text-sm">{feature.text}</span>
+          </div>
+        ))}
       </div>
-      <div className="filter blur-md">{children}</div>
+
+      <div className="space-y-3">
+        <Button
+          asChild
+          className="w-full bg-purple-500 hover:bg-purple-600 text-white"
+        >
+          <Link href={upgradeUrl} target="_blank">
+            Subscribe at 0.003 ETH /month
+          </Link>
+        </Button>
+        <Button
+          asChild
+          variant="outline"
+          className="w-full border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white"
+        >
+          <Link href={dayPassUrl} target="_blank">
+            Try 0.0005 ETH Day Pass
+          </Link>
+        </Button>
+      </div>
+
+      <p className="text-xs text-gray-400 text-center mt-4">
+        Get detailed insights on your farcaster activity and engagement.
+      </p>
     </div>
   );
 }

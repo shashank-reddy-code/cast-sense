@@ -7,7 +7,7 @@ import { Historical } from "@/components/historical";
 import { FollowerCarousel } from "@/components/follower-carousel";
 import { EngagementCarousel } from "@/components/engagement-carousel";
 import Link from "next/link";
-import { ChannelMentions, Profile } from "@/lib/types";
+import { Profile } from "@/lib/types";
 import { fetchData } from "@/lib/utils";
 import {
   NeynarAuthButton,
@@ -27,28 +27,36 @@ import {
   TopLevelStats,
 } from "@/lib/types";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { LockIcon } from "lucide-react";
+import { ProContentLock } from "@/components/pro-content-lock";
 
-interface DataState {
+interface BaseDataState {
   profile: any;
   channelStats: TopLevelStats;
+  dailyEngagement: DailyEngagement[];
+  dailyPowerBadgeEngagement: DailyEngagement[];
+  dailyCasters: DailyFollower[];
+  dailyActivity: DailyActivity[];
+}
+
+interface PremiumDataState {
   topEngagersAndInfluencers: {
     topEngagers: TopEngager[];
     topInfluencers: TopEngager[];
   };
   followerTiers: FollowerTier[];
   topAndBottomCasts: TopAndBottomCasts;
-  dailyEngagement: DailyEngagement[];
-  dailyPowerBadgeEngagement: DailyEngagement[];
-  dailyCasters: DailyFollower[];
-  dailyActivity: DailyActivity[];
   followerActiveHours: FollowerActiveHours;
   similarChannels: TopChannel[];
-  channelMentions: ChannelMentions;
-  isPro: boolean;
 }
+
+type DataState = {
+  baseData: BaseDataState | null;
+  premiumData: PremiumDataState | null;
+  isPro: boolean;
+};
 
 export default function DashboardChannel({
   params,
@@ -60,75 +68,100 @@ export default function DashboardChannel({
   const [data, setData] = useState<DataState | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const { user, isAuthenticated } = useNeynarContext();
-  useEffect(() => {
-    const fetchAllData = async (): Promise<void> => {
-      const name = decodeURIComponent(params.name);
-      const tz = searchParams?.tz || "UTC";
-      const channel = await fetchData(`${BASE_URL}/api/channel/${name}`);
-      try {
-        const [
-          channelStats,
-          topEngagersAndInfluencers,
-          followerTiers,
-          topAndBottomCasts,
-          [dailyEngagement, dailyPowerBadgeEngagement],
-          [dailyCasters, dailyActivity],
-          followerActiveHours,
-          similarChannels,
-          channelMentions,
-          proStatus,
-        ] = await Promise.all([
-          fetchData(`${BASE_URL}/api/channel/${name}/stats`),
+
+  const fetchAllData = useCallback(async (): Promise<void> => {
+    const name = decodeURIComponent(params.name);
+    const tz = searchParams?.tz || "UTC";
+    const channel = await fetchData(`${BASE_URL}/api/channel/${name}`);
+    try {
+      let userIsPro = false;
+      if (user && isAuthenticated) {
+        const proStatus = await fetchData(
+          `${BASE_URL}/api/user/${user.fid}/account-status`
+        );
+        userIsPro = proStatus?.isPro || false;
+      }
+
+      const commonApiCalls = [
+        fetchData(`${BASE_URL}/api/channel/${name}/stats`),
+        fetchData(`${BASE_URL}/api/channel/${name}/historical-engagement`),
+        fetchData(`${BASE_URL}/api/channel/${name}/historical-casters`),
+      ];
+
+      const results = await Promise.all(commonApiCalls);
+
+      const [
+        channelStats,
+        [dailyEngagement, dailyPowerBadgeEngagement],
+        [dailyCasters, dailyActivity],
+      ] = results;
+
+      const profile: Profile = {
+        fid: channel.url,
+        display_name: channel.name,
+        pfp_url: channel.image_url,
+        username: channel.name,
+        follower_count: channel.follower_count,
+        profile: { bio: { text: channel.description } },
+        power_badge: false,
+      };
+
+      const baseDataState: BaseDataState = {
+        profile,
+        channelStats,
+        dailyEngagement,
+        dailyPowerBadgeEngagement,
+        dailyCasters,
+        dailyActivity,
+      };
+
+      if (userIsPro) {
+        const premiumApiCalls = [
           fetchData(
             `${BASE_URL}/api/channel/${name}/top-engagers-and-influencers`
           ),
           fetchData(`${BASE_URL}/api/channel/${name}/follower-tiers`),
           fetchData(`${BASE_URL}/api/channel/${name}/casts`),
-          fetchData(`${BASE_URL}/api/channel/${name}/historical-engagement`),
-          fetchData(`${BASE_URL}/api/channel/${name}/historical-casters`),
           fetchData(`${BASE_URL}/api/channel/${name}/active-hours?tz=${tz}`),
           fetchData(`${BASE_URL}/api/channel/${name}/overlapping-channels`),
-          fetchData(`${BASE_URL}/api/channel/${name}/search-mentions`),
-          user && isAuthenticated
-            ? fetchData(`${BASE_URL}/api/user/${user.fid}/account-status`)
-            : null,
-        ]);
-        console.log("Finished fetching data for", channel.url);
-        // todo: clean this up
-        const profile: Profile = {
-          fid: channel.url,
-          display_name: channel.name,
-          pfp_url: channel.image_url,
-          username: channel.name,
-          follower_count: channel.follower_count,
-          profile: { bio: { text: channel.description } },
-          power_badge: false,
-        };
-        channelStats.current_period_mentions = channelMentions.total;
+        ];
 
-        setData({
-          profile,
-          channelStats,
+        const premiumResults = await Promise.all(premiumApiCalls);
+        const [
           topEngagersAndInfluencers,
           followerTiers,
           topAndBottomCasts,
-          dailyEngagement,
-          dailyPowerBadgeEngagement,
-          dailyCasters,
-          dailyActivity,
           followerActiveHours,
           similarChannels,
-          channelMentions,
-          isPro: proStatus?.isPro || false,
+        ] = premiumResults;
+
+        const premiumDataState: PremiumDataState = {
+          ...baseDataState,
+          topEngagersAndInfluencers,
+          followerTiers,
+          topAndBottomCasts,
+          followerActiveHours,
+          similarChannels,
+        };
+
+        setData({
+          baseData: baseDataState,
+          premiumData: premiumDataState,
+          isPro: true,
         });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
+      } else {
+        setData({ baseData: baseDataState, premiumData: null, isPro: false });
       }
-    };
-    fetchAllData();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
   }, [params.name, searchParams.tz, user, isAuthenticated]);
+
+  useEffect(() => {
+    fetchAllData();
+  }, [fetchAllData]);
 
   if (loading) {
     return (
@@ -171,21 +204,6 @@ export default function DashboardChannel({
   if (!data) {
     return <div>Error loading data</div>;
   }
-  const {
-    profile,
-    channelStats,
-    topEngagersAndInfluencers,
-    followerTiers,
-    topAndBottomCasts,
-    dailyEngagement,
-    dailyPowerBadgeEngagement,
-    dailyCasters,
-    dailyActivity,
-    followerActiveHours,
-    similarChannels,
-    channelMentions,
-    isPro,
-  } = data;
 
   return (
     <div className="flex-col md:flex">
@@ -203,79 +221,94 @@ export default function DashboardChannel({
           </div>
         </div>
       </div>
-      <div className="flex-1 space-y-4 p-8 pt-6">
-        <div className="flex items-center space-x-4">
-          <Avatar>
-            <AvatarImage src={profile.pfp_url} alt="Image" />
-            <AvatarFallback>{profile.username}</AvatarFallback>
-          </Avatar>
-          <div>
-            <p className="text-sm font-medium leading-none">
-              {profile.display_name}
-              {profile.power_badge && (
-                <Image
-                  src="/power-badge.png"
-                  alt="Power Badge"
-                  className="w-4 h-4 ml-1 inline"
-                  width={16}
-                  height={16}
+      {data.baseData && (
+        <div className="flex-1 space-y-4 p-8 pt-6">
+          <div className="flex items-center space-x-4">
+            <Avatar>
+              <AvatarImage src={data.baseData.profile.pfp_url} alt="Image" />
+              <AvatarFallback>{data.baseData.profile.username}</AvatarFallback>
+            </Avatar>
+            <div>
+              <p className="text-sm font-medium leading-none">
+                {data.baseData.profile.display_name}
+                {data.baseData.profile.power_badge && (
+                  <Image
+                    src="/power-badge.png"
+                    alt="Power Badge"
+                    className="w-4 h-4 ml-1 inline"
+                    width={16}
+                    height={16}
+                  />
+                )}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {data.baseData.profile.profile.bio.text}
+              </p>
+            </div>
+          </div>
+
+          <Tabs defaultValue="overview" className="space-y-4">
+            <TabsList>
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="followers">
+                Followers{!data.isPro && <LockIcon className="ml-1 h-4 w-4" />}
+              </TabsTrigger>
+              <TabsTrigger value="engagement">
+                Engagement{!data.isPro && <LockIcon className="ml-1 h-4 w-4" />}
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="overview" className="space-y-4">
+              <TopLevel
+                fidStats={data.baseData.channelStats}
+                isChannel={true}
+              />
+              <Historical
+                dailyEngagement={data.baseData.dailyEngagement}
+                dailyPowerBadgeEngagement={
+                  data.baseData.dailyPowerBadgeEngagement
+                }
+                dailyFollowers={data.baseData.dailyCasters}
+                dailyActivity={data.baseData.dailyActivity}
+                isChannel={true}
+              />
+            </TabsContent>
+            <TabsContent value="followers" className="space-y-4">
+              {data.isPro && data.premiumData ? (
+                <FollowerCarousel
+                  followerTiers={data.premiumData.followerTiers}
+                  topEngagers={
+                    data.premiumData.topEngagersAndInfluencers.topEngagers
+                  }
+                  topInfluencers={
+                    data.premiumData.topEngagersAndInfluencers.topInfluencers
+                  }
+                  similarChannels={data.premiumData.similarChannels}
+                  followerActiveHours={data.premiumData.followerActiveHours}
+                  isChannel={true}
+                />
+              ) : (
+                <ProContentLock
+                  upgradeUrl={"https://hypersub.withfabric.xyz/s/castsense/1"}
+                  dayPassUrl={"https://hypersub.withfabric.xyz/s/castsense/2"}
                 />
               )}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {profile.profile.bio.text}
-            </p>
-          </div>
+            </TabsContent>
+            <TabsContent value="engagement" className="space-y-4">
+              {data.isPro && data.premiumData ? (
+                <EngagementCarousel
+                  casts={data.premiumData.topAndBottomCasts}
+                  topChannels={data.premiumData.similarChannels}
+                />
+              ) : (
+                <ProContentLock
+                  upgradeUrl={"https://hypersub.withfabric.xyz/s/castsense/1"}
+                  dayPassUrl={"https://hypersub.withfabric.xyz/s/castsense/2"}
+                />
+              )}
+            </TabsContent>
+          </Tabs>
         </div>
-
-        <Tabs defaultValue="overview" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="followers">
-              Followers{!isPro && <LockIcon className="ml-1 h-4 w-4" />}
-            </TabsTrigger>
-            <TabsTrigger value="engagement">
-              Engagement{!isPro && <LockIcon className="ml-1 h-4 w-4" />}
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="overview" className="space-y-4">
-            <TopLevel fidStats={channelStats} isChannel={true} />
-            {/* <Benchmark data={benchmarks} /> */}
-            <Historical
-              dailyEngagement={dailyEngagement}
-              dailyPowerBadgeEngagement={dailyPowerBadgeEngagement}
-              dailyFollowers={dailyCasters}
-              dailyActivity={dailyActivity}
-              isChannel={true}
-            />
-          </TabsContent>
-          <TabsContent value="followers" className="space-y-4">
-            <FollowerCarousel
-              followerTiers={followerTiers}
-              topEngagers={
-                topEngagersAndInfluencers &&
-                topEngagersAndInfluencers.topEngagers
-              }
-              topInfluencers={
-                topEngagersAndInfluencers &&
-                topEngagersAndInfluencers.topInfluencers
-              }
-              similarChannels={similarChannels}
-              followerActiveHours={followerActiveHours}
-              isChannel={true}
-              isPro={isPro}
-            />
-          </TabsContent>
-          <TabsContent value="engagement" className="space-y-4">
-            <EngagementCarousel
-              casts={topAndBottomCasts}
-              topChannels={[]}
-              mentions={channelMentions.mentions}
-              isPro={isPro}
-            />
-          </TabsContent>
-        </Tabs>
-      </div>
+      )}
     </div>
   );
 }

@@ -33,24 +33,28 @@ import {
 } from "@/lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { LockIcon } from "lucide-react";
+import { ProContentLock } from "@/components/pro-content-lock";
+import { set } from "lodash";
 
-interface DataState {
+interface BaseDataState {
   profile: any;
   fidStats: TopLevelStats;
+  dailyEngagement: DailyEngagement[];
+  dailyPowerBadgeEngagement: DailyEngagement[];
+  dailyFollowers: DailyFollower[];
+  dailyactivity: DailyActivity[];
+  dailyOpenrankStrategies: DailyOpenrankStrategies;
+  benchmarks: BenchmarkType;
+}
+
+interface PremiumDataState {
   topEngagersAndChannels: {
     topEngagers: TopEngager[];
     channels: TopChannel[];
   };
   followerTiers: FollowerTier[];
   topAndBottomCasts: TopAndBottomCasts;
-  dailyEngagement: DailyEngagement[];
-  dailyPowerBadgeEngagement: DailyEngagement[];
-  dailyFollowers: DailyFollower[];
-  dailyactivity: DailyActivity[];
-  dailyOpenrankStrategies: DailyOpenrankStrategies;
   followerActiveHours: FollowerActiveHours;
-  benchmarks: BenchmarkType;
-  isPro: boolean;
 }
 
 export default function DashboardUser({
@@ -60,10 +64,20 @@ export default function DashboardUser({
   params: { fid: string };
   searchParams: { tz?: string };
 }) {
-  const [data, setData] = useState<DataState | null>(null);
+  const [data, setData] = useState<{
+    baseData: BaseDataState | null;
+    premiumData: PremiumDataState | null;
+    isPro: boolean;
+  }>({
+    baseData: null,
+    premiumData: null,
+    isPro: false,
+  });
   const [loading, setLoading] = useState<boolean>(true);
   const { user, isAuthenticated } = useNeynarContext();
+
   useEffect(() => {
+    setLoading(true);
     const fetchAllData = async (): Promise<void> => {
       const fid = parseInt(params.fid, 10);
       if (isNaN(fid) || fid <= 0) {
@@ -71,56 +85,81 @@ export default function DashboardUser({
       }
       const tz = searchParams?.tz || "UTC";
       try {
-        const [
-          profile,
-          fidStats,
-          topEngagersAndChannels,
-          followerTiers,
-          topAndBottomCasts,
-          [dailyEngagement, dailyPowerBadgeEngagement],
-          dailyFollowers,
-          dailyactivity,
-          dailyOpenrankStrategies,
-          followerActiveHours,
-          benchmarks,
-          proStatus,
-        ] = await Promise.all([
+        let userIsPro = false;
+        if (user && isAuthenticated) {
+          const proStatus = await fetchData(
+            `${BASE_URL}/api/user/${user.fid}/account-status`
+          );
+          userIsPro = proStatus?.isPro || false;
+        }
+        const commonApiCalls = [
           fetchData(`${BASE_URL}/api/user/${fid}`),
           fetchData(`${BASE_URL}/api/user/${fid}/stats`),
-          fetchData(
-            `${BASE_URL}/api/user/${fid}/top-engagers-and-follower-channels`
-          ),
-          fetchData(`${BASE_URL}/api/user/${fid}/follower-tiers`),
-          fetchData(`${BASE_URL}/api/user/${fid}/casts`),
           fetchData(`${BASE_URL}/api/user/${fid}/historical-engagement`),
           fetchData(`${BASE_URL}/api/user/${fid}/historical-followers`),
           fetchData(`${BASE_URL}/api/user/${fid}/historical-activity`),
           fetchData(`${BASE_URL}/api/user/${fid}/historical-openrank`),
-          fetchData(`${BASE_URL}/api/user/${fid}/active-hours?tz=${tz}`),
           fetchData(`${BASE_URL}/api/user/${fid}/benchmarks`),
-          user && isAuthenticated
-            ? fetchData(`${BASE_URL}/api/user/${user.fid}/account-status`)
-            : null,
-        ]);
-        // const maxScale = getMaxValue(dailyEngagement, dailyFollowers);
-        // todo: fix this as it is a bit jank to get real-time follower data from neynar but use daily jobs for the rest
+        ];
+
+        const results = await Promise.all(commonApiCalls);
+
+        const [
+          profile,
+          fidStats,
+          [dailyEngagement, dailyPowerBadgeEngagement],
+          dailyFollowers,
+          dailyactivity,
+          dailyOpenrankStrategies,
+          benchmarks,
+        ] = results;
+
         fidStats.total_followers = profile.follower_count;
-        console.log("Finished fetching data for", fid);
-        setData({
+
+        const baseDataState: BaseDataState = {
           profile,
           fidStats: { ...fidStats, total_followers: profile.follower_count },
-          topEngagersAndChannels,
-          followerTiers,
-          topAndBottomCasts,
           dailyEngagement,
           dailyPowerBadgeEngagement,
           dailyFollowers,
           dailyactivity,
           dailyOpenrankStrategies,
-          followerActiveHours,
           benchmarks,
-          isPro: proStatus?.isPro || false,
-        });
+        };
+
+        if (userIsPro) {
+          const premiumApiCalls = [
+            fetchData(
+              `${BASE_URL}/api/user/${fid}/top-engagers-and-follower-channels`
+            ),
+            fetchData(`${BASE_URL}/api/user/${fid}/follower-tiers`),
+            fetchData(`${BASE_URL}/api/user/${fid}/casts`),
+            fetchData(`${BASE_URL}/api/user/${fid}/active-hours?tz=${tz}`),
+          ];
+
+          const premiumResults = await Promise.all(premiumApiCalls);
+          const [
+            topEngagersAndChannels,
+            followerTiers,
+            topAndBottomCasts,
+            followerActiveHours,
+          ] = premiumResults;
+
+          const premiumDataState: PremiumDataState = {
+            topEngagersAndChannels,
+            followerTiers,
+            topAndBottomCasts,
+            followerActiveHours,
+          };
+
+          setData({
+            baseData: baseDataState,
+            premiumData: premiumDataState,
+            isPro: true,
+          });
+        } else {
+          setData({ baseData: baseDataState, premiumData: null, isPro: false });
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -129,6 +168,7 @@ export default function DashboardUser({
     };
     fetchAllData();
   }, [params.fid, searchParams.tz, user, isAuthenticated]);
+
   if (loading) {
     return (
       <>
@@ -170,21 +210,7 @@ export default function DashboardUser({
   if (!data) {
     return <div>Error loading data</div>;
   }
-  const {
-    profile,
-    fidStats,
-    topEngagersAndChannels,
-    followerTiers,
-    topAndBottomCasts,
-    dailyEngagement,
-    dailyPowerBadgeEngagement,
-    dailyFollowers,
-    dailyactivity,
-    dailyOpenrankStrategies,
-    followerActiveHours,
-    benchmarks,
-    isPro,
-  } = data;
+
   return (
     <div className="flex-col md:flex">
       <div className="border-b">
@@ -202,73 +228,89 @@ export default function DashboardUser({
           </div>
         </div>
       </div>
-      <div className="flex-col space-y-4 p-8 pt-6">
-        <div className="flex items-center space-x-4">
-          <Avatar>
-            <AvatarImage src={profile.pfp_url} alt="Image" />
-            <AvatarFallback>{profile.username}</AvatarFallback>
-          </Avatar>
-          <div>
-            <p className="text-sm font-medium leading-none">
-              {profile.display_name}
-              {profile.power_badge && (
-                <Image
-                  src="/power-badge.png"
-                  alt="Power Badge"
-                  className="w-4 h-4 ml-1 inline"
-                  width={16}
-                  height={16}
+      {data.baseData && (
+        <div className="flex-col space-y-4 p-8 pt-6">
+          <div className="flex items-center space-x-4">
+            <Avatar>
+              <AvatarImage src={data.baseData.profile.pfp_url} alt="Image" />
+              <AvatarFallback>{data.baseData.profile.username}</AvatarFallback>
+            </Avatar>
+            <div>
+              <p className="text-sm font-medium leading-none">
+                {data.baseData.profile.display_name}
+                {data.baseData.profile.power_badge && (
+                  <Image
+                    src="/power-badge.png"
+                    alt="Power Badge"
+                    className="w-4 h-4 ml-1 inline"
+                    width={16}
+                    height={16}
+                  />
+                )}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {data.baseData.profile.profile.bio.text}
+              </p>
+            </div>
+          </div>
+
+          <Tabs defaultValue="overview" className="space-y-4">
+            <TabsList>
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="followers">
+                Followers{!data.isPro && <LockIcon className="ml-1 h-4 w-4" />}
+              </TabsTrigger>
+              <TabsTrigger value="engagement">
+                Engagement{!data.isPro && <LockIcon className="ml-1 h-4 w-4" />}
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="overview" className="space-y-4">
+              <TopLevel fidStats={data.baseData.fidStats} />
+              <Benchmark data={data.baseData.benchmarks} />
+              <Historical
+                dailyEngagement={data.baseData.dailyEngagement}
+                dailyPowerBadgeEngagement={
+                  data.baseData.dailyPowerBadgeEngagement
+                }
+                dailyFollowers={data.baseData.dailyFollowers}
+                dailyActivity={data.baseData.dailyactivity}
+                dailyOpenrankStrategies={data.baseData.dailyOpenrankStrategies}
+              />
+            </TabsContent>
+            <TabsContent value="followers">
+              {data.isPro && data.premiumData ? (
+                <FollowerCarousel
+                  followerTiers={data.premiumData.followerTiers}
+                  topEngagers={
+                    data.premiumData.topEngagersAndChannels.topEngagers
+                  }
+                  followerActiveHours={data.premiumData.followerActiveHours}
+                  isPro={data.isPro}
+                />
+              ) : (
+                <ProContentLock
+                  upgradeUrl={"https://hypersub.withfabric.xyz/s/castsense/1"}
+                  dayPassUrl={"https://hypersub.withfabric.xyz/s/castsense/2"}
                 />
               )}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {profile.profile.bio.text}
-            </p>
-          </div>
+            </TabsContent>
+            <TabsContent value="engagement">
+              {data.isPro && data.premiumData ? (
+                <EngagementCarousel
+                  casts={data.premiumData.topAndBottomCasts}
+                  topChannels={data.premiumData.topEngagersAndChannels.channels}
+                  isPro={data.isPro}
+                />
+              ) : (
+                <ProContentLock
+                  upgradeUrl={"https://hypersub.withfabric.xyz/s/castsense/1"}
+                  dayPassUrl={"https://hypersub.withfabric.xyz/s/castsense/2"}
+                />
+              )}
+            </TabsContent>
+          </Tabs>
         </div>
-
-        <Tabs defaultValue="overview" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="followers">
-              Followers{!isPro && <LockIcon className="ml-1 h-4 w-4" />}
-            </TabsTrigger>
-            <TabsTrigger value="engagement">
-              Engagement{!isPro && <LockIcon className="ml-1 h-4 w-4" />}
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="overview" className="space-y-4">
-            <TopLevel fidStats={fidStats} />
-            <Benchmark data={benchmarks} />
-            <Historical
-              dailyEngagement={dailyEngagement}
-              dailyPowerBadgeEngagement={dailyPowerBadgeEngagement}
-              dailyFollowers={dailyFollowers}
-              dailyActivity={dailyactivity}
-              dailyOpenrankStrategies={dailyOpenrankStrategies}
-            />
-          </TabsContent>
-          <TabsContent value="followers">
-            <FollowerCarousel
-              followerTiers={followerTiers}
-              topEngagers={
-                topEngagersAndChannels && topEngagersAndChannels.topEngagers
-              }
-              followerActiveHours={followerActiveHours}
-              isPro={isPro}
-            />
-          </TabsContent>
-          <TabsContent value="engagement">
-            <EngagementCarousel
-              casts={topAndBottomCasts}
-              topChannels={
-                topEngagersAndChannels && topEngagersAndChannels.channels
-              }
-              isPro={isPro}
-            />
-          </TabsContent>
-        </Tabs>
-      </div>
+      )}
     </div>
   );
 }
