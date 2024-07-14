@@ -36,26 +36,24 @@ export function BestTimeToPost({
   };
 
   return (
-    <div className="space-y-8 flex flex-col">
-      <Card>
-        <CardHeader>
-          <CardTitle className="mb-4">Best time to post</CardTitle>
-          <CardDescription className="text-lg">
-            Your followers are most active on{" "}
-            <span
-              style={{
-                fontWeight: "bold",
-                color: "green",
-              }}
-            >
-              {followerActiveHours.bestTimesToPost}
-            </span>
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ActiveHoursHeatMap followerActiveHours={followerActiveHours} />
-        </CardContent>
-      </Card>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle className="mb-4">Best time to post</CardTitle>
+        <CardDescription className="text-lg">
+          Your followers are most active on{" "}
+          <span
+            style={{
+              fontWeight: "bold",
+              color: "green",
+            }}
+          >
+            {followerActiveHours.bestTimesToPost}
+          </span>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ActiveHoursHeatMap followerActiveHours={followerActiveHours} />
+      </CardContent>
+    </Card>
   );
 }

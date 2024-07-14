@@ -22,6 +22,13 @@ export function formatNumber(num: number | null | undefined) {
   return num.toString();
 }
 
+export const formatLargeNumber = (num: number) => {
+  return new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    compactDisplay: "short",
+  }).format(num);
+};
+
 export function fillMissingDates(
   dailyActivity: DailyActivity[]
 ): DailyActivity[] {
@@ -113,3 +120,11 @@ export function getOpenrankText(openrank_percentile: number): string | null {
   }
   return null;
 }
+
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+};

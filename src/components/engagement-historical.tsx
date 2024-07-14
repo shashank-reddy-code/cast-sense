@@ -2,27 +2,66 @@
 
 import { DailyEngagement } from "@/lib/types";
 import {
+  Area,
   Bar,
-  Line,
-  ResponsiveContainer,
-  Legend,
-  Tooltip,
+  ComposedChart,
   XAxis,
   YAxis,
-  ComposedChart,
+  Tooltip,
+  ResponsiveContainer,
 } from "recharts";
+import { ChartConfig } from "@/components/ui/chart";
+import { formatDate, formatLargeNumber } from "@/lib/utils";
+import { CardFooter } from "./ui/card";
+
+const chartConfig = {
+  total: {
+    label: "Total Engagement",
+    color: "hsl(var(--chart-1))",
+  },
+  replies: {
+    label: "Replies",
+    color: "hsl(var(--chart-2))",
+  },
+  recasts: {
+    label: "Recasts",
+    color: "hsl(var(--chart-3))",
+  },
+  likes: {
+    label: "Likes",
+    color: "hsl(var(--chart-5))",
+  },
+  powerBadgeTotal: {
+    label: "Power Badge Engagement",
+    color: "hsl(var(--chart-purple))",
+  },
+} satisfies ChartConfig;
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-background border border-border p-2 rounded-md shadow-md">
+        <p className="font-semibold">{formatDate(label)}</p>
+        {payload.map((entry: any, index: number) => (
+          <p key={index} style={{ color: entry.color }}>
+            {chartConfig[entry.dataKey as keyof typeof chartConfig].label}:{" "}
+            {entry.value}
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
 
 function mergeData(
   dailyEngagement: DailyEngagement[],
   powerBadgeEngagement: DailyEngagement[]
 ) {
-  const mergedData = dailyEngagement.map((daily, index) => {
-    // assumes both series start from same date
-    // todo: lookup by date here to ensure this is more accurate
-    const powerBadge = powerBadgeEngagement[index] || {};
-    return { ...daily, powerBadgeTotal: powerBadge.total };
-  });
-  return mergedData;
+  return dailyEngagement.map((daily, index) => ({
+    ...daily,
+    powerBadgeTotal: powerBadgeEngagement[index]?.total || 0,
+  }));
 }
 
 export function EngagementHistorical({
@@ -34,76 +73,84 @@ export function EngagementHistorical({
   powerBadgeEngagement: DailyEngagement[];
   maxScale?: number;
 }) {
-  if (!dailyEngagement || !powerBadgeEngagement) return <></>;
+  if (!dailyEngagement || !powerBadgeEngagement) return null;
 
   const mergedData = mergeData(dailyEngagement, powerBadgeEngagement);
+  const totalEngagement = mergedData.reduce((sum, day) => sum + day.total, 0);
+
+  // Calculate tick values for x-axis (show about 5-7 ticks)
+  const tickInterval = Math.ceil(mergedData.length / 6);
+  const xAxisTicks = mergedData
+    .map((day, index) => (index % tickInterval === 0 ? day.date : null))
+    .filter((date): date is string => date !== null);
+
   return (
-    <ResponsiveContainer width="100%" height={350}>
-      <ComposedChart data={mergedData}>
-        <XAxis
-          dataKey="date"
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-        />
-        <YAxis
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          {...(maxScale ? { domain: [0, maxScale] } : {})}
-        />
-        <Tooltip
-          cursor={{ fill: "rgba(255, 255, 255, 0.2)" }}
-          contentStyle={{ backgroundColor: "#9a4dce" }}
-          labelStyle={{ color: "black" }}
-          itemStyle={{ color: "black" }}
-          formatter={(value, name) => {
-            if (name === "powerBadgeTotal") {
-              return [value, "power badge total"];
-            }
-            return [value, name];
-          }}
-        />
-        <Legend
-          formatter={(value) => {
-            switch (value) {
-              case "replies":
-                return "Replies";
-              case "recasts":
-                return "Recasts";
-              case "likes":
-                return "Likes";
-              case "powerBadgeTotal":
-                return "Power Badge Engagement";
-              default:
-                return value;
-            }
-          }}
-        />
-        <Bar
-          dataKey="replies"
-          stackId="a"
-          fill="#008080"
-          radius={[4, 4, 0, 0]}
-        />
-        <Bar
-          dataKey="recasts"
-          stackId="a"
-          fill="#8884d8"
-          radius={[4, 4, 0, 0]}
-        />
-        <Bar dataKey="likes" stackId="a" fill="#D2B48C" radius={[4, 4, 0, 0]} />
-        <Line
-          type="monotone"
-          dataKey="powerBadgeTotal"
-          data={mergedData}
-          stroke="#00FFFF"
-          strokeWidth={3}
-          dot={false}
-        />
-      </ComposedChart>
-    </ResponsiveContainer>
+    <>
+      <div className="h-[200px] sm:h-[300px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart
+            data={mergedData}
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          >
+            <defs>
+              <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor={chartConfig.total.color}
+                  stopOpacity={0.8}
+                />
+                <stop
+                  offset="95%"
+                  stopColor={chartConfig.total.color}
+                  stopOpacity={0}
+                />
+              </linearGradient>
+            </defs>
+            <XAxis
+              dataKey="date"
+              tickFormatter={formatDate}
+              ticks={xAxisTicks}
+              tickMargin={10}
+            />
+            <YAxis
+              domain={maxScale ? [0, maxScale] : [0, "auto"]}
+              tickFormatter={(value) => formatLargeNumber(value)}
+            />
+            <Tooltip content={<CustomTooltip />} />
+            <Bar
+              dataKey="replies"
+              stackId="a"
+              fill={chartConfig.replies.color}
+            />
+            <Bar
+              dataKey="recasts"
+              stackId="a"
+              fill={chartConfig.recasts.color}
+            />
+            <Bar dataKey="likes" stackId="a" fill={chartConfig.likes.color} />
+            <Area
+              type="monotone"
+              dataKey="powerBadgeTotal"
+              stroke={chartConfig.powerBadgeTotal.color}
+              strokeWidth={4}
+              fillOpacity={1}
+              fill="url(#colorPowerBadgeTotal)"
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+      <CardFooter>
+        <div className="flex w-full items-start gap-2 text-lg mt-10">
+          <div className="grid gap-2">
+            <div className="flex items-center gap-2 font-medium leading-none">
+              {formatLargeNumber(totalEngagement)} total impressions{" "}
+              {" between "}
+              {formatDate(mergedData[0].date)} -{" "}
+              {formatDate(mergedData[mergedData.length - 1].date)}
+            </div>
+          </div>
+        </div>
+      </CardFooter>
+    </>
   );
 }

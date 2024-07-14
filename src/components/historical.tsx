@@ -80,7 +80,7 @@ export function Historical({
             <CardTitle>You are reaching new users</CardTitle>
             <CardDescription>{description}</CardDescription>
           </CardHeader>
-          <CardContent className="pl-2">
+          <CardContent>
             <FollowerHistorical
               dailyFollowers={filterDataByRange(dailyFollowers, range)}
               maxScale={maxScale}
@@ -126,11 +126,6 @@ export function Historical({
                 <CardTitle>Your reputation in the network</CardTitle>
                 <CardDescription>
                   OpenRank score over the past {range} days
-                  {openrankText && (
-                    <p className="text-sm mt-1">
-                      You are in the {openrankText} by engagement
-                    </p>
-                  )}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -143,6 +138,7 @@ export function Historical({
                     dailyOpenrankStrategies.engagementRanks,
                     range
                   )}
+                  openrankText={openrankText}
                 />
               </CardContent>
             </Card>

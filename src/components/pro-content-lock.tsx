@@ -5,8 +5,8 @@ import {
   Users,
   CheckCircle,
   Zap,
-  TrendingUp,
-  BarChart,
+  Group,
+  Loader,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -28,8 +28,16 @@ export function ProContentLock({
       text: "Loyal fans and their top channels, openrank reputation",
     },
     {
-      icon: TrendingUp,
+      icon: Group,
       text: "Discovery of similar channels",
+    },
+    {
+      icon: Zap,
+      text: "Engagement from power badge users on your posts",
+    },
+    {
+      icon: Loader,
+      text: "And more...",
     },
   ];
 
@@ -69,7 +77,7 @@ export function ProContentLock({
       </div>
 
       <p className="text-xs text-gray-400 text-center mt-4">
-        Get detailed insights on your farcaster activity and engagement.
+        Unlock detailed insights on your farcaster activity and engagement.
       </p>
     </div>
   );
