@@ -17,7 +17,23 @@ import {
 import { FollowerTier } from "@/lib/types";
 import { formatLargeNumber } from "@/lib/utils";
 
-const chartConfig = {
+type TierKey =
+  | "🤖 npc"
+  | "🥉 active"
+  | "🥈 star"
+  | "🥇 influencer"
+  | "💎 vip"
+  | "⚡ power badge";
+
+type ChartConfigType = {
+  [K in TierKey]: { label: string; color: string };
+} & {
+  count: { label: string };
+};
+
+const chartConfig: Record<TierKey, { label: string; color: string }> & {
+  count: { label: string };
+} = {
   count: {
     label: "Followers",
   },
@@ -83,7 +99,7 @@ export function FollowersByTier({
     tier: tier.tier,
     count: tier.count,
     percentage: tier.percentage,
-    //fill: chartConfig[tier.tier as keyof typeof chartConfig].color,
+    fill: chartConfig[tier.tier as TierKey].color,
     definition: getDescription(tier.tier),
   }));
 

@@ -108,7 +108,9 @@ export async function fetchData(endpoint: string) {
   return await response.json();
 }
 
-export function getOpenrankText(openrank_percentile: number): string | null {
+export function getOpenrankText(
+  openrank_percentile: number
+): string | undefined {
   if (openrank_percentile < 1) {
     return "🎖️ Top 1 percentile";
   } else if (openrank_percentile < 5) {
@@ -118,7 +120,7 @@ export function getOpenrankText(openrank_percentile: number): string | null {
   } else if (openrank_percentile < 25) {
     return "🎗️ Top 25 percentile";
   }
-  return null;
+  return undefined;
 }
 
 export const formatDate = (dateString: string) => {
