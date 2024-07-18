@@ -101,7 +101,7 @@ export function FollowerHistorical({
         <div className="flex w-full items-start gap-2 text-lg mt-10">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              {formatLargeNumber(totalFollowers)} followers gaineed
+              {formatLargeNumber(totalFollowers)} followers gained
               {" between "}
               {formatDate(dailyFollowers[0].date)} -{" "}
               {formatDate(dailyFollowers[dailyFollowers.length - 1].date)}
