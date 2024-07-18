@@ -39,7 +39,7 @@ export async function GET(req: Request) {
       );
       return new NextResponse(JSON.stringify({}), {
         headers: {
-          "Cache-Control": "s-maxage=3600",
+          "Cache-Control": "no-store, no-cache, max-age=0, must-revalidate",
         },
       });
     }

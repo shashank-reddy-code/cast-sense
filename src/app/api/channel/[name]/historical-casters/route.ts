@@ -43,7 +43,7 @@ export async function GET(
   const data = [dailyFollowers, dailyActivityFilled];
 
   const headers = new Headers();
-  headers.set("Cache-Control", "s-maxage=3600");
+  headers.set("Cache-Control", "s-maxage=60");
   return new NextResponse(JSON.stringify(data), {
     headers,
   });

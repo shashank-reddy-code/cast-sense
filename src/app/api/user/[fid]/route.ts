@@ -32,7 +32,10 @@ export async function GET(
     }
     const user = data.users[0];
     const headers = new Headers();
-    headers.set("Cache-Control", "s-maxage=3600");
+    headers.set(
+      "Cache-Control",
+      "no-store, no-cache, max-age=0, must-revalidate"
+    );
     return new NextResponse(JSON.stringify(user), {
       headers,
     });

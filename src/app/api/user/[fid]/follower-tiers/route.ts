@@ -14,7 +14,7 @@ export async function GET(
   ]);
 
   const headers = new Headers();
-  headers.set("Cache-Control", "s-maxage=3600");
+  headers.set("Cache-Control", "s-maxage=60");
   if (!data || !powerbadgeData) {
     return new NextResponse(null, { status: 404 });
   }

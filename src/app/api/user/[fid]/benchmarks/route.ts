@@ -9,7 +9,7 @@ export async function GET(
   const fid = parseInt(params.fid);
   const data: Benchmark = await fetchFirstFidFromDune(3696719, fid);
   const headers = new Headers();
-  headers.set("Cache-Control", "s-maxage=3600");
+  headers.set("Cache-Control", "s-maxage=60");
   return new NextResponse(JSON.stringify(data), {
     headers,
   });

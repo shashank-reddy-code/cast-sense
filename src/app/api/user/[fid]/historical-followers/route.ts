@@ -9,7 +9,7 @@ export async function GET(
   const fid = parseInt(params.fid);
   const data = await fetchFirstFidFromDune(3693389, fid);
   const headers = new Headers();
-  headers.set("Cache-Control", "s-maxage=3600");
+  headers.set("Cache-Control", "s-maxage=60");
   if (!data) {
     return new NextResponse(null, { status: 404 });
   }

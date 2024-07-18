@@ -33,9 +33,11 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 export function FollowerHistorical({
   dailyFollowers,
   maxScale,
+  isChannel = false,
 }: {
   dailyFollowers: DailyFollower[];
   maxScale?: number;
+  isChannel?: boolean;
 }) {
   const totalFollowers = dailyFollowers.reduce(
     (sum, day) => sum + day.followers,
@@ -97,18 +99,20 @@ export function FollowerHistorical({
           </AreaChart>
         </ResponsiveContainer>
       </div>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-lg mt-10">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              {formatLargeNumber(totalFollowers)} followers gained
-              {" between "}
-              {formatDate(dailyFollowers[0].date)} -{" "}
-              {formatDate(dailyFollowers[dailyFollowers.length - 1].date)}
+      {isChannel && (
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-lg mt-10">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 font-medium leading-none">
+                {formatLargeNumber(totalFollowers)} followers gained
+                {" between "}
+                {formatDate(dailyFollowers[0].date)} -{" "}
+                {formatDate(dailyFollowers[dailyFollowers.length - 1].date)}
+              </div>
             </div>
           </div>
-        </div>
-      </CardFooter>
+        </CardFooter>
+      )}
     </>
   );
 }

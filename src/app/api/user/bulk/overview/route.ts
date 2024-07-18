@@ -42,7 +42,7 @@ export async function GET(req: Request) {
     });
     return new NextResponse(JSON.stringify(fidsOverview), {
       headers: {
-        "Cache-Control": "s-maxage=3600",
+        "Cache-Control": "s-maxage=60",
       },
     });
   } catch (error) {

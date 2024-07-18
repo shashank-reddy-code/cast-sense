@@ -12,7 +12,7 @@ export async function GET(
   const timezone = new URL(req.url).searchParams.get("tz") || "UTC";
   const data = await fetchFirstFidFromDune(3697395, fid);
   const headers = new Headers();
-  headers.set("Cache-Control", "s-maxage=3600");
+  headers.set("Cache-Control", "s-maxage=60");
   if (!data) {
     return new NextResponse(null, { status: 404 });
   }
