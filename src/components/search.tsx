@@ -16,6 +16,8 @@ import { Progress } from "@/components/ui/progress";
 import { useRouter, usePathname } from "next/navigation";
 import ShineBorder from "./ui/shine-border";
 import { fetchData } from "@/lib/utils";
+import { useNeynarContext } from "@neynar/react";
+import { RecentSearch } from "@/lib/types";
 
 export function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,6 +26,7 @@ export function Search() {
   const [isSearching, setIsSearching] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const { user: authUser, isAuthenticated } = useNeynarContext();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -53,8 +56,32 @@ export function Search() {
     return () => debouncedSearch.cancel();
   }, [searchTerm, debouncedSearch]);
 
-  const handleLinkClick = (url: string) => {
+  const handleLinkClick = async (
+    fid: number | undefined,
+    url: string,
+    item: RecentSearch | undefined
+  ) => {
     setIsLoading(true);
+
+    if (isAuthenticated && item && fid) {
+      console.log("Updating recent searches for user", fid);
+      try {
+        await fetch(`${BASE_URL}/api/user/${fid}/recent-searches`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fid,
+            ...item,
+          }),
+        });
+      } catch (error) {
+        console.error("Failed to update recent searches:", error);
+      }
+      console.log("Recent searches updated for user", fid);
+    }
+
     router.push(url);
   };
 
@@ -104,7 +131,13 @@ export function Search() {
                   onClick={() => {
                     const timeZone =
                       Intl.DateTimeFormat().resolvedOptions().timeZone;
-                    handleLinkClick(`/channel/${channel.id}?tz=${timeZone}`);
+                    const url = `/channel/${channel.id}?tz=${timeZone}`;
+                    handleLinkClick(authUser?.fid, url, {
+                      type: "channel",
+                      identifier: channel.name,
+                      name: channel.id,
+                      imageUrl: channel.image_url,
+                    });
                   }}
                 >
                   <CommandItem
@@ -128,7 +161,13 @@ export function Search() {
                   onClick={() => {
                     const timeZone =
                       Intl.DateTimeFormat().resolvedOptions().timeZone;
-                    handleLinkClick(`/user/${user.fid}?tz=${timeZone}`);
+                    const url = `/user/${user.fid}?tz=${timeZone}`;
+                    handleLinkClick(authUser?.fid, url, {
+                      type: "user",
+                      identifier: user.fid.toString(),
+                      name: user.username,
+                      imageUrl: user.pfp_url,
+                    });
                   }}
                   key={user.fid}
                 >

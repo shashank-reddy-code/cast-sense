@@ -34,7 +34,6 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { LockIcon } from "lucide-react";
 import { ProContentLock } from "@/components/pro-content-lock";
-import { set } from "lodash";
 
 interface BaseDataState {
   profile: any;
