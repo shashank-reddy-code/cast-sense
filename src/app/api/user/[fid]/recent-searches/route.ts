@@ -1,15 +1,10 @@
 import { NextResponse } from "next/server";
 import { kv } from "@vercel/kv";
-
-export type RecentSearch = {
-  type: string;
-  identifier: string;
-  url: string;
-};
+import { RecentSearch } from "@/lib/types";
 
 export async function POST(req: Request) {
   try {
-    const { fid, type, identifier, url } = await req.json();
+    const { fid, type, identifier, name, imageUrl } = await req.json();
 
     // Validate input
     if (!fid || !Number.isInteger(fid)) {
@@ -17,7 +12,7 @@ export async function POST(req: Request) {
     }
 
     // Store the recent search
-    await storeRecentSearch(fid, { type, identifier, url });
+    await storeRecentSearch(fid, { type, identifier, name, imageUrl });
 
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -37,7 +32,7 @@ async function storeRecentSearch(fid: number, search: RecentSearch) {
 
   // Remove the search if it already exists (to avoid duplicates)
   recentSearches = recentSearches.filter(
-    (s) => s.identifier !== search.identifier
+    (s) => !(s.identifier == search.identifier && s.type == search.type)
   );
 
   // Add the new search to the beginning of the array
@@ -50,22 +45,13 @@ async function storeRecentSearch(fid: number, search: RecentSearch) {
   await kv.set(key, JSON.stringify(recentSearches));
 }
 
-export async function GET(req: Request) {
+export async function GET(
+  req: Request,
+  { params }: { params: { fid: string } }
+) {
   try {
-    // Extract FID from query parameters
-    const url = new URL(req.url);
-    const fid = url.searchParams.get("fid");
-
-    // Validate FID
-    if (!fid || isNaN(Number(fid))) {
-      return NextResponse.json(
-        { error: "Invalid or missing FID" },
-        { status: 400 }
-      );
-    }
-
-    // Fetch recent searches
-    const recentSearches = await getRecentSearches(Number(fid));
+    const fid = parseInt(params.fid);
+    const recentSearches = await getRecentSearches(fid);
 
     return NextResponse.json({ recentSearches });
   } catch (error) {
@@ -82,7 +68,5 @@ async function getRecentSearches(fid: number): Promise<RecentSearch[]> {
 
   // Retrieve recent searches from KV store
   const storedSearches = await kv.get(key);
-
-  // Parse the stored JSON string, or return an empty array if no searches found
-  return storedSearches ? JSON.parse(storedSearches as string) : [];
+  return storedSearches ? (storedSearches as RecentSearch[]) : [];
 }

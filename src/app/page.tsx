@@ -1,16 +1,23 @@
 "use client";
 const BASE_URL = process.env["NEXT_PUBLIC_BASE_URL"];
 
+import { RecentSearches } from "@/components/recent-searches";
 import { Search } from "@/components/search";
 import { TrendingChannels } from "@/components/trending-channels";
 import TypingAnimation from "@/components/ui/typing-animation";
 import { Channel } from "@/lib/types";
 import { fetchData } from "@/lib/utils";
-import { NeynarAuthButton, SIWN_variant } from "@neynar/react";
+import {
+  NeynarAuthButton,
+  SIWN_variant,
+  useNeynarContext,
+} from "@neynar/react";
 import React, { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const [channels, setChannels] = useState<Channel[]>([]);
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const { user } = useNeynarContext();
 
   useEffect(() => {
     const fetchChannels = async () => {
@@ -22,6 +29,26 @@ export default function LoginPage() {
 
     fetchChannels();
   }, []);
+
+  useEffect(() => {
+    const fetchRecentSearches = async () => {
+      if (user) {
+        try {
+          const response = await fetch(
+            `${BASE_URL}/api/user/${user.fid}/recent-searches`
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setRecentSearches(data.recentSearches);
+          }
+        } catch (error) {
+          console.error("Failed to fetch recent searches:", error);
+        }
+      }
+    };
+
+    fetchRecentSearches();
+  }, [user]);
 
   return (
     <div className="p-4 lg:p-8 min-h-screen flex flex-col">
@@ -38,7 +65,10 @@ export default function LoginPage() {
           <div className="mt-8">
             <Search />
           </div>
-          <TrendingChannels channels={channels} />
+          {recentSearches.length > 0 && (
+            <RecentSearches searches={recentSearches} />
+          )}
+          {channels.length > 0 && <TrendingChannels channels={channels} />}
         </div>
       </div>
     </div>

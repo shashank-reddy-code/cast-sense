@@ -16,8 +16,8 @@ import { Progress } from "@/components/ui/progress";
 import { useRouter, usePathname } from "next/navigation";
 import ShineBorder from "./ui/shine-border";
 import { fetchData } from "@/lib/utils";
-import { RecentSearch } from "@/app/api/user/[fid]/recent-searches/route";
 import { useNeynarContext } from "@neynar/react";
+import { RecentSearch } from "@/lib/types";
 
 export function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -64,8 +64,9 @@ export function Search() {
     setIsLoading(true);
 
     if (isAuthenticated && item && fid) {
+      console.log("Updating recent searches for user", fid);
       try {
-        await fetch(`${BASE_URL}/api/recent-searches`, {
+        await fetch(`${BASE_URL}/api/user/${fid}/recent-searches`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -78,6 +79,7 @@ export function Search() {
       } catch (error) {
         console.error("Failed to update recent searches:", error);
       }
+      console.log("Recent searches updated for user", fid);
     }
 
     router.push(url);
@@ -133,7 +135,8 @@ export function Search() {
                     handleLinkClick(authUser?.fid, url, {
                       type: "channel",
                       identifier: channel.name,
-                      url,
+                      name: channel.id,
+                      imageUrl: channel.image_url,
                     });
                   }}
                 >
@@ -162,7 +165,8 @@ export function Search() {
                     handleLinkClick(authUser?.fid, url, {
                       type: "user",
                       identifier: user.fid.toString(),
-                      url,
+                      name: user.username,
+                      imageUrl: user.pfp_url,
                     });
                   }}
                   key={user.fid}

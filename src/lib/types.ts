@@ -135,3 +135,10 @@ export type FidOverview = {
   openrank_rank: number;
   openrank_percentile: number;
 };
+
+export type RecentSearch = {
+  type: string;
+  identifier: string;
+  name: string;
+  imageUrl: string;
+};

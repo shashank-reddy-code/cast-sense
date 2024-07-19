@@ -99,7 +99,7 @@ export function FollowerHistorical({
           </AreaChart>
         </ResponsiveContainer>
       </div>
-      {isChannel && (
+      {!isChannel && (
         <CardFooter>
           <div className="flex w-full items-start gap-2 text-lg mt-10">
             <div className="grid gap-2">
