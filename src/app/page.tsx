@@ -5,7 +5,7 @@ import { RecentSearches } from "@/components/recent-searches";
 import { Search } from "@/components/search";
 import { TrendingChannels } from "@/components/trending-channels";
 import TypingAnimation from "@/components/ui/typing-animation";
-import { Channel } from "@/lib/types";
+import { Channel, RecentSearch } from "@/lib/types";
 import { fetchData } from "@/lib/utils";
 import {
   NeynarAuthButton,
@@ -16,7 +16,7 @@ import React, { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const [channels, setChannels] = useState<Channel[]>([]);
-  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const [recentSearches, setRecentSearches] = useState<RecentSearch[]>([]);
   const { user } = useNeynarContext();
 
   useEffect(() => {
