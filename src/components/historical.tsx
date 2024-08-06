@@ -45,13 +45,16 @@ export function Historical({
     return data.filter((item) => new Date(item.date) >= cutoffDate);
   };
 
-  const openrankText = isChannel
-    ? undefined
-    : getOpenrankText(
-        dailyOpenrankStrategies.engagementRanks[
-          dailyOpenrankStrategies.engagementRanks.length - 1
-        ].percentile
-      );
+  let openrankText;
+
+  if (!isChannel && dailyOpenrankStrategies?.engagementRanks?.length > 0) {
+    const lastEngagementRank =
+      dailyOpenrankStrategies.engagementRanks[
+        dailyOpenrankStrategies.engagementRanks.length - 1
+      ];
+    openrankText = getOpenrankText(lastEngagementRank.percentile);
+  }
+
   const description = isChannel
     ? `Unique casters over the last ${range} days`
     : `Followers over the last ${range} days`;
@@ -118,9 +121,8 @@ export function Historical({
             />
           </CardContent>
         </Card>
-        {dailyOpenrankStrategies &&
-          dailyOpenrankStrategies.engagementRanks.length > 0 &&
-          dailyOpenrankStrategies.followRanks.length > 0 && (
+        {dailyOpenrankStrategies?.engagementRanks?.length > 0 &&
+          dailyOpenrankStrategies?.followRanks?.length > 0 && (
             <Card className="col-span-4">
               <CardHeader>
                 <CardTitle>Your reputation in the network</CardTitle>
