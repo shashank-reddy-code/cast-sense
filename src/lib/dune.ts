@@ -8,7 +8,7 @@ export async function fetchFirstFidFromDune(
   const headers = new Headers({
     "x-dune-api-key": DUNE_API_KEY,
   });
-  let url = `https://api.dune.com/api/v1/query/${queryId}/results?&filters=fid=${fid}`;
+  let url = `https://api.dune.com/api/v1/query/${queryId}/results?&filters=fid=${fid}&allow_partial_results=true`;
   if (columns.length > 0) {
     const columnsParam = columns.join(",");
     url += `&columns=${encodeURIComponent(columnsParam)}`;
