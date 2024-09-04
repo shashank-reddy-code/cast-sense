@@ -10,8 +10,10 @@ import { FollowerActiveHours } from "@/lib/types";
 
 export function BestTimeToPost({
   followerActiveHours,
+  isChannel,
 }: {
   followerActiveHours: FollowerActiveHours;
+  isChannel: boolean;
 }) {
   // Function to calculate the overall max and min across all days
   const calculateMaxMin = () => {
@@ -40,7 +42,9 @@ export function BestTimeToPost({
       <CardHeader>
         <CardTitle className="mb-4">Best time to post</CardTitle>
         <CardDescription className="text-lg">
-          Your followers are most active on{" "}
+          {isChannel
+            ? "Engagement activity is highest on "
+            : "Your followers are most active on "}
           <span
             style={{
               fontWeight: "bold",

@@ -87,6 +87,7 @@ export function Historical({
             <FollowerHistorical
               dailyFollowers={filterDataByRange(dailyFollowers, range)}
               maxScale={maxScale}
+              isChannel={isChannel}
             />
           </CardContent>
         </Card>

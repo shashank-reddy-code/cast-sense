@@ -297,7 +297,7 @@ export default function DashboardChannel({
               {data.isPro && data.premiumData ? (
                 <EngagementCarousel
                   casts={data.premiumData.topAndBottomCasts}
-                  topChannels={data.premiumData.similarChannels}
+                  topChannels={[] as TopChannel[]}
                 />
               ) : (
                 <ProContentLock

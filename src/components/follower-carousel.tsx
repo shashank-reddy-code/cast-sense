@@ -50,7 +50,10 @@ export function FollowerCarousel({
             key="best-time-to-post"
             className="basis-1/1 lg:basis-1/2 h-full w-full"
           >
-            <BestTimeToPost followerActiveHours={followerActiveHours} />
+            <BestTimeToPost
+              followerActiveHours={followerActiveHours}
+              isChannel={isChannel}
+            />
           </CarouselItem>
           <CarouselItem
             key="followers-by-tier"
