@@ -134,6 +134,7 @@ export default function DashboardUser({
             fetchData(`${BASE_URL}/api/user/${fid}/follower-tiers`),
             fetchData(`${BASE_URL}/api/user/${fid}/casts`),
             fetchData(`${BASE_URL}/api/user/${fid}/active-hours?tz=${tz}`),
+            fetchData(`${BASE_URL}/api/user/${fid}/earnings`),
           ];
 
           const premiumResults = await Promise.all(premiumApiCalls);
@@ -142,6 +143,7 @@ export default function DashboardUser({
             followerTiers,
             topAndBottomCasts,
             followerActiveHours,
+            earnings,
           ] = premiumResults;
 
           const premiumDataState: PremiumDataState = {
@@ -150,6 +152,8 @@ export default function DashboardUser({
             topAndBottomCasts,
             followerActiveHours,
           };
+
+          baseDataState.fidStats.total_earnings = earnings.total_earnings;
 
           setData({
             baseData: baseDataState,
@@ -264,7 +268,7 @@ export default function DashboardUser({
               </TabsTrigger>
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
-              <TopLevel fidStats={data.baseData.fidStats} />
+              <TopLevel fidStats={data.baseData.fidStats} isPro={data.isPro} />
               <Benchmark data={data.baseData.benchmarks} />
               <Historical
                 dailyEngagement={data.baseData.dailyEngagement}

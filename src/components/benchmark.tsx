@@ -8,12 +8,17 @@ export function Benchmark({ data }: { data: BenchmarkDataType }) {
   const engagementSign = engagementDiff > 0 ? "more" : "less";
   const followersSign = followersDiff > 0 ? "is better" : "could be better";
 
-  const formattedEngagementDiff = isNaN(engagementDiff)
-    ? "NaN"
-    : Math.abs(engagementDiff).toFixed(2);
-  const formattedFollowersDiff = isNaN(followersDiff)
-    ? "NaN"
-    : Math.abs(followersDiff).toFixed(2);
+  const formattedEngagementDiff =
+    isNaN(engagementDiff) || engagementDiff === 0
+      ? "NaN"
+      : Math.abs(engagementDiff).toFixed(2);
+  const formattedFollowersDiff =
+    isNaN(followersDiff) || followersDiff === 0
+      ? "NaN"
+      : Math.abs(followersDiff).toFixed(2);
+  if (formattedEngagementDiff === "NaN" || formattedFollowersDiff === "NaN") {
+    return null;
+  }
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
       <Card>

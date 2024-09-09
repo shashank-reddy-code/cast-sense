@@ -3,13 +3,16 @@ import { TopLevelStats } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 import { SvgIcons } from "./svg-icons";
 import NumberTicker from "./ui/number-ticker";
+import { LockIcon } from "lucide-react";
 
 export function TopLevel({
   fidStats,
   isChannel = false,
+  isPro = false,
 }: {
   fidStats: TopLevelStats;
   isChannel?: boolean;
+  isPro?: boolean;
 }) {
   const getPercentageChangeClass = (change: number | null) => {
     if (!change) {
@@ -24,7 +27,7 @@ export function TopLevel({
     }
   };
   return (
-    <div className="grid gap-4 grid-cols-2 lg:grid-cols-7">
+    <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Total followers</CardTitle>
@@ -159,6 +162,28 @@ export function TopLevel({
             </CardContent>
           </Card>
         )}
+      {fidStats.total_earnings !== undefined && (
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Earnings</CardTitle>
+            <SvgIcons.earnings />
+          </CardHeader>
+          <CardContent>
+            {isPro && fidStats.total_earnings ? (
+              <div className="text-2xl font-bold">
+                ${fidStats.total_earnings.toFixed(2)}
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <LockIcon className="h-4 w-4" />
+                <span className="text-sm text-muted-foreground">
+                  Pro feature
+                </span>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

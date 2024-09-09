@@ -12,6 +12,15 @@ export type TopLevelStats = {
   likes_percentage_change: number | null;
   churn_rate: number | null;
   subscribers: number | null;
+  total_earnings: number | null;
+};
+
+export type Earnings = {
+  warpcast_usdc: number | null;
+  degen_usd: number | null;
+  total: number | null;
+  moxie_usd_price: number | null;
+  degen_usd_price: number | null;
 };
 
 export type TopAndBottomCasts = {
