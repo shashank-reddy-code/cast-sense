@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { fetchFirstChannelFromDune } from "@/lib/dune";
 import { fetchChannelById } from "@/lib/neynar";
-import { CastEngagementCount } from "@/lib/types";
+import { CastEngagementCount, TopAndBottomCasts } from "@/lib/types";
+import { fetchMoxieCastEarnings } from "@/lib/airstack";
 
 export async function GET(
   req: Request,
@@ -26,40 +27,36 @@ export async function GET(
     return new NextResponse(JSON.stringify(emptyData));
   }
 
-  const topHash: CastEngagementCount[] =
-    topAndBottomCasts?.top_hash?.map((item: string[]) => {
-      return {
-        hash: item[0],
-        engagement_count: item[1],
-        like_count: item[2],
-        recast_count: item[3],
-        reply_count: item[4],
-        power_badge_count: item[5],
-        fname: item[6],
-      };
-    }) || [];
+  // Collect all hashes
+  const allHashes = [
+    ...topAndBottomCasts.top_hash,
+    ...topAndBottomCasts.bottom_hash,
+  ].map((item) => item[0]);
 
-  const bottomHash: CastEngagementCount[] =
-    topAndBottomCasts?.bottom_hash?.map((item: string[]) => {
-      return {
-        hash: item[0],
-        engagement_count: item[1],
-        like_count: item[2],
-        recast_count: item[3],
-        reply_count: item[4],
-        power_badge_count: item[5],
-        fname: item[6],
-      };
-    }) || [];
+  // Fetch Moxie earnings for all casts
+  const moxieEarnings = await fetchMoxieCastEarnings(allHashes);
 
-  const data = {
-    top_hash: topHash,
-    bottom_hash: bottomHash,
+  const mapCasts = (items: string[][]): CastEngagementCount[] =>
+    items.map((item) => ({
+      hash: item[0],
+      engagement_count: Number(item[1]),
+      like_count: Number(item[2]),
+      recast_count: Number(item[3]),
+      reply_count: Number(item[4]),
+      power_badge_count: Number(item[5]),
+      degen_tip_count: Number(item[6]),
+      total_moxie_count: moxieEarnings.get(item[0]) || 0,
+      fname: item[7],
+    }));
+
+  const result: TopAndBottomCasts = {
+    top_hash: mapCasts(topAndBottomCasts.top_hash),
+    bottom_hash: mapCasts(topAndBottomCasts.bottom_hash),
   };
 
   const headers = new Headers();
   headers.set("Cache-Control", "s-maxage=60");
-  return new NextResponse(JSON.stringify(data), {
+  return new NextResponse(JSON.stringify(result), {
     headers,
   });
 }

@@ -93,6 +93,18 @@ export function CastsCarousel({
                       <span>{formatNumber(item.power_badge_count)}</span>
                     </div>
                   )}
+                  {item.degen_tip_count > 0 && (
+                    <div className="flex items-center space-x-1">
+                      <SvgIcons.degenTip />
+                      <span>{formatNumber(item.degen_tip_count)}</span>
+                    </div>
+                  )}
+                  {item.total_moxie_count > 0 && (
+                    <div className="flex items-center space-x-1">
+                      <SvgIcons.moxie />
+                      <span>{formatNumber(item.total_moxie_count)}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </CarouselItem>

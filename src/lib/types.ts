@@ -37,6 +37,8 @@ export type CastEngagementCount = {
   reply_count: number;
   power_badge_count: number;
   fname: string;
+  degen_tip_count: number;
+  total_moxie_count: number;
 };
 
 export type ChannelMentions = {
