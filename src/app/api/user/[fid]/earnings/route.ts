@@ -16,7 +16,6 @@ export async function GET(
   const totalEarnings =
     (earnings?.total || 0) +
     (moxieEarnings || 0) * (earnings?.moxie_usd_price || 0);
-
   const data = {
     ...earnings,
     total_earnings: totalEarnings,
