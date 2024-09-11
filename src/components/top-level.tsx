@@ -168,7 +168,7 @@ export function TopLevel({
           className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-transparent"
           color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
         >
-          <Card className="border-0">
+          <Card className="border-0 w-full">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Earnings</CardTitle>
               <SvgIcons.earnings />

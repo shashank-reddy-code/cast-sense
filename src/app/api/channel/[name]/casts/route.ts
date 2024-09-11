@@ -27,14 +27,11 @@ export async function GET(
     return new NextResponse(JSON.stringify(emptyData));
   }
 
-  // Collect all hashes
-  const allHashes = [
-    ...topAndBottomCasts.top_hash,
-    ...topAndBottomCasts.bottom_hash,
-  ].map((item) => item[0]);
+  // Collect hashes for top casts only
+  const topHashes = topAndBottomCasts.top_hash.map((item: any[]) => item[0]);
 
-  // Fetch Moxie earnings for all casts
-  const moxieEarnings = await fetchMoxieCastEarnings(allHashes);
+  // Fetch Moxie earnings for top casts only
+  const moxieEarnings = await fetchMoxieCastEarnings(topHashes);
 
   const mapCasts = (items: string[][]): CastEngagementCount[] =>
     items.map((item) => ({
