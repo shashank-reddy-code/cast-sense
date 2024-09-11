@@ -68,11 +68,13 @@ export const fetchMoxieCastEarnings = async (
   const earningsMap = new Map<string, number>();
   data?.FarcasterCasts?.Cast?.forEach((cast: any) => {
     if (cast && cast.moxieEarningsSplit) {
-      const totalEarnings = cast.moxieEarningsSplit.reduce(
-        (sum: number, split: any) =>
-          sum + (parseFloat(split.earningsAmount) || 0),
-        0
-      );
+      const totalEarnings = cast.moxieEarningsSplit
+        .reduce(
+          (sum: number, split: any) =>
+            sum + (parseFloat(split.earningsAmount) || 0),
+          0
+        )
+        .toFixed(2);
       earningsMap.set(cast.hash, totalEarnings);
     } else {
       earningsMap.set(cast.hash, 0);
