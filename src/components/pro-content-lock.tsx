@@ -79,6 +79,11 @@ export function ProContentLock({
       <p className="text-xs text-gray-400 text-center mt-4">
         Unlock detailed insights on your farcaster activity and engagement.
       </p>
+
+      <p className="text-xs text-gray-600 text-center mt-2">
+        Note: Subscription changes may take a couple of minutes to reflect in
+        the app.
+      </p>
     </div>
   );
 }
