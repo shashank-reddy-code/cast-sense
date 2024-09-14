@@ -25,6 +25,7 @@ import {
   DailyFollower,
   DailyOpenrankStrategies,
   FollowerActiveHours,
+  FollowerLocation,
   FollowerTier,
   TopAndBottomCasts,
   TopChannel,
@@ -54,6 +55,7 @@ interface PremiumDataState {
   followerTiers: FollowerTier[];
   topAndBottomCasts: TopAndBottomCasts;
   followerActiveHours: FollowerActiveHours;
+  followerLocations: FollowerLocation[];
 }
 
 export default function DashboardUser({
@@ -135,6 +137,7 @@ export default function DashboardUser({
             fetchData(`${BASE_URL}/api/user/${fid}/casts`),
             fetchData(`${BASE_URL}/api/user/${fid}/active-hours?tz=${tz}`),
             fetchData(`${BASE_URL}/api/user/${fid}/earnings`),
+            fetchData(`${BASE_URL}/api/user/${fid}/follower-locations`),
           ];
 
           const premiumResults = await Promise.all(premiumApiCalls);
@@ -144,6 +147,7 @@ export default function DashboardUser({
             topAndBottomCasts,
             followerActiveHours,
             earnings,
+            followerLocations,
           ] = premiumResults;
 
           const premiumDataState: PremiumDataState = {
@@ -151,6 +155,7 @@ export default function DashboardUser({
             followerTiers,
             topAndBottomCasts,
             followerActiveHours,
+            followerLocations,
           };
 
           baseDataState.fidStats.total_earnings = earnings.total_earnings;
@@ -288,7 +293,7 @@ export default function DashboardUser({
                     data.premiumData.topEngagersAndChannels.topEngagers
                   }
                   followerActiveHours={data.premiumData.followerActiveHours}
-                  isPro={data.isPro}
+                  followerLocations={data.premiumData.followerLocations}
                 />
               ) : (
                 <ProContentLock

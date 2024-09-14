@@ -14,43 +14,44 @@ import { BestTimeToPost } from "./best-time-to-post";
 import { FollowersByTier } from "./followers-by-tier";
 import {
   FollowerActiveHours,
+  FollowerLocation,
   FollowerTier,
   TopChannel,
   TopEngager,
 } from "@/lib/types";
 import { TopChannels } from "./top-channels";
-import { ProContentLock } from "./pro-content-lock";
 import { GlobalFrequencyMap } from "./global-frequency-map";
 
 export function FollowerCarousel({
   topEngagers,
   followerTiers,
   followerActiveHours,
+  followerLocations = [],
   topInfluencers = [],
   similarChannels = [],
   isChannel = false,
-  isPro = false,
 }: {
   topEngagers: TopEngager[];
   followerTiers: FollowerTier[];
   followerActiveHours: FollowerActiveHours;
+  followerLocations?: FollowerLocation[];
   topInfluencers?: TopEngager[];
   similarChannels?: TopChannel[];
   isChannel?: boolean;
-  isPro?: boolean;
 }) {
   return (
-    <>
-      <div className="relative px-12 py-4">
+    <div className="flex flex-col h-full">
+      <div className="relative px-4 py-2 flex-grow">
         <Carousel
           opts={{
             align: "start",
           }}
+          className="h-full"
         >
-          <CarouselContent>
+          <CarouselContent className="h-full">
             <CarouselItem
               key="best-time-to-post"
-              className="basis-1/1 lg:basis-1/2 h-full w-full"
+              className="basis-full lg:basis-1/2 h-full"
             >
               <BestTimeToPost
                 followerActiveHours={followerActiveHours}
@@ -60,14 +61,14 @@ export function FollowerCarousel({
             {!isChannel && (
               <CarouselItem
                 key="global-frequency-map"
-                className="basis-1/1 lg:basis-1/2 h-full w-full"
+                className="basis-full lg:basis-1/2 h-full"
               >
-                <GlobalFrequencyMap />
+                <GlobalFrequencyMap cities={followerLocations} />
               </CarouselItem>
             )}
             <CarouselItem
               key="followers-by-tier"
-              className="sm:basis-1/1 lg:basis-1/2 h-full w-full"
+              className="basis-full lg:basis-1/2 h-full"
             >
               <FollowersByTier
                 followerTiers={followerTiers}
@@ -79,7 +80,6 @@ export function FollowerCarousel({
           <CarouselNext />
         </Carousel>
       </div>
-
       {topEngagers.length > 0 && (
         <>
           <Separator className="my-4" />
@@ -117,6 +117,6 @@ export function FollowerCarousel({
           />
         </>
       )}
-    </>
+    </div>
   );
 }
