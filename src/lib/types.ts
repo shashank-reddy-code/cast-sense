@@ -71,6 +71,13 @@ export type FollowerTier = {
   percentage: number;
 };
 
+export type FollowerLocation = {
+  locationName: string;
+  placeId: string;
+  count: number;
+  coordinates: [number, number];
+};
+
 export type Profile = {
   fid: number;
   display_name: string;

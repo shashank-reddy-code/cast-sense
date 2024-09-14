@@ -39,7 +39,7 @@ export function ActiveHoursHeatMap({
         tools: {
           download: false,
         },
-        height: 'auto',
+        height: "auto",
       },
     },
     dataLabels: {
