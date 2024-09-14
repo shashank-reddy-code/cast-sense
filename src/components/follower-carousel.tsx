@@ -20,6 +20,7 @@ import {
 } from "@/lib/types";
 import { TopChannels } from "./top-channels";
 import { ProContentLock } from "./pro-content-lock";
+import GlobalFrequencyMap from "./ui/global-frequency-map";
 
 export function FollowerCarousel({
   topEngagers,
@@ -106,6 +107,8 @@ export function FollowerCarousel({
           />
         </>
       )}
+
+      {!isChannel && <GlobalFrequencyMap />}
     </>
   );
 }
