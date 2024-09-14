@@ -48,7 +48,7 @@ export function Search() {
         setIsSearching(false);
       }
     }, 300),
-    []
+    [setIsSearching, setUserResults, setChannelResults]
   );
 
   useEffect(() => {
