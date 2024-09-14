@@ -20,7 +20,7 @@ import {
 } from "@/lib/types";
 import { TopChannels } from "./top-channels";
 import { ProContentLock } from "./pro-content-lock";
-import GlobalFrequencyMap from "./ui/global-frequency-map";
+import { GlobalFrequencyMap } from "./global-frequency-map";
 
 export function FollowerCarousel({
   topEngagers,
@@ -41,34 +41,44 @@ export function FollowerCarousel({
 }) {
   return (
     <>
-      <Carousel
-        opts={{
-          align: "start",
-        }}
-      >
-        <CarouselContent>
-          <CarouselItem
-            key="best-time-to-post"
-            className="basis-1/1 lg:basis-1/2 h-full w-full"
-          >
-            <BestTimeToPost
-              followerActiveHours={followerActiveHours}
-              isChannel={isChannel}
-            />
-          </CarouselItem>
-          <CarouselItem
-            key="followers-by-tier"
-            className="sm:basis-1/1 lg:basis-1/2 h-full w-full"
-          >
-            <FollowersByTier
-              followerTiers={followerTiers}
-              isChannel={isChannel}
-            />
-          </CarouselItem>
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+      <div className="relative px-12 py-4">
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+        >
+          <CarouselContent>
+            <CarouselItem
+              key="best-time-to-post"
+              className="basis-1/1 lg:basis-1/2 h-full w-full"
+            >
+              <BestTimeToPost
+                followerActiveHours={followerActiveHours}
+                isChannel={isChannel}
+              />
+            </CarouselItem>
+            {!isChannel && (
+              <CarouselItem
+                key="global-frequency-map"
+                className="basis-1/1 lg:basis-1/2 h-full w-full"
+              >
+                <GlobalFrequencyMap />
+              </CarouselItem>
+            )}
+            <CarouselItem
+              key="followers-by-tier"
+              className="sm:basis-1/1 lg:basis-1/2 h-full w-full"
+            >
+              <FollowersByTier
+                followerTiers={followerTiers}
+                isChannel={isChannel}
+              />
+            </CarouselItem>
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
 
       {topEngagers.length > 0 && (
         <>
@@ -107,8 +117,6 @@ export function FollowerCarousel({
           />
         </>
       )}
-
-      {!isChannel && <GlobalFrequencyMap />}
     </>
   );
 }
