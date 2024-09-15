@@ -3,237 +3,2072 @@
     {
       "placeId": "ChIJOwg_06VPwokRYv534QaPC8g",
       "lat": 40.7128,
-      "lng": -74.006
+      "lng": -74.006,
+      "locationName": "New York, NY, USA"
     },
     {
       "placeId": "ChIJE9on3F3HwoAR9AhGJW_fL-I",
       "lat": 34.0522,
-      "lng": -118.2437
+      "lng": -118.2437,
+      "locationName": "Los Angeles, CA, USA"
     },
     {
       "placeId": "ChIJIQBpAG2ahYAR_6128GcTUEo",
       "lat": 37.7749,
-      "lng": -122.4194
+      "lng": -122.4194,
+      "locationName": "San Francisco, CA, USA"
     },
     {
       "placeId": "ChIJdd4hrwug2EcRmSrV3Vo6llI",
       "lat": 51.5074,
-      "lng": -0.1278
-    },
-    {
-      "placeId": "ChIJCSF8lBZEwokRhngABHRcdoI",
-      "lat": 40.6782,
-      "lng": -73.9442
+      "lng": -0.1278,
+      "locationName": "London, UK"
     },
     {
       "placeId": "ChIJXSModoWLGGARILWiCfeu2M0",
       "lat": 35.6762,
-      "lng": 139.6503
+      "lng": 139.6503,
+      "locationName": "Tokyo, Japan"
+    },
+    {
+      "placeId": "ChIJCSF8lBZEwokRhngABHRcdoI",
+      "lat": 40.6782,
+      "lng": -73.9442,
+      "locationName": "Brooklyn, NY, USA"
     },
     {
       "placeId": "ChIJpTvG15DL1IkRd8S0KlBVNTI",
       "lat": 43.6532,
-      "lng": -79.3832
+      "lng": -79.3832,
+      "locationName": "Toronto, ON, Canada"
     },
     {
       "placeId": "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
       "lat": 48.8566,
-      "lng": 2.3522
+      "lng": 2.3522,
+      "locationName": "Paris, France"
     },
     {
       "placeId": "ChIJLwPMoJm1RIYRetVp1EtGm10",
       "lat": 30.2672,
-      "lng": -97.7431
+      "lng": -97.7431,
+      "locationName": "Austin, TX, USA"
     },
     {
       "placeId": "ChIJAVkDPzdOqEcRcDteW0YgIQQ",
       "lat": 52.52,
-      "lng": 13.405
+      "lng": 13.405,
+      "locationName": "Berlin, Germany"
     },
     {
       "placeId": "ChIJO_PkYRozGQ0R0DaQ5L3rAAQ",
       "lat": 38.7223,
-      "lng": -9.1393
+      "lng": -9.1393,
+      "locationName": "Lisbon, Portugal"
     },
     {
       "placeId": "ChIJRcbZaklDXz4RYlEphFBu5r0",
       "lat": 25.2048,
-      "lng": 55.2708
+      "lng": 55.2708,
+      "locationName": "Dubai - United Arab Emirates"
     },
     {
       "placeId": "ChIJyY4rtGcX2jERIKTarqz3AAQ",
       "lat": 1.3521,
-      "lng": 103.8198
+      "lng": 103.8198,
+      "locationName": "Singapore"
     },
     {
       "placeId": "ChIJzWXFYYuifDUR64Pq5LTtioU",
       "lat": 37.5665,
-      "lng": 126.978
-    },
-    {
-      "placeId": "ChIJ7cv00DwsDogRAMDACa2m4K8",
-      "lat": 41.8781,
-      "lng": -87.6298
+      "lng": 126.978,
+      "locationName": "Seoul, South Korea"
     },
     {
       "placeId": "ChIJVTPokywQkFQRmtVEaUZlJRA",
       "lat": 47.6062,
-      "lng": -122.3321
+      "lng": -122.3321,
+      "locationName": "Seattle, WA, USA"
+    },
+    {
+      "placeId": "ChIJ7cv00DwsDogRAMDACa2m4K8",
+      "lat": 41.8781,
+      "lng": -87.6298,
+      "locationName": "Chicago, IL, USA"
     },
     {
       "placeId": "ChIJDbdkHFQayUwR7-8fITgxTmU",
       "lat": 45.5017,
-      "lng": -73.5673
+      "lng": -73.5673,
+      "locationName": "Montreal, QC, Canada"
     },
     {
       "placeId": "ChIJEcHIDqKw2YgRZU-t3XHylv8",
       "lat": 25.7617,
-      "lng": -80.1918
+      "lng": -80.1918,
+      "locationName": "Miami, FL, USA"
     },
     {
       "placeId": "ChIJGzE9DS1l44kRoOhiASS_fHg",
       "lat": 42.3601,
-      "lng": -71.0589
-    },
-    {
-      "placeId": "ChIJvQz5TjvKvJURh47oiC6Bs6A",
-      "lat": -34.6037,
-      "lng": -58.3816
+      "lng": -71.0589,
+      "locationName": "Boston, MA, USA"
     },
     {
       "placeId": "ChIJ82ENKDJgHTERIEjiXbIAAQE",
       "lat": 13.7563,
-      "lng": 100.5018
+      "lng": 100.5018,
+      "locationName": "Bangkok, Thailand"
+    },
+    {
+      "placeId": "ChIJvQz5TjvKvJURh47oiC6Bs6A",
+      "lat": -34.6037,
+      "lng": -58.3816,
+      "locationName": "Buenos Aires, Argentina"
     },
     {
       "placeId": "ChIJzxcfI6qAa4cR1jaKJ_j0jhE",
       "lat": 39.7392,
-      "lng": -104.9903
-    },
-    {
-      "placeId": "ChIJVXealLU_xkcRja_At0z9AGY",
-      "lat": 52.3676,
-      "lng": 4.9041
+      "lng": -104.9903,
+      "locationName": "Denver, CO, USA"
     },
     {
       "placeId": "ChIJgTwKgJcpQg0RaSKMYcHeNsQ",
       "lat": 40.4168,
-      "lng": -3.7038
+      "lng": -3.7038,
+      "locationName": "Madrid, Spain"
+    },
+    {
+      "placeId": "ChIJVXealLU_xkcRja_At0z9AGY",
+      "lat": 52.3676,
+      "lng": 4.9041,
+      "locationName": "Amsterdam, Netherlands"
     },
     {
       "placeId": "ChIJnUvjRenzaS4RoobX2g-_cVM",
       "lat": -6.2088,
-      "lng": 106.8456
+      "lng": 106.8456,
+      "locationName": "Jakarta, Indonesia"
     },
     {
       "placeId": "ChIJs0-pQ_FzhlQRi_OBm-qWkbs",
       "lat": 49.2827,
-      "lng": -123.1207
+      "lng": -123.1207,
+      "locationName": "Vancouver, BC, Canada"
     },
     {
       "placeId": "ChIJawhoAASnyhQR0LABvJj-zOE",
       "lat": 41.0082,
-      "lng": 28.9784
+      "lng": 28.9784,
+      "locationName": "İstanbul, Türkiye"
     },
     {
       "placeId": "ChIJ5TCOcRaYpBIRCmZHTz37sEQ",
       "lat": 41.3851,
-      "lng": 2.1734
+      "lng": 2.1734,
+      "locationName": "Barcelona, Spain"
     },
     {
       "placeId": "ChIJ90260rVG1moRkM2MIXVWBAQ",
       "lat": -37.8136,
-      "lng": 144.9631
+      "lng": 144.9631,
+      "locationName": "Melbourne VIC, Australia"
     },
     {
       "placeId": "ChIJJ3SpfQsLlVQRkYXR9ua5Nhw",
       "lat": 45.5155,
-      "lng": -122.6789
+      "lng": -122.6789,
+      "locationName": "Portland, OR, USA"
     },
     {
       "placeId": "ChIJSx6SrQ9T2YARed8V_f0hOg0",
       "lat": 32.7157,
-      "lng": -117.1611
+      "lng": -117.1611,
+      "locationName": "San Diego, CA, USA"
     },
     {
       "placeId": "ChIJ60u11Ni3xokRwVg-jNgU9Yk",
       "lat": 39.9526,
-      "lng": -75.1652
+      "lng": -75.1652,
+      "locationName": "Philadelphia, PA, USA"
     },
     {
       "placeId": "ChIJORy6nXuwj4ARz3b1NVL1Hw4",
       "lat": 37.4419,
-      "lng": -122.143
+      "lng": -122.143,
+      "locationName": "Palo Alto, CA, USA"
     },
     {
       "placeId": "ChIJzWz2l0jf6kARWgRFofaUIlI",
       "lat": 48.3794,
-      "lng": 31.1656
+      "lng": 31.1656,
+      "locationName": "Ukraine"
     },
     {
       "placeId": "ChIJB3UJ2yYAzoURQeheJnYQBlQ",
       "lat": 19.4326,
-      "lng": -99.1332
+      "lng": -99.1332,
+      "locationName": "Mexico City, CDMX, Mexico"
     },
     {
       "placeId": "ChIJW-T2Wt7Gt4kRKl2I1CJFUsI",
       "lat": 38.9072,
-      "lng": -77.0369
+      "lng": -77.0369,
+      "locationName": "Washington D.C., DC, USA"
     },
     {
       "placeId": "ChIJP3Sa8ziYEmsRUKgyFmh9AQM",
       "lat": -33.8688,
-      "lng": 151.2093
+      "lng": 151.2093,
+      "locationName": "Sydney NSW, Australia"
     },
     {
-      "placeId": "ChIJgWsCh7C4VTcRwgRZ3btjpY8",
+      "placeId": "ChIJga8jIoMNGToRLuU7kRz69SI",
       "lat": 23.8103,
-      "lng": 90.4125
+      "lng": 90.4125,
+      "locationName": "Dhaka, Bangladesh"
     },
     {
       "placeId": "ChIJ06-NJ06Na4cRNSej8-6hfcE",
       "lat": 40.015,
-      "lng": -105.2705
+      "lng": -105.2705,
+      "locationName": "Boulder, CO, USA"
     },
     {
       "placeId": "ChIJjQmTaV0E9YgRC2MLmS_e_mY",
       "lat": 33.749,
-      "lng": -84.388
+      "lng": -84.388,
+      "locationName": "Atlanta, GA, USA"
     },
     {
       "placeId": "ChIJ0WGkg4FEzpQRrlsz_whLqZs",
       "lat": -23.5505,
-      "lng": -46.6333
+      "lng": -46.6333,
+      "locationName": "São Paulo, State of São Paulo, Brazil"
     },
     {
       "placeId": "ChIJwYCC5iqLOxARy9nDZ6OHntw",
       "lat": 6.5244,
-      "lng": 3.3792
+      "lng": 3.3792,
+      "locationName": "Lagos, Nigeria"
     },
     {
       "placeId": "ChIJwe1EZjDG5zsRaYxkjY_tpF0",
       "lat": 19.076,
-      "lng": 72.8777
+      "lng": 72.8777,
+      "locationName": "Mumbai, Maharashtra, India"
     },
     {
       "placeId": "ChIJW6AIkVXemwARTtIvZ2xC3FA",
       "lat": -22.9068,
-      "lng": -43.1729
+      "lng": -43.1729,
+      "locationName": "Rio de Janeiro, State of Rio de Janeiro, Brazil"
     },
     {
       "placeId": "ChIJV6smFXLhhEcRs5f4g_12lC0",
       "lat": 46.6863,
-      "lng": 7.8632
+      "lng": 7.8632,
+      "locationName": "Degen, Lumnezia, Switzerland"
     },
     {
       "placeId": "ChIJbU60yXAWrjsR4E9-UejD3_g",
       "lat": 12.9716,
-      "lng": 77.5946
+      "lng": 77.5946,
+      "locationName": "Bangalore, Karnataka, India"
     },
     {
       "placeId": "ChIJ0T2NLikpdTERKxE8d61aX_E",
       "lat": 10.8231,
-      "lng": 106.6297
+      "lng": 106.6297,
+      "locationName": "Ho Chi Minh City, Vietnam"
+    },
+    {
+      "placeId": "ChIJA-2qKIt9hYARZ5N1NdUVtHE",
+      "lat": 37.8044,
+      "lng": -122.2712,
+      "locationName": "Oakland, CA, USA"
+    },
+    {
+      "placeId": "ChIJu46S-ZZhLxMROG5lkwZ3D7k",
+      "lat": 41.9028,
+      "lng": 12.4964,
+      "locationName": "Rome, Metropolitan City of Rome Capital, Italy"
+    },
+    {
+      "placeId": "ChIJAZ-GmmbMHkcR_NPqiCq-8HI",
+      "lat": 52.2297,
+      "lng": 21.0122,
+      "locationName": "Warsaw, Poland"
+    },
+    {
+      "placeId": "ChIJ7THRiJQ9UocRyjFNSKC3U1s",
+      "lat": 40.7608,
+      "lng": -111.891,
+      "locationName": "Salt Lake City, UT, USA"
+    },
+    {
+      "placeId": "ChIJGaK-SZcLkEcRA9wf5_GNbuY",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "locationName": "Zürich, Switzerland"
+    },
+    {
+      "placeId": "ChIJ9T_5iuTKj4ARe3GfygqMnbk",
+      "lat": 37.3382,
+      "lng": -121.8863,
+      "locationName": "San Jose, CA, USA"
+    },
+    {
+      "placeId": "ChIJrxNRX7IFzkwR7RXdMeFRaoo",
+      "lat": 45.4215,
+      "lng": -75.6972,
+      "locationName": "Ottawa, ON, Canada"
+    },
+    {
+      "placeId": "ChIJAXrhSu_InDIR6Nuuo6bGE7w",
+      "lat": 0.7893,
+      "lng": 127.3857,
+      "locationName": "Indonesiana, Tidore Kepulauan City, North Maluku, Indonesia"
+    },
+    {
+      "placeId": "ChIJ93su6KF7RYgRiVbwHWvko54",
+      "lat": 19.3022,
+      "lng": -81.3971,
+      "locationName": "Canada, KY, USA"
+    },
+    {
+      "placeId": "ChIJ0X31pIK3voARo3mz1ebVzDo",
+      "lat": 36.1699,
+      "lng": -115.1398,
+      "locationName": "Las Vegas, NV, USA"
+    },
+    {
+      "placeId": "ChIJ2V-Mo_l1nkcRfZixfUq4DAE",
+      "lat": 48.1351,
+      "lng": 11.582,
+      "locationName": "Munich, Germany"
+    },
+    {
+      "placeId": "ChIJS5dFe_cZTIYRj2dH9qSb7Lk",
+      "lat": 32.7767,
+      "lng": -96.797,
+      "locationName": "Dallas, TX, USA"
+    },
+    {
+      "placeId": "ChIJ4eIGNFXmAGAR5y9q5G7BW8U",
+      "lat": 34.6937,
+      "lng": 135.5023,
+      "locationName": "Osaka, Japan"
+    },
+    {
+      "placeId": "ChIJn8o2UZ4HbUcRRluiUYrlwv0",
+      "lat": 48.2082,
+      "lng": 16.3738,
+      "locationName": "Vienna, Austria"
+    },
+    {
+      "placeId": "ChIJBUVa4U7P1EAR_kYBF9IxSXY",
+      "lat": 50.4501,
+      "lng": 30.5234,
+      "locationName": "Kyiv, Ukraine"
+    },
+    {
+      "placeId": "ChIJf0dSgjnmaC4RshXo05MfahQ",
+      "lat": -6.9175,
+      "lng": 107.6191,
+      "locationName": "Bandung, Bandung City, West Java, Indonesia"
+    },
+    {
+      "placeId": "ChIJl5npr173wIcRolGqauYlhVU",
+      "lat": 39.0997,
+      "lng": -94.5786,
+      "locationName": "Kansas City, MO, USA"
+    },
+    {
+      "placeId": "ChIJoRyG2ZurNTERqRfKcnt_iOc",
+      "lat": 21.0285,
+      "lng": 105.8542,
+      "locationName": "Hanoi, Vietnam"
+    },
+    {
+      "placeId": "ChIJF7HtoBJ5P4YR4bTurbycLYY",
+      "lat": 29.3838,
+      "lng": -94.9027,
+      "locationName": "Texas City, TX, USA"
+    },
+    {
+      "placeId": "ChIJybDUc_xKtUYRTM9XV8zWRD0",
+      "lat": 55.7558,
+      "lng": 37.6173,
+      "locationName": "Moscow, Russia"
+    },
+    {
+      "placeId": "ChIJAYWNSLS4QIYROwVl894CDco",
+      "lat": 29.7604,
+      "lng": -95.3698,
+      "locationName": "Houston, TX, USA"
+    },
+    {
+      "placeId": "ChIJud3-Kxem2YgR62OUJUEXvjc",
+      "lat": 25.7907,
+      "lng": -80.13,
+      "locationName": "Miami Beach, FL, USA"
+    },
+    {
+      "placeId": "ChIJi8MeVwPKlzMRH8FpEHXV0Wk",
+      "lat": 14.5995,
+      "lng": 120.9842,
+      "locationName": "Manila, Metro Manila, Philippines"
+    },
+    {
+      "placeId": "ChIJ09-VQKbYrDAR2QVpy1vMFVA",
+      "lat": 22.3569,
+      "lng": 91.7832,
+      "locationName": "Chittagong, Bangladesh"
+    },
+    {
+      "placeId": "ChIJi3lwCZyTC0cRkEAWZg-vAAQ",
+      "lat": 50.0755,
+      "lng": 14.4378,
+      "locationName": "Prague, Czechia"
+    },
+    {
+      "placeId": "ChIJwVPhxKtlJA0RvBSxQFbZSKY",
+      "lat": 41.1579,
+      "lng": -8.6291,
+      "locationName": "Porto, Portugal"
+    },
+    {
+      "placeId": "ChIJL_P_CXMEDTkRw0ZdG-0GVvw",
+      "lat": 28.6139,
+      "lng": 77.209,
+      "locationName": "Delhi, India"
+    },
+    {
+      "placeId": "ChIJByjqov3-AzQRs6Or4_a0eEU",
+      "lat": 22.3193,
+      "lng": 114.1694,
+      "locationName": "Hong Kong"
+    },
+    {
+      "placeId": "ChIJmQrivHKsQjQR4MIK3c41aj8",
+      "lat": 25.033,
+      "lng": 121.5654,
+      "locationName": "Taipei, Taiwan"
+    },
+    {
+      "placeId": "ChIJL3KReNC_3zgRtgLbO1xRWWA",
+      "lat": 33.7294,
+      "lng": 73.0931,
+      "locationName": "Islamabad, Pakistan"
+    },
+    {
+      "placeId": "ChIJL6wn6oAOZ0gRoHExl6nHAAo",
+      "lat": 53.3498,
+      "lng": -6.2603,
+      "locationName": "Dublin, Ireland"
+    },
+    {
+      "placeId": "ChIJT608vzr5sUARKKacfOMyBqw",
+      "lat": 44.4268,
+      "lng": 26.1025,
+      "locationName": "Bucharest, Romania"
+    },
+    {
+      "placeId": "ChIJARFGZy6_wjsRQ-Oenb9DjYI",
+      "lat": 18.5204,
+      "lng": 73.8567,
+      "locationName": "Pune, Maharashtra, India"
+    },
+    {
+      "placeId": "ChIJa2JP5tcMREARo25X4u2E0GE",
+      "lat": 41.7151,
+      "lng": 44.8271,
+      "locationName": "Tbilisi, Georgia"
+    },
+    {
+      "placeId": "ChIJ1T-EnwNwcVMROrZStrE7bSY",
+      "lat": 51.0447,
+      "lng": -114.0719,
+      "locationName": "Calgary, AB, Canada"
+    },
+    {
+      "placeId": "ChIJTUbDjDsYAHwRbJen81_1KEs",
+      "lat": 21.3069,
+      "lng": -157.8583,
+      "locationName": "Honolulu, HI, USA"
+    },
+    {
+      "placeId": "ChIJIz2AXDxTUkYRuGeU5t1-3QQ",
+      "lat": 55.6761,
+      "lng": 12.5683,
+      "locationName": "Copenhagen, Denmark"
+    },
+    {
+      "placeId": "ChIJywtkGTF2X0YRZnedZ9MnDag",
+      "lat": 59.3293,
+      "lng": 18.0686,
+      "locationName": "Stockholm, Sweden"
+    },
+    {
+      "placeId": "ChIJd7zN_thz54gRnr-lPAaywwo",
+      "lat": 28.5383,
+      "lng": -81.3792,
+      "locationName": "Orlando, FL, USA"
+    },
+    {
+      "placeId": "ChIJxZZwR28JvUcRAMawKVBDIgQ",
+      "lat": 50.1109,
+      "lng": 8.6821,
+      "locationName": "Frankfurt, Germany"
+    },
+    {
+      "placeId": "ChIJb7Dv8ExPYA0ROR1_HwFRo7Q",
+      "lat": 39.4699,
+      "lng": -0.3763,
+      "locationName": "Valencia, Spain"
+    },
+    {
+      "placeId": "ChIJPZDrEzLsZIgRoNrpodC5P30",
+      "lat": 36.1627,
+      "lng": -86.7816,
+      "locationName": "Nashville, TN, USA"
+    },
+    {
+      "placeId": "ChIJsS1zINVH0xQRjSuEwLBX3As",
+      "lat": 39.9334,
+      "lng": 32.8597,
+      "locationName": "Ankara, Türkiye"
+    },
+    {
+      "placeId": "ChIJGQCRws6kwoARq_Uj_7UKF7Q",
+      "lat": 34.0195,
+      "lng": -118.4912,
+      "locationName": "Santa Monica, CA, USA"
+    },
+    {
+      "placeId": "ChIJ2_UmUkxNekgRqmv-BDgUvtk",
+      "lat": 53.4808,
+      "lng": -2.2426,
+      "locationName": "Manchester, UK"
+    },
+    {
+      "placeId": "ChIJyc_U0TTDQUcRYBEeDCnEAAQ",
+      "lat": 47.4979,
+      "lng": 19.0402,
+      "locationName": "Budapest, Hungary"
+    },
+    {
+      "placeId": "ChIJLSHbT8RZcg0RzzLKyZLcJWA",
+      "lat": 36.7213,
+      "lng": -4.4214,
+      "locationName": "Málaga, Spain"
+    },
+    {
+      "placeId": "ChIJuRMYfoNhsUcRoDrWe_I9JgQ",
+      "lat": 53.5511,
+      "lng": 9.9937,
+      "locationName": "Hamburg, Germany"
+    },
+    {
+      "placeId": "ChIJA2p5p_9Qa4gRfOq5QPadjtY",
+      "lat": 39.7684,
+      "lng": -86.1581,
+      "locationName": "Indianapolis, IN, USA"
+    },
+    {
+      "placeId": "ChIJM9KTrJpXkWsRQK_e81qjAgQ",
+      "lat": -27.4698,
+      "lng": 153.0251,
+      "locationName": "Brisbane QLD, Australia"
+    },
+    {
+      "placeId": "ChIJG2KNShZyuokRzNuz34kt6UA",
+      "lat": 36.9859,
+      "lng": -80.9376,
+      "locationName": "Moon, VA, USA"
+    },
+    {
+      "placeId": "ChIJO-zlxKqfVIgRj3baIDO1jdc",
+      "lat": 35.6354,
+      "lng": -79.4304,
+      "locationName": "Ether, NC, USA"
+    },
+    {
+      "placeId": "ChIJaVuPR1-YMpQRkrBmU5pPorA",
+      "lat": -31.4201,
+      "lng": -64.1888,
+      "locationName": "Córdoba, Córdoba Province, Argentina"
+    },
+    {
+      "placeId": "ChIJc3FBGy2UcEgRmHnurvD-gco",
+      "lat": 52.4862,
+      "lng": -1.8904,
+      "locationName": "Birmingham, UK"
+    },
+    {
+      "placeId": "ChIJy3mhUO0SK4cRrBtKNfjHaYw",
+      "lat": 33.4484,
+      "lng": -112.074,
+      "locationName": "Phoenix, AZ, USA"
+    },
+    {
+      "placeId": "ChIJZYIRslSkIIYRtNMiXuhbBts",
+      "lat": 29.9511,
+      "lng": -90.0715,
+      "locationName": "New Orleans, LA, USA"
+    },
+    {
+      "placeId": "ChIJ1-4miA9QzB0Rh6ooKPzhf2g",
+      "lat": -33.9249,
+      "lng": 18.4241,
+      "locationName": "Cape Town, South Africa"
+    },
+    {
+      "placeId": "ChIJ0Qgx67KMGGARd2ZbObLZHPE",
+      "lat": 35.6644,
+      "lng": 139.6982,
+      "locationName": "Shibuya, Tokyo, Japan"
+    },
+    {
+      "placeId": "ChIJL54ew-RkyEcRRTtn98pp50g",
+      "lat": 52.1326,
+      "lng": 5.2913,
+      "locationName": "Nederland, Netherlands"
+    },
+    {
+      "placeId": "ChIJA-aOAy5it4kRwDJyjFUZEgc",
+      "lat": 38.3004,
+      "lng": -76.4914,
+      "locationName": "California, MD, USA"
+    },
+    {
+      "placeId": "ChIJL68lBEHFYpYRMQkPQDzVdYQ",
+      "lat": -33.4489,
+      "lng": -70.6693,
+      "locationName": "Santiago de Chile, Chile"
+    },
+    {
+      "placeId": "ChIJgeJXTN9KbDkRCS7yDDrG4Qw",
+      "lat": 26.9124,
+      "lng": 75.7873,
+      "locationName": "Jaipur, Rajasthan, India"
+    },
+    {
+      "placeId": "ChIJXW-7kH462jARZ0ObpXBi1Jg",
+      "lat": 18.7883,
+      "lng": 98.9853,
+      "locationName": "Chiang Mai, Mueang Chiang Mai District, Chiang Mai, Thailand"
+    },
+    {
+      "placeId": "ChIJufI-cg9EXj4RCBGXQZMuzMc",
+      "lat": 24.4539,
+      "lng": 54.3773,
+      "locationName": "Abu Dhabi - United Arab Emirates"
+    },
+    {
+      "placeId": "ChIJCW8PPKmMWYgRXTo0BsEx75Q",
+      "lat": 35.5951,
+      "lng": -82.5515,
+      "locationName": "Asheville, NC, USA"
+    },
+    {
+      "placeId": "ChIJxz7uGfbFBZERSi5FzLlsIBQ",
+      "lat": -12.0464,
+      "lng": -77.0428,
+      "locationName": "Lima, Peru"
+    },
+    {
+      "placeId": "ChIJa8lu5gvtDzkR_hlzUvln_6U",
+      "lat": 30.7333,
+      "lng": 76.7794,
+      "locationName": "Chandigarh, India"
+    },
+    {
+      "placeId": "ChIJjePSU-j4aS4RwLn-FG1XAQM",
+      "lat": -6.2024,
+      "lng": 106.6527,
+      "locationName": "Tangerang, Tangerang City, Banten, Indonesia"
+    },
+    {
+      "placeId": "ChIJ24BeDptA0i0RSje5zOg0c-I",
+      "lat": -8.6705,
+      "lng": 115.2126,
+      "locationName": "Denpasar, Denpasar City, Bali, Indonesia"
+    },
+    {
+      "placeId": "ChIJEyolkscZQjERh2RDRKDjFPw",
+      "lat": 16.0544,
+      "lng": 108.2022,
+      "locationName": "Da Nang, Hải Châu District, Da Nang, Vietnam"
+    },
+    {
+      "placeId": "ChIJYeZuBI9YwokRjMDs_IEyCwo",
+      "lat": 40.7831,
+      "lng": -73.9712,
+      "locationName": "Manhattan, New York, NY, USA"
+    },
+    {
+      "placeId": "ChIJLbZ-NFv9DDkRzk0gTkm3wlI",
+      "lat": 28.6139,
+      "lng": 77.209,
+      "locationName": "New Delhi, Delhi, India"
+    },
+    {
+      "placeId": "ChIJ8-RGYCmrmkcREOrjxwO_UKk",
+      "lat": 47.1662,
+      "lng": 8.5155,
+      "locationName": "Zug, Switzerland"
+    },
+    {
+      "placeId": "ChIJTQINP02LcC4R8rlc2rkyBB4",
+      "lat": -6.9932,
+      "lng": 110.4203,
+      "locationName": "Semarang, Semarang City, Central Java, Indonesia"
+    },
+    {
+      "placeId": "ChIJ--acWvtHDW0RF5miQ2HvAAU",
+      "lat": -36.8485,
+      "lng": 174.7633,
+      "locationName": "Auckland, New Zealand"
+    },
+    {
+      "placeId": "ChIJ7WVKx4w3lkYR_46Eqz9nx20",
+      "lat": 59.9311,
+      "lng": 30.3609,
+      "locationName": "Saint Petersburg, Russia"
+    },
+    {
+      "placeId": "ChIJ2S_WTF90ThARK6EOorQXvVM",
+      "lat": 9.0765,
+      "lng": 7.3986,
+      "locationName": "Abuja, Nigeria"
+    },
+    {
+      "placeId": "ChIJgRo4_MQfVIgRZNFDv-ZQRog",
+      "lat": 35.2271,
+      "lng": -80.8431,
+      "locationName": "Charlotte, NC, USA"
+    },
+    {
+      "placeId": "ChIJp9yZoLVvyi0RQOJIK83UHnU",
+      "lat": -8.3405,
+      "lng": 115.092,
+      "locationName": "Bali, Dompu Regency, West Nusa Tenggara, Indonesia"
+    },
+    {
+      "placeId": "ChIJ8UNwBh-9oRQR3Y1mdkU1Nic",
+      "lat": 37.9838,
+      "lng": 23.7275,
+      "locationName": "Athens, Greece"
+    },
+    {
+      "placeId": "ChIJf8QaOPj71y0RQL5S43Z6AgM",
+      "lat": -7.2575,
+      "lng": 112.7521,
+      "locationName": "Surabaya, East Java, Indonesia"
+    },
+    {
+      "placeId": "ChIJOfBn8mFuQUYRmh4j019gkn4",
+      "lat": 59.9139,
+      "lng": 10.7522,
+      "locationName": "Oslo, Norway"
+    },
+    {
+      "placeId": "ChIJ_4ByEbGmj4ARq4nyXY6Zv-s",
+      "lat": 37.4538,
+      "lng": -122.1822,
+      "locationName": "Menlo Park, CA, USA"
+    },
+    {
+      "placeId": "ChIJkzxaPHOQhYARhtX5z92kf9I",
+      "lat": 37.9061,
+      "lng": -122.545,
+      "locationName": "Mill Valley, CA, USA"
+    },
+    {
+      "placeId": "ChIJvbt3k5Azs1IRB-56L4TJn5M",
+      "lat": 44.9778,
+      "lng": -93.265,
+      "locationName": "Minneapolis, MN, USA"
+    },
+    {
+      "placeId": "ChIJ8WYPEnHkrIkRfvJGionaeuE",
+      "lat": 35.994,
+      "lng": -78.8986,
+      "locationName": "Durham, NC, USA"
+    },
+    {
+      "placeId": "ChIJnfQCrBYz5xQRErAlcJV_qdo",
+      "lat": 34.6786,
+      "lng": 33.0442,
+      "locationName": "Limassol, Cyprus"
+    },
+    {
+      "placeId": "ChIJ02oeW9PP20YR2XC13VO4YQs",
+      "lat": 53.9006,
+      "lng": 27.559,
+      "locationName": "Minsk, Belarus"
+    },
+    {
+      "placeId": "ChIJ9-BRny9arIkRrfARilK2kGc",
+      "lat": 35.7796,
+      "lng": -78.6382,
+      "locationName": "Raleigh, NC, USA"
+    },
+    {
+      "placeId": "ChIJ9Xsxy4KGqkARYF6_aRKgAAQ",
+      "lat": 42.6977,
+      "lng": 23.3219,
+      "locationName": "Sofia, Bulgaria"
+    },
+    {
+      "placeId": "ChIJk4jbBYqWuEwRAzro8GMtxY8",
+      "lat": 46.8139,
+      "lng": -71.208,
+      "locationName": "Québec, QC, Canada"
+    },
+    {
+      "placeId": "ChIJ-d4u1mzt-4gRSM0vrja7ly4",
+      "lat": 34.4736,
+      "lng": -81.4198,
+      "locationName": "Switzerland, SC, USA"
+    },
+    {
+      "placeId": "ChIJqRKz6qUReC4ROG-NQcKGB28",
+      "lat": -7.6433,
+      "lng": 112.4458,
+      "locationName": "Japanan, Mojokerto Regency, East Java, Indonesia"
+    },
+    {
+      "placeId": "ChIJnaCSkq5AmYARh_c4dM7FxUA",
+      "lat": 39.5296,
+      "lng": -119.8138,
+      "locationName": "Reno, NV, USA"
+    },
+    {
+      "placeId": "ChIJnzfp5M7UslIRKS7aP9KRcsg",
+      "lat": 44.9537,
+      "lng": -93.09,
+      "locationName": "St Paul, MN, USA"
+    },
+    {
+      "placeId": "ChIJDda9ERnViY4RxGYqxwGDWY0",
+      "lat": 10.4806,
+      "lng": -66.9036,
+      "locationName": "Venezuela, Zulia, Venezuela"
+    },
+    {
+      "placeId": "ChIJ-ZeDsnLGmoAR238ZdKpqH5I",
+      "lat": 38.5816,
+      "lng": -121.4944,
+      "locationName": "Sacramento, CA, USA"
+    },
+    {
+      "placeId": "ChIJSdRbuoqEXjkRFmVPYRHdzk8",
+      "lat": 23.0225,
+      "lng": 72.5714,
+      "locationName": "Ahmedabad, Gujarat, India"
+    },
+    {
+      "placeId": "ChIJLe6wqnKcskwRKfpyM7W2nX4",
+      "lat": 43.6591,
+      "lng": -70.2568,
+      "locationName": "Portland, ME, USA"
+    },
+    {
+      "placeId": "ChIJ0TMVjWBXwokRh783EWrKtkQ",
+      "lat": 40.7439,
+      "lng": -74.0324,
+      "locationName": "Hoboken, NJ, USA"
+    },
+    {
+      "placeId": "ChIJAyeXOPfEaS4RDo4rw59zBCw",
+      "lat": -6.5971,
+      "lng": 106.7931,
+      "locationName": "Bogor Barat, Bogor City, West Java, Indonesia"
+    },
+    {
+      "placeId": "ChIJvxZW35mUkkYRcGL8GG2zAAQ",
+      "lat": 59.437,
+      "lng": 24.7536,
+      "locationName": "Tallinn, Estonia"
+    },
+    {
+      "placeId": "ChIJqQItJp5JoTERvoZOZ6HCyhE",
+      "lat": 9.1765,
+      "lng": 105.15,
+      "locationName": "Cà Mau, Ca Mau, Vietnam"
+    },
+    {
+      "placeId": "ChIJB0iCza1YKowRg4SZCq4u3ZM",
+      "lat": 10.4806,
+      "lng": -66.9036,
+      "locationName": "Caracas, Capital District, Venezuela"
+    },
+    {
+      "placeId": "ChIJE-f7SNHyaS4RqfXt61J9Zm4",
+      "lat": -6.2,
+      "lng": 106.9,
+      "locationName": "Jakarta Timur, East Jakarta City, Jakarta, Indonesia"
+    },
+    {
+      "placeId": "ChIJXXN-Q-BE5IkRJ7azSE1832k",
+      "lat": 41.824,
+      "lng": -71.4128,
+      "locationName": "Providence, RI, USA"
+    },
+    {
+      "placeId": "ChIJVdgzdiERFgcRndtzlTaEHPc",
+      "lat": -12.9711,
+      "lng": -38.5108,
+      "locationName": "Salvador, State of Bahia, Brazil"
+    },
+    {
+      "placeId": "ChIJS6udO9o1Yg0R44ELrHKofR0",
+      "lat": 38.3453,
+      "lng": -0.4831,
+      "locationName": "Alicante, Spain"
+    },
+    {
+      "placeId": "ChIJ4dG5s4K3wogRY7SWr4kTX6c",
+      "lat": 27.9506,
+      "lng": -82.4572,
+      "locationName": "Tampa, FL, USA"
+    },
+    {
+      "placeId": "ChIJMbOLyNA_AocRYVRX-1HM0fw",
+      "lat": 34.1537,
+      "lng": -102.7886,
+      "locationName": "Earth, TX, USA"
+    },
+    {
+      "placeId": "ChIJA4UGSG_xNIgRNBuiWqEV-Y0",
+      "lat": 40.4406,
+      "lng": -79.9959,
+      "locationName": "Pittsburgh, PA, USA"
+    },
+    {
+      "placeId": "ChIJdR3LEAHKJIgR0sS5NU6Gdlc",
+      "lat": 42.3314,
+      "lng": -83.0458,
+      "locationName": "Detroit, MI, USA"
+    },
+    {
+      "placeId": "ChIJLQEq84ld2EcRIT1eo-Ego2M",
+      "lat": 52.2053,
+      "lng": 0.1218,
+      "locationName": "Cambridge, UK"
+    },
+    {
+      "placeId": "ChIJ46Mn_Oh1Oy4RwNAgsoCdAwM",
+      "lat": -2.9761,
+      "lng": 104.7754,
+      "locationName": "Palembang, Palembang City, South Sumatra, Indonesia"
+    },
+    {
+      "placeId": "ChIJq3fTG1e0j4ARtHjho-E_TTk",
+      "lat": 37.323,
+      "lng": -122.0322,
+      "locationName": "Cupertino, CA, USA"
+    },
+    {
+      "placeId": "ChIJrTDwkEVKaYcRgkCrtChCsak",
+      "lat": 40.5853,
+      "lng": -105.0844,
+      "locationName": "Fort Collins, CO, USA"
+    },
+    {
+      "placeId": "ChIJ8RFCavcthEcR4PihLiEEjO8",
+      "lat": 46.0037,
+      "lng": 8.9511,
+      "locationName": "Lugano, Switzerland"
+    },
+    {
+      "placeId": "ChIJcUZs2Snjvi0RsHD3yvsLAwM",
+      "lat": -5.1477,
+      "lng": 119.4327,
+      "locationName": "Makassar, Makassar City, South Sulawesi, Indonesia"
+    },
+    {
+      "placeId": "ChIJH3w7GaZMHRURkD-WwKJy-8E",
+      "lat": 32.0853,
+      "lng": 34.7818,
+      "locationName": "Tel Aviv, Israel"
+    },
+    {
+      "placeId": "ChIJZ2jHc-2kw0cRpwJzeGY6i8E",
+      "lat": 50.8503,
+      "lng": 4.3517,
+      "locationName": "Brussels, Belgium"
+    },
+    {
+      "placeId": "ChIJCULTGU3ZhJURJtH-S4Bwlt0",
+      "lat": -38.0055,
+      "lng": -57.5426,
+      "locationName": "Mar del Plata, Buenos Aires Province, Argentina"
+    },
+    {
+      "placeId": "ChIJ-5e2oHOBLRgRo8rhYfGtNZw",
+      "lat": -6.369,
+      "lng": 34.8888,
+      "locationName": "Unknown Village, Tanzania"
+    },
+    {
+      "placeId": "ChIJ7T0H5bDP7kYRMP7yaM3PAAQ",
+      "lat": 56.9496,
+      "lng": 24.1052,
+      "locationName": "Riga, Latvia"
+    },
+    {
+      "placeId": "ChIJq_pIuPArtIkRWWYkA5kGsMo",
+      "lat": 8.9936,
+      "lng": -79.5197,
+      "locationName": "Panama City, Panama"
+    },
+    {
+      "placeId": "ChIJqUwyoO_V1IkRYz2yLIFSPfc",
+      "lat": 43.8561,
+      "lng": -79.337,
+      "locationName": "Markham, ON, Canada"
+    },
+    {
+      "placeId": "ChIJR4ITliVveTURQmG3LJD9N30",
+      "lat": 37.4563,
+      "lng": 126.7052,
+      "locationName": "Inchon, South Korea"
+    },
+    {
+      "placeId": "ChIJk8-2XRQNiIgRRRk67uhhBQI",
+      "lat": 34.149,
+      "lng": -87.4114,
+      "locationName": "Double Springs, AL, USA"
+    },
+    {
+      "placeId": "ChIJOdHyOVHaQC4R36bHQtSbVuM",
+      "lat": -5.4459,
+      "lng": 105.2663,
+      "locationName": "Tanjung Karang, Bandar Lampung City, Lampung, Indonesia"
+    },
+    {
+      "placeId": "ChIJjaa-MdeTuwARYGYXZWxY0OQ",
+      "lat": -20.7741,
+      "lng": -41.6755,
+      "locationName": "Guaçuí, State of Espírito Santo, Brasil"
+    },
+    {
+      "placeId": "ChIJwavjD91tOY4RooeSoI1xu98",
+      "lat": 4.5709,
+      "lng": -75.6557,
+      "locationName": "Finlandia, San Antonio, Tolima, Colombia"
+    },
+    {
+      "placeId": "ChIJHUbYId_kYEgRMGHTJ3Z0jG8",
+      "lat": 54.4215,
+      "lng": -6.4484,
+      "locationName": "Portadown, Craigavon, UK"
+    },
+    {
+      "placeId": "ChIJsSbfwKEDQi4RRDAsqUQUmuM",
+      "lat": -6.2789,
+      "lng": 106.6393,
+      "locationName": "Jayanti, Tangerang Regency, Banten, Indonesia"
+    },
+    {
+      "placeId": "ChIJMXEO8dv-U4gR4ATJ70hKQ54",
+      "lat": 35.4993,
+      "lng": -80.8487,
+      "locationName": "Davidson, NC, USA"
+    },
+    {
+      "placeId": "ChIJUW03EjULUDIRinmUSA9KKvA",
+      "lat": 6.7023,
+      "lng": 121.9715,
+      "locationName": "Isabela City, Basilan, Philippines"
+    },
+    {
+      "placeId": "ChIJi5CyseXi5IkRZLJeZR4ndE4",
+      "lat": 41.6362,
+      "lng": -70.9342,
+      "locationName": "Dartmouth, MA, USA"
+    },
+    {
+      "placeId": "ChIJi251To3UPoYRDSdA59j0GEw",
+      "lat": 29.2766,
+      "lng": -94.853,
+      "locationName": "China, Texas, USA"
+    },
+    {
+      "placeId": "ChIJL1I18YOzoDERioyAx9I-UAs",
+      "lat": 10.0259,
+      "lng": 105.0842,
+      "locationName": "Rạch Giá, Kien Giang, Vietnam"
+    },
+    {
+      "placeId": "ChIJO-fi4AcBGTkR8ubXUxh-FnQ",
+      "lat": 31.4504,
+      "lng": 74.3488,
+      "locationName": "Wapda Town Phase 1 WAPDA Town, Lahore, Pakistan"
+    },
+    {
+      "placeId": "ChIJ8xmb4RE9ukcRzsfHbHK1P0w",
+      "lat": 52.0302,
+      "lng": 8.5325,
+      "locationName": "Bielefeld, Germany"
+    },
+    {
+      "placeId": "ChIJWaEZbEE2UnkRQ6NU4Ci50Oc",
+      "lat": 19.5972,
+      "lng": -155.0096,
+      "locationName": "Hawaiian Paradise Park, HI, USA"
+    },
+    {
+      "placeId": "ChIJl6qxBoE_H2AR3LHlEtw2YSI",
+      "lat": 36.5657,
+      "lng": 139.8836,
+      "locationName": "Tochigi, Japan"
+    },
+    {
+      "placeId": "ChIJ7RQLXfk-ljMR5d0_uBvBQ9E",
+      "lat": 14.6413,
+      "lng": 120.5904,
+      "locationName": "Orion, Bataan, Philippines"
+    },
+    {
+      "placeId": "ChIJm9MvtYyxKIQRUFeGvwKTPdY",
+      "lat": 20.6597,
+      "lng": -103.3496,
+      "locationName": "Guadalajara, Jalisco, Mexico"
+    },
+    {
+      "placeId": "ChIJvT-116N6WkcR5H4X8lxkuB0",
+      "lat": 44.7866,
+      "lng": 20.4489,
+      "locationName": "Belgrade, Serbia"
+    },
+    {
+      "placeId": "ChIJ3zeWTTJ2ZYYRuA4stak5HS8",
+      "lat": 26.2034,
+      "lng": -98.23,
+      "locationName": "McAllen, TX, USA"
+    },
+    {
+      "placeId": "ChIJIyaYpQC4h0gRJab9o_ozyKs",
+      "lat": 55.9533,
+      "lng": -3.1883,
+      "locationName": "Edinburgh, UK"
+    },
+    {
+      "placeId": "ChIJR-cWgxTHzhIR37mELWMbKpE",
+      "lat": 43.2677,
+      "lng": 6.6407,
+      "locationName": "Saint-Tropez, France"
+    },
+    {
+      "placeId": "ChIJLy8qx39JTg0Rlq-fL13LMps",
+      "lat": 43.172,
+      "lng": -2.6319,
+      "locationName": "Usansolo, Spain"
+    },
+    {
+      "placeId": "ChIJbXszCd7SfEcRDVhOezpKMnI",
+      "lat": 44.8666,
+      "lng": 13.8496,
+      "locationName": "Pula, Croatia"
+    },
+    {
+      "placeId": "ChIJ-yDLLbW9t4kRnnYjPMP5MQs",
+      "lat": 38.8462,
+      "lng": -76.8755,
+      "locationName": "Joint Base Andrews, MD, USA"
+    },
+    {
+      "placeId": "ChIJU-wn2gINUzUR94WNIAhofbU",
+      "lat": 34.0658,
+      "lng": 134.5596,
+      "locationName": "Tokushima, Japan"
+    },
+    {
+      "placeId": "ChIJ5a7femiEzoYR-X-I6ZVTPbM",
+      "lat": 29.0729,
+      "lng": -110.9559,
+      "locationName": "Hermosillo, Sonora, Mexico"
+    },
+    {
+      "placeId": "ChIJHZbr__hWZ1MRNAGsX6tGelk",
+      "lat": 47.3553,
+      "lng": -114.5617,
+      "locationName": "Perma, MT, USA"
+    },
+    {
+      "placeId": "ChIJ8VmPob6SGYgR0lkjpqYF53A",
+      "lat": 42.7876,
+      "lng": -86.1089,
+      "locationName": "Holland, MI, USA"
+    },
+    {
+      "placeId": "ChIJ_S3NjSWZqTMRBzXT2wwDNEw",
+      "lat": 10.3157,
+      "lng": 123.8854,
+      "locationName": "Cebu, Philippines"
+    },
+    {
+      "placeId": "ChIJrXlYU1xZCogR24B9azL0-8o",
+      "lat": 40.6936,
+      "lng": -89.589,
+      "locationName": "Peoria, IL, USA"
+    },
+    {
+      "placeId": "ChIJ-4m1XyOkfDURartwxRuXMbM",
+      "lat": 37.5172,
+      "lng": 127.0473,
+      "locationName": "Gangnam-gu, Seoul, South Korea"
+    },
+    {
+      "placeId": "ChIJBbsm2hzin0cRsg3upxcbNpk",
+      "lat": 50.482,
+      "lng": 12.3722,
+      "locationName": "Falkenstein, Germany"
+    },
+    {
+      "placeId": "ChIJ01EBI_GCT4YREKrR1gNL1_s",
+      "lat": 31.5497,
+      "lng": -97.1467,
+      "locationName": "Waco, TX, USA"
+    },
+    {
+      "placeId": "ChIJBXdbYF5l3IARh5-POT_LngE",
+      "lat": 33.1959,
+      "lng": -117.3795,
+      "locationName": "Oceanside, CA, USA"
+    },
+    {
+      "placeId": "ChIJX_ane5Q6w4ARTTe8KondetU",
+      "lat": 34.0967,
+      "lng": -117.7198,
+      "locationName": "Claremont, CA, USA"
+    },
+    {
+      "placeId": "ChIJz00SRvN7F5YRpsvyL2znyvs",
+      "lat": -41.3193,
+      "lng": -72.9854,
+      "locationName": "Puerto Varas, Chile"
+    },
+    {
+      "placeId": "ChIJ5c497lJLKm0R1Oqd27A7Tmo",
+      "lat": -43.7341,
+      "lng": 170.0961,
+      "locationName": "Mount Cook Village, New Zealand"
+    },
+    {
+      "placeId": "ChIJdYeB7UwbwhURzslwz2kkq5g",
+      "lat": 21.4225,
+      "lng": 39.8262,
+      "locationName": "Mecca Saudi Arabia"
+    },
+    {
+      "placeId": "ChIJLUm8UTHupzsRIbHNVwmEKvw",
+      "lat": 10.5276,
+      "lng": 76.2144,
+      "locationName": "Thrissur District, Kerala, India"
+    },
+    {
+      "placeId": "ChIJrbBn6t3zHmARVD7ORmWvg98",
+      "lat": 36.3911,
+      "lng": 139.0608,
+      "locationName": "Maebashi, Gunma, Japan"
+    },
+    {
+      "placeId": "ChIJCULTGU3ZhJURJtH-S4Bwlt0",
+      "lat": 46.6577,
+      "lng": 27.7287,
+      "locationName": "Bacău, Romania"
+    },
+    {
+      "placeId": "ChIJE8tAbKGC4BQRpdBxEyLwy08",
+      "lat": 34.9229,
+      "lng": 33.6233,
+      "locationName": "Larnaca, Cyprus"
+    },
+    {
+      "placeId": "ChIJsZ3dJQevthIRAuiUKHRWh60",
+      "lat": 43.6108,
+      "lng": 3.8767,
+      "locationName": "Montpellier, France"
+    },
+    {
+      "placeId": "ChIJcyZmHFDxVDAR0IA2LLwjAgM",
+      "lat": 9.512,
+      "lng": 100.0136,
+      "locationName": "Samui, Ko Samui District, Surat Thani, Thailand"
+    },
+    {
+      "placeId": "ChIJeRg8YmUfm4ARmTlJulJKryI",
+      "lat": 38.7521,
+      "lng": -121.288,
+      "locationName": "Roseville, CA, USA"
+    },
+    {
+      "placeId": "ChIJFX4ULRCuukcRIL-vlG2sJQU",
+      "lat": 52.1735,
+      "lng": 9.9298,
+      "locationName": "Itzum, Hildesheim, Germany"
+    },
+    {
+      "placeId": "ChIJR8LqnJVQZlMRYrtaHdq9H68",
+      "lat": 48.1919,
+      "lng": -114.3168,
+      "locationName": "Kalispell, MT, USA"
+    },
+    {
+      "placeId": "ChIJiQHsW0m3j4ARm69rRkrUF3w",
+      "lat": 37.3861,
+      "lng": -122.0839,
+      "locationName": "Mountain View, CA, USA"
+    },
+    {
+      "placeId": "ChIJu1tunmTibi4R_hL-pzh2oHA",
+      "lat": -6.732,
+      "lng": 108.5523,
+      "locationName": "Cirebon, Cirebon City, West Java, Indonesia"
+    },
+    {
+      "placeId": "ChIJKVSoiQFC24gRiiW6ClMIKcY",
+      "lat": 26.6406,
+      "lng": -81.8723,
+      "locationName": "Fort Myers, FL, USA"
+    },
+    {
+      "placeId": "ChIJ7VdJEH6PGGARJ6fdaNIX3h0",
+      "lat": 35.7348,
+      "lng": 139.7533,
+      "locationName": "Katsushika, Tokyo, Japan"
+    },
+    {
+      "placeId": "ChIJ_Wapak0MTYgRm5iw28u-nSQ",
+      "lat": 37.271,
+      "lng": -79.9414,
+      "locationName": "Roanoke, VA, USA"
+    },
+    {
+      "placeId": "ChIJpY7K2NAaNYgRlrux00_ON3M",
+      "lat": 40.0668,
+      "lng": -79.8921,
+      "locationName": "California, PA, USA"
+    },
+    {
+      "placeId": "ChIJwZLFwMKnK4cRG3dOaRXCD9E",
+      "lat": 33.4152,
+      "lng": -111.8315,
+      "locationName": "Mesa, AZ, USA"
+    },
+    {
+      "placeId": "ChIJp7-wHAeP0kgR0f1xjHkytr0",
+      "lat": 65.6826,
+      "lng": -18.0907,
+      "locationName": "Akureyri, Iceland"
+    },
+    {
+      "placeId": "ChIJc7ldd83Hj4gRLQ1yUIoxnr8",
+      "lat": 31.8516,
+      "lng": -86.7125,
+      "locationName": "Pine Apple, AL, USA"
+    },
+    {
+      "placeId": "ChIJdeKa3xg9WpMRJEp1aeRwhHM",
+      "lat": -25.2867,
+      "lng": -57.3333,
+      "locationName": "Asunción, Paraguay"
+    },
+    {
+      "placeId": "ChIJ3xMzWpMoEDkRf7yQO61WvNU",
+      "lat": 30.3398,
+      "lng": 76.3869,
+      "locationName": "Patiala, Punjab, India"
+    },
+    {
+      "placeId": "ChIJ9cr6ICcB2YgRvo6_QHW-AnY",
+      "lat": 26.1224,
+      "lng": -80.1373,
+      "locationName": "Fort Lauderdale, FL, USA"
+    },
+    {
+      "placeId": "ChIJDaDKkrXCxIkR16VXi1WamHU",
+      "lat": 41.3259,
+      "lng": -75.718,
+      "locationName": "Moscow, PA, USA"
+    },
+    {
+      "placeId": "ChIJWSxLC9Fnj1QR8UWcISfWukM",
+      "lat": 48.6517,
+      "lng": -123.398,
+      "locationName": "Sidney, BC, Canada"
+    },
+    {
+      "placeId": "ChIJPxYAC83b5DkRKbaBzn3PI9s",
+      "lat": 25.9727,
+      "lng": 88.7018,
+      "locationName": "Ranisankail, Thakurgaon District, Bangladesh"
+    },
+    {
+      "placeId": "ChIJ9y4icpjBn0cREMs3CaQlHQQ",
+      "lat": 49.0134,
+      "lng": 12.1016,
+      "locationName": "Regensburg, Germany"
+    },
+    {
+      "placeId": "ChIJcZGoRwtx9zkR3QngV9sbnkI",
+      "lat": 23.5204,
+      "lng": 87.3119,
+      "locationName": "Durgapur, West Bengal, India"
+    },
+    {
+      "placeId": "ChIJd8qCk3ePGWARj7rWaLvxuAk",
+      "lat": 35.0963,
+      "lng": 138.8587,
+      "locationName": "Numazu, Shizuoka, Japan"
+    },
+    {
+      "placeId": "ChIJRQw-J0Yd2YgR3eQGrvOX5Mk",
+      "lat": 26.2867,
+      "lng": -80.0906,
+      "locationName": "Lighthouse Point, FL, USA"
+    },
+    {
+      "placeId": "ChIJLepsjVcF6IkR1adm-IS1QhQ",
+      "lat": 41.1408,
+      "lng": -73.2613,
+      "locationName": "Fairfield, CT, USA"
+    },
+    {
+      "placeId": "ChIJKxUPKhJkuIkRs5Y4vnYF2Zc",
+      "lat": 38.8845,
+      "lng": -75.8274,
+      "locationName": "Denton, MD, USA"
+    },
+    {
+      "placeId": "ChIJ53USP0nBhkcRjQ50xhPN_zw",
+      "lat": 45.4642,
+      "lng": 9.19,
+      "locationName": "Milan, Metropolitan City of Milan, Italy"
+    },
+    {
+      "placeId": "ChIJgWsCh7C4VTcRwgRZ3btjpY8",
+      "lat": 23.8103,
+      "lng": 90.4125,
+      "locationName": "Dhaka, Bangladesh"
+    },
+    {
+      "placeId": "ChIJkQYhlscLkkYRY_fiO4S9Ts0",
+      "lat": 60.1699,
+      "lng": 24.9384,
+      "locationName": "Helsinki, Finland"
+    },
+    {
+      "placeId": "ChIJc4cQTKcP3okRPHKk9fl-ETM",
+      "lat": 42.7284,
+      "lng": -73.6918,
+      "locationName": "Troy, NY, USA"
+    },
+    {
+      "placeId": "ChIJ06-NJ06Na4cRWIAboHw7Ocg",
+      "lat": 40.015,
+      "lng": -105.2705,
+      "locationName": "Boulder, CO, USA"
+    },
+    {
+      "placeId": "ChIJ42rskPzf2IgRuLhuUygBeMc",
+      "lat": 26.4615,
+      "lng": -80.0728,
+      "locationName": "Delray Beach, FL, USA"
+    },
+    {
+      "placeId": "ChIJyz62I7rQXBgRjhP8bqtIyFI",
+      "lat": -6.1659,
+      "lng": 39.2026,
+      "locationName": "Zanzibar, Tanzania"
+    },
+    {
+      "placeId": "ChIJ296eyOYghkcR8w22jWgH7gQ",
+      "lat": 45.5669,
+      "lng": 8.055,
+      "locationName": "Biella, Province of Biella, Italy"
+    },
+    {
+      "placeId": "ChIJD1KAXjOi3zgRVTAnetvXgfw",
+      "lat": 33.7152,
+      "lng": 73.0479,
+      "locationName": "Multi Gardens B-17, Islamabad, Pakistan"
+    },
+    {
+      "placeId": "ChIJBRH6YmaPV4gRlnYlv3edqtg",
+      "lat": 34.8526,
+      "lng": -82.394,
+      "locationName": "Greenville, SC, USA"
+    },
+    {
+      "placeId": "ChIJ9QxPVdRvdTERQPpB9jvST7I",
+      "lat": 10.346,
+      "lng": 107.084,
+      "locationName": "Vũng Tàu, Ba Ria - Vung Tau, Vietnam"
+    },
+    {
+      "placeId": "ChIJk8EIXIG3j4ARwL_Ao3ykdeQ",
+      "lat": 37.3541,
+      "lng": -121.9552,
+      "locationName": "Santa Clara, CA, USA"
+    },
+    {
+      "placeId": "ChIJ-2ZsvGluAIkRDCSb5ZlQGH4",
+      "lat": 33.8162,
+      "lng": -78.6802,
+      "locationName": "North Myrtle Beach, SC, USA"
+    },
+    {
+      "placeId": "ChIJ-8I9BiIo1i0Rok0aSEaUh3g",
+      "lat": -7.9797,
+      "lng": 112.6304,
+      "locationName": "Malang, Malang City, East Java, Indonesia"
+    },
+    {
+      "placeId": "ChIJaV2-6MbLAVMR-cu5tSYAb_8",
+      "lat": 53.7527,
+      "lng": -105.3506,
+      "locationName": "Candle Lake, SK, Canada"
+    },
+    {
+      "placeId": "ChIJr6f1ASOJcTURSPUlAe3S9AU",
+      "lat": 35.1595,
+      "lng": 126.8526,
+      "locationName": "Gwangju, South Korea"
+    },
+    {
+      "placeId": "ChIJScFnEanZvJUR9UTi0M0E0jQ",
+      "lat": -34.7686,
+      "lng": -58.6156,
+      "locationName": "Carlos Spegazzini, Buenos Aires Province, Argentina"
+    },
+    {
+      "placeId": "ChIJS8XKQ-otGToRLAJ2SMIkfDo",
+      "lat": 20.9517,
+      "lng": 85.0985,
+      "locationName": "Odisha, India"
+    },
+    {
+      "placeId": "ChIJvfmJ16Luo0wR_m-te_4M7_8",
+      "lat": 46.5187,
+      "lng": -66.4792,
+      "locationName": "Boiestown, NB, Canada"
+    },
+    {
+      "placeId": "ChIJnbRH6XLxrlQRm51nNpuYW5o",
+      "lat": 43.615,
+      "lng": -116.2023,
+      "locationName": "Boise, ID, USA"
+    },
+    {
+      "placeId": "ChIJh9gPhFARUBMR9XtkezxWQJg",
+      "lat": 41.3275,
+      "lng": 19.8187,
+      "locationName": "Trash, Albania"
+    },
+    {
+      "placeId": "ChIJFw1Fq1xxVo8RCeurFVcV_F0",
+      "lat": 20.9674,
+      "lng": -89.5926,
+      "locationName": "Merida, Yucatan, Mexico"
+    },
+    {
+      "placeId": "ChIJLSKWIZMJw4kRoSFvsb55sEM",
+      "lat": 40.7968,
+      "lng": -74.4812,
+      "locationName": "Morristown, NJ, USA"
+    },
+    {
+      "placeId": "ChIJAXp3N2Wf_YcR3vMa47bjuTI",
+      "lat": 43.5344,
+      "lng": -90.2642,
+      "locationName": "Gotham, WI, USA"
+    },
+    {
+      "placeId": "ChIJ850L91MJskcRtBJ-PldfcvQ",
+      "lat": 53.8654,
+      "lng": 10.6866,
+      "locationName": "Lübeck, Germany"
+    },
+    {
+      "placeId": "ChIJbQYTW9IEdkgRWNjgUGyiuwQ",
+      "lat": 51.5134,
+      "lng": -0.1312,
+      "locationName": "Chinatown, London, UK"
+    },
+    {
+      "placeId": "ChIJvS5CUCARFgcRndtzlTaEHPc",
+      "lat": -12.9711,
+      "lng": -38.5108,
+      "locationName": "Salvador, State of Bahia, Brazil"
+    },
+    {
+      "placeId": "ChIJfTxB93w5QIcRcvYseNxCK8E",
+      "lat": 39.1911,
+      "lng": -106.8175,
+      "locationName": "Aspen, CO, USA"
+    },
+    {
+      "placeId": "ChIJFf5oO_6vUQ0RSUaGlFnFPuQ",
+      "lat": 43.3183,
+      "lng": -1.9812,
+      "locationName": "Donostia-San Sebastian, Spain"
+    },
+    {
+      "placeId": "ChIJn3Viioaqx4ARetxBjw_Wlek",
+      "lat": 35.8875,
+      "lng": -116.2268,
+      "locationName": "Death Valley Junction, CA, USA"
+    },
+    {
+      "placeId": "ChIJGdawwa3b3IARQ64VqEElyG4",
+      "lat": 33.7458,
+      "lng": -117.7681,
+      "locationName": "North Tustin, CA, USA"
+    },
+    {
+      "placeId": "ChIJ98DHVcLF9F8RDSOQycubUPE",
+      "lat": 37.9161,
+      "lng": 139.0364,
+      "locationName": "Niigata, Japan"
+    },
+    {
+      "placeId": "ChIJq_pIuPArtIkRWWYkA5kGsMY",
+      "lat": 36.6519,
+      "lng": -80.8742,
+      "locationName": "Korea, VA, USA"
+    },
+    {
+      "placeId": "ChIJ_bhJyeSHNxARd5L1ABYsxjM",
+      "lat": 7.7638,
+      "lng": 4.5658,
+      "locationName": "Osogbo, Nigeria"
+    },
+    {
+      "placeId": "ChIJh3p3XG_7IWARqxQ2p3gkpQo",
+      "lat": 36.4624,
+      "lng": 140.0866,
+      "locationName": "Mashiko, Tochigi, Japan"
+    },
+    {
+      "placeId": "ChIJrdfCc5vh2ogRqpos1xhTP2c",
+      "lat": 26.142,
+      "lng": -81.7948,
+      "locationName": "Naples, FL, USA"
+    },
+    {
+      "placeId": "ChIJuSwU55ZS8DURiqkPryBWYrk",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "locationName": "Beijing, China"
+    },
+    {
+      "placeId": "ChIJ8cM8zdaoAWARPR27azYdlsA",
+      "lat": 35.0116,
+      "lng": 135.7681,
+      "locationName": "Kyoto, Japan"
+    },
+    {
+      "placeId": "ChIJ84CzCejiAogRcfXcFFIEcGM",
+      "lat": 44.5133,
+      "lng": -88.0133,
+      "locationName": "Green Bay, WI, USA"
+    },
+    {
+      "placeId": "ChIJBSqOfD7X5okRC9vYEwt1FsM",
+      "lat": 42.3298,
+      "lng": -72.6412,
+      "locationName": "Northampton, MA, USA"
+    },
+    {
+      "placeId": "ChIJuSuWGuW94YcRMJ9m0RBCDYA",
+      "lat": 40.9478,
+      "lng": -90.3712,
+      "locationName": "Galesburg, IL, USA"
+    },
+    {
+      "placeId": "ChIJEXO9Zd9QGzkRENzGALG9CD4",
+      "lat": 32.219,
+      "lng": 76.3234,
+      "locationName": "Dharamshala, Himachal Pradesh, India"
+    },
+    {
+      "placeId": "ChIJhRmg3KT4BTkRx7W-JjIaxYs",
+      "lat": 31.1048,
+      "lng": 77.1734,
+      "locationName": "Snail, Himachal Pradesh, India"
+    },
+    {
+      "placeId": "ChIJxytco5X4AjQRFeTqrXXgWQ4",
+      "lat": 23.1291,
+      "lng": 113.2644,
+      "locationName": "Guangzhou, Guangdong Province, China"
+    },
+    {
+      "placeId": "ChIJI59wPhXeejURamyl8uo5-N0",
+      "lat": 36.7806,
+      "lng": 127.0042,
+      "locationName": "Asan, Chungcheongnam-do, South Korea"
+    },
+    {
+      "placeId": "ChIJJ60SozRqh0cRQH-McGVtDUs",
+      "lat": 44.8979,
+      "lng": 8.8618,
+      "locationName": "Tortona, Province of Alessandria, Italy"
+    },
+    {
+      "placeId": "ChIJXd1PcUdfxFQR-h30DV0f0Uc",
+      "lat": 42.9453,
+      "lng": -123.7209,
+      "locationName": "Remote, OR, USA"
+    },
+    {
+      "placeId": "ChIJKZS3TKYRMYYR-RfPXJTsIS0",
+      "lat": 32.0543,
+      "lng": -93.348,
+      "locationName": "Sibley, LA, USA"
+    },
+    {
+      "placeId": "ChIJrw7QBK9YXIYRvBagEDvhVgg",
+      "lat": 29.4241,
+      "lng": -98.4936,
+      "locationName": "San Antonio, TX, USA"
+    },
+    {
+      "placeId": "ChIJBWVB7TF0h0cR2WIMD5n1R9Y",
+      "lat": 44.9116,
+      "lng": 8.6132,
+      "locationName": "Alessandria, Province of Alessandria, Italy"
+    },
+    {
+      "placeId": "ChIJFRgmcJuIHmARUb-WsHiMau0",
+      "lat": 36.3416,
+      "lng": 139.0085,
+      "locationName": "Takasaki, Gunma, Japan"
+    },
+    {
+      "placeId": "ChIJK-6eR1UcgxMR4JPSds7fl-Q",
+      "lat": 32.1167,
+      "lng": 20.0667,
+      "locationName": "Benghazi, Libya"
+    },
+    {
+      "placeId": "ChIJByjqov3-AzQR2pT0dDW0bUg",
+      "lat": 22.3193,
+      "lng": 114.1694,
+      "locationName": "Hong Kong"
+    },
+    {
+      "placeId": "ChIJ8VnQcsHmw4kRwtYTSpNJzT8",
+      "lat": 40.3573,
+      "lng": -74.6672,
+      "locationName": "Princeton, NJ, USA"
+    },
+    {
+      "placeId": "ChIJ90OLRVRlKocRFjiCUGDC7Ik",
+      "lat": 32.7539,
+      "lng": -111.6712,
+      "locationName": "Arizona City, AZ, USA"
+    },
+    {
+      "placeId": "ChIJpaKajKUVVBMRICCHYMKI7bI",
+      "lat": 41.9973,
+      "lng": 21.428,
+      "locationName": "Skopje, North Macedonia"
+    },
+    {
+      "placeId": "ChIJBa0PuN8oRI4RVju1x_x8E0I",
+      "lat": 6.2442,
+      "lng": -75.5812,
+      "locationName": "Medellín, Medellin, Antioquia, Colombia"
+    },
+    {
+      "placeId": "ChIJJ3lNZXkia0gRKP_3m-fCoxM",
+      "lat": 50.2307,
+      "lng": -5.2244,
+      "locationName": "United Downs, Redruth, UK"
+    },
+    {
+      "placeId": "ChIJN1L8f4TYlzMRZZtXH0X2-u4",
+      "lat": 14.2724,
+      "lng": 121.1226,
+      "locationName": "Cabuyao City, Laguna, Philippines"
+    },
+    {
+      "placeId": "ChIJ11onrB4O5TQRKBXBjYNxxTM",
+      "lat": 26.3344,
+      "lng": 127.8056,
+      "locationName": "Okinawa, Japan"
+    },
+    {
+      "placeId": "ChIJz3kOD7kX2TgREqRYdWOyFqg",
+      "lat": 34.0151,
+      "lng": 71.5249,
+      "locationName": "Peshawar, Pakistan"
+    },
+    {
+      "placeId": "ChIJ5wxtMH4rCzER4wUEpIU3QgM",
+      "lat": 10.9687,
+      "lng": 106.4925,
+      "locationName": "Củ Chi, Ho Chi Minh City, Vietnam"
+    },
+    {
+      "placeId": "ChIJ0ZfAkQ6VQAwRZbo4U6y1Nqs",
+      "lat": 28.1248,
+      "lng": -15.43,
+      "locationName": "Las Palmas, Spain"
+    },
+    {
+      "placeId": "ChIJMekHiESNc48RB7G997LQDxE",
+      "lat": 13.3672,
+      "lng": -86.2306,
+      "locationName": "Finlandia, Nicaragua"
+    },
+    {
+      "placeId": "ChIJwa2VtczV2IgR3mvhH7XH7xU",
+      "lat": 26.7153,
+      "lng": -80.0534,
+      "locationName": "West Palm Beach, FL, USA"
+    },
+    {
+      "placeId": "ChIJRVWp72Cej4ARpxvMLfT8jv0",
+      "lat": 37.563,
+      "lng": -122.3255,
+      "locationName": "San Mateo, CA, USA"
+    },
+    {
+      "placeId": "ChIJFepSeu0u5DkRtcFuz3rwJWw",
+      "lat": 27.036,
+      "lng": 88.2627,
+      "locationName": "Darjeeling District, West Bengal, India"
+    },
+    {
+      "placeId": "ChIJYwPo2_GorI8RDsFC8PFdoqs",
+      "lat": 8.9824,
+      "lng": -79.5199,
+      "locationName": "Panama City, Panama"
+    },
+    {
+      "placeId": "ChIJS_Q_M2Yv3UcR0HVkgT7xCgQ",
+      "lat": 46.5974,
+      "lng": 0.3406,
+      "locationName": "Base, France"
+    },
+    {
+      "placeId": "ChIJcUYvdkZvqTsRXvfH2eOmfdk",
+      "lat": 11.341,
+      "lng": 77.7172,
+      "locationName": "Erode, Tamil Nadu, India"
+    },
+    {
+      "placeId": "ChIJpQoX1dIJGToRqD-zaCsOWPw",
+      "lat": 20.2961,
+      "lng": 85.8245,
+      "locationName": "Bhubaneswar, Odisha, India"
+    },
+    {
+      "placeId": "ChIJ_xkgOm1TBogRmEFIurX8DE4",
+      "lat": 43.0731,
+      "lng": -89.4012,
+      "locationName": "Madison, WI, USA"
+    },
+    {
+      "placeId": "ChIJ_RQEifWs54kRfDtRDlPX-Wc",
+      "lat": 41.762,
+      "lng": -72.742,
+      "locationName": "West Hartford, CT, USA"
+    },
+    {
+      "placeId": "ChIJgfsYEoDHxYkRJtE97weqLn4",
+      "lat": 41.0051,
+      "lng": -77.6045,
+      "locationName": "Chain, PA, USA"
+    },
+    {
+      "placeId": "ChIJ2UEvfIUNdDkRQjtSqTjvSng",
+      "lat": 27.1767,
+      "lng": 78.0081,
+      "locationName": "Agra, Uttar Pradesh, India"
+    },
+    {
+      "placeId": "ChIJ80w36xIPuWoREOKOYlQ2AwQ",
+      "lat": -33.7676,
+      "lng": 138.4184,
+      "locationName": "Australia Plains SA, Australia"
+    },
+    {
+      "placeId": "ChIJK-0sC0Fl1oYRFccWTTgtw3M",
+      "lat": 32.2226,
+      "lng": -110.9747,
+      "locationName": "Tucson, AZ, USA"
+    },
+    {
+      "placeId": "ChIJGRlybm62aS4RMNX-FG1XAQQ",
+      "lat": -6.6918,
+      "lng": 106.9398,
+      "locationName": "Cisarua, Bogor Regency, West Java, Indonesia"
+    },
+    {
+      "placeId": "ChIJ3wTs9DmffDURBz_u6toXu8c",
+      "lat": 37.5214,
+      "lng": 126.9242,
+      "locationName": "Yeouido-dong, Yeongdeungpo-gu, Seoul, South Korea"
+    },
+    {
+      "placeId": "ChIJ0dlZL68phEcRI1hFLy16yhs",
+      "lat": 45.8676,
+      "lng": 8.9804,
+      "locationName": "Mendrisio, Switzerland"
+    },
+    {
+      "placeId": "ChIJG2mX3o3QDIgRz791tEd49TA",
+      "lat": 40.1164,
+      "lng": -88.2434,
+      "locationName": "Champaign, IL, USA"
+    },
+    {
+      "placeId": "ChIJG7oNg9_B_TkRYovnkrDL8Fg",
+      "lat": 24.452,
+      "lng": 89.7008,
+      "locationName": "Sirajganj, Bangladesh"
+    },
+    {
+      "placeId": "ChIJ-Y7t-qm02IcRW-C7IsrqOb4",
+      "lat": 38.627,
+      "lng": -90.1994,
+      "locationName": "Saint Louis, MO, USA"
+    },
+    {
+      "placeId": "ChIJ0_c7xv-An5URmexbNS4bMms",
+      "lat": -34.9011,
+      "lng": -56.1645,
+      "locationName": "Montevideo Montevideo Department, Uruguay"
+    },
+    {
+      "placeId": "ChIJwUQLrTja_DkR4DJHgvu9IQs",
+      "lat": 25.8432,
+      "lng": 89.3512,
+      "locationName": "Pirganj, Rangpur, Bangladesh"
+    },
+    {
+      "placeId": "ChIJ_1J17G-7rhIRMBBBL5z2BgQ",
+      "lat": 43.6047,
+      "lng": 1.4442,
+      "locationName": "Toulouse, France"
+    },
+    {
+      "placeId": "ChIJQRXjnwoAm1QRU3P3sWR9O0U",
+      "lat": 47.6732,
+      "lng": -120.2196,
+      "locationName": "Entiat, WA, USA"
+    },
+    {
+      "placeId": "ChIJheeDikBgYIgRqiiHiR8mcSQ",
+      "lat": 35.0456,
+      "lng": -85.3097,
+      "locationName": "Chattanooga, TN, USA"
+    },
+    {
+      "placeId": "ChIJO4rQ1_3_YEgRMcXH7ywWVy4",
+      "lat": 54.5973,
+      "lng": -5.9301,
+      "locationName": "Belfast, UK"
+    },
+    {
+      "placeId": "ChIJZSMTlAWtqRURz5oTtsbjQG8",
+      "lat": 28.3835,
+      "lng": 36.5662,
+      "locationName": "Tabuk Saudi Arabia"
+    },
+    {
+      "placeId": "ChIJC0BwhguwDTkRXmSbWM3T-54",
+      "lat": 28.9931,
+      "lng": 77.0151,
+      "locationName": "Sonipat, Haryana, India"
+    },
+    {
+      "placeId": "ChIJpVNGhfmU9UARIL9Jfhrr9vM",
+      "lat": 45.0355,
+      "lng": 38.9753,
+      "locationName": "Russia, Krasnodar Krai, Russia"
+    },
+    {
+      "placeId": "ChIJ674hC6Y_WBQRujtC6Jay33k",
+      "lat": 30.0444,
+      "lng": 31.2357,
+      "locationName": "Cairo, Egypt"
+    },
+    {
+      "placeId": "ChIJp_qQIudSBQ0RWv9KSdTCc40",
+      "lat": 37.0194,
+      "lng": -7.9322,
+      "locationName": "Faro, Portugal"
+    },
+    {
+      "placeId": "ChIJ6T9Wr1Xy0ocRBcHNqT5k-Co",
+      "lat": 35.0706,
+      "lng": -91.8779,
+      "locationName": "Beebe, AR, USA"
+    },
+    {
+      "placeId": "ChIJ6_p622YIOxMRfriMZcxDOtI",
+      "lat": 40.8518,
+      "lng": 14.2681,
+      "locationName": "Napoli, Metropolitan City of Naples, Italy"
+    },
+    {
+      "placeId": "ChIJVdgzdikem0cRFGH-HwhQIpo",
+      "lat": 47.4244,
+      "lng": 9.3767,
+      "locationName": "St. Gallen, Switzerland"
+    },
+    {
+      "placeId": "ChIJL3oJNmeXhYARVCbi5iBNAb4",
+      "lat": 37.9735,
+      "lng": -122.5311,
+      "locationName": "San Rafael, CA, USA"
+    },
+    {
+      "placeId": "ChIJdZkqt-cx2YkRUK7qPnfrDG8",
+      "lat": 43.0153,
+      "lng": -75.2251,
+      "locationName": "Russia, NY, USA"
+    },
+    {
+      "placeId": "ChIJ86-yzF67yIkRVl6myDD_Z3Q",
+      "lat": 40.2859,
+      "lng": -76.6502,
+      "locationName": "Hershey, PA, USA"
+    },
+    {
+      "placeId": "ChIJtTlAx5bIcm0RUBKjQ2HvAAU",
+      "lat": -36.8013,
+      "lng": 175.1087,
+      "locationName": "Waiheke Island, New Zealand"
+    },
+    {
+      "placeId": "ChIJAYZBR_ldzjERzEIcIfEhCyk",
+      "lat": 2.8947,
+      "lng": 102.4276,
+      "locationName": "Bandar Seri Jempol, Negeri Sembilan, Malaysia"
+    },
+    {
+      "placeId": "ChIJ_y6oNpaOGGARwEcmcboORxU",
+      "lat": 35.7149,
+      "lng": 139.7967,
+      "locationName": "Taito City, Tokyo, Japan"
+    },
+    {
+      "placeId": "ChIJvzMALdGzLYgRfyxk7FmQRnc",
+      "lat": 42.7641,
+      "lng": -80.1967,
+      "locationName": "Turkey Point, ON, Canada"
     }
   ]
 }

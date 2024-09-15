@@ -42,12 +42,7 @@ async function processFollowerLocations(
       if (placeIdToCoordinates[placeId]) {
         coordinates = placeIdToCoordinates[placeId];
       } else {
-        console.log(`Geocoding ${locationName} for placeId ${placeId}`);
-        coordinates = await geocodeLocation(locationName);
-      }
-
-      if (!coordinates) {
-        console.error(`Failed to geocode ${locationName}`);
+        console.warn(`No coordinates found for ${locationName} (${placeId})`);
         return null;
       }
 
