@@ -76,7 +76,7 @@ function getDescription(tier: string) {
     case "💎 vip":
       return "users with > 50000 followers";
     case "⚡ power badge":
-      return "users with badge on warpcast";
+      return "users with badge on neynar";
   }
 }
 
