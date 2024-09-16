@@ -33,7 +33,7 @@ import {
   TopLevelStats,
 } from "@/lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
-import { LockIcon } from "lucide-react";
+import { LockIcon, Twitter, Linkedin } from "lucide-react";
 import { ProContentLock } from "@/components/pro-content-lock";
 
 interface BaseDataState {
@@ -239,26 +239,66 @@ export default function DashboardUser({
       {data.baseData && (
         <div className="flex-col space-y-4 p-8 pt-6">
           <div className="flex items-center space-x-4">
-            <Avatar>
+            <Avatar className="w-16 h-16">
               <AvatarImage src={data.baseData.profile.pfp_url} alt="Image" />
               <AvatarFallback>{data.baseData.profile.username}</AvatarFallback>
             </Avatar>
-            <div>
-              <p className="text-sm font-medium leading-none">
-                {data.baseData.profile.display_name}
-                {data.baseData.profile.power_badge && (
-                  <Image
-                    src="/power-badge.png"
-                    alt="Power Badge"
-                    className="w-4 h-4 ml-1 inline"
-                    width={16}
-                    height={16}
-                  />
-                )}
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center space-x-2">
+                  <h2 className="text-lg font-semibold flex items-center">
+                    {data.baseData.profile.display_name}
+                    {data.baseData.profile.power_badge && (
+                      <img
+                        src="/power-badge.png"
+                        alt="Power Badge"
+                        className="w-4 h-4 ml-1 inline"
+                        style={{ width: "16px", height: "16px" }}
+                      />
+                    )}
+                  </h2>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mb-2">
+                @{data.baseData.profile.username}
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm mb-2">
                 {data.baseData.profile.profile.bio.text}
               </p>
+              <div className="flex space-x-2">
+                {data.baseData.profile.twitterUrl && (
+                  <a
+                    href={data.baseData.profile.twitterUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Twitter className="w-5 h-5 text-blue-400" />
+                  </a>
+                )}
+                {data.baseData.profile.linkedinUrl && (
+                  <a
+                    href={data.baseData.profile.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Linkedin className="w-5 h-5 text-blue-700" />
+                  </a>
+                )}
+                {data.baseData.profile.icebreakerUrl && (
+                  <a
+                    href={data.baseData.profile.icebreakerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src="https://app.icebreaker.xyz/logo.svg"
+                      alt="Icebreaker"
+                      width={80}
+                      height={80}
+                    />
+                  </a>
+                )}
+              </div>
             </div>
           </div>
 
