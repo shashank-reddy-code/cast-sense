@@ -14,8 +14,8 @@ export async function GET(
           headers: {
             "Content-Type": "application/json",
             api_key: process.env.NEYNAR_API_KEY as string,
+            "Cache-Control": "no-store, no-cache, max-age=0, must-revalidate",
           },
-          next: { revalidate: 86500 },
         }
       ),
       fetch(`https://app.icebreaker.xyz/api/v1/fid/${fid}`, {
