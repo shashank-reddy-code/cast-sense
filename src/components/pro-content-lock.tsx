@@ -71,7 +71,7 @@ export function ProContentLock({
           className="w-full border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white"
         >
           <Link href={dayPassUrl} target="_blank">
-            Try 0.0005 ETH Day Pass
+            Try for a week at 0.001 ETH
           </Link>
         </Button>
       </div>
