@@ -74,41 +74,43 @@ export function OpenrankHistorical({
 
   return (
     <ChartContainer config={chartConfig}>
-      <div>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart
-            data={mergedData}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          >
-            <XAxis
-              dataKey="date"
-              tickFormatter={formatDate}
-              ticks={xAxisTicks}
-              tickMargin={10}
-            />
-            <YAxis
-              reversed
-              domain={maxScale ? [0, maxScale] : ["auto", "auto"]}
-              tickFormatter={(value) => formatLargeNumber(value)}
-            />
-            <ChartTooltip content={<CustomTooltip />} />
-            <ChartLegend />
-            <Line
-              type="monotone"
-              dataKey="followRank"
-              stroke={chartConfig.followRank.color}
-              strokeWidth={2}
-              dot={false}
-            />
-            <Line
-              type="monotone"
-              dataKey="engagementRank"
-              stroke={chartConfig.engagementRank.color}
-              strokeWidth={2}
-              dot={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+      <>
+        <div className="h-[200px] sm:h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={mergedData}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            >
+              <XAxis
+                dataKey="date"
+                tickFormatter={formatDate}
+                ticks={xAxisTicks}
+                tickMargin={10}
+              />
+              <YAxis
+                reversed
+                domain={maxScale ? [0, maxScale] : ["auto", "auto"]}
+                tickFormatter={(value) => formatLargeNumber(value)}
+              />
+              <ChartTooltip content={<CustomTooltip />} />
+              <ChartLegend />
+              <Line
+                type="monotone"
+                dataKey="followRank"
+                stroke={chartConfig.followRank.color}
+                strokeWidth={2}
+                dot={false}
+              />
+              <Line
+                type="monotone"
+                dataKey="engagementRank"
+                stroke={chartConfig.engagementRank.color}
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
 
         {openrankText && (
           <CardFooter>
@@ -121,7 +123,7 @@ export function OpenrankHistorical({
             </div>
           </CardFooter>
         )}
-      </div>
+      </>
     </ChartContainer>
   );
 }
