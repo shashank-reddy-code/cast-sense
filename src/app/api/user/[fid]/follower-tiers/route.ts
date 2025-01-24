@@ -9,7 +9,7 @@ export async function GET(
 ) {
   const fid = parseInt(params.fid);
   const [data, powerbadgeData] = await Promise.all([
-    fetchFirstFidFromDune(3697320, fid),
+    fetchFirstFidFromDune(4615610, fid),
     fetchFirstFidFromDune(3696361, fid),
   ]);
 

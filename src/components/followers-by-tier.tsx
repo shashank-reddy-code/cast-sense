@@ -23,7 +23,8 @@ type TierKey =
   | "🥈 star"
   | "🥇 influencer"
   | "💎 vip"
-  | "⚡ power badge";
+  | "⚡ power badge"
+  | "🚫 spam";
 
 type ChartConfigType = {
   [K in TierKey]: { label: string; color: string };
@@ -61,6 +62,10 @@ const chartConfig: Record<TierKey, { label: string; color: string }> & {
     label: "Power Badge",
     color: "hsl(var(--chart-purple))",
   },
+  "🚫 spam": {
+    label: "Spam",
+    color: "hsl(var(--chart-red))",
+  },
 } satisfies ChartConfig;
 
 function getDescription(tier: string) {
@@ -77,6 +82,8 @@ function getDescription(tier: string) {
       return "users with > 50000 followers";
     case "⚡ power badge":
       return "users with badge on neynar";
+      case "🚫 spam":
+      return "users flagged as spam accounts on warpcast";
   }
 }
 
