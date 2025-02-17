@@ -14,7 +14,7 @@ export async function GET(
       status: 404,
     });
   }
-  const result = await fetchFirstChannelFromDune(3715688, channel.url);
+  const result = await fetchFirstChannelFromDune(4733658, channel.url);
   // Determine the offset for the timezone
   const offset = Math.ceil(moment.tz(timezone).utcOffset() / 60);
   // Initialize an object to hold the final counts for all days of the week.

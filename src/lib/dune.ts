@@ -20,7 +20,12 @@ export async function fetchFirstFidFromDune(
   });
 
   if (response.status !== 200) {
-    console.error(`Failed to fetch data for query ${queryId}`, response);
+    const errorBody = await response.text().catch(() => 'Failed to read error response');
+    console.error(
+      `Failed to fetch data for query ${queryId}:`,
+      `Status ${response.status} (${response.statusText})`,
+      `Body: ${errorBody}`
+    );
     return null;
   }
 
