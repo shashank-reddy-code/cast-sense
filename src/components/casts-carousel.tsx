@@ -87,6 +87,12 @@ export function CastsCarousel({
                       <span>{formatNumber(item.reply_count)}</span>
                     </div>
                   )}
+                  {item.spam_count > 0 && (
+                    <div className="flex items-center space-x-1">
+                      <SvgIcons.spam />
+                      <span>{formatNumber(item.spam_count)}</span>
+                    </div>
+                  )}
                   {item.degen_tip_count > 0 && (
                     <div className="flex items-center space-x-1">
                       <SvgIcons.degenTip />

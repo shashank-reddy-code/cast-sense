@@ -36,6 +36,7 @@ export type CastEngagementCount = {
   recast_count: number;
   reply_count: number;
   power_badge_count: number;
+  spam_count: number;
   fname: string;
   degen_tip_count: number;
   total_moxie_count: number;

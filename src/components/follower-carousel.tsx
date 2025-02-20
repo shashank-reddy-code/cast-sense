@@ -58,14 +58,6 @@ export function FollowerCarousel({
                 isChannel={isChannel}
               />
             </CarouselItem>
-            {!isChannel && (
-              <CarouselItem
-                key="global-frequency-map"
-                className="basis-full lg:basis-1/2 h-full"
-              >
-                <GlobalFrequencyMap cities={followerLocations} />
-              </CarouselItem>
-            )}
             <CarouselItem
               key="followers-by-tier"
               className="basis-full lg:basis-1/2 h-full"
@@ -75,6 +67,14 @@ export function FollowerCarousel({
                 isChannel={isChannel}
               />
             </CarouselItem>
+            {!isChannel && (
+              <CarouselItem
+                key="global-frequency-map"
+                className="basis-full lg:basis-1/2 h-full"
+              >
+                <GlobalFrequencyMap cities={followerLocations} />
+              </CarouselItem>
+            )}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />

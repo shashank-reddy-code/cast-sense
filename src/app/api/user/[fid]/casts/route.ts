@@ -30,7 +30,8 @@ export async function GET(
       recast_count: Number(item[3]),
       reply_count: Number(item[4]),
       power_badge_count: Number(item[5]),
-      degen_tip_count: Number(item[6]),
+      spam_count: Number(item[6]),
+      degen_tip_count: Number(item[7]),
       total_moxie_count: moxieEarnings.get(item[0]) || 0,
       fname: data?.fname,
     }));
