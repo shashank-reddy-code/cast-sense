@@ -44,7 +44,7 @@ export async function GET(
       spam_count: Number(item[6]),
       degen_tip_count: Number(item[7]),
       total_moxie_count: moxieEarnings.get(item[0]) || 0,
-      fname: item[7],
+      fname: item[8],
     }));
 
   const result: TopAndBottomCasts = {
